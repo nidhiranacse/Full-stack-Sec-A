@@ -1,0 +1,278 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-color: #1a202c;     
+    --secondary-color: #4a5568;   
+    --accent-color: #3182ce;      
+    --bg-color: #f7fafc;          
+    --sheet-color: #ffffff;      
+    --border-color: #e2e8f0;     
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-color);
+    color: var(--secondary-color);
+    line-height: 1.6;
+    padding: 40px 20px;
+}
+
+main, header, footer {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+body > header {
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    background: var(--sheet-color);
+    padding: 40px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid var(--border-color);
+    border-bottom: 3px solid var(--accent-color);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+main {
+    background: var(--sheet-color);
+    padding: 0 40px 40px 40px;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+footer {
+    background: var(--sheet-color);
+    padding: 20px 40px;
+    border-radius: 0 0 8px 8px;
+    border: 1px solid var(--border-color);
+    border-top: 1px dashed var(--border-color);
+    text-align: center;
+    font-size: 0.85rem;
+    color: #a0aec0;
+}
+
+/* ==========================================================================
+   HEADER & CONTACT INFO
+   ========================================================================== */
+header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1.1;
+}
+
+header p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+address {
+    font-style: normal;
+    font-size: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+}
+
+address a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+address a:hover {
+    color: var(--accent-color);
+}
+
+section {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+}
+
+section h2 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+section > p, 
+section > ul, 
+section > nav,
+section > article {
+    grid-column: 2;
+}
+
+
+section > article + article {
+    margin-top: 25px;
+}
+
+article h3 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+
+article h3 + p {
+    font-weight: 600;
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+}
+
+
+article time {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: #718096;
+    background: #edf2f7;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+
+article p:last-child {
+    font-size: 0.95rem;
+    margin-top: 6px;
+}
+
+section[aria-labelledby="skills-heading"] ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+section[aria-labelledby="skills-heading"] li {
+    background-color: #edf2f7;
+    color: var(--primary-color);
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+}
+
+/* Professional Social Links */
+nav[aria-label="Professional profiles"] ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav[aria-label="Professional profiles"] a {
+    display: inline-block;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+nav[aria-label="Professional profiles"] a:hover {
+    border-bottom-color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    body > header, main, footer {
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    address {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    section {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    section h2 {
+        grid-column: 1;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 4px;
+        margin-bottom: 5px;
+    }
+
+    section > p, 
+    section > ul, 
+    section > nav,
+    section > article {
+        grid-column: 1;
+    }
+}
+@media print {
+    body {
+        background: none;
+        color: #000000;
+        padding: 0;
+    }
+
+    body > header, main, footer {
+        max-width: 100%;
+        padding: 0;
+        border: none;
+        background: none;
+    }
+    
+    body > header {
+        border-bottom: 2px solid #000000;
+        margin-bottom: 20px;
+    }
+
+    section h2 {
+        color: #000000;
+    }
+
+    section[aria-labelledby="skills-heading"] li {
+        border: 1px solid #000000;
+        background: none;
+        color: #000000;
+    }
+
+    article time {
+        background: none;
+        padding: 0;
+        color: #000000;
+    }
+
+    footer {
+        display: none; 
+    }
+}

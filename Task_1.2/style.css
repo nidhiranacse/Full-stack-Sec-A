@@ -1,0 +1,248 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-color: #0f172a;    
+    --accent-color: #2563eb;     
+    --accent-hover: #1d4ed8;     
+    --text-main: #334155;        
+    --text-muted: #64748b;       
+    --bg-main: #f8fafc;          
+    --bg-card: #ffffff;          
+    --border-color: #e2e8f0;     
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 0;
+}
+
+body > header {
+    background-color: var(--bg-card);
+    padding: 30px 40px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+}
+
+body > header h1 {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin-bottom: 6px;
+}
+
+body > header p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+main {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 350px;
+}
+
+nav[aria-label="Main Navigation"] {
+    background-color: var(--primary-color);
+    max-width: 1000px;
+    margin: 0 auto;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+}
+
+nav[aria-label="Main Navigation"] h2 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+nav[aria-label="Main Navigation"] > ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+nav[aria-label="Main Navigation"] > ul > li {
+    position: relative;
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+nav[aria-label="Main Navigation"] a {
+    display: block;
+    color: #f1f5f9; 
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 16px 20px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+nav[aria-label="Main Navigation"] > ul > li:hover > a {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+nav[aria-label="Main Navigation"] ul ul {
+    list-style: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: #ffffff;
+    min-width: 220px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    border-radius: 0 0 6px 6px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    text-align: left;
+}
+
+nav[aria-label="Main Navigation"] ul ul a {
+    color: var(--text-main);
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+nav[aria-label="Main Navigation"] ul ul li:last-child a {
+    border-bottom: none;
+    border-radius: 0 0 5px 5px;
+}
+
+nav[aria-label="Main Navigation"] ul ul li:hover a {
+    background-color: #f1f5f9;
+    color: var(--accent-hover);
+}
+
+nav[aria-label="Main Navigation"] li:hover > ul {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+nav[aria-label="Main Navigation"] > ul > li:has(ul) > a::after {
+    content: ' ▾';
+    font-size: 0.75rem;
+    vertical-align: middle;
+    color: #94a3b8;
+}
+
+section {
+    background-color: var(--bg-card);
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+section h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+section p {
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+}
+
+section p:last-child {
+    margin-bottom: 0;
+}
+
+footer {
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    padding: 25px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 60px;
+}
+
+@media (max-width: 768px) {
+    body > header {
+        padding: 20px;
+    }
+
+    body > header h1 {
+        font-size: 1.8rem;
+    }
+
+    main {
+        margin: 20px auto;
+    }
+
+    section {
+        padding: 25px;
+    }
+
+    nav[aria-label="Main Navigation"] > ul {
+        flex-direction: column;
+    }
+
+    nav[aria-label="Main Navigation"] > ul > li {
+        text-align: left;
+        border-bottom: 1px solid #1e293b; 
+    }
+
+    nav[aria-label="Main Navigation"] > ul > li:has(ul) > a::after {
+        content: ' ▾';
+        float: right;
+    }
+
+    nav[aria-label="Main Navigation"] ul ul {
+        position: static;
+        width: 100%;
+        background-color: #1e293b; 
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition: max-height 0.25s ease-out;
+    }
+
+    nav[aria-label="Main Navigation"] li:hover > ul {
+        max-height: 300px;
+    }
+
+    nav[aria-label="Main Navigation"] ul ul a {
+        color: #cbd5e1; 
+        padding: 12px 30px;
+        border-bottom: 1px solid #334155;
+    }
+
+    nav[aria-label="Main Navigation"] ul ul li:hover a {
+        background-color: var(--accent-hover);
+        color: #ffffff;
+    }
+}
