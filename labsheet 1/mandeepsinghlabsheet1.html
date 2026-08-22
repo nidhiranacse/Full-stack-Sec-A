@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandeep Singh - Resume Portfolio</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body{
+            background:linear-gradient(135deg,#0f172a,#1e293b);
+            color:#333;
+            min-height:100vh;
+        }
+
+        .container{
+            width:90%;
+            max-width:1200px;
+            margin:30px auto;
+            background:#ffffff;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Header */
+        header{
+            background:linear-gradient(135deg,#2563eb,#06b6d4);
+            color:white;
+            text-align:center;
+            padding:50px 20px;
+        }
+
+        header h1{
+            font-size:3rem;
+            margin-bottom:10px;
+        }
+
+        header p{
+            font-size:1.2rem;
+        }
+
+        /* Navigation */
+        nav{
+            background:#111827;
+        }
+
+        nav ul{
+            list-style:none;
+            display:flex;
+            justify-content:center;
+            flex-wrap:wrap;
+        }
+
+        nav ul li{
+            position:relative;
+        }
+
+        nav ul li a{
+            display:block;
+            color:white;
+            text-decoration:none;
+            padding:18px 25px;
+            transition:0.3s;
+        }
+
+        nav ul li:hover{
+            background:#2563eb;
+        }
+
+        nav ul li ul{
+            display:none;
+            position:absolute;
+            top:100%;
+            left:0;
+            background:#1f2937;
+            min-width:220px;
+            z-index:100;
+        }
+
+        nav ul li:hover ul{
+            display:block;
+        }
+
+        nav ul li ul li{
+            width:100%;
+        }
+
+        /* Sections */
+        section{
+            padding:40px;
+        }
+
+        .section-title{
+            color:#2563eb;
+            margin-bottom:20px;
+            border-left:5px solid #2563eb;
+            padding-left:12px;
+        }
+
+        .card{
+            background:#f8fafc;
+            padding:20px;
+            border-radius:12px;
+            margin-top:15px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* Skills */
+        .skills{
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+        }
+
+        .skill{
+            background:#2563eb;
+            color:white;
+            padding:10px 18px;
+            border-radius:25px;
+        }
+
+        /* Catalog */
+        dl{
+            margin-top:15px;
+        }
+
+        dt{
+            font-weight:bold;
+            color:#2563eb;
+            font-size:1.1rem;
+            margin-top:15px;
+        }
+
+        dd{
+            margin-left:20px;
+            margin-top:5px;
+        }
+
+        /* Footer */
+        footer{
+            background:#111827;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        @media(max-width:768px){
+            header h1{
+                font-size:2rem;
+            }
+
+            section{
+                padding:25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header>
+        <h1>Mandeep Singh</h1>
+        <p>B.Tech Computer Science Student | Aspiring Software & Game Developer</p>
+        <br>
+        <p>
+            📧 mandeepsingh@email.com |
+            📱 +91-9876543210
+        </p>
+    </header>
+
+    <!-- TASK 1.2 NESTED NAVIGATION -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+
+            <li>
+                <a href="#">Resources ▼</a>
+                <ul>
+                    <li><a href="https://www.w3.org/" target="_blank">W3C Official Website</a></li>
+                    <li><a href="https://developer.mozilla.org/" target="_blank">MDN Documentation</a></li>
+                    <li><a href="https://www.github.com/" target="_blank">GitHub</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">Profiles ▼</a>
+                <ul>
+                    <li><a href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li>
+                    <li><a href="https://www.leetcode.com/" target="_blank">LeetCode</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#catalog">Catalog</a></li>
+        </ul>
+    </nav>
+
+    <!-- TASK 1.1 RESUME -->
+    <section id="about">
+        <h2 class="section-title">Career Objective</h2>
+
+        <div class="card">
+            <p>
+                Motivated and enthusiastic <b>Computer Science Engineering</b>
+                student with a strong interest in
+                <i>Software Development</i>,
+                <i>Game Development</i>,
+                and Problem Solving. Passionate about learning new
+                technologies and building innovative projects.
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Education</h2>
+
+        <div class="card">
+            <h3>B.Tech in Computer Science Engineering</h3>
+            <p>COER University, Roorkee</p>
+            <p>Currently Pursuing Graduation</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Technical Skills</h2>
+
+        <div class="skills">
+            <span class="skill">C++</span>
+            <span class="skill">HTML5</span>
+            <span class="skill">CSS3</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">Python</span>
+            <span class="skill">DBMS</span>
+            <span class="skill">DSA</span>
+            <span class="skill">Git & GitHub</span>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Projects</h2>
+
+        <div class="card">
+            <h3>Student Collaboration Platform</h3>
+            <p>Developed using React and Supabase for student interaction and collaboration.</p>
+        </div>
+
+        <div class="card">
+            <h3>AI Based Disease Detection System</h3>
+            <p>Machine learning project for detecting diseases using medical data.</p>
+        </div>
+    </section>
+
+    <!-- TASK 1.3 DEFINITION LIST -->
+    <section id="catalog">
+        <h2 class="section-title">Technology Catalog</h2>
+
+        <div class="card">
+            <dl>
+                <dt>HTML5</dt>
+                <dd>Modern markup language used to create responsive and semantic web pages.</dd>
+
+                <dt>CSS3</dt>
+                <dd>Style sheet language responsible for layout, design, animations, and responsiveness.</dd>
+
+                <dt>JavaScript</dt>
+                <dd>Programming language that adds dynamic behavior and interactivity to websites.</dd>
+
+                <dt>C++</dt>
+                <dd>Powerful object-oriented programming language widely used in software and game development.</dd>
+
+                <dt>DBMS</dt>
+                <dd>Database Management System used for storing, managing, and retrieving structured data.</dd>
+            </dl>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Mandeep Singh | Resume Portfolio Website</p>
+    </footer>
+
+</div>
+
+</body>
+</html>
