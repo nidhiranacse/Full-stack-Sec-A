@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Lab Sheet 01 - Core Web Structures Using Semantic HTML">
+
+    <title>Lab Sheet 01 | Semantic HTML</title>
+
+    <style>
+        /* =========================
+           GENERAL PAGE STYLING
+           ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           HEADER
+           ========================= */
+
+        header {
+            background: #111827;
+            text-align: center;
+            padding: 50px 20px 35px;
+            border-bottom: 2px solid #334155;
+        }
+
+        header h1 {
+            font-size: 48px;
+            color: #38bdf8;
+            margin-bottom: 15px;
+        }
+
+        header p {
+            max-width: 800px;
+            margin: auto;
+            color: #cbd5e1;
+            font-size: 20px;
+        }
+
+        /* =========================
+           MAIN NAVIGATION
+           ========================= */
+
+        header nav {
+            margin-top: 30px;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        header nav a {
+            display: inline-block;
+            padding: 10px 18px;
+            color: #e2e8f0;
+            text-decoration: none;
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        header nav a:hover {
+            background: #38bdf8;
+            color: #0f172a;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           MAIN CONTAINER
+           ========================= */
+
+        main {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        /* =========================
+           SECTIONS
+           ========================= */
+
+        section {
+            background: #1e293b;
+            padding: 35px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        section h2 {
+            color: #38bdf8;
+            font-size: 32px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 10px;
+        }
+
+        section h3 {
+            color: #7dd3fc;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+
+        /* =========================
+           ARTICLE CARDS
+           ========================= */
+
+        article {
+            background: #0f172a;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            border-left: 4px solid #38bdf8;
+        }
+
+        article:hover {
+            transform: translateY(-3px);
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* =========================
+           SKILLS
+           ========================= */
+
+        #skills ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        #skills li {
+            background: #0f172a;
+            border: 1px solid #38bdf8;
+            color: #7dd3fc;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        /* =========================
+           TASK 1.2
+           NESTED NAVIGATION
+           ========================= */
+
+        #navigation nav ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        #navigation nav > ul > li {
+            margin: 12px 0;
+        }
+
+        #navigation nav a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #navigation nav a:hover {
+            color: #7dd3fc;
+            text-decoration: underline;
+        }
+
+        #navigation nav ul ul {
+            margin-left: 30px;
+            margin-top: 8px;
+            padding-left: 20px;
+            border-left: 2px solid #475569;
+        }
+
+        #navigation nav ul ul li {
+            margin: 6px 0;
+        }
+
+        /* =========================
+           TASK 1.3
+           DEFINITION LIST
+           ========================= */
+
+        dl {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 12px 20px;
+        }
+
+        dt {
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        dd {
+            color: #cbd5e1;
+        }
+
+        /* =========================
+           FOOTER
+           ========================= */
+
+        footer {
+            text-align: center;
+            background: #111827;
+            padding: 35px 20px;
+            border-top: 2px solid #334155;
+        }
+
+        footer p {
+            margin-bottom: 8px;
+        }
+
+        footer a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           RESPONSIVE DESIGN
+           ========================= */
+
+        @media (max-width: 700px) {
+
+            body {
+                font-size: 16px;
+            }
+
+            header h1 {
+                font-size: 36px;
+            }
+
+            header p {
+                font-size: 17px;
+            }
+
+            main {
+                width: 94%;
+            }
+
+            section {
+                padding: 25px 20px;
+            }
+
+            section h2 {
+                font-size: 27px;
+            }
+
+            dl {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+
+            dt {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         TASK 1.1 - SEMANTIC RESUME
+         ========================= -->
+
+    <header>
+
+        <h1>My Resume</h1>
+
+        <p>
+            Welcome to my personal resume webpage created using
+            <strong>HTML5 Semantic Elements</strong>.
+        </p>
+
+        <!-- Main Navigation -->
+        <nav aria-label="Main Navigation">
+
+            <ul>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#navigation">Navigation Task</a></li>
+                <li><a href="#catalog">Web Catalog</a></li>
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <!-- =========================
+             ABOUT SECTION
+             ========================= -->
+
+        <section id="about">
+
+            <h2>About Me</h2>
+
+            <p>
+                I am a Computer Science student interested in
+                <strong>Web Development</strong>,
+                <strong>Artificial Intelligence</strong>, and
+                <strong>Machine Learning</strong>.
+            </p>
+
+            <p>
+                I enjoy learning new technologies and developing
+                practical software projects.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             EDUCATION SECTION
+             ========================= -->
+
+        <section id="education">
+
+            <h2>Education</h2>
+
+            <article>
+
+                <h3>Bachelor of Technology in Computer Science</h3>
+
+                <p>
+                    <strong>College:</strong>
+                    College of Engineering Roorkee
+                </p>
+
+                <p>
+                    <strong>Duration:</strong>
+                    2024 - 2028
+                </p>
+
+            </article>
+
+        </section>
+
+
+        <!-- =========================
+             SKILLS SECTION
+             ========================= -->
+
+        <section id="skills">
+
+            <h2>Technical Skills</h2>
+
+            <ul>
+                <li>Python</li>
+                <li>C++</li>
+                <li>Java</li>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>Machine Learning</li>
+            </ul>
+
+        </section>
+
+
+        <!-- =========================
+             PROJECTS SECTION
+             ========================= -->
+
+        <section id="projects">
+
+            <h2>Projects</h2>
+
+            <article>
+
+                <h3>Phishing Website Detection</h3>
+
+                <p>
+                    A machine learning based system used to identify
+                    potentially malicious phishing URLs.
+                </p>
+
+            </article>
+
+
+            <article>
+
+                <h3>FocusTrack</h3>
+
+                <p>
+                    A computer vision based productivity monitoring
+                    project using facial and eye-related features.
+                </p>
+
+            </article>
+
+        </section>
+
+
+        <!-- =========================
+             TASK 1.2
+             NESTED NAVIGATION
+             ========================= -->
+
+        <section id="navigation">
+
+            <h2>Task 1.2 - Nested Navigation Menu</h2>
+
+            <p>
+                The following menu demonstrates nested list items
+                containing anchor elements with absolute external URLs.
+            </p>
+
+
+            <nav aria-label="Nested Navigation Menu">
+
+                <ul>
+
+                    <!-- Google -->
+                    <li>
+                        <a href="https://www.google.com/" target="_blank">
+                            Google
+                        </a>
+                    </li>
+
+
+                    <!-- GitHub -->
+                    <li>
+
+                        <a href="https://github.com/" target="_blank">
+                            GitHub
+                        </a>
+
+                        <ul>
+
+                            <li>
+                                <a href="https://github.com/explore"
+                                    target="_blank">
+                                    Explore
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="https://github.com/topics"
+                                    target="_blank">
+                                    Topics
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="https://github.com/marketplace"
+                                    target="_blank">
+                                    Marketplace
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <!-- W3C -->
+                    <li>
+
+                        <a href="https://www.w3.org/" target="_blank">
+                            W3C
+                        </a>
+
+                        <ul>
+
+                            <li>
+                                <a href="https://www.w3.org/html/"
+                                    target="_blank">
+                                    HTML
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="https://www.w3.org/Style/CSS/"
+                                    target="_blank">
+                                    CSS
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                </ul>
+
+            </nav>
+
+        </section>
+
+
+        <!-- =========================
+             TASK 1.3
+             WEB CATALOG
+             ========================= -->
+
+        <section id="catalog">
+
+            <h2>Task 1.3 - Web Catalog</h2>
+
+            <p>
+                The following catalog uses HTML definition lists
+                to represent descriptive metadata.
+            </p>
+
+
+            <!-- Catalog Item 1 -->
+
+            <article>
+
+                <h3>HTML5 Course</h3>
+
+                <dl>
+
+                    <dt>Category</dt>
+                    <dd>Web Development</dd>
+
+                    <dt>Level</dt>
+                    <dd>Beginner</dd>
+
+                    <dt>Technology</dt>
+                    <dd>HTML5</dd>
+
+                    <dt>Description</dt>
+                    <dd>
+                        A course that introduces the fundamentals
+                        of creating structured webpages using HTML5.
+                    </dd>
+
+                </dl>
+
+            </article>
+
+
+            <!-- Catalog Item 2 -->
+
+            <article>
+
+                <h3>Python Programming</h3>
+
+                <dl>
+
+                    <dt>Category</dt>
+                    <dd>Programming</dd>
+
+                    <dt>Level</dt>
+                    <dd>Beginner to Intermediate</dd>
+
+                    <dt>Technology</dt>
+                    <dd>Python</dd>
+
+                    <dt>Description</dt>
+                    <dd>
+                        A programming course covering Python syntax,
+                        data structures, functions and
+                        object-oriented programming.
+                    </dd>
+
+                </dl>
+
+            </article>
+
+
+            <!-- Catalog Item 3 -->
+
+            <article>
+
+                <h3>Machine Learning</h3>
+
+                <dl>
+
+                    <dt>Category</dt>
+                    <dd>Artificial Intelligence</dd>
+
+                    <dt>Level</dt>
+                    <dd>Intermediate</dd>
+
+                    <dt>Technology</dt>
+                    <dd>Python, Scikit-learn</dd>
+
+                    <dt>Description</dt>
+                    <dd>
+                        A course introducing supervised and
+                        unsupervised machine learning techniques.
+                    </dd>
+
+                </dl>
+
+            </article>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 My Resume | Lab Sheet 01
+        </p>
+
+        <p>
+            Contact:
+            <a href="mailto:student@example.com">
+                Email Me
+            </a>
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
