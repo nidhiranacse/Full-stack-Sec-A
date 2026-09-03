@@ -1,0 +1,11 @@
+# ============================================================
+# Task 6.1: Project Requirement Definitions
+# Piped into the virtual environment via setup_django.sh
+# ============================================================
+
+Django>=4.2,<5.0
+djangorestframework>=3.14
+python-dotenv>=1.0
+gunicorn>=21.2
+whitenoise>=6.5
+django-cors-headers>=4.2
