@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Lab Sheet 02 - Dynamic Interface</title>
+<style>
+:root{--bg:#f4f4f4;--text:#222;--card:#fff;--accent:#007bff}
+.dark{--bg:#121212;--text:#fff;--card:#1e1e1e;--accent:#00bcd4}
+*{box-sizing:border-box}
+body{
+    margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);transition:.3s
+}
+nav{
+    background:#222;padding:15px;text-align:center;position:sticky;top:0;z-index:10
+}
+nav a{
+    color:white;text-decoration:none;margin:0 15px
+}
+section{
+    max-width:900px;margin:30px auto;padding:30px;background:var(--card);border-radius:10px
+}
+h1,h2{
+    text-align:center
+}
+button{
+    padding:10px 18px;border:0;border-radius:5px;background:var(--accent);color:white;cursor:pointer
+}
+button:hover{
+    opacity:.8
+}
+#hero{text-align:center;padding:70px 30px}
+#gallery{display:flex;flex-wrap:wrap;gap:15px;justify-content:center}
+.photo{width:200px;height:150px;object-fit:cover;border-radius:8px;transition:.3s}
+.photo:hover{transform:scale(1.08)}
+.todo-input{display:flex;gap:10px;margin-bottom:15px}
+#taskInput{flex:1;padding:10px;border:1px solid #aaa;border-radius:5px}
+#error{color:red;margin:8px 0}
+#taskList{padding:0;list-style:none}
+#taskList li{background:var(--bg);margin:8px 0;padding:12px;border-radius:5px;display:flex;justify-content:space-between;align-items:center}
+.delete{background:#dc3545;padding:6px 10px}
+@media(max-width:600px){section{margin:15px;padding:20px}.photo{width:100%;height:180px}.todo-input{flex-direction:column}nav a{margin:0 5px}}
+</style>
+</head>
+<body>
+<nav>
+<a href="#landing">Home</a>
+<a href="#gallerySection">Gallery</a>
+<a href="#todo">Todo</a>
+<button onclick="toggleMode()">Dark Mode</button>
+</nav>
+
+<section id="landing">
+<div id="hero">
+<h1>Welcome</h1>
+<p>A simple website demonstrating CSS styling and JavaScript interactivity.</p>
+<button onclick="showMessage()">Get Started</button>
+<p id="message"></p>
+</div>
+</section>
+
+<section id="gallerySection">
+<h2>Photo Gallery</h2>
+<div id="gallery">
+<img class="photo" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80" alt="Web Development">
+<img class="photo" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80" alt="Laptop Coding">
+<img class="photo" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400&q=80" alt="Programming Code">
+<img class="photo" src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=400&q=80" alt="Developer Workspace">
+<img class="photo" src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=400&q=80" alt="Computer Programming">
+<img class="photo" src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=400&q=80" alt="Technology">
+</div>
+</section>
+
+<section id="todo">
+<h2>Todo Application</h2>
+<div class="todo-input">
+<input type="text" id="taskInput" placeholder="Enter a task">
+<button onclick="addTask()">Add Task</button>
+</div>
+<p id="error"></p>
+<ul id="taskList"></ul>
+</section>
+
+<script>
+function toggleMode(){document.body.classList.toggle("dark");let b=document.querySelector("nav button");b.textContent=document.body.classList.contains("dark")?"Light Mode":"Dark Mode"}
+function showMessage(){document.getElementById("message").textContent="Welcome! You can explore the gallery and Todo application."}
+function addTask(){let input=document.getElementById("taskInput"),error=document.getElementById("error"),list=document.getElementById("taskList"),task=input.value.trim();if(task===""){error.textContent="Please enter a task.";return}error.textContent="";let li=document.createElement("li");li.innerHTML=`<span>${task}</span><button class="delete" onclick="this.parentElement.remove()">Delete</button>`;list.appendChild(li);input.value=""}
+</script>
+</body>
+</html>

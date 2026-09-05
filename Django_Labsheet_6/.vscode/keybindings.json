@@ -1,0 +1,7 @@
+[
+    {
+        "key": "ctrl+alt+p",
+        "command": "editor.action.formatDocument",
+        "when": "editorTextFocus"
+    }
+]

@@ -1,0 +1,8 @@
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}\\..\\venv\\Scripts\\python.exe",
+    "editor.formatOnSave": true,
+    "editor.rulers": [79],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    }
+}

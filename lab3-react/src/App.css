@@ -1,0 +1,28 @@
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Arial;background:#f4f4f4
+}
+.app{
+  width:90%;max-width:600px;margin:50px auto;padding:25px;background:white;border-radius:10px;box-shadow:0 4px 15px #ccc
+}
+h1{
+  text-align:center
+}
+.form{
+  display:flex;gap:10px;flex-wrap:wrap
+}
+.form input{
+  flex:1;padding:10px;border:1px solid #aaa;border-radius:5px
+}
+button{
+  padding:10px 15px;border:0;border-radius:5px;background:#007bff;color:white;cursor:pointer
+}
+button:hover{opacity:.8}
+.error{
+  width:100%;color:red;margin:5px 0
+}
+.task-list{
+  list-style:none;padding:0;margin-top:20px
+}
+.task-item{display:flex;justify-content:space-between;align-items:center;background:#f1f1f1;padding:12px;margin-bottom:8px;border-radius:5px}
+.task-item button{background:#dc3545}

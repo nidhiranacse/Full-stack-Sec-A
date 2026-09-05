@@ -1,0 +1,25 @@
+{% extends "mainapp/base.html" %}
+
+{% block title %}
+Contact Us - Django Lab 08
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <h1>Contact Us</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Name</label>
+        <input type="text" name="name" required>
+
+        <label>Feedback</label>
+        <textarea name="feedback" rows="5" required></textarea>
+
+        <button type="submit">Send Feedback</button>
+    </form>
+</div>
+
+{% endblock %}
