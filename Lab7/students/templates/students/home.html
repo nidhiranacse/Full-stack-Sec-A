@@ -1,0 +1,249 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Event Portal</title>
+
+    <link rel="stylesheet" href="{% static 'students/style.css' %}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header class="page-header">
+
+        <div>
+            <span class="lab-label">DJANGO • LAB SHEET 7</span>
+
+            <h1>Student Event Portal</h1>
+
+            <p>
+                Dynamic collection management using Django templates
+                and backend request processing.
+            </p>
+        </div>
+
+    </header>
+
+
+    <!-- TASK 7.1 -->
+    <section class="task-card">
+
+        <div class="task-title">
+
+            <span class="task-number">07.1</span>
+
+            <div>
+                <h2>Array Collections & Fallback Logic</h2>
+
+                <p>
+                    Display available fruit collections with fallback
+                    handling for empty arrays.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="section-content">
+
+            <h3>Available Fruits</h3>
+
+            {% if fruits %}
+
+                <div class="fruits">
+
+                    {% for fruit in fruits %}
+
+                        <div class="fruit">
+                            {{ fruit }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="alert">
+                    No fruits available.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- TASK 8.2 + 8.3 -->
+    <section class="task-card">
+
+        <div class="task-title">
+
+            <span class="task-number">08.2</span>
+
+            <div>
+                <h2>Student Records & Dynamic Sorting</h2>
+
+                <p>
+                    Search and sort selected event students
+                    according to their names.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="section-content">
+
+            <!-- SEARCH HEADER -->
+
+            <div class="student-toolbar">
+
+                <div>
+                    <h3>Selected Event Students</h3>
+
+                    <p>
+                        {{ students|length }} student{{ students|length|pluralize }}
+                        found
+                    </p>
+                </div>
+
+
+                <!-- SEARCH -->
+
+                <form method="GET" class="search-form">
+
+                    <div class="search-input">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            name="search"
+                            placeholder="Search student name..."
+                            value="{{ request.GET.search }}"
+                        >
+
+                    </div>
+
+                    <input
+                        type="hidden"
+                        name="sort"
+                        value="{{ request.GET.sort }}"
+                    >
+
+                    <button type="submit">
+                        Search
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- SORT BUTTONS -->
+
+            <div class="sort-area">
+
+                <span>Sort by name:</span>
+
+                <a
+                    href="?search={{ request.GET.search }}&sort=asc"
+                    class="sort-btn"
+                >
+                    A → Z
+                </a>
+
+                <a
+                    href="?search={{ request.GET.search }}&sort=desc"
+                    class="sort-btn secondary"
+                >
+                    Z → A
+                </a>
+
+            </div>
+
+
+            <!-- STUDENT TABLE -->
+
+            {% if students %}
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>#</th>
+                                <th>Student Name</th>
+                                <th>Selected Event</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for student in students %}
+
+                            <tr>
+
+                                <td class="student-index">
+                                    {{ forloop.counter }}
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        {{ student.name }}
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    <span class="event-badge">
+                                        {{ student.event }}
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="alert">
+                    No students found for your search.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        Django Lab Sheet 7 • Student Event Portal
+    </footer>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{
+    "Django health view": {
+        "prefix": "djhealth",
+        "body": [
+            "def health(request):",
+            "    return JsonResponse({\"status\": \"ok\"})"
+        ],
+        "description": "PEP8-compatible Django JSON health endpoint"
+    },
+    "Python main guard": {
+        "prefix": "pymain",
+        "body": [
+            "if __name__ == \"__main__\":",
+            "    ${1:main}()"
+        ],
+        "description": "PEP8-compatible Python entry point"
+    }
+}

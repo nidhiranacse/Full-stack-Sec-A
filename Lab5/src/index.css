@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root { font-family: 'DM Sans', sans-serif; color: #19324a; background: #f4f7f8; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, input, select { font: inherit; }
+.page-shell { min-height: 100vh; display: grid; grid-template-columns: minmax(290px, 36%) 1fr; }
+.side-panel { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 42px clamp(28px, 6vw, 92px); color: #f7fbf8; background: #123c46; }
+.side-panel::before { content: ''; position: absolute; width: 470px; height: 470px; right: -220px; bottom: 12%; border: 1px solid rgba(247,251,248,.2); border-radius: 50%; box-shadow: 0 0 0 32px rgba(247,251,248,.04), 0 0 0 84px rgba(247,251,248,.035); }
+.brand { position: relative; z-index: 1; display: flex; align-items: center; gap: 11px; font: 700 19px 'Space Grotesk', sans-serif; letter-spacing: .01em; }
+.brand-mark { display: grid; place-items: center; width: 30px; height: 30px; color: #123c46; background: #f5bd4f; font-size: 15px; }
+.side-copy { position: relative; z-index: 1; max-width: 380px; margin: auto 0; padding: 80px 0; }
+.eyebrow, .step-kicker { margin: 0 0 18px; color: #e2aa3d; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.side-copy h2, h1 { margin: 0; font: 600 clamp(32px, 4vw, 55px)/1.02 'Space Grotesk', sans-serif; letter-spacing: 0; }
+.side-copy p:not(.eyebrow) { max-width: 280px; margin: 24px 0 0; color: #b7d0cf; font-size: 15px; line-height: 1.7; }
+.side-foot { position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; color: #b7d0cf; font-size: 12px; }
+.orbit { width: 8px; height: 8px; border: 2px solid #f5bd4f; border-radius: 50%; }
+.form-panel { display: flex; flex-direction: column; background: #fbfcfa; }
+.topline { display: flex; justify-content: space-between; gap: 16px; padding: 42px clamp(28px, 6vw, 84px); color: #6c7c84; font-size: 12px; }
+.link-button, a { color: #176b6d; text-decoration: none; background: none; border: 0; cursor: pointer; font-weight: 700; }
+.form-wrap { width: min(100%, 600px); margin: auto; padding: 30px clamp(28px, 6vw, 84px) 50px; }
+.stepper { position: relative; display: flex; justify-content: space-between; margin-bottom: 66px; }
+.progress-bar { position: absolute; top: 13px; left: 14px; right: 14px; height: 2px; background: #dce5e4; }
+.progress-bar span { display: block; height: 100%; background: #176b6d; transition: width .4s ease; }
+.step-dot { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 9px; color: #8b9a9d; font-size: 11px; }
+.step-dot span { display: grid; place-items: center; width: 28px; height: 28px; border: 2px solid #dce5e4; border-radius: 50%; background: #fbfcfa; font-size: 11px; font-weight: 700; }
+.step-dot.active { color: #176b6d; font-weight: 700; }.step-dot.active span { border-color: #176b6d; background: #176b6d; color: white; }
+.step-content h1, .submitted h1 { max-width: 470px; color: #19324a; font-size: clamp(34px, 5vw, 54px); }.intro { max-width: 450px; margin: 18px 0 40px; color: #6c7c84; line-height: 1.65; }
+.field { position: relative; display: block; margin: 24px 0; color: #42606b; font-size: 12px; font-weight: 700; }.field > span { display: block; margin-bottom: 9px; }.field input, select { width: 100%; padding: 14px 15px; color: #19324a; border: 1px solid #cbd9d9; border-radius: 2px; outline: none; background: #fff; }.field input:focus, select:focus { border-color: #176b6d; box-shadow: 0 0 0 3px rgba(23,107,109,.1); }.field input[aria-invalid='true'], select[aria-invalid='true'] { border-color: #c4674d; }.error-badge { display: block; margin-top: 7px; color: #b75037; font-weight: 500; }
+.strength { margin: -7px 0 29px; }.strength-line { display: flex; justify-content: space-between; margin-bottom: 9px; color: #6c7c84; font-size: 11px; }.strength-line strong { color: #19324a; }.progress-track { height: 6px; overflow: hidden; background: #e3ebea; }.progress-fill { display: block; height: 100%; transition: width .3s ease, background .3s ease; }.progress-fill.low { background: #c4674d; }.progress-fill.mid { background: #e2aa3d; }.progress-fill.high { background: #4f9b7f; }.rule-list { display: flex; flex-wrap: wrap; gap: 8px 15px; margin-top: 13px; }.rule { color: #94a2a4; font-size: 11px; }.rule.valid { color: #398064; }
+select { appearance: auto; }.check-row { display: flex; align-items: flex-start; gap: 10px; margin: 29px 0; color: #6c7c84; font-size: 12px; line-height: 1.5; }.check-row input { accent-color: #176b6d; margin-top: 2px; }
+.actions { display: flex; justify-content: flex-end; align-items: center; gap: 21px; margin-top: 45px; }.primary-button { display: flex; align-items: center; gap: 23px; padding: 14px 18px 14px 22px; color: #fff; border: 0; border-radius: 2px; background: #176b6d; cursor: pointer; font-weight: 700; }.primary-button span { font-size: 20px; line-height: 12px; }.primary-button:hover { background: #125557; }.back-button { color: #6c7c84; border: 0; background: none; cursor: pointer; font-size: 12px; font-weight: 700; }.privacy { margin: 54px 0 0; color: #9ba8a9; font-size: 10px; }.privacy a { color: #6c7c84; text-decoration: underline; font-weight: 500; }.summary { border-top: 1px solid #dce5e4; margin-top: 30px; }.summary div { display: flex; justify-content: space-between; gap: 18px; padding: 14px 0; border-bottom: 1px solid #dce5e4; font-size: 12px; }.summary span { color: #8b9a9d; }.summary strong { overflow: hidden; color: #19324a; text-overflow: ellipsis; }.success-mark { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 24px; color: #fff; border-radius: 50%; background: #4f9b7f; font-size: 25px; }.submitted { padding: 40px 0; }
+@media (max-width: 720px) { .page-shell { display: block; }.side-panel { min-height: 260px; padding: 25px 28px; }.side-copy { padding: 35px 0 25px; }.side-copy h2 { max-width: 420px; font-size: 34px; }.side-copy p:not(.eyebrow), .side-foot { display: none; }.topline { padding: 25px 28px; }.form-wrap { padding-top: 25px; }.stepper { margin-bottom: 50px; } }

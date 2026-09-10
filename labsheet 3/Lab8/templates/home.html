@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Home | Northstar Studio{% endblock %}
+{% block content %}
+<section class="hero shell">
+    <div class="hero-copy">
+        <p class="eyebrow">Independent digital studio <span>08</span></p>
+        <h1>Make the<br><i>important</i><br>impossible to miss.</h1>
+        <p class="lede">Northstar helps ambitious teams turn complex ideas into clear, memorable digital experiences.</p>
+        <a class="button" href="{{ url_for('pages.contact') }}">Start a conversation <span>↗</span></a>
+    </div>
+    <div class="hero-orbit" aria-hidden="true">
+        <div class="orbit-ring"></div><div class="orbit-ring inner"></div><div class="orbit-core">N<span>°</span></div>
+        <p>clarity<br>over noise</p>
+    </div>
+</section>
+<section class="intro-band">
+    <div class="shell split-intro"><p class="section-number">01 / 03</p><h2>Good work<br>points <i>north.</i></h2><p>We bring strategy, identity, and technology into one focused practice. The result is work with a point of view and a reason to exist.</p></div>
+</section>
+{% endblock %}

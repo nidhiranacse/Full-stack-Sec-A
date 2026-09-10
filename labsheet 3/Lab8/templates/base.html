@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Northstar Studio{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="page-{{ active_page|default('home') }}">
+    <header class="site-header">
+        <a class="brand" href="{{ url_for('pages.home') }}" aria-label="Northstar Studio home">
+            <span class="brand-mark">N</span>
+            <span>Northstar <em>Studio</em></span>
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+            {% for item in [('home', 'Home', 'pages.home'), ('about', 'About us', 'pages.about'), ('contact', 'Contact us', 'pages.contact')] %}
+            <a class="nav-link{% if active_page == item[0] %} is-active{% endif %}" href="{{ url_for(item[2]) }}"{% if active_page == item[0] %} aria-current="page"{% endif %} data-page="{{ item[0] }}">{{ item[1] }}</a>
+            {% endfor %}
+        </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <aside class="flash-stack" aria-live="polite">
+                {% for category, message in messages %}
+                <div class="flash flash-{{ category }}">
+                    <span>{{ message }}</span>
+                    <button type="button" class="flash-close" aria-label="Dismiss notification">&times;</button>
+                </div>
+                {% endfor %}
+            </aside>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <span>Northstar Studio</span>
+        <span>Thoughtful digital work, made visible.</span>
+    </footer>
+    <script>
+        document.querySelectorAll('.flash-close').forEach((button) => {
+            button.addEventListener('click', () => button.closest('.flash').remove());
+        });
+    </script>
+</body>
+</html>

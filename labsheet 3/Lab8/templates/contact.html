@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Contact us | Northstar Studio{% endblock %}
+{% block content %}
+<section class="contact-layout shell">
+    <div class="contact-copy"><p class="eyebrow">Open channel <span>03</span></p><h1>Let's make<br>something <i>matter.</i></h1><p class="lede">Tell us what you are working on, where you are stuck, or what you are curious about.</p><p class="contact-detail">hello@northstar.studio<br>New York / Everywhere</p></div>
+    <form class="contact-form" method="post" action="{{ url_for('pages.contact') }}">
+        <div class="form-heading"><span>YOUR MESSAGE</span><span>VERIFIED / SECURE</span></div>
+        <label for="name">Your name<input id="name" name="name" type="text" autocomplete="name" value="{{ form_data.get('name', '') }}" required></label>
+        <label for="email">Email address<input id="email" name="email" type="email" autocomplete="email" value="{{ form_data.get('email', '') }}" required></label>
+        <label for="message">What is on your mind?<textarea id="message" name="message" rows="6" required>{{ form_data.get('message', '') }}</textarea></label>
+        <button class="button button-dark" type="submit">Send message <span>↗</span></button>
+    </form>
+</section>
+{% endblock %}
