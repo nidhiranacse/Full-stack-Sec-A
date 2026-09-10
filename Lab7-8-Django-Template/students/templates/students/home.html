@@ -1,0 +1,103 @@
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>Task 7.1 - Django Template</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .box {
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .alert {
+            padding: 15px;
+            background-color: #ffdddd;
+            color: #900;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Django Data Collections</h1>
+
+    <!-- Fruits Collection -->
+
+    <div class="box">
+
+        <h2>Fruits Collection</h2>
+
+        {% if fruits %}
+
+            <ul>
+                {% for fruit in fruits %}
+                    <li>{{ fruit }}</li>
+                {% endfor %}
+            </ul>
+
+        {% else %}
+
+            <div class="alert">
+                No fruits are available.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- Selected Event Students -->
+
+    <div class="box">
+
+        <h2>Selected Event Students</h2>
+
+        {% if students %}
+
+            <ul>
+                {% for student in students %}
+                    <li>
+                        {{ student.name }} - {{ student.event }}
+                    </li>
+                {% endfor %}
+            </ul>
+
+        {% else %}
+
+            <div class="alert">
+                No student records found.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html> {% endcomment %}
+
+{% extends "students/base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<h1>Welcome to Our Website</h1>
+
+<p>
+    This is the home page of our Django application.
+</p>
+
+<p>
+    This page inherits the common navigation and message
+    notification area from the master template.
+</p>
+
+{% endblock %}

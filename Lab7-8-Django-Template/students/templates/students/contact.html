@@ -1,0 +1,49 @@
+{% extends "students/base.html" %}
+
+{% block title %}
+Contact Us
+{% endblock %}
+
+{% block content %}
+
+<h1>Contact Us</h1>
+
+<p>
+    Have a question or feedback? Send us a message.
+</p>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <label>Name</label>
+    <input
+        type="text"
+        name="name"
+        placeholder="Enter your name"
+        required
+    >
+
+    <label>Email</label>
+    <input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        required
+    >
+
+    <label>Message</label>
+    <textarea
+        name="message"
+        rows="6"
+        placeholder="Enter your feedback"
+        required
+    ></textarea>
+
+    <button type="submit">
+        Submit Feedback
+    </button>
+
+</form>
+
+{% endblock %}

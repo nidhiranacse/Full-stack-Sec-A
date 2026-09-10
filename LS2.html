@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Todo Application</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        #todoInput {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        #addButton {
+            padding: 12px 20px;
+            border: none;
+            background-color: #2563eb;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #error {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+
+        #todoList {
+            list-style: none;
+            padding: 0;
+            margin-top: 25px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background-color: #f1f5f9;
+            border-radius: 6px;
+        }
+
+        li.completed span {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .delete {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>My Todo List</h1>
+        <div class="input-area">
+            <input type="text" id="todoInput" placeholder="Enter a task..." aria-label="New todo task">
+            <button id="addButton">Add</button>
+        </div>
+
+        <p id="error"> Please enter a task before adding.</p>
+        <ul id="todoList"></ul>
+
+    </div>
+    <script>
+        const input = document.getElementById("todoInput");
+        const addButton = document.getElementById("addButton");
+        const todoList = document.getElementById("todoList");
+        const error = document.getElementById("error");
+        addButton.addEventListener("click", addTodo);
+        input.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                addTodo();
+            }
+        });
+
+        function addTodo() {
+            const task = input.value.trim();
+            // Validation
+            if (task === "") {
+                error.style.display = "block";
+                return;
+            }
+            error.style.display = "none";
+
+            const li = document.createElement("li");
+
+            // Create task text
+            const span = document.createElement("span");
+            span.textContent = task;
+
+            // Create delete button
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "delete";
+
+            // Mark task as completed
+            span.addEventListener("click", function () {
+                li.classList.toggle("completed");
+            });
+
+            // Delete task
+            deleteButton.addEventListener("click", function () {
+                li.remove();
+            });
+
+            // Append elements at runtime
+            li.appendChild(span);
+            li.appendChild(deleteButton);
+            todoList.appendChild(li);
+
+            // Clear input
+            input.value = "";
+            input.focus();
+        }
+
+    </script>
+</body>
+
+</html>

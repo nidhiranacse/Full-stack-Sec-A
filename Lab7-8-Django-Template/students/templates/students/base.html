@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My Website{% endblock %}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        nav {
+            background-color: #222;
+            padding: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 25px;
+            padding: 10px;
+        }
+
+        nav a.active {
+            background-color: #007bff;
+            border-radius: 5px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .message {
+            padding: 12px;
+            margin-bottom: 20px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+        }
+
+        form input,
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Shared Navigation -->
+    <nav>
+
+        <a href="{% url 'home' %}"
+           class="{% if active_page == 'home' %}active{% endif %}">
+            Home
+        </a>
+
+        <a href="{% url 'about' %}"
+           class="{% if active_page == 'about' %}active{% endif %}">
+            About Us
+        </a>
+
+        <a href="{% url 'contact' %}"
+           class="{% if active_page == 'contact' %}active{% endif %}">
+            Contact Us
+        </a>
+
+    </nav>
+
+
+    <div class="container">
+
+        <!-- Task 8.2: Persistent Message Area -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+        <!-- Child pages insert their content here -->
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</body>
+</html>

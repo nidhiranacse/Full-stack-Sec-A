@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Search</title>
+</head>
+<body>
+    <h1>Search Students</h1>
+    <form method="GET">
+        <input
+            type="text"
+            name="search"
+            placeholder="Search student name"
+           value="{{ search }}"
+        >
+        <button type="submit">Search</button>
+    </form>
+    <br>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Sr. No.</th>
+            <th>Student Name</th>
+            <th>Roll Number</th>
+        </tr>
+        {% for student in students %}
+
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.roll }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No student found</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

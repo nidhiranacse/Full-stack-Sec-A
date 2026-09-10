@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student List</title>
+</head>
+
+<body>
+    <h1>Selected Event Students</h1>
+    <h3>Sort Students</h3>
+
+    <a href="?sort=name">Sort by Name</a>
+    <a href="?sort=roll">Sort by Roll Number</a>
+
+    <br><br>
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Sr. No.</th>
+            <th>Student Name</th>
+            <th>Roll Number</th>
+        </tr>
+
+        {% for student in students %}
+
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.roll }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>
