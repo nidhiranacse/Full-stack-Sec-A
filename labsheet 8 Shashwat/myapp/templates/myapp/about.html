@@ -1,0 +1,40 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}About Us – Lab Sheet 8{% endblock %}
+
+{# Task 8.2 – persistent notice on About page #}
+{% block notification %}
+  <div class="alert alert-info">
+    <span class="alert-icon">👤</span>
+    <span>This page inherits the master layout. Only the <strong>content</strong> and <strong>notification</strong> blocks are overridden.</span>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="tag">About Us</div>
+  <h1>About This Project</h1>
+  <p class="page-sub">Child template inheriting from the master blueprint.</p>
+
+  <div class="card">
+    <h2>🎓 Student Details</h2>
+    <table style="width:100%;border-collapse:collapse;">
+      <tr><td style="padding:10px 14px;color:#64748b;font-size:0.88rem;width:140px;">Name</td><td style="padding:10px 14px;color:#e2e8f0;font-size:0.88rem;">Shashwat Saini</td></tr>
+      <tr style="border-top:1px solid #0f172a;"><td style="padding:10px 14px;color:#64748b;font-size:0.88rem;">Subject</td><td style="padding:10px 14px;color:#e2e8f0;font-size:0.88rem;">Full Stack Web Development</td></tr>
+      <tr style="border-top:1px solid #0f172a;"><td style="padding:10px 14px;color:#64748b;font-size:0.88rem;">Lab Sheet</td><td style="padding:10px 14px;color:#e2e8f0;font-size:0.88rem;">08 – Template Inheritance &amp; Modular UI</td></tr>
+      <tr style="border-top:1px solid #0f172a;"><td style="padding:10px 14px;color:#64748b;font-size:0.88rem;">Framework</td><td style="padding:10px 14px;color:#e2e8f0;font-size:0.88rem;">Django 4.2 (Python)</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>🔗 How Inheritance Works Here</h2>
+    <p style="color:#94a3b8;font-size:0.92rem;line-height:1.75;">
+      Every page uses <code style="background:#0f172a;padding:2px 6px;border-radius:4px;color:#38bdf8;">{% templatetag openblock %} extends "myapp/base.html" {% templatetag closeblock %}</code> at the top.<br/><br/>
+      The master <code style="color:#818cf8;">base.html</code> defines three key blocks:
+    </p>
+    <ul style="margin-top:12px;padding-left:20px;color:#94a3b8;font-size:0.9rem;line-height:2;">
+      <li><code style="color:#38bdf8;">{% templatetag openblock %} block title {% templatetag closeblock %}</code> — page-specific browser tab title</li>
+      <li><code style="color:#38bdf8;">{% templatetag openblock %} block notification {% templatetag closeblock %}</code> — persistent alert box (Task 8.2)</li>
+      <li><code style="color:#38bdf8;">{% templatetag openblock %} block content {% templatetag closeblock %}</code> — main page body</li>
+    </ul>
+  </div>
+{% endblock %}

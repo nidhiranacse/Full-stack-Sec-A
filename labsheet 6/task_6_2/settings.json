@@ -1,0 +1,58 @@
+{
+    // ============================================================
+    // Task 6.2: VS Code Settings for Python PEP8 Compliance
+    // Copy this file to .vscode/settings.json in your project
+    // ============================================================
+
+    // --- Python Environment ---
+    "python.defaultInterpreterPath": "${workspaceFolder}/venv/Scripts/python.exe",
+    "python.terminal.activateEnvironment": true,
+
+    // --- Linting (PEP8 via Flake8) ---
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--ignore=E203,W503"
+    ],
+
+    // --- Formatting (Black + isort) ---
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length", "120"
+    ],
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        },
+        "editor.rulers": [79, 120],
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true
+    },
+
+    // --- Syntax Automation ---
+    "editor.suggestSelection": "first",
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": true
+    },
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.autoImportCompletions": true,
+
+    // --- File Associations ---
+    "files.associations": {
+        "*.py": "python",
+        "*.html": "django-html",
+        "requirements*.txt": "pip-requirements"
+    },
+
+    // --- Trim & Whitespace ---
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true
+}

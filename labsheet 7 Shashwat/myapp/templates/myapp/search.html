@@ -1,0 +1,61 @@
+{% extends "myapp/base.html" %}
+{% block title %}Task 7.3 – Search Students{% endblock %}
+
+{% block content %}
+<h1>Task 7.3 – Student Search</h1>
+<p class="subtitle">Filter students by name or event using the search form below (backend GET request processing).</p>
+
+<div class="card">
+  <h2>🔍 Search Form</h2>
+
+  <!-- Search form submits GET request to /search/?q=... -->
+  <form method="GET" action="/search/">
+    <div class="search-row">
+      <input
+        type="text"
+        name="q"
+        id="search-input"
+        placeholder="Search by name or event..."
+        value="{{ query }}"
+        autocomplete="off"
+      />
+      <button type="submit">Search</button>
+    </div>
+  </form>
+
+  {% if query %}
+    <p class="result-count">
+      Showing <strong>{{ students|length }}</strong> result(s) for "<em>{{ query }}</em>"
+    </p>
+  {% endif %}
+
+  {% if students %}
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Event</th>
+          <th>Roll No.</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+        <tr>
+          <td>{{ student.name }}</td>
+          <td><span class="badge">{{ student.event }}</span></td>
+          <td>{{ student.roll_number }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert">
+      {% if query %}
+        ⚠️ No students found matching "<strong>{{ query }}</strong>". Try a different keyword.
+      {% else %}
+        ⚠️ No students in the database yet.
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
