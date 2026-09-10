@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #E6E6FA;
+    margin: 0;
+    padding: 30px;
+}
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: #FFF0F5;
+    padding: 25px;
+    border-radius: 10px;
+}
+h1, h2 {
+    text-align: center;
+}
+form {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+input {
+    padding: 10px;
+    border: 1px solid rgb(194, 152, 166);
+    border-radius: 5px;
+}
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+th {
+    background: rgb(161, 134, 142);
+}
+.edit {
+    background: #ddd;
+    margin-right: 5px;
+}
+.delete {
+    background: #ddd;
+}
