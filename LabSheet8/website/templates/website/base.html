@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Lab Sheet 8{% endblock %}</title>
+
+    <style>
+        :root{
+            --ink:#2f3437;
+            --muted:#687176;
+            --line:#d9dddf;
+            --surface:#ffffff;
+            --soft:#f0f2f2;
+            --accent:#59666d;
+            --accent-dark:#414c52;
+        }
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            background:#e9ecec;
+            color:var(--ink);
+            line-height:1.6;
+        }
+
+        .navbar{
+            background:#353c40;
+            padding:16px max(24px, calc((100% - 960px) / 2));
+            display:flex;
+            gap:8px;
+        }
+
+        .navbar a{
+            color:#dfe3e4;
+            text-decoration:none;
+            font-weight:bold;
+            padding:8px 14px;
+            border-radius:4px;
+            transition:background .2s ease, color .2s ease;
+        }
+
+        .navbar a:hover,
+        .navbar .active{
+            background:#59666d;
+            color:#ffffff;
+        }
+
+        .container{
+            width:min(960px, calc(100% - 32px));
+            min-height:520px;
+            margin:34px auto;
+            background:var(--surface);
+            padding:clamp(24px, 5vw, 48px);
+            border:1px solid var(--line);
+            box-shadow:0 12px 30px rgba(47,52,55,.08);
+        }
+
+        h1{
+            color:var(--ink);
+            margin-bottom:18px;
+            font-size:clamp(2rem, 5vw, 3rem);
+            letter-spacing:-.5px;
+        }
+
+        h2, h3{
+            color:var(--ink);
+            margin-bottom:10px;
+        }
+
+        p{
+            color:var(--muted);
+        }
+
+        .message-box{
+            background:#e6ece9;
+            color:#3e5148;
+            padding:13px 16px;
+            border-left:4px solid #73847b;
+            margin-bottom:24px;
+        }
+
+        .error-box{
+            background:#f1e8e5;
+            color:#79514a;
+            border-left-color:#9b7168;
+        }
+
+        .card{
+            background:var(--soft);
+            padding:24px;
+            border:1px solid var(--line);
+            margin-top:18px;
+        }
+
+        .card ul{
+            margin:14px 0 0 20px;
+            color:var(--muted);
+        }
+
+        form{
+            margin-top:22px;
+        }
+
+        form label{
+            display:block;
+            margin-top:14px;
+            color:var(--ink);
+            font-weight:bold;
+        }
+
+        form input,
+        form textarea{
+            width:100%;
+            padding:12px;
+            margin-top:6px;
+            border:1px solid #c7ccce;
+            background:#fff;
+            color:var(--ink);
+            font-size:1rem;
+        }
+
+        form input:focus,
+        form textarea:focus{
+            outline:2px solid #aeb8bc;
+            border-color:var(--accent);
+        }
+
+        button{
+            background:var(--accent);
+            color:white;
+            border:none;
+            padding:11px 20px;
+            cursor:pointer;
+            border-radius:4px;
+            font-weight:bold;
+        }
+
+        button:hover{
+            background:var(--accent-dark);
+        }
+
+        footer{
+            text-align:center;
+            padding:10px 20px 28px;
+            color:var(--muted);
+            font-size:.9rem;
+        }
+
+        @media (max-width:560px){
+            .navbar{ flex-wrap:wrap; }
+            .navbar a{ flex:1; text-align:center; }
+            .container{ width:min(100% - 20px, 960px); margin:20px auto; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="{% url 'home' %}" class="{% if active_page == 'home' %}active{% endif %}">
+        Home
+    </a>
+
+    <a href="{% url 'about' %}" class="{% if active_page == 'about' %}active{% endif %}">
+        About
+    </a>
+
+    <a href="{% url 'contact' %}" class="{% if active_page == 'contact' %}active{% endif %}">
+        Contact
+    </a>
+</div>
+
+<div class="container">
+
+    {% if message %}
+    <div class="message-box {% if error %}error-box{% endif %}">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+<footer>
+    Lab Sheet 08 - Django Template Inheritance
+</footer>
+
+</body>
+</html>

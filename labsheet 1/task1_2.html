@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MOHD SHAHZEB - Navigation Menu</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+        }
+
+        header {
+            background-color: #1f4e79;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        nav {
+            background-color: #222;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+        }
+
+        nav a:hover {
+            background-color: #1f4e79;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 230px;
+            background-color: #333;
+            list-style: none;
+            z-index: 10;
+        }
+
+        .submenu a {
+            padding: 12px 15px;
+        }
+
+        nav li:hover > .submenu {
+            display: block;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        main h2 {
+            color: #1f4e79;
+            margin-bottom: 15px;
+        }
+
+        main p {
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .menu {
+                flex-direction: column;
+            }
+
+            .submenu {
+                position: static;
+            }
+
+            nav li:hover > .submenu {
+                display: block;
+            }
+
+            main {
+                margin: 15px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>MOHD SHAHZEB</h1>
+        <p>Computer Science and Engineering Student</p>
+    </header>
+
+    <nav aria-label="Main Navigation">
+
+        <ul class="menu">
+
+            <li>
+                <a href="https://github.com/MShahzeb-S" target="_blank">
+                    GitHub
+                </a>
+            </li>
+
+            <li>
+                <a href="https://github.com/MShahzeb-S" target="_blank">
+                    Projects
+                </a>
+
+                <ul class="submenu">
+
+                    <li>
+                        <a href="https://github.com/MShahzeb-S/Face-Based-Attendance-System"
+                           target="_blank">
+                            Face-Based Attendance System
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://github.com/Mohd-Shahzeb/plant-disease-detection-system"
+                           target="_blank">
+                            Plant Disease Detection System
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="https://www.w3.org/" target="_blank">
+                    Web Resources
+                </a>
+
+                <ul class="submenu">
+
+                    <li>
+                        <a href="https://html.spec.whatwg.org/" target="_blank">
+                            HTML5
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.w3.org/Style/CSS/" target="_blank">
+                            CSS
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+                           target="_blank">
+                            JavaScript
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="mailto:mohd.shahzeb.cs@gmail.com">
+                    Contact
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <main>
+
+        <h2>About This Navigation Menu</h2>
+
+        <p>
+            This webpage demonstrates a nested navigation menu using
+            HTML unordered lists, list items and anchor elements.
+        </p>
+
+        <p>
+            The Projects and Web Resources menu items contain nested
+            submenus. Each external resource uses an absolute URL path.
+        </p>
+
+        <p>
+            The navigation provides direct access to my GitHub profile,
+            projects and useful web development resources.
+        </p>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MOHD SHAHZEB | Full Stack Lab</p>
+    </footer>
+
+</body>
+
+</html>
