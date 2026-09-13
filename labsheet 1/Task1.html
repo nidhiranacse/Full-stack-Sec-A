@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HTML5 Simple Webpage</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1f4e79;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        main h2 {
+            color: #1f4e79;
+            margin-bottom: 15px;
+        }
+
+        main h3 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .formatting {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #eef5fb;
+            border-left: 4px solid #1f4e79;
+        }
+
+        a {
+            color: #1f4e79;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #d35400;
+        }
+
+        .elements {
+            margin-top: 15px;
+        }
+
+        .elements p {
+            padding: 8px 0;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #222;
+            color: white;
+            padding: 18px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                margin: 15px;
+                padding: 20px;
+            }
+
+            header {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>My Simple HTML5 Webpage</h1>
+        <p>Introduction to HTML5 and Web Development</p>
+    </header>
+
+    <main>
+        <h2>About Me</h2>
+
+        <p>
+            I am <strong>MOHD SHAHZEB</strong>, a Computer Science
+            student interested in web development, Python and
+            machine learning.
+        </p>
+
+        <div class="formatting">
+            <p>
+                My current interests include
+                <strong>Full Stack Development</strong>,
+                <em>Machine Learning</em> and
+                <mark>Problem Solving</mark>.
+            </p>
+        </div>
+
+        <h3>My Projects</h3>
+
+        <p>
+            <strong>Face-Based Attendance System:</strong>
+            A Python-based project using face recognition for
+            recording student attendance.
+        </p>
+
+        <p>
+            <strong>Plant Disease Detection System:</strong>
+            A machine learning project that detects plant
+            diseases from images.
+        </p>
+
+        <h3>Useful Resource</h3>
+
+        <p>
+            I use web standards while developing webpages.
+            Visit the
+            <a href="https://github.com/MohdShahzeb32" target="_blank">My Git Hub</a>
+            to learn more.
+        </p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 My HTML5 Webpage</p>
+    </footer>
+
+</body>
+</html>

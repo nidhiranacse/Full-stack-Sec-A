@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MOHD SHAHZEB - Dark Mode Landing Page</title>
+
+    <style>
+        :root {
+            --background: #f4f6f8;
+            --text: #222;
+            --card: #ffffff;
+            --primary: #1f4e79;
+            --secondary: #e8f1f8;
+        }
+
+        .dark-mode {
+            --background: #121212;
+            --text: #eeeeee;
+            --card: #1e1e1e;
+            --primary: #5da9e9;
+            --secondary: #252525;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            transition: 0.3s;
+        }
+
+        header {
+            background-color: var(--card);
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+        }
+
+        header h2 {
+            color: var(--primary);
+        }
+
+        #themeButton {
+            padding: 9px 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary);
+            color: white;
+            cursor: pointer;
+        }
+
+        #themeButton:hover {
+            opacity: 0.85;
+        }
+
+        .hero {
+            min-height: 65vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--secondary);
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .buttons a {
+            display: inline-block;
+            padding: 11px 20px;
+            margin: 5px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .buttons a:hover {
+            opacity: 0.85;
+        }
+
+        .projects {
+            padding: 45px 8%;
+        }
+
+        .projects h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .project-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .project {
+            background-color: var(--card);
+            width: 350px;
+            padding: 22px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        .project h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .project p {
+            margin-bottom: 15px;
+        }
+
+        .project a {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 18px;
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 18px 5%;
+            }
+
+            header h2 {
+                font-size: 20px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .project {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <h2>MOHD SHAHZEB</h2>
+
+        <button id="themeButton" onclick="toggleTheme()">
+            Dark Mode
+        </button>
+
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <h1>Hello, I'm MOHD SHAHZEB</h1>
+
+                <p>
+                    A Computer Science and Engineering student interested
+                    in web development, programming and machine learning.
+                </p>
+
+                <div class="buttons">
+
+                    <a href="https://github.com/MShahzeb-S"
+                       target="_blank">
+                        GitHub Profile
+                    </a>
+
+                    <a href="mailto:mohd.shahzeb.cs@gmail.com">
+                        Contact Me
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="projects">
+
+            <h2>My Projects</h2>
+
+            <div class="project-container">
+
+                <article class="project">
+
+                    <h3>Face-Based Attendance System</h3>
+
+                    <p>
+                        A face recognition based attendance project
+                        developed using Python and OpenCV.
+                    </p>
+
+                    <a href="https://github.com/MShahzeb-S/Face-Based-Attendance-System"
+                       target="_blank">
+                        View Project
+                    </a>
+
+                </article>
+
+
+                <article class="project">
+
+                    <h3>Plant Disease Detection System</h3>
+
+                    <p>
+                        A machine learning project that identifies
+                        plant diseases from images.
+                    </p>
+
+                    <a href="https://github.com/Mohd-Shahzeb/plant-disease-detection-system"
+                       target="_blank">
+                        View Project
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            &copy; 2026 MOHD SHAHZEB | Full Stack Lab
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        function toggleTheme() {
+
+            document.body.classList.toggle("dark-mode");
+
+            const button = document.getElementById("themeButton");
+
+            if (document.body.classList.contains("dark-mode")) {
+                button.innerText = "Light Mode";
+            } else {
+                button.innerText = "Dark Mode";
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

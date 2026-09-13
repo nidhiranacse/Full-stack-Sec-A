@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Project Photo Grid</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #222;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #1f2937;
+            color: white;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 16px;
+        }
+
+        .gallery {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+
+            /* Flexbox */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .photo-card {
+            background-color: white;
+            width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+
+            /* Animation */
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-content {
+            padding: 15px;
+        }
+
+        .photo-content h3 {
+            margin-bottom: 8px;
+            color: #1f4e79;
+        }
+
+        .photo-content p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1f2937;
+            color: white;
+            margin-top: 30px;
+        }
+
+        /* Mobile responsive design */
+        @media (max-width: 650px) {
+
+            .gallery {
+                width: 92%;
+                gap: 18px;
+            }
+
+            .photo-card {
+                width: 100%;
+            }
+
+            .photo-card img {
+                height: 220px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <h1>My Project Gallery</h1>
+
+        <p>
+            A collection of my Computer Science projects and work
+        </p>
+
+    </header>
+
+
+    <main>
+
+        <div class="gallery">
+
+            <div class="photo-card">
+
+                <img src="https://picsum.photos/500/350?random=1"
+                     alt="Face Based Attendance System">
+
+                <div class="photo-content">
+
+                    <h3>Face Attendance System</h3>
+
+                    <p>
+                        A face recognition based attendance project
+                        developed using Python and OpenCV.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="photo-card">
+
+                <img src="https://picsum.photos/500/350?random=2"
+                     alt="Plant Disease Detection">
+
+                <div class="photo-content">
+
+                    <h3>Plant Disease Detection</h3>
+
+                    <p>
+                        A machine learning project that detects
+                        plant diseases from leaf images.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="photo-card">
+
+                <img src="https://picsum.photos/500/350?random=3"
+                     alt="Web Development Project">
+
+                <div class="photo-content">
+
+                    <h3>Web Development</h3>
+
+                    <p>
+                        Practice work related to HTML, CSS,
+                        JavaScript and responsive websites.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="photo-card">
+
+                <img src="https://picsum.photos/500/350?random=4"
+                     alt="Python Programming">
+
+                <div class="photo-content">
+
+                    <h3>Python Programming</h3>
+
+                    <p>
+                        Programming practice and projects
+                        developed using Python.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="photo-card">
+
+                <img src="https://picsum.photos/500/350?random=5"
+                     alt="Machine Learning">
+
+                <div class="photo-content">
+
+                    <h3>Machine Learning</h3>
+
+                    <p>
+                        Learning and implementing basic machine
+                        learning concepts through projects.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="photo-card">
+
+                <img src="https://picsum.photos/500/350?random=6"
+                     alt="Computer Science">
+
+                <div class="photo-content">
+
+                    <h3>Computer Science</h3>
+
+                    <p>
+                        Exploring different areas of computer
+                        science and software development.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        <p>&copy; 2026 MOHD SHAHZEB | Full Stack Lab</p>
+
+    </footer>
+
+</body>
+
+</html>
