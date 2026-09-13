@@ -1,0 +1,39 @@
+{% extends 'records/base.html' %}
+
+{% block content %}
+
+<div class="card">
+
+    <h2 class="title">
+        Fruits Collection
+    </h2>
+
+    {% if fruits %}
+
+        <ul>
+
+            {% for fruit in fruits %}
+
+                <li>{{ fruit }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+        <h4>
+            Total Fruits : {{ fruits|length }}
+        </h4>
+
+    {% else %}
+
+        <div class="alert">
+
+            No Fruits Available
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
