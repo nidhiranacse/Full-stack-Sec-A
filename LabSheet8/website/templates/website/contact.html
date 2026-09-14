@@ -1,0 +1,35 @@
+{% extends 'website/base.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <h2>Contact Us</h2>
+
+    <p>Submit your feedback below.</p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label>Your Name</label>
+         <input type="text"
+             name="name"
+             required>
+
+        <label>Your Feedback</label>
+        <textarea name="feedback"
+              rows="5"
+              required></textarea>
+
+        <button type="submit">
+            Submit Feedback
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}
