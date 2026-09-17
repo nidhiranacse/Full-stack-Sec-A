@@ -1,0 +1,673 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Interactive Web Studio</title>
+
+    <meta name="description"
+        content="Interactive webpage demonstrating dark mode, responsive photo gallery and Todo application.">
+
+    <style>
+        /* =========================
+           CSS VARIABLES
+        ========================== */
+
+        :root {
+            --bg-color: #f5f5f5;
+            --card-color: #ffffff;
+            --text-color: #222222;
+            --secondary-text: #666666;
+            --primary-color: #6366f1;
+            --border-color: #dddddd;
+            --shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Dark Mode Variables */
+
+        body.dark {
+            --bg-color: #111827;
+            --card-color: #1f2937;
+            --text-color: #f9fafb;
+            --secondary-text: #d1d5db;
+            --primary-color: #818cf8;
+            --border-color: #374151;
+            --shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+
+        /* =========================
+           GENERAL STYLING
+        ========================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-color),
+                    #8b5cf6
+                );
+            color: white;
+        }
+
+        .hero {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 80px);
+            margin: 0;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin: 20px 0 30px;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: white;
+            color: #4f46e5;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+        .hero-button:hover {
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================== */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--card-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        #themeButton {
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            padding: 9px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 60px 20px;
+        }
+
+        section {
+            margin-bottom: 70px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: var(--secondary-text);
+        }
+
+
+        /* =========================
+           PHOTO GALLERY
+        ========================== */
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .photo {
+            flex: 1 1 250px;
+            max-width: 320px;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            background: var(--card-color);
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .photo:hover img {
+            transform: scale(1.12);
+        }
+
+
+        /* =========================
+           TODO APPLICATION
+        ========================== */
+
+        .todo-container {
+            max-width: 650px;
+            margin: auto;
+            background: var(--card-color);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .todo-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .todo-input input {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
+        }
+
+        .todo-input button {
+            padding: 13px 20px;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        .todo-input button:hover {
+            opacity: 0.85;
+        }
+
+        #errorMessage {
+            display: none;
+            color: #ef4444;
+            margin-top: 10px;
+        }
+
+        #todoList {
+            list-style: none;
+            padding: 0;
+            margin-top: 25px;
+        }
+
+        #todoList li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .task-text {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .delete-button {
+            border: none;
+            background: #ef4444;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: var(--card-color);
+            border-top: 1px solid var(--border-color);
+            color: var(--secondary-text);
+        }
+
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================== */
+
+        @media (max-width: 700px) {
+
+            nav {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            nav ul {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .todo-input {
+                flex-direction: column;
+            }
+
+            .todo-input button {
+                width: 100%;
+            }
+
+            .photo {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <nav>
+
+        <div class="logo">
+            Shashwat-Studio
+        </div>
+
+        <ul>
+            <li>
+                <a href="#home">Home</a>
+            </li>
+
+            <li>
+                <a href="#gallery">Gallery</a>
+            </li>
+
+            <li>
+                <a href="#todo">Todo</a>
+            </li>
+        </ul>
+
+        <button id="themeButton">
+            🌙 Dark Mode
+        </button>
+
+    </nav>
+
+
+    <!-- =========================
+         LANDING PAGE
+    ========================== -->
+
+    <header id="home">
+
+        <div class="hero">
+
+            <h1>Build. Create. Explore.</h1>
+
+            <p>
+                A simple interactive website built with
+                HTML, CSS and JavaScript.
+            </p>
+
+            <a href="#gallery" class="hero-button">
+                Explore Gallery
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+
+        <!-- =========================
+             PHOTO GALLERY
+        ========================== -->
+
+        <section id="gallery">
+
+            <div class="section-title">
+
+                <h2>Photo Gallery</h2>
+
+                <p>
+                    Explore beautiful images in a responsive
+                    Flexbox gallery.
+                </p>
+
+            </div>
+
+
+            <div class="gallery">
+
+                <div class="photo">
+                    <img
+                        src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80"
+                        alt="Mountain landscape">
+                </div>
+
+                <div class="photo">
+                    <img
+                        src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80"
+                        alt="Mountain lake">
+                </div>
+
+                <div class="photo">
+                    <img
+                        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+                        alt="Ocean beach">
+                </div>
+
+                <div class="photo">
+                    <img
+                        src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80"
+                        alt="Green forest">
+                </div>
+
+                <div class="photo">
+                    <img
+                        src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=800&q=80"
+                        alt="Forest trees">
+                </div>
+
+                <div class="photo">
+                    <img
+                        src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80"
+                        alt="Nature landscape">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TODO APPLICATION
+        ========================== -->
+
+        <section id="todo">
+
+            <div class="section-title">
+
+                <h2>My Todo List</h2>
+
+                <p>
+                    Add, complete and remove your daily tasks.
+                </p>
+
+            </div>
+
+
+            <div class="todo-container">
+
+                <div class="todo-input">
+
+                    <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="Enter a task..."
+                        aria-label="Enter a task">
+
+                    <button id="addButton">
+                        Add Task
+                    </button>
+
+                </div>
+
+
+                <p id="errorMessage">
+                    Please enter a task before adding it.
+                </p>
+
+
+                <ul id="todoList"></ul>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 Shashwat Saini
+        </p>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           DARK MODE
+        ========================== */
+
+        const themeButton = document.getElementById("themeButton");
+
+        themeButton.addEventListener("click", function () {
+
+            document.body.classList.toggle("dark");
+
+            if (document.body.classList.contains("dark")) {
+
+                themeButton.textContent = "☀️ Light Mode";
+
+            } else {
+
+                themeButton.textContent = "🌙 Dark Mode";
+
+            }
+
+        });
+
+
+        /* =========================
+           TODO APPLICATION
+        ========================== */
+
+        const taskInput = document.getElementById("taskInput");
+        const addButton = document.getElementById("addButton");
+        const todoList = document.getElementById("todoList");
+        const errorMessage = document.getElementById("errorMessage");
+
+
+        /* Add Task */
+
+        addButton.addEventListener("click", addTask);
+
+
+        /* Allow Enter Key */
+
+        taskInput.addEventListener("keydown", function (event) {
+
+            if (event.key === "Enter") {
+                addTask();
+            }
+
+        });
+
+
+        function addTask() {
+
+            const taskText = taskInput.value.trim();
+
+
+            /* Validation */
+
+            if (taskText === "") {
+
+                errorMessage.style.display = "block";
+
+                taskInput.focus();
+
+                return;
+            }
+
+
+            errorMessage.style.display = "none";
+
+
+            /* Create New List Item */
+
+            const listItem = document.createElement("li");
+
+
+            /* Create Task Text */
+
+            const text = document.createElement("span");
+
+            text.textContent = taskText;
+
+            text.className = "task-text";
+
+
+            /* Complete Task */
+
+            text.addEventListener("click", function () {
+
+                text.classList.toggle("completed");
+
+            });
+
+
+            /* Create Delete Button */
+
+            const deleteButton = document.createElement("button");
+
+            deleteButton.textContent = "Delete";
+
+            deleteButton.className = "delete-button";
+
+
+            /* Delete Task */
+
+            deleteButton.addEventListener("click", function () {
+
+                listItem.remove();
+
+            });
+
+
+            /* Append Elements */
+
+            listItem.appendChild(text);
+
+            listItem.appendChild(deleteButton);
+
+            todoList.appendChild(listItem);
+
+
+            /* Clear Input */
+
+            taskInput.value = "";
+
+            taskInput.focus();
+
+        }
+
+    </script>
+
+</body>
+
+</html>
+

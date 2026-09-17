@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTTP Error Types</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #000000;
+        }
+        p {
+            color: #444444;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+        button {
+            padding: 12px 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 2px solid #000000;
+            background: #ffffff;
+            color: #000000;
+            transition: 0.15s ease;
+        }
+        button:hover {
+            background: #000000;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTTP Error Types</h1>
+    <p>Click any button to trigger a real server error code:</p>
+
+    <div class="btn-container">
+        <button onclick="window.location.href='/400'">400 - Bad Request</button>
+        <button onclick="window.location.href='/401'">401 - Unauthorized</button>
+        <button onclick="window.location.href='/403'">403 - Forbidden</button>
+        <button onclick="window.location.href='/404'">404 - Not Found</button>
+        <button onclick="window.location.href='/408'">408 - Request Timeout</button>
+        <button onclick="window.location.href='/500'">500 - Internal Server Error</button>
+        <button onclick="window.location.href='/502'">502 - Bad Gateway</button>
+        <button onclick="window.location.href='/503'">503 - Service Unavailable</button>
+    </div>
+
+</body>
+</html>
