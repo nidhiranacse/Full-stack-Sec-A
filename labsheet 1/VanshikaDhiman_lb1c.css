@@ -1,0 +1,31 @@
+.education-container{
+    display:flex;
+    gap:20px;
+}
+header {
+    text-align: center;
+    background-color: #1b0383;
+    color: white;
+    padding: 20px;
+}
+main {
+    width: 85%;
+    margin: 20px auto;
+}
+section {
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+}
+h2 {
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+}
+footer {
+    text-align: center;
+    background-color:#1b0383;
+    color: white;
+    padding: 15px;
+}

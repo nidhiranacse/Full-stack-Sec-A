@@ -1,0 +1,121 @@
+:root {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --secondary-text: #bbbbbb;
+    --card-color: #1e1e1e;
+    --button-color: #4f46e5;
+    --button-hover: #3730a3;
+}
+body.light-mode {
+    --bg-color: #f5f5f5;
+    --text-color: #222222;
+    --secondary-text: #555555;
+    --card-color: #ffffff;
+    --button-color: #4f46e5;
+    --button-hover: #3730a3;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: background-color 0.4s, color 0.3s;
+}
+header {
+    background-color: var(--card-color);
+    padding: 20px 8%;
+    transition: background-color 0.3s;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav h2 {
+    font-size: 24px;
+}
+
+#themeToggle:hover {
+    background-color: var(--button-hover);
+}
+.hero {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    padding: 50px 20px;
+}
+.hero-content {
+    max-width: 700px;
+}
+
+.hero h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+.hero p {
+    color: var(--secondary-text);
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+.start-btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 6px;
+
+    background-color: var(--button-color);
+    color: white;
+
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.start-btn:hover {
+    background-color: var(--button-hover);
+}
+
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--card-color);
+    color: var(--secondary-text);
+}
+
+@media (max-width: 600px) {
+
+    .hero h1 {
+        font-size: 35px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    nav h2 {
+        font-size: 20px;
+    }
+
+    #themeToggle {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+}
+
+
+
+

@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}My Django Website{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>My Django Website</h1>
+
+            <nav>
+                <a href="{% url 'home' %}"
+                   class="{% if active_page == 'home' %}active{% endif %}">
+                    Home
+                </a>
+
+                <a href="{% url 'about' %}"
+                   class="{% if active_page == 'about' %}active{% endif %}">
+                    About Us
+                </a>
+
+                <a href="{% url 'contact' %}"
+                   class="{% if active_page == 'contact' %}active{% endif %}">
+                    Contact Us
+                </a>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Persistent feedback/message area -->
+    <div class="container">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+
+
+    <!-- Page-specific content -->
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 My Django Website. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
