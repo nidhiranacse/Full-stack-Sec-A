@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab Sheet 7</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .alert {
+            background-color: #ffdddd;
+            padding: 10px;
+            color: red;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #999;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #ddd;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+        }
+
+        button, a {
+            padding: 10px 15px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Lab Sheet 7</h1>
+
+    <!-- TASK 7.1 : Fruits -->
+
+    <div class="section">
+
+        <h2>Fruit List</h2>
+
+        {% if fruits %}
+
+            <ul>
+                {% for fruit in fruits %}
+                    <li>{{ fruit }}</li>
+                {% endfor %}
+            </ul>
+
+        {% else %}
+
+            <div class="alert">
+                No fruits are available.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- TASK 8.3 : Search -->
+
+    <div class="section">
+
+        <h2>Search Students</h2>
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Enter student name"
+                value="{{ search }}"
+            >
+
+            <button type="submit">
+                Search
+            </button>
+
+            <a href="/">
+                Clear
+            </a>
+
+        </form>
+
+    </div>
+
+
+    <!-- TASK 8.2 : Sorting -->
+
+    <div class="section">
+
+        <h2>Selected Event Students</h2>
+
+        <p>
+            Sort by:
+            <a href="?sort=name">Name</a>
+            <a href="?sort=roll">Roll Number</a>
+        </p>
+
+        {% if students %}
+
+            <table>
+
+                <tr>
+                    <th>Roll Number</th>
+                    <th>Student Name</th>
+                    <th>Event</th>
+                </tr>
+
+                {% for student in students %}
+
+                    <tr>
+                        <td>{{ student.roll }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.event }}</td>
+                    </tr>
+
+                {% endfor %}
+
+            </table>
+
+        {% else %}
+
+            <div class="alert">
+                No students found.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
