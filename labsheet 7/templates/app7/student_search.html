@@ -1,0 +1,138 @@
+{% extends "app7/base.html" %}
+
+
+{% block content %}
+
+
+<form
+    class="search-form"
+    method="get"
+    action="{% url 'student_search' %}"
+>
+
+
+    <input
+        type="text"
+        name="q"
+        placeholder="Search by student name..."
+        value="{{ query }}"
+    >
+
+
+    <input
+        type="text"
+        name="event"
+        placeholder="Filter by event..."
+        value="{{ event_query }}"
+    >
+
+
+    <button type="submit">
+        Search
+    </button>
+
+
+</form>
+
+
+{% if query or event_query %}
+
+    <p>
+
+        Showing
+        <strong>{{ result_count }}</strong>
+        result(s)
+
+        {% if query %}
+
+            for name containing
+            "<strong>{{ query }}</strong>"
+
+        {% endif %}
+
+
+        {% if query and event_query %}
+            and
+        {% endif %}
+
+
+        {% if event_query %}
+
+            event containing
+            "<strong>{{ event_query }}</strong>"
+
+        {% endif %}
+
+    </p>
+
+{% endif %}
+
+
+
+{% if students %}
+
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>
+                Position
+            </th>
+
+            <th>
+                Student Name
+            </th>
+
+            <th>
+                Event
+            </th>
+
+        </tr>
+
+    </thead>
+
+
+    <tbody>
+
+        {% for student in students %}
+
+        <tr>
+
+            <td>
+                {{ student.position }}
+            </td>
+
+            <td>
+                {{ student.name }}
+            </td>
+
+            <td>
+                {{ student.event }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+
+{% else %}
+
+
+<div class="alert">
+
+    No students match your search criteria.
+
+</div>
+
+
+{% endif %}
+
+
+{% endblock %}

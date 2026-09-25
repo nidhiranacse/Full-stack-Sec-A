@@ -1,0 +1,220 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+body {
+    margin: 0;
+    background: #f4f6f8;
+    color: #222;
+}
+
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #1f2937;
+
+    padding: 14px 32px;
+}
+
+
+.brand {
+    color: #fff;
+
+    font-weight: bold;
+
+    font-size: 1.2rem;
+}
+
+
+.nav-links {
+    list-style: none;
+
+    display: flex;
+
+    gap: 24px;
+
+    margin: 0;
+
+    padding: 0;
+}
+
+
+.nav-links a {
+    color: #cbd5e1;
+
+    text-decoration: none;
+
+    padding: 6px 10px;
+
+    border-radius: 4px;
+
+    transition:
+        background 0.2s,
+        color 0.2s;
+}
+
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+
+/* ============================================================
+   TASK 8.1
+   ACTIVE NAVIGATION
+   ============================================================ */
+
+.nav-links a.active {
+    background: #2563eb;
+
+    color: #fff;
+
+    font-weight: bold;
+}
+
+
+/* ============================================================
+   TASK 8.2
+   NOTIFICATION BOX
+   ============================================================ */
+
+.notification-wrapper {
+    padding: 12px 32px 0;
+}
+
+
+.notification-box {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 12px 16px;
+
+    border-radius: 6px;
+
+    margin-bottom: 10px;
+
+    font-size: 0.95rem;
+}
+
+
+.notification-success {
+    background: #d1fae5;
+
+    color: #065f46;
+
+    border: 1px solid #10b981;
+}
+
+
+.notification-error {
+    background: #fee2e2;
+
+    color: #991b1b;
+
+    border: 1px solid #ef4444;
+}
+
+
+.notification-close {
+    cursor: pointer;
+
+    font-weight: bold;
+
+    margin-left: 12px;
+}
+
+
+/* ============================================================
+   PAGE CONTENT
+   ============================================================ */
+
+.page-content {
+    padding: 32px;
+
+    max-width: 720px;
+
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   CONTACT FORM
+   ============================================================ */
+
+.contact-form {
+    display: flex;
+
+    flex-direction: column;
+
+    max-width: 480px;
+}
+
+
+.contact-form label {
+    margin-top: 12px;
+
+    font-weight: bold;
+}
+
+
+.contact-form input,
+.contact-form textarea {
+    padding: 8px;
+
+    margin-top: 4px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 4px;
+}
+
+
+.contact-form button {
+    margin-top: 18px;
+
+    padding: 10px;
+
+    background: #2563eb;
+
+    color: #fff;
+
+    border: none;
+
+    border-radius: 4px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+
+.contact-form button:hover {
+    background: #1d4ed8;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.site-footer {
+    text-align: center;
+
+    padding: 16px;
+
+    color: #6b7280;
+
+    font-size: 0.85rem;
+}

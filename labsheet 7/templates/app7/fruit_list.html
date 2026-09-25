@@ -1,0 +1,49 @@
+{% extends "app7/base.html" %}
+
+
+{% block content %}
+
+
+{% if fruits %}
+
+    <ul class="fruit-list">
+
+        {% for fruit in fruits %}
+
+            <li>
+
+                {{ fruit.name }}
+
+                {% if fruit.colour %}
+                    &mdash; {{ fruit.colour }}
+                {% endif %}
+
+                {% if not fruit.is_available %}
+                    <em>(out of stock)</em>
+                {% endif %}
+
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+
+    <p>
+        Total fruits: {{ fruits|length }}
+    </p>
+
+
+{% else %}
+
+    <div class="alert">
+
+        No fruits found.
+        The fruit array is currently empty.
+
+    </div>
+
+{% endif %}
+
+
+{% endblock %}

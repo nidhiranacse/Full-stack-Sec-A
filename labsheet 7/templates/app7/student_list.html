@@ -1,0 +1,115 @@
+{% extends "app7/base.html" %}
+
+
+{% block content %}
+
+
+{% if students %}
+
+
+<div class="sort-links">
+
+    Sort by:
+
+    <a href="?sort=position">
+        Position
+    </a>
+
+    <a href="?sort=name">
+        Name (A-Z)
+    </a>
+
+    <a href="?sort=-name">
+        Name (Z-A)
+    </a>
+
+    <a href="?sort=event">
+        Event
+    </a>
+
+    &nbsp; | &nbsp;
+
+    Current:
+    <strong>
+        {{ current_sort }}
+    </strong>
+
+</div>
+
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>
+                <a href="?sort=position">
+                    Position
+                </a>
+            </th>
+
+            <th>
+                <a href="?sort=name">
+                    Student Name
+                </a>
+            </th>
+
+            <th>
+                <a href="?sort=event">
+                    Event
+                </a>
+            </th>
+
+        </tr>
+
+    </thead>
+
+
+    <tbody>
+
+        {% for student in students %}
+
+        <tr>
+
+            <td>
+                {{ student.position }}
+            </td>
+
+            <td>
+                {{ student.name }}
+            </td>
+
+            <td>
+                {{ student.event }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+
+<p>
+    Total students: {{ students|length }}
+</p>
+
+
+{% else %}
+
+
+<div class="alert">
+
+    No students have been selected
+    for this event yet.
+
+</div>
+
+
+{% endif %}
+
+
+{% endblock %}

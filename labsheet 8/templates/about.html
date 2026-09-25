@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+
+About Us
+
+{% endblock %}
+
+
+{% block content %}
+
+<h1>
+    About Us
+</h1>
+
+
+<p>
+    We are a small team demonstrating
+    Jinja2 template inheritance.
+</p>
+
+
+<p>
+    This website uses one master layout,
+    <code>base.html</code>, and specialized
+    child views.
+</p>
+
+
+<p>
+    The child templates override only the
+    <code>content</code> section.
+</p>
+
+{% endblock %}

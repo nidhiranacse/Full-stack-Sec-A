@@ -1,0 +1,15 @@
+[
+    {
+        "key": "ctrl+alt+f",
+        "command": "editor.action.formatDocument",
+        "when": "editorTextFocus && editorLangId == python"
+    },
+    {
+        "key": "ctrl+alt+r",
+        "command": "python.execInTerminal"
+    },
+    {
+        "key": "ctrl+alt+v",
+        "command": "python.createTerminal"
+    }
+]
