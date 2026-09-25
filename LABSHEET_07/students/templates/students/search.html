@@ -1,0 +1,52 @@
+{% extends "students/base.html" %}
+
+{% block title %}Search Students{% endblock %}
+
+{% block content %}
+
+<h1>Search Students</h1>
+
+<form method="get" class="search-form">
+    <input
+        type="text"
+        name="q"
+        value="{{ query }}"
+        placeholder="Search by name or event"
+    >
+
+    <button type="submit">Search</button>
+</form>
+
+{% if searched %}
+
+    {% if results %}
+
+        <h2>Search Results</h2>
+
+        <ul>
+            {% for student in results %}
+                <li>
+                    {{ student.name }}
+                    — {{ student.roll_no }}
+                    — {{ student.event_name }}
+                </li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+
+        <div class="alert alert-warning">
+            No students found for "{{ query }}".
+        </div>
+
+    {% endif %}
+
+{% else %}
+
+    <div class="alert alert-info">
+        Enter a name or event to search for students.
+    </div>
+
+{% endif %}
+
+{% endblock %}
