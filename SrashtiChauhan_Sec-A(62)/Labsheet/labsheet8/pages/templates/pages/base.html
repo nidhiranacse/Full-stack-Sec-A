@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}My Website{% endblock %}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f4f4;
+        }
+
+        nav {
+            background: #222;
+            padding: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 8px 12px;
+        }
+
+        nav a.active {
+            background: #007bff;
+            border-radius: 5px;
+        }
+
+        .message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            margin: 20px;
+            border-radius: 5px;
+        }
+
+        main {
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Shared Navigation -->
+    <nav>
+
+        <a href="{% url 'home' %}"
+           class="{% if active_page == 'home' %}active{% endif %}">
+            Home
+        </a>
+
+        <a href="{% url 'about' %}"
+           class="{% if active_page == 'about' %}active{% endif %}">
+            About Us
+        </a>
+
+        <a href="{% url 'contact' %}"
+           class="{% if active_page == 'contact' %}active{% endif %}">
+            Contact Us
+        </a>
+
+    </nav>
+
+
+    <!-- Persistent Message Area -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <!-- Child Page Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>
