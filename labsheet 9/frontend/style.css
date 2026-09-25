@@ -1,0 +1,319 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef5fc;
+    color: #172554;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.header {
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+
+    color: white;
+
+    padding: 28px 40px;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 8px 20px
+        rgba(37, 99, 235, 0.25);
+}
+
+.icon {
+    font-size: 55px;
+}
+
+.header h1 {
+    font-size: 34px;
+    margin-bottom: 8px;
+}
+
+.header p {
+    font-size: 17px;
+    opacity: 0.95;
+}
+
+
+/* =========================
+   Cards
+========================= */
+
+.card {
+    background: white;
+
+    padding: 28px;
+
+    border-radius: 14px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    color: #1d4ed8;
+
+    font-size: 28px;
+
+    margin-bottom: 22px;
+}
+
+
+/* =========================
+   Form
+========================= */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 16px;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    padding: 13px;
+
+    font-size: 16px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 7px;
+
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37, 99, 235, 0.12);
+}
+
+
+/* =========================
+   Buttons
+========================= */
+
+.button-area {
+    margin-top: 22px;
+
+    display: flex;
+
+    gap: 12px;
+}
+
+.add-btn,
+.cancel-btn {
+    border: none;
+
+    padding: 13px 28px;
+
+    border-radius: 7px;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.add-btn {
+    background: #2563eb;
+}
+
+.add-btn:hover {
+    background: #1d4ed8;
+}
+
+.cancel-btn {
+    background: #64748b;
+
+    display: none;
+}
+
+.cancel-btn:hover {
+    background: #475569;
+}
+
+
+/* =========================
+   Message
+========================= */
+
+#message {
+    margin-top: 18px;
+
+    padding: 12px;
+
+    border-radius: 7px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   Table
+========================= */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+thead {
+    background: #2563eb;
+
+    color: white;
+}
+
+th {
+    padding: 15px;
+
+    text-align: left;
+
+    font-size: 16px;
+}
+
+td {
+    padding: 14px;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    font-size: 16px;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================
+   Action Buttons
+========================= */
+
+.edit-btn,
+.delete-btn {
+    border: none;
+
+    color: white;
+
+    padding: 8px 15px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    margin-right: 5px;
+}
+
+.edit-btn {
+    background: #f59e0b;
+}
+
+.edit-btn:hover {
+    background: #d97706;
+}
+
+.delete-btn {
+    background: #ef4444;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 700px) {
+
+    .container {
+        width: 95%;
+    }
+
+    .header {
+        padding: 22px;
+
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .button-area {
+        flex-direction: column;
+    }
+
+    .add-btn,
+    .cancel-btn {
+        width: 100%;
+    }
+
+}

@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home | MyWebsite
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+
+        <div class="icon">
+            🚀
+        </div>
+
+        <h1>
+            Welcome to MyWebsite
+        </h1>
+
+        <p>
+            A modern and attractive Django website built using
+            Template Inheritance and Modular UI Engineering.
+        </p>
+
+        <a href="{% url 'about' %}" class="hero-btn">
+            Explore More →
+        </a>
+
+    </section>
+
+
+    <!-- SERVICES -->
+
+    <div class="section-title">
+
+        <h2>
+            Our Services
+        </h2>
+
+        <p>
+            We provide modern digital solutions.
+        </p>
+
+    </div>
+
+
+    <div class="service-grid">
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                💻
+            </div>
+
+            <h3>
+                Web Development
+            </h3>
+
+            <p>
+                Modern, responsive and user-friendly
+                websites using latest technologies.
+            </p>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI & Machine Learning
+            </h3>
+
+            <p>
+                Intelligent solutions using
+                Artificial Intelligence and Machine Learning.
+            </p>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                📊
+            </div>
+
+            <h3>
+                Data Analytics
+            </h3>
+
+            <p>
+                Transforming data into useful
+                business insights.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <h2>
+                50+
+            </h2>
+
+            <p>
+                Projects
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h2>
+                100+
+            </h2>
+
+            <p>
+                Clients
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h2>
+                5+
+            </h2>
+
+            <p>
+                Years Experience
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- TESTIMONIALS -->
+
+    <div class="section-title">
+
+        <h2>
+            What Our Clients Say
+        </h2>
+
+        <p>
+            Feedback from our happy clients.
+        </p>
+
+    </div>
+
+
+    <div class="testimonial-grid">
+
+
+        <div class="testimonial">
+
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p>
+                "Amazing service and professional team.
+                The website looks fantastic!"
+            </p>
+
+            <strong>
+                — Rahul Sharma
+            </strong>
+
+        </div>
+
+
+        <div class="testimonial">
+
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p>
+                "Very clean design and excellent
+                user experience."
+            </p>
+
+            <strong>
+                — Priya Singh
+            </strong>
+
+        </div>
+
+
+        <div class="testimonial">
+
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p>
+                "Great support and modern technology.
+                Highly recommended!"
+            </p>
+
+            <strong>
+                — Aman Verma
+            </strong>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}
