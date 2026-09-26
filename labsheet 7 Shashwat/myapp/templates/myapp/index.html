@@ -1,0 +1,43 @@
+{% extends "myapp/base.html" %}
+{% block title %}Task 7.1 – Collections{% endblock %}
+
+{% block content %}
+<h1>Task 7.1 – Django Array Collections</h1>
+<p class="subtitle">Fruits (unordered list) &amp; Selected Event Students (ordered list) with empty-array fallback.</p>
+
+<!-- ── FRUITS ── -->
+<div class="card">
+  <h2>🍎 Fruits <small style="font-size:0.75rem;color:#64748b;">(Unordered List)</small></h2>
+
+  {% if fruits %}
+    <ul class="fruit-list">
+      {% for fruit in fruits %}
+        <li>
+          <span class="dot" style="background:{{ fruit.color|lower }};"></span>
+          {{ fruit.name }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="alert">⚠️ No fruits found in the database. Please add some via the admin panel.</div>
+  {% endif %}
+</div>
+
+<!-- ── STUDENTS ── -->
+<div class="card">
+  <h2>🎓 Selected Event Students <small style="font-size:0.75rem;color:#64748b;">(Ordered List)</small></h2>
+
+  {% if students %}
+    <ol class="student-list">
+      {% for student in students %}
+        <li>
+          <strong>{{ student.name }}</strong>
+          <span>— {{ student.event }} &nbsp;|&nbsp; Roll: {{ student.roll_number }}</span>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <div class="alert">⚠️ No students found in the database. Please add some via the admin panel.</div>
+  {% endif %}
+</div>
+{% endblock %}

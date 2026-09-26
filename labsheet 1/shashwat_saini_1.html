@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Personal Website</title>
+
+    <meta name="description"
+        content="A semantic HTML5 webpage containing a resume, navigation menu, and product catalog.">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        header p {
+            margin: 5px 0;
+        }
+
+        nav {
+            background: #111827;
+        }
+
+        nav > ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            display: block;
+            padding: 14px 22px;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            background: #374151;
+        }
+
+        /* Dropdown Menu */
+        nav li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 180px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            background: #1f2937;
+            z-index: 100;
+        }
+
+        nav li:hover > ul,
+        nav li:focus-within > ul {
+            display: block;
+        }
+
+        nav li ul li {
+            width: 100%;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background: white;
+            margin-bottom: 25px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        section h2 {
+            margin-top: 0;
+            color: #1f2937;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+
+        .profile {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        address {
+            font-style: normal;
+        }
+
+        a {
+            color: #2563eb;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            background: #e5e7eb;
+            padding: 7px 14px;
+            border-radius: 20px;
+        }
+
+        .links li {
+            margin: 8px 0;
+        }
+
+        .catalog-item {
+            border-left: 4px solid #374151;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .catalog-item:last-child {
+            margin-bottom: 0;
+        }
+
+        dt {
+            font-weight: bold;
+            margin-top: 12px;
+            color: #111827;
+        }
+
+        dd {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer a {
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            nav > ul {
+                flex-direction: column;
+            }
+
+            nav li ul {
+                position: static;
+                width: 100%;
+            }
+
+            .profile {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header id="home">
+        <h1>Shashwat Saini</h1>
+        <p>B.Tech Computer Science Engineering Student</p>
+        <p>Web Development • Programming • Technology</p>
+    </header>
+
+
+    <!-- Navigation -->
+    <nav aria-label="Main Navigation">
+        <ul>
+
+            <li>
+                <a href="#about">About</a>
+
+                <ul>
+                    <li>
+                        <a href="#education">Education</a>
+                    </li>
+
+                    <li>
+                        <a href="#skills">Skills</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#links">Links</a>
+
+                <ul>
+                    <li>
+                        <a href="#internal">Internal Links</a>
+                    </li>
+
+                    <li>
+                        <a href="#external">External Links</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#catalog">Catalog</a>
+
+                <ul>
+                    <li>
+                        <a href="#laptop">Laptop</a>
+                    </li>
+
+                    <li>
+                        <a href="#smartphone">Smartphone</a>
+                    </li>
+
+                    <li>
+                        <a href="#headphones">Headphones</a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+
+
+    <main>
+
+        <!-- Resume -->
+        <section id="about">
+
+            <h2>About Me</h2>
+
+            <div class="profile">
+
+                <div>
+                    <h3>Shashwat Saini</h3>
+
+                    <p>
+                        I am a Computer Science Engineering student interested
+                        in software development, web technologies, programming
+                        and artificial intelligence.
+                    </p>
+                </div>
+
+                <address>
+                    <strong>Contact</strong><br>
+                    Email:
+                    <a href="mailto:student@example.com">
+                        student@example.com
+                    </a>
+                    <br>
+                    Phone: +91-XXXXXXXXXX
+                    <br>
+                    Location: Uttarakhand, India
+                </address>
+
+            </div>
+
+
+            <section id="education">
+
+                <h3>Education</h3>
+
+                <article>
+                    <h4>B.Tech - Computer Science Engineering</h4>
+
+                    <p>
+                        <strong>COER University</strong>
+                    </p>
+
+                    <p>
+                        Currently pursuing undergraduate studies in
+                        Computer Science Engineering.
+                    </p>
+                </article>
+
+            </section>
+
+
+            <section id="skills">
+
+                <h3>Skills</h3>
+
+                <div class="skills">
+                    <span class="skill">HTML5</span>
+                    <span class="skill">CSS3</span>
+                    <span class="skill">JavaScript</span>
+                    <span class="skill">React</span>
+                    <span class="skill">Python</span>
+                    <span class="skill">C++</span>
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- Links -->
+        <section id="links">
+
+            <h2>Useful Links</h2>
+
+            <section id="internal">
+
+                <h3>Internal Links</h3>
+
+                <ul class="links">
+                    <li>
+                        <a href="#home">Home</a>
+                    </li>
+
+                    <li>
+                        <a href="#about">About Me</a>
+                    </li>
+
+                    <li>
+                        <a href="#catalog">Product Catalog</a>
+                    </li>
+
+                    <li>
+                        <a href="#contact">Contact</a>
+                    </li>
+                </ul>
+
+            </section>
+
+
+            <section id="external">
+
+                <h3>External Links</h3>
+
+                <ul class="links">
+
+                    <li>
+                        <a href="https://www.google.com"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Google
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://developer.mozilla.org/"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            MDN Web Docs
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.w3.org/"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            W3C
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://github.com/"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            GitHub
+                        </a>
+                    </li>
+
+                </ul>
+
+            </section>
+
+        </section>
+
+
+        <!-- Product Catalog -->
+        <section id="catalog">
+
+            <h2>Product Catalog</h2>
+
+            <article class="catalog-item" id="laptop">
+
+                <h3>Laptop</h3>
+
+                <dl>
+
+                    <dt>Product Name</dt>
+                    <dd>Professional Laptop</dd>
+
+                    <dt>Category</dt>
+                    <dd>Computer</dd>
+
+                    <dt>Processor</dt>
+                    <dd>Intel Core i5</dd>
+
+                    <dt>Memory</dt>
+                    <dd>16 GB RAM</dd>
+
+                    <dt>Storage</dt>
+                    <dd>512 GB SSD</dd>
+
+                    <dt>Display</dt>
+                    <dd>15.6-inch Full HD</dd>
+
+                    <dt>Operating System</dt>
+                    <dd>Windows 11</dd>
+
+                    <dt>Price</dt>
+                    <dd>₹60,000</dd>
+
+                </dl>
+
+            </article>
+
+
+            <article class="catalog-item" id="smartphone">
+
+                <h3>Smartphone</h3>
+
+                <dl>
+
+                    <dt>Product Name</dt>
+                    <dd>Smartphone X</dd>
+
+                    <dt>Category</dt>
+                    <dd>Mobile Phone</dd>
+
+                    <dt>Processor</dt>
+                    <dd>Octa-Core Processor</dd>
+
+                    <dt>Memory</dt>
+                    <dd>8 GB RAM</dd>
+
+                    <dt>Storage</dt>
+                    <dd>128 GB</dd>
+
+                    <dt>Display</dt>
+                    <dd>6.5-inch Full HD</dd>
+
+                    <dt>Camera</dt>
+                    <dd>50 MP Primary Camera</dd>
+
+                    <dt>Price</dt>
+                    <dd>₹25,000</dd>
+
+                </dl>
+
+            </article>
+
+
+            <article class="catalog-item" id="headphones">
+
+                <h3>Wireless Headphones</h3>
+
+                <dl>
+
+                    <dt>Product Name</dt>
+                    <dd>Wireless Headphones Pro</dd>
+
+                    <dt>Category</dt>
+                    <dd>Audio Accessories</dd>
+
+                    <dt>Connectivity</dt>
+                    <dd>Bluetooth 5.3</dd>
+
+                    <dt>Battery Life</dt>
+                    <dd>Up to 30 hours</dd>
+
+                    <dt>Features</dt>
+                    <dd>Active Noise Cancellation</dd>
+
+                    <dt>Charging</dt>
+                    <dd>USB Type-C</dd>
+
+                    <dt>Price</dt>
+                    <dd>₹5,000</dd>
+
+                </dl>
+
+            </article>
+
+        </section>
+
+
+        <!-- Contact -->
+        <section id="contact">
+
+            <h2>Contact</h2>
+
+            <p>
+                Email:
+                <a href="mailto:student@example.com">
+                    student@example.com
+                </a>
+            </p>
+
+            <p>
+                Phone: +91-XXXXXXXXXX
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            &copy; 2026 Shashwat Saini. All Rights Reserved.
+        </p>
+
+        <p>
+            <a href="#home">Back to Top</a>
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

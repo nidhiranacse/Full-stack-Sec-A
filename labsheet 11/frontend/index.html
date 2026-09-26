@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CampusConnect – Student Event & Resource Management Portal. Find and register for college events, download study resources.">
+    <title>CampusConnect – Student Event & Resource Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" onclick="navigateTo('home')">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Campus<span class="accent">Connect</span></span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="navigateTo('home')" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#" onclick="navigateTo('events')" data-page="events"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                <li><a href="#" onclick="navigateTo('resources')" data-page="resources"><i class="fas fa-book"></i> Resources</a></li>
+                <li id="navMyEvents" style="display:none"><a href="#" onclick="navigateTo('my-events')" data-page="my-events"><i class="fas fa-ticket-alt"></i> My Events</a></li>
+                <li id="navAdmin" style="display:none"><a href="#" onclick="navigateTo('admin')" data-page="admin"><i class="fas fa-cog"></i> Admin</a></li>
+                <li id="navLogin"><a href="#" onclick="navigateTo('login')" data-page="login" class="nav-btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li id="navUser" style="display:none">
+                    <div class="nav-user-menu">
+                        <button class="nav-user-btn" id="navUserBtn">
+                            <div class="nav-avatar" id="navAvatar">S</div>
+                            <span id="navUserName">Student</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="nav-dropdown" id="navDropdown">
+                            <a href="#" onclick="navigateTo('profile')"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="mainContent">
+        <!-- Pages will be rendered here dynamically -->
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3><i class="fas fa-graduation-cap"></i> Campus<span class="accent">Connect</span></h3>
+                    <p>Your one-stop portal for campus events, hackathons, workshops, and study resources.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="#" onclick="navigateTo('events')">Browse Events</a>
+                    <a href="#" onclick="navigateTo('resources')">Study Resources</a>
+                    <a href="#" onclick="navigateTo('login')">Student Login</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Event Categories</h4>
+                    <a href="#" onclick="navigateTo('events', 'workshop')">Workshops</a>
+                    <a href="#" onclick="navigateTo('events', 'hackathon')">Hackathons</a>
+                    <a href="#" onclick="navigateTo('events', 'placement')">Placements</a>
+                    <a href="#" onclick="navigateTo('events', 'seminar')">Seminars</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Connect</h4>
+                    <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CampusConnect. Built with ❤️ for students.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== TOAST NOTIFICATION ========== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ========== MODAL ========== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modalClose" onclick="closeModal()">&times;</button>
+            <div class="modal-content" id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/pages.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

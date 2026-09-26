@@ -1,0 +1,52 @@
+[
+  {
+    "_id": "8f5b118b-68de-4b68-b2a1-affd8ba926aa",
+    "name": "mohit",
+    "rollNo": "CU48865940",
+    "course": "BCA",
+    "marks": 84,
+    "grade": "A+",
+    "createdAt": "2026-09-10T04:15:08.931Z",
+    "updatedAt": "2026-09-10T04:15:08.931Z"
+  },
+  {
+    "_id": "c35f16e8-372f-45b8-bb18-f6046cb82647",
+    "name": "varun",
+    "rollNo": "CU35849494",
+    "course": "B.Tech ECE",
+    "marks": 68,
+    "grade": "B+",
+    "createdAt": "2026-09-10T04:14:31.356Z",
+    "updatedAt": "2026-09-10T04:14:31.356Z"
+  },
+  {
+    "_id": "1e2dbbe0-b396-409d-9ca0-49a51d73da21",
+    "name": "rohan",
+    "rollNo": "CU57767688",
+    "course": "MCA",
+    "marks": 83,
+    "grade": "A+",
+    "createdAt": "2026-09-10T04:09:28.603Z",
+    "updatedAt": "2026-09-10T04:09:28.603Z"
+  },
+  {
+    "_id": "3cf696d2-05d3-4ee6-b256-978aba6d079c",
+    "name": "ram",
+    "rollNo": "CU24594495",
+    "course": "B.Tech IT",
+    "marks": 79,
+    "grade": "A",
+    "createdAt": "2026-09-10T04:09:03.708Z",
+    "updatedAt": "2026-09-10T04:09:03.708Z"
+  },
+  {
+    "_id": "51abd72e-0dc5-4957-a156-e761cc43e3fd",
+    "name": "shashwat saini",
+    "rollNo": "CU224250052",
+    "course": "B.Tech CSE",
+    "marks": 85,
+    "grade": "A+",
+    "createdAt": "2026-09-10T04:07:41.070Z",
+    "updatedAt": "2026-09-10T04:07:41.070Z"
+  }
+]

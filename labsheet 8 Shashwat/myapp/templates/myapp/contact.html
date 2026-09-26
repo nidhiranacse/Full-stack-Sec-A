@@ -1,0 +1,87 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}Contact Us – Lab Sheet 8{% endblock %}
+
+{# Task 8.2 – persistent tip notification on Contact page #}
+{% block notification %}
+  <div class="alert alert-info">
+    <span class="alert-icon">✉️</span>
+    <span>Fill in all fields and submit. Your message will be <strong>verified and logged</strong> to the server console (Task 8.3).</span>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="tag">Task 8.3</div>
+  <h1>Contact Us</h1>
+  <p class="page-sub">Submit verified feedback — forwarded to server logs via Django's logging system.</p>
+
+  <div class="card">
+    <h2>✉️ Send a Message</h2>
+
+    {# POST form – CSRF protected, handled by contact() view #}
+    <form method="POST" action="/contact/">
+      {% csrf_token %}
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Shashwat Saini"
+            value="{{ form_data.name|default:'' }}"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            value="{{ form_data.email|default:'' }}"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject *</label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          placeholder="Lab Sheet 8 Feedback"
+          value="{{ form_data.subject|default:'' }}"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message *</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          placeholder="Write your message here..."
+          required
+        >{{ form_data.message|default:'' }}</textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">🚀 Send Message</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>📋 How Task 8.3 Works</h2>
+    <p style="color:#94a3b8;font-size:0.9rem;line-height:1.75;">
+      On form submit, the <code style="color:#38bdf8;">contact()</code> view validates all fields,
+      then calls <code style="color:#818cf8;">contact_logger.info(...)</code> which writes
+      the submission to the <strong style="color:#e2e8f0;">server console</strong> via Django's
+      <code style="color:#38bdf8;">LOGGING</code> configuration in <code>settings.py</code>.
+      Check your terminal after submitting!
+    </p>
+  </div>
+{% endblock %}

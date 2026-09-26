@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "campusconnect-api",
+		"name": "CampusConnect API Collection",
+		"description": "Complete API collection for CampusConnect - Student Event & Resource Management Portal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000/api"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	],
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register Student",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Test Student\",\n  \"email\": \"test@student.com\",\n  \"password\": \"test1234\"\n}"
+						},
+						"url": "{{base_url}}/auth/register"
+					}
+				},
+				{
+					"name": "Login (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@campus.com\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": "{{base_url}}/auth/login"
+					}
+				},
+				{
+					"name": "Login (Student)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"aarav@student.com\",\n  \"password\": \"student123\"\n}"
+						},
+						"url": "{{base_url}}/auth/login"
+					}
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": "{{base_url}}/auth/me"
+					}
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get All Events",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/events?page=1&limit=9&category=&search=",
+							"host": ["{{base_url}}"],
+							"path": ["events"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "9"},
+								{"key": "category", "value": ""},
+								{"key": "search", "value": ""}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Event by ID",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/events/1"
+					}
+				},
+				{
+					"name": "Create Event (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"},
+							{"key": "Authorization", "value": "Bearer {{token}}"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"New Workshop\",\n  \"description\": \"A great workshop\",\n  \"category\": \"workshop\",\n  \"event_date\": \"2026-12-01\",\n  \"event_time\": \"10:00\",\n  \"venue\": \"Room 101\",\n  \"total_seats\": 30\n}"
+						},
+						"url": "{{base_url}}/events"
+					}
+				},
+				{
+					"name": "Update Event (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"},
+							{"key": "Authorization", "value": "Bearer {{token}}"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Updated Workshop Title\",\n  \"total_seats\": 50\n}"
+						},
+						"url": "{{base_url}}/events/1"
+					}
+				},
+				{
+					"name": "Delete Event (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": "{{base_url}}/events/1"
+					}
+				},
+				{
+					"name": "Get Event Registrations (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": "{{base_url}}/events/1/registrations"
+					}
+				}
+			]
+		},
+		{
+			"name": "Registrations",
+			"item": [
+				{
+					"name": "Register for Event (Student)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": "{{base_url}}/registrations/1"
+					}
+				},
+				{
+					"name": "Unregister from Event (Student)",
+					"request": {
+						"method": "DELETE",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": "{{base_url}}/registrations/1"
+					}
+				},
+				{
+					"name": "My Registered Events (Student)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": "{{base_url}}/registrations/my-events"
+					}
+				},
+				{
+					"name": "Check Registration Status",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": "{{base_url}}/registrations/check/1"
+					}
+				}
+			]
+		},
+		{
+			"name": "Resources",
+			"item": [
+				{
+					"name": "Get All Resources",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/resources?page=1&limit=12&category=&search=",
+							"host": ["{{base_url}}"],
+							"path": ["resources"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "12"},
+								{"key": "category", "value": ""},
+								{"key": "search", "value": ""}
+							]
+						}
+					}
+				},
+				{
+					"name": "Upload Resource (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{"key": "title", "value": "Test Notes", "type": "text"},
+								{"key": "description", "value": "Test description", "type": "text"},
+								{"key": "category", "value": "notes", "type": "text"},
+								{"key": "subject", "value": "Test Subject", "type": "text"},
+								{"key": "file", "type": "file", "src": ""}
+							]
+						},
+						"url": "{{base_url}}/resources"
+					}
+				},
+				{
+					"name": "Download Resource",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/resources/download/1"
+					}
+				},
+				{
+					"name": "Delete Resource (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": "{{base_url}}/resources/1"
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Get Dashboard Stats",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": "{{base_url}}/admin/stats"
+					}
+				},
+				{
+					"name": "Get All Students",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+						"url": "{{base_url}}/admin/users"
+					}
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "API Health",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/health"
+					}
+				}
+			]
+		}
+	]
+}

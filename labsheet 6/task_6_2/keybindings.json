@@ -1,0 +1,50 @@
+[
+    // ============================================================
+    // Task 6.2: Custom Keyboard Shortcuts for Python Development
+    // Copy this file to .vscode/keybindings.json
+    // ============================================================
+
+    // --- Run Python File ---
+    {
+        "key": "ctrl+shift+r",
+        "command": "python.execInTerminal",
+        "when": "editorLangId == python"
+    },
+
+    // --- Format Document (Black) ---
+    {
+        "key": "ctrl+alt+f",
+        "command": "editor.action.formatDocument",
+        "when": "editorLangId == python"
+    },
+
+    // --- Organize Imports (isort) ---
+    {
+        "key": "ctrl+alt+o",
+        "command": "editor.action.organizeImports",
+        "when": "editorLangId == python"
+    },
+
+    // --- Toggle Linting ---
+    {
+        "key": "ctrl+alt+l",
+        "command": "python.enableLinting",
+        "when": "editorLangId == python"
+    },
+
+    // --- Run Django Dev Server ---
+    {
+        "key": "ctrl+shift+d",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": { "text": "python manage.py runserver\n" },
+        "when": "terminalFocus"
+    },
+
+    // --- Run Django Migrations ---
+    {
+        "key": "ctrl+shift+m",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": { "text": "python manage.py migrate\n" },
+        "when": "terminalFocus"
+    }
+]
