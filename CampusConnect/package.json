@@ -1,0 +1,14 @@
+{
+  "name": "campusconnect",
+  "version": "1.0.0",
+  "description": "CampusConnect - Student Event & Resource Management Portal (B.Tech CSE Full Stack Lab)",
+  "scripts": {
+    "seed": "cd backend && npm run seed",
+    "test": "cd backend && npm test",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build"
+  },
+  "author": "Afroj",
+  "license": "ISC"
+}

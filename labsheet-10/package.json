@@ -1,0 +1,20 @@
+{
+  "name": "campusconnect-root",
+  "version": "1.0.0",
+  "description": "CampusConnect - College Event and Announcement Portal (Lab Sheet 10)",
+  "scripts": {
+    "seed": "npm --prefix backend run seed",
+    "test:backend": "npm --prefix backend test",
+    "test:frontend": "npm --prefix frontend test",
+    "test": "npm run test:backend && npm run test:frontend",
+    "benchmark": "npm --prefix backend run benchmark",
+    "benchmark:py": "powershell -Command \"& '..\\venv\\Scripts\\Activate.ps1'; python backend\\benchmark\\benchmark.py\"",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down -v"
+  },
+  "keywords": ["campusconnect", "fullstack", "jwt", "rbac", "socket.io", "redis", "docker"],
+  "author": "Afroj",
+  "license": "ISC"
+}

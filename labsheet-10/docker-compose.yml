@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  # MongoDB Database Service with persistent volume
+  mongodb:
+    image: mongo:6.0
+    container_name: campusconnect-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - campusconnect-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis In-Memory Cache Service
+  redis:
+    image: redis:7-alpine
+    container_name: campusconnect-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - campusconnect-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Express & Socket.io Backend API Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: campusconnect-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongodb:27017/campusconnect
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=supersecret_jwt_access_token_key_labsheet10_prod
+      - JWT_EXPIRES_IN=15m
+      - REFRESH_SECRET=supersecret_jwt_refresh_token_key_labsheet10_prod
+      - REFRESH_EXPIRES_IN=7d
+      - CLIENT_URL=http://localhost:3000
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - campusconnect-network
+
+  # React Frontend Service (Multi-stage Nginx build)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: campusconnect-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - campusconnect-network
+
+volumes:
+  mongo-data:
+    name: campusconnect-mongo-data
+
+networks:
+  campusconnect-network:
+    name: campusconnect-network
+    driver: bridge

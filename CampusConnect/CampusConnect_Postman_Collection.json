@@ -1,0 +1,286 @@
+{
+  "info": {
+    "_postman_id": "c7a8b9f0-1234-4567-89ab-cdef01234567",
+    "name": "CampusConnect API Collection",
+    "description": "Comprehensive Postman collection for CampusConnect: Student Event & Resource Management Portal (B.Tech CSE Full Stack Lab).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "studentToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "sampleEventId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "sampleResourceId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register Student",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Student Demo\",\n  \"email\": \"newstudent@campusconnect.edu\",\n  \"password\": \"password123\",\n  \"role\": \"student\",\n  \"department\": \"Computer Science & Engineering\",\n  \"semester\": 6\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "Login Student",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json.token) { pm.collectionVariables.set('studentToken', json.token); }"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@campusconnect.edu\",\n  \"password\": \"student123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json.token) { pm.collectionVariables.set('adminToken', json.token); }"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@campusconnect.edu\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Current User Profile (/me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{studentToken}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Events Module",
+      "item": [
+        {
+          "name": "Get All Events (Search & Pagination)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/events?page=1&limit=9&search=&category=All&filter=upcoming",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "9" },
+                { "key": "search", "value": "" },
+                { "key": "category", "value": "All" },
+                { "key": "filter", "value": "upcoming" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Event By ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/events/{{sampleEventId}}", "host": ["{{baseUrl}}"], "path": ["events", "{{sampleEventId}}"] }
+          }
+        },
+        {
+          "name": "Create Event (Admin Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Cloud Native DevOps Masterclass\",\n  \"description\": \"Comprehensive Docker, Kubernetes & Terraform workshop with industry certification.\",\n  \"category\": \"Workshop\",\n  \"date\": \"2026-10-15\",\n  \"time\": \"10:00 AM - 02:00 PM\",\n  \"venue\": \"Lab 204, CSE Block\",\n  \"totalSeats\": 40\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/events", "host": ["{{baseUrl}}"], "path": ["events"] }
+          }
+        },
+        {
+          "name": "Register For Event (Student)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{studentToken}}" }],
+            "url": { "raw": "{{baseUrl}}/events/{{sampleEventId}}/register", "host": ["{{baseUrl}}"], "path": ["events", "{{sampleEventId}}", "register"] }
+          }
+        },
+        {
+          "name": "Cancel Event Registration (Student)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{studentToken}}" }],
+            "url": { "raw": "{{baseUrl}}/events/{{sampleEventId}}/unregister", "host": ["{{baseUrl}}"], "path": ["events", "{{sampleEventId}}", "unregister"] }
+          }
+        },
+        {
+          "name": "Get Event Attendees (Admin Only)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/events/{{sampleEventId}}/attendees", "host": ["{{baseUrl}}"], "path": ["events", "{{sampleEventId}}", "attendees"] }
+          }
+        },
+        {
+          "name": "Update Event (Admin Only)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"totalSeats\": 60,\n  \"venue\": \"Main Auditorium\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/events/{{sampleEventId}}", "host": ["{{baseUrl}}"], "path": ["events", "{{sampleEventId}}"] }
+          }
+        },
+        {
+          "name": "Delete Event (Admin Only)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/events/{{sampleEventId}}", "host": ["{{baseUrl}}"], "path": ["events", "{{sampleEventId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Academic Resources Module",
+      "item": [
+        {
+          "name": "Get All Resources (Filter by Semester & Subject)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/resources?semester=6&category=All&page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources"],
+              "query": [
+                { "key": "semester", "value": "6" },
+                { "key": "category", "value": "All" },
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Upload Academic Resource (Admin Only)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "Compiler Design Syntax Directed Translation Notes", "type": "text" },
+                { "key": "subject", "value": "Compiler Design", "type": "text" },
+                { "key": "semester", "value": "6", "type": "text" },
+                { "key": "category", "value": "Notes", "type": "text" },
+                { "key": "file", "type": "file", "src": "" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/resources", "host": ["{{baseUrl}}"], "path": ["resources"] }
+          }
+        },
+        {
+          "name": "Download Resource File",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/resources/{{sampleResourceId}}/download", "host": ["{{baseUrl}}"], "path": ["resources", "{{sampleResourceId}}", "download"] }
+          }
+        },
+        {
+          "name": "Delete Resource (Admin Only)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/resources/{{sampleResourceId}}", "host": ["{{baseUrl}}"], "path": ["resources", "{{sampleResourceId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Dashboards & Analytics",
+      "item": [
+        {
+          "name": "Student Dashboard (My Events & History)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{studentToken}}" }],
+            "url": { "raw": "{{baseUrl}}/dashboard/student", "host": ["{{baseUrl}}"], "path": ["dashboard", "student"] }
+          }
+        },
+        {
+          "name": "Admin Dashboard (Aggregated Analytics)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/dashboard/admin", "host": ["{{baseUrl}}"], "path": ["dashboard", "admin"] }
+          }
+        },
+        {
+          "name": "Query Benchmark (Explain Stats Index Bonus)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/dashboard/benchmark", "host": ["{{baseUrl}}"], "path": ["dashboard", "benchmark"] }
+          }
+        }
+      ]
+    }
+  ]
+}
