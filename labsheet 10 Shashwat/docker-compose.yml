@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  # ── Backend ────────────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+    container_name: campusconnect-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      PORT:                  5000
+      NODE_ENV:              production
+      ACCESS_TOKEN_SECRET:   campus_access_secret_docker_2024
+      REFRESH_TOKEN_SECRET:  campus_refresh_secret_docker_2024
+      CLIENT_URL:            http://localhost:5173
+    volumes:
+      - sqlite_data:/app/data    # persist the SQLite DB file
+
+  # ── Frontend ───────────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL:    http://localhost:5000/api
+        VITE_SOCKET_URL: http://localhost:5000
+    container_name: campusconnect-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+# ── Volumes ────────────────────────────────────────────────────────────────
+volumes:
+  sqlite_data:
+    driver: local
