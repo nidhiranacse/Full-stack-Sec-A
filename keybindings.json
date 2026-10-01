@@ -1,0 +1,6 @@
+[
+  { "key": "ctrl+alt+f", "command": "editor.action.formatDocument", "when": "editorLangId == python" },
+  { "key": "ctrl+alt+r", "command": "python.execInTerminal", "when": "editorLangId == python" },
+  { "key": "ctrl+alt+o", "command": "editor.action.organizeImports", "when": "editorLangId == python" },
+  { "key": "ctrl+alt+t", "command": "workbench.action.tasks.runTask", "args": "Django: runserver" }
+]

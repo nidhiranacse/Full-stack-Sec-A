@@ -1,0 +1,15 @@
+{
+  "info": { "name": "Student Records API", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "variable": [{ "key": "base", "value": "http://localhost:5000" }, { "key": "id", "value": "" }],
+  "item": [
+    { "name": "Add student", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": { "mode": "raw", "raw": "{\n  \"name\": \"Asha Rawat\",\n  \"rollNo\": \"CS101\",\n  \"course\": \"B.Tech CSE\",\n  \"marks\": 88\n}" },
+      "url": "{{base}}/students" } },
+    { "name": "Get all", "request": { "method": "GET", "url": "{{base}}/students" } },
+    { "name": "Get one", "request": { "method": "GET", "url": "{{base}}/students/{{id}}" } },
+    { "name": "Update", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": { "mode": "raw", "raw": "{\n  \"name\": \"Asha Rawat\",\n  \"rollNo\": \"CS101\",\n  \"course\": \"B.Tech CSE\",\n  \"marks\": 92\n}" },
+      "url": "{{base}}/students/{{id}}" } },
+    { "name": "Delete", "request": { "method": "DELETE", "url": "{{base}}/students/{{id}}" } }
+  ]
+}
