@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruits and Selected Event Students</title>
+</head>
+
+<body>
+
+    <h1>Fruits Collection</h1>
+
+    {% if fruits %}
+        <ul>
+            {% for fruit in fruits %}
+                <li>{{ fruit.name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p style="color: red;">
+            No fruits are available.
+        </p>
+    {% endif %}
+
+
+   <h1>Selected Event Students</h1>
+
+<!-- Search form -->
+<form method="get">
+    <label for="search">Search Student:</label>
+
+    <input
+        type="text"
+        name="search"
+        id="search"
+        placeholder="Enter student name"
+        value="{{ search }}"
+    >
+
+    <button type="submit">Search</button>
+</form>
+
+<br>
+
+<!-- Sorting controls -->
+<form method="get">
+
+    <!-- Keep the search value when sorting -->
+    <input type="hidden" name="search" value="{{ search }}">
+
+    <label for="sort">Sort by:</label>
+
+    <select name="sort" id="sort">
+
+        <option value="name" {% if sort == "name" %}selected{% endif %}>
+            Name A-Z
+        </option>
+
+        <option value="-name" {% if sort == "-name" %}selected{% endif %}>
+            Name Z-A
+        </option>
+
+        <option value="event" {% if sort == "event" %}selected{% endif %}>
+            Event A-Z
+        </option>
+
+        <option value="-event" {% if sort == "-event" %}selected{% endif %}>
+            Event Z-A
+        </option>
+
+    </select>
+
+    <button type="submit">Sort</button>
+
+</form>
+
+    <br>
+
+    {% if students %}
+
+        <table border="1" cellpadding="10">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Event</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.event }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p style="color: red;">
+            No students are available.
+        </p>
+
+    {% endif %}
+
+</body>
+</html>

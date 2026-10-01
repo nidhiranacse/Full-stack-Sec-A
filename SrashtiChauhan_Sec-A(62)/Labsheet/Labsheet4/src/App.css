@@ -1,0 +1,159 @@
+.navbar {
+    height: 70px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 60px;
+}
+
+.navbar h2 {
+    color: #4f46e5;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a:hover {
+    color: #4f46e5;
+}
+
+.page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 70px 30px;
+}
+
+.home {
+    text-align: center;
+}
+
+.home h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.home p {
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+.primary-btn {
+    display: inline-block;
+    background: #4f46e5;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 8px;
+}
+
+.products-grid {
+    margin-top: 30px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.product-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.product-card h3 {
+    margin-bottom: 15px;
+}
+
+.product-card p {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.card-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-buttons a,
+.card-buttons button,
+.product-details button {
+    border: none;
+    padding: 10px 14px;
+    border-radius: 7px;
+    background: #4f46e5;
+    color: white;
+    text-align: center;
+}
+
+.loading {
+    text-align: center;
+    font-size: 24px;
+}
+
+.product-details {
+    background: white;
+    border-radius: 15px;
+    margin-top: 50px;
+}
+
+.product-details h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.product-details h2 {
+    margin-bottom: 20px;
+}
+
+.product-details p {
+    color: #6b7280;
+    margin-bottom: 25px;
+}
+
+.not-found {
+    text-align: center;
+}
+
+.not-found h1 {
+    font-size: 100px;
+    color: #4f46e5;
+}
+
+@media (max-width: 800px) {
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home h1 {
+        font-size: 35px;
+    }
+}
