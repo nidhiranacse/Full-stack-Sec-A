@@ -1,0 +1,8 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "Django: runserver", "type": "shell", "command": "${workspaceFolder}/.venv/bin/python manage.py runserver", "problemMatcher": [] },
+    { "label": "PEP8: flake8 check", "type": "shell", "command": "${workspaceFolder}/.venv/bin/flake8 .", "problemMatcher": [] },
+    { "label": "Deploy check", "type": "shell", "command": "./deploy_check.sh", "problemMatcher": [] }
+  ]
+}
