@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+  push:
+    branches:
+      - main
+
+jobs:
+  problem1:
+    name: Problem 1 - Node.js API
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Labsheet 12/Problem1
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: Labsheet 12/Problem1/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+  problem3:
+    name: Problem 3 - React
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Labsheet 12/Problem3
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: Labsheet 12/Problem3/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build React application
+        run: npm run build
+
+  deploy:
+    name: Deploy
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs:
+      - problem1
+      - problem3
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: echo "Deploying application..."

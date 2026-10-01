@@ -1,0 +1,14 @@
+{
+  "name": "secure-task-manager-api",
+  "version": "1.0.0",
+  "description": "Secure Task Manager API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
