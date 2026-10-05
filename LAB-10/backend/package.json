@@ -1,0 +1,31 @@
+{
+  "name": "campusconnect-backend",
+  "version": "1.0.0",
+  "description": "Backend API for CampusConnect - Student Event & Resource Management Portal",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node src/utils/seed.js",
+    "benchmark": "node src/utils/benchmarkIndex.js",
+    "test": "jest --runInBand --detectOpenHandles --forceExit"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 10000
+  }
+}

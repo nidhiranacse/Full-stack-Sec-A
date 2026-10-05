@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickBite - Mini Food Delivery</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand" onclick="navigateTo('menu')">
+        <span class="brand-icon">🍕</span>
+        <div>
+          <span class="brand-title">QuickBite</span>
+          <span class="brand-subtitle">Delicious Food Delivered Fast</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <button id="nav-menu" class="nav-btn active" onclick="navigateTo('menu')">
+          <span class="nav-icon">📋</span> Menu
+        </button>
+        <button id="nav-orders" class="nav-btn" onclick="navigateTo('orders')">
+          <span class="nav-icon">📦</span> Orders <span id="orders-badge" class="badge-pill">0</span>
+        </button>
+        <button id="nav-admin" class="nav-btn" onclick="navigateTo('admin')">
+          <span class="nav-icon">⚙️</span> Admin Panel
+        </button>
+        <button id="cart-toggle-btn" class="cart-btn" onclick="toggleCartDrawer()">
+          <span class="cart-icon">🛒</span>
+          <span class="cart-label">Cart</span>
+          <span id="cart-count" class="cart-badge">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <!-- VIEW 1: MENU -->
+    <section id="view-menu" class="view-section active">
+      <div class="hero-banner">
+        <div class="hero-text">
+          <h1>Craving something delicious?</h1>
+          <p>Order fresh meals, crispy starters, refreshing drinks, and decadent desserts!</p>
+        </div>
+      </div>
+
+      <!-- Controls: Search & Category Filters -->
+      <div class="menu-controls">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="menu-search" placeholder="Search delicious dishes..." oninput="handleSearchInput()" />
+          <button id="search-clear-btn" class="clear-btn" onclick="clearSearch()" style="display:none;">✕</button>
+        </div>
+
+        <div class="category-filters" id="category-pills">
+          <button class="filter-pill active" onclick="selectCategory('All')">All</button>
+          <button class="filter-pill" onclick="selectCategory('Starters')">Starters</button>
+          <button class="filter-pill" onclick="selectCategory('Main Course')">Main Course</button>
+          <button class="filter-pill" onclick="selectCategory('Desserts')">Desserts</button>
+          <button class="filter-pill" onclick="selectCategory('Drinks')">Drinks</button>
+        </div>
+      </div>
+
+      <!-- Loading and Empty Indicators -->
+      <div id="menu-loading" class="state-message" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading tasty food items...</p>
+      </div>
+      <div id="menu-empty" class="state-message" style="display: none;">
+        <span class="state-icon">🍽️</span>
+        <h3>No food items found</h3>
+        <p>Try searching for a different dish or select another category.</p>
+      </div>
+
+      <!-- Menu Items Grid -->
+      <div id="menu-grid" class="menu-grid"></div>
+    </section>
+
+    <!-- VIEW 2: ORDERS -->
+    <section id="view-orders" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2>Order History & Tracking</h2>
+          <p class="section-subtitle">Real-time status updates and order cancellation</p>
+        </div>
+        <button class="secondary-btn" onclick="loadOrders()">🔄 Refresh Orders</button>
+      </div>
+
+      <div id="orders-loading" class="state-message" style="display: none;">
+        <div class="spinner"></div>
+        <p>Fetching your orders...</p>
+      </div>
+      <div id="orders-empty" class="state-message" style="display: none;">
+        <span class="state-icon">📦</span>
+        <h3>No orders placed yet</h3>
+        <p>Browse our menu and place your first delicious order today!</p>
+        <button class="primary-btn" onclick="navigateTo('menu')">Explore Menu</button>
+      </div>
+
+      <div id="orders-list" class="orders-list"></div>
+    </section>
+
+    <!-- VIEW 3: ADMIN PANEL -->
+    <section id="view-admin" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2>Restaurant Administration</h2>
+          <p class="section-subtitle">Manage menu items and advance customer order lifecycle</p>
+        </div>
+        <div class="admin-tabs">
+          <button id="admin-tab-menu" class="subtab-btn active" onclick="switchAdminTab('menu')">Menu Management</button>
+          <button id="admin-tab-orders" class="subtab-btn" onclick="switchAdminTab('orders')">Order Management</button>
+        </div>
+      </div>
+
+      <!-- Admin Subtab 1: Menu Items CRUD -->
+      <div id="admin-menu-view" class="admin-subview active">
+        <div class="admin-card form-card">
+          <h3 id="admin-form-title">Add New Menu Item</h3>
+          <p class="card-caption">Fill in dish details to publish directly to the live customer menu.</p>
+          <form id="menu-item-form" onsubmit="handleMenuItemSubmit(event)">
+            <input type="hidden" id="edit-item-id" value="" />
+            <div class="form-row">
+              <div class="form-group flex-2">
+                <label for="item-name">Item Name *</label>
+                <input type="text" id="item-name" placeholder="e.g. Crispy Paneer Tikka" required />
+              </div>
+              <div class="form-group flex-1">
+                <label for="item-price">Price (₹) *</label>
+                <input type="number" id="item-price" step="0.01" min="0.01" placeholder="e.g. 199" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label for="item-category">Category *</label>
+                <select id="item-category" required>
+                  <option value="Starters">Starters</option>
+                  <option value="Main Course" selected>Main Course</option>
+                  <option value="Desserts">Desserts</option>
+                  <option value="Drinks">Drinks</option>
+                </select>
+              </div>
+              <div class="form-group flex-1 checkbox-group">
+                <label class="toggle-container">
+                  <input type="checkbox" id="item-available" checked />
+                  <span class="toggle-slider"></span>
+                  <span class="toggle-label">Item is Available for ordering</span>
+                </label>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" id="save-item-btn" class="primary-btn">Save Item</button>
+              <button type="button" id="cancel-edit-btn" class="text-btn" onclick="resetMenuItemForm()" style="display:none;">Cancel Edit</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="admin-card">
+          <div class="table-header">
+            <h3>Current Menu Items</h3>
+            <span id="admin-item-count" class="badge-pill">0 items</span>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Availability</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-items-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Subtab 2: Order Management -->
+      <div id="admin-orders-view" class="admin-subview" style="display: none;">
+        <div class="admin-card">
+          <div class="table-header">
+            <h3>Order Status Controller</h3>
+            <p class="card-caption">Status workflow: Placed ➔ Preparing ➔ Out for Delivery ➔ Delivered</p>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer & Phone</th>
+                  <th>Items Ordered</th>
+                  <th>Total</th>
+                  <th>Current Status</th>
+                  <th>Action to Advance</th>
+                </tr>
+              </thead>
+              <tbody id="admin-orders-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Slide-in Cart Drawer -->
+  <div id="cart-backdrop" class="drawer-backdrop" onclick="toggleCartDrawer(false)"></div>
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <span>🛒</span>
+        <h3>Your Food Cart</h3>
+      </div>
+      <button class="close-drawer-btn" onclick="toggleCartDrawer(false)">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <div id="cart-empty" class="cart-empty-view">
+        <span class="empty-cart-icon">🛍️</span>
+        <h4>Your cart is empty</h4>
+        <p>Explore the menu and add your favorite dishes to get started!</p>
+      </div>
+      <div id="cart-items-list" class="cart-items-list"></div>
+    </div>
+
+    <div id="cart-footer" class="drawer-footer" style="display: none;">
+      <div class="cart-summary">
+        <div class="summary-line">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">₹0.00</span>
+        </div>
+        <div class="summary-line">
+          <span>Delivery Fee</span>
+          <span class="free-tag">FREE</span>
+        </div>
+        <div class="summary-line total-line">
+          <span>Total Amount</span>
+          <span id="cart-total" class="highlight-total">₹0.00</span>
+        </div>
+      </div>
+      <div class="cart-buttons">
+        <button class="text-btn danger" onclick="clearCart()">Clear Cart</button>
+        <button class="primary-btn block" onclick="openCheckoutModal()">Proceed to Checkout ➔</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Complete Delivery Details</h3>
+        <button class="close-modal-btn" onclick="closeCheckoutModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="checkout-summary-box">
+          <div class="summary-heading">Order Summary</div>
+          <div id="checkout-items-preview" class="checkout-items-preview"></div>
+          <div class="checkout-total-row">
+            <strong>Total to Pay:</strong>
+            <span id="checkout-total-preview" class="checkout-price">₹0.00</span>
+          </div>
+        </div>
+
+        <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)">
+          <div class="form-group">
+            <label for="cust-name">Customer Full Name *</label>
+            <input type="text" id="cust-name" placeholder="e.g. Priyanshu Verma" required />
+            <small class="field-error" id="name-error"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="cust-phone">Phone Number (10 Digits) *</label>
+            <input type="tel" id="cust-phone" placeholder="e.g. 9876543210" maxlength="10" required />
+            <small class="field-hint">Must be exactly 10 digits without country code or spaces.</small>
+            <small class="field-error" id="phone-error"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="cust-address">Delivery Address *</label>
+            <textarea id="cust-address" rows="3" placeholder="Enter complete address, apartment, and landmarks" required></textarea>
+            <small class="field-error" id="address-error"></small>
+          </div>
+
+          <div class="checkout-actions">
+            <button type="button" class="secondary-btn" onclick="closeCheckoutModal()">Cancel</button>
+            <button type="submit" id="place-order-btn" class="primary-btn">Confirm & Place Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

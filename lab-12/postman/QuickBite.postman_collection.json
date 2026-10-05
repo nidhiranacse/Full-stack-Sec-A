@@ -1,0 +1,185 @@
+{
+  "info": {
+    "_postman_id": " quickbite-api-v1-collection",
+    "name": "QuickBite Mini Food Delivery API",
+    "description": "Comprehensive REST API collection for QuickBite Food Delivery App covering Menu Item CRUD and Order processing with status workflow logic.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Menu Items",
+      "item": [
+        {
+          "name": "1. GET All Menu Items",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/items",
+              "host": ["{{baseUrl}}"],
+              "path": ["items"]
+            },
+            "description": "List all menu items in the database"
+          }
+        },
+        {
+          "name": "2. GET Filtered Menu Items (Search & Category)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/items?search=burger&category=Main Course",
+              "host": ["{{baseUrl}}"],
+              "path": ["items"],
+              "query": [
+                { "key": "search", "value": "burger" },
+                { "key": "category", "value": "Main Course" }
+              ]
+            },
+            "description": "Search dishes by keyword and filter by category"
+          }
+        },
+        {
+          "name": "3. POST Create Menu Item (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Farmhouse Gourmet Pizza\",\n  \"price\": 380,\n  \"category\": \"Main Course\",\n  \"isAvailable\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/items",
+              "host": ["{{baseUrl}}"],
+              "path": ["items"]
+            },
+            "description": "Add a new food item to the menu"
+          }
+        },
+        {
+          "name": "4. PUT Update Menu Item (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 399,\n  \"isAvailable\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/items/{{itemId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["items", "{{itemId}}"]
+            },
+            "description": "Update menu item price or availability"
+          }
+        },
+        {
+          "name": "5. DELETE Menu Item (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/items/{{itemId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["items", "{{itemId}}"]
+            },
+            "description": "Delete a menu item from the restaurant catalog"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "6. POST Place New Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Aarav Mehta\",\n  \"phone\": \"9876543210\",\n  \"address\": \"Apt 301, Palm Grove, Koramangala, Bengaluru\",\n  \"items\": [\n    {\n      \"itemId\": \"{{itemId}}\",\n      \"qty\": 2\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders"]
+            },
+            "description": "Place customer order. Server recalculates totalAmount and enforces positive quantity."
+          }
+        },
+        {
+          "name": "7. GET All Orders (Latest First)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders"]
+            },
+            "description": "Retrieve all customer orders sorted latest first"
+          }
+        },
+        {
+          "name": "8. PATCH Advance Order Status (Placed -> Preparing)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Preparing\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders/{{orderId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", "{{orderId}}", "status"]
+            },
+            "description": "Advance order status according to lifecycle sequence: Placed -> Preparing -> Out for Delivery -> Delivered"
+          }
+        },
+        {
+          "name": "9. PATCH Cancel Order (Only when Placed)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Cancelled\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders/{{orderId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", "{{orderId}}", "status"]
+            },
+            "description": "Cancel an order. Strictly rejected with HTTP 400 if order is already past 'Placed'."
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api"
+    },
+    {
+      "key": "itemId",
+      "value": ""
+    },
+    {
+      "key": "orderId",
+      "value": ""
+    }
+  ]
+}

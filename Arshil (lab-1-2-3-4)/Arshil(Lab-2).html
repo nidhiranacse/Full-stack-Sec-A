@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Interactive Web Lab</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --card: #fff;
+            --text: #172033;
+            --muted: #64748b;
+            --primary: #5b5cf0;
+            --border: #dce3ed
+        }
+
+        .dark {
+            --bg: #0b1020;
+            --card: #121a2b;
+            --text: #edf3ff;
+            --muted: #9aa9c2;
+            --primary: #7c7ff7;
+            --border: #293650
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            transition: .3s
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            background: var(--card);
+            border-bottom: 1px solid var(--border)
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--text);
+            text-decoration: none
+        }
+
+        .logo span,
+        h1 span {
+            color: var(--primary)
+        }
+
+        .links {
+            display: flex;
+            gap: 20px;
+            align-items: center
+        }
+
+        .links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: bold
+        }
+
+        button,
+        .btn {
+            border: 0;
+            border-radius: 8px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-weight: bold
+        }
+
+        .theme {
+            background: var(--primary);
+            color: white
+        }
+
+        section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 80px 25px
+        }
+
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px
+        }
+
+        .hero div:first-child {
+            max-width: 620px
+        }
+
+        small {
+            color: var(--primary);
+            font-weight: bold;
+            letter-spacing: 2px
+        }
+
+        h1 {
+            font-size: clamp(42px, 7vw, 78px);
+            line-height: 1.05;
+            margin: 15px 0
+        }
+
+        p {
+            color: var(--muted)
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin: 20px 0
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background: var(--primary);
+            color: white
+        }
+
+        .alt {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border)
+        }
+
+        .code {
+            background: #111827;
+            color: #dbeafe;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px #0003
+        }
+
+        h2 {
+            font-size: 38px;
+            margin: 10px 0
+        }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px
+        }
+
+        .card {
+            position: relative;
+            flex: 1 1 300px;
+            height: 230px;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            transition: .3s
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02)
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .4s
+        }
+
+        .card:hover img {
+            transform: scale(1.1)
+        }
+
+        .card b {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 15px 15px;
+            color: white;
+            background: linear-gradient(transparent, #000b)
+        }
+
+        .todo {
+            max-width: 700px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 25px;
+            margin-top: 30px
+        }
+
+        input {
+            width: calc(100% - 110px);
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg);
+            color: var(--text)
+        }
+
+        .add {
+            background: var(--primary);
+            color: white
+        }
+
+        .error {
+            color: #e5484d;
+            font-size: 14px;
+            height: 25px
+        }
+
+        ul {
+            list-style: none
+        }
+
+        li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+            align-items: center
+        }
+
+        li span {
+            flex: 1
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: var(--muted)
+        }
+
+        .del {
+            background: none;
+            color: #e5484d;
+            padding: 3px
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .clear {
+            background: none;
+            color: var(--primary);
+            padding: 0
+        }
+
+        .empty {
+            text-align: center;
+            padding: 25px;
+            color: var(--muted)
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid var(--border);
+            color: var(--muted)
+        }
+
+        @media(max-width:700px) {
+            .hero {
+                flex-direction: column;
+                align-items: stretch
+            }
+
+            .links a {
+                display: none
+            }
+
+            section {
+                padding: 60px 18px
+            }
+
+            .todo {
+                padding: 18px
+            }
+
+            input {
+                width: 100%;
+                margin-bottom: 8px
+            }
+
+            .add {
+                width: 100%
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav><a class="logo" href="#home">WebLab<span>02</span></a>
+            <div class="links"><a href="#home">Home</a><a href="#gallery">Gallery</a><a href="#todo">Todo</a><button
+                    class="theme" id="theme">☾ Dark</button></div>
+        </nav>
+    </header>
+    <main>
+        <section id="home" class="hero">
+            <div><small>HTML5 • CSS3 • JAVASCRIPT</small>
+                <h1>Build.<br>Interact.<br><span>Experience.</span></h1>
+                <p>A responsive interactive website demonstrating CSS variables, dark mode, Flexbox and client-side
+                    JavaScript.</p>
+                <div class="actions"><a class="btn" href="#gallery">Gallery</a><a class="btn alt" href="#todo">Todo
+                        App</a></div>
+            </div>
+            <div class="code">
+                <pre>const web={
+ html:"structure",
+ css:"design",
+ js:"interaction"
+};
+console.log("Hello Web!");</pre>
+            </div>
+        </section>
+        <section id="gallery"><small>TASK 2.2</small>
+            <h2>Responsive Photo Grid</h2>
+            <p>Flexbox layout with responsive wrapping and hover animations.</p>
+            <div class="grid">
+                <figure class="card"><img
+                        src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=700&q=80"><b>Technology</b>
+                </figure>
+                <figure class="card"><img
+                        src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=80"><b>Workspace</b>
+                </figure>
+                <figure class="card"><img
+                        src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=700&q=80"><b>Coding</b>
+                </figure>
+                <figure class="card"><img
+                        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=700&q=80"><b>Development</b>
+                </figure>
+                <figure class="card"><img
+                        src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=700&q=80"><b>Digital
+                        Life</b></figure>
+                <figure class="card"><img
+                        src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=700&q=80"><b>Programming</b>
+                </figure>
+            </div>
+        </section>
+        <section id="todo"><small>TASK 2.3</small>
+            <h2>Todo Application</h2>
+            <p>Add, complete and delete tasks using JavaScript.</p>
+            <div class="todo">
+                <form id="form"><input id="input" placeholder="Enter your task"><button class="add">Add</button>
+                    <p id="error" class="error"></p>
+                </form>
+                <div class="toolbar"><span id="count">0 tasks</span><button id="clear" class="clear">Clear
+                        Completed</button></div>
+                <ul id="list"></ul>
+                <div id="empty" class="empty">No tasks yet. Add your first task.</div>
+            </div>
+        </section>
+    </main>
+    <footer>Lab Sheet 2 • Interactive Website using HTML5, CSS3 & JavaScript</footer>
+    <script>
+        const $ = id => document.getElementById(id), body = document.body;
+        $("theme").onclick = () => { body.classList.toggle("dark"); $("theme").textContent = body.classList.contains("dark") ? "☀ Light" : "☾ Dark" };
+        function update() { let a = [...$("list").children], n = a.filter(x => !x.classList.contains("done")).length; $("count").textContent = n + " " + (n == 1 ? "task" : "tasks"); $("empty").style.display = a.length ? "none" : "block" }
+        $("form").onsubmit = e => { e.preventDefault(); let v = $("input").value.trim(); if (!v) { $("error").textContent = "Please enter a task."; return } if (v.length < 3) { $("error").textContent = "Task must contain at least 3 characters."; return } $("error").textContent = ""; let li = document.createElement("li"), c = document.createElement("input"), s = document.createElement("span"), d = document.createElement("button"); c.type = "checkbox"; s.textContent = v; d.textContent = "✕"; d.className = "del"; c.onchange = () => { s.classList.toggle("done"); update() }; d.onclick = () => { li.remove(); update() }; li.append(c, s, d); $("list").append(li); $("input").value = ""; $("input").focus(); update() };
+        $("clear").onclick = () => { [...$("list").children].filter(x => x.querySelector("input").checked).forEach(x => x.remove()); update() };
+        $("input").oninput = () => { if ($("input").value.trim()) $("error").textContent = "" };
+        update();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arshil | Software Developer Resume</title>
+<style>
+:root{
+  --ink:#172033;--muted:#667085;--line:#e7eaf0;--accent:#4f46e5;
+  --accent2:#7c3aed;--soft:#f5f7ff;--white:#fff;--dark:#101828;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#eef1f6;color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.55}
+a{color:inherit}
+.skip-link{position:absolute;left:-9999px}
+.skip-link:focus{left:15px;top:15px;background:var(--dark);color:#fff;padding:10px 14px;border-radius:8px;z-index:99}
+main{max-width:920px;margin:28px auto;background:var(--white);box-shadow:0 18px 55px rgba(16,24,40,.12);border-radius:18px;overflow:hidden}
+header{padding:42px 48px 34px;background:linear-gradient(135deg,#111827,#242c4a);color:#fff;position:relative}
+header:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-90px;top:-110px;background:rgba(124,58,237,.25)}
+.header-inner{position:relative;z-index:1}
+h1{font-size:2.8rem;letter-spacing:-1.5px;margin:0 0 4px}
+.role{margin:0 0 20px;color:#cdd4ff;font-size:1.05rem;font-weight:500}
+.contact-bar{display:flex;flex-wrap:wrap;gap:9px}
+.contact-bar a{font-size:.86rem;text-decoration:none;padding:7px 11px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.07)}
+.contact-bar a:hover{background:rgba(255,255,255,.16)}
+.site-nav{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.site-nav ul{list-style:none;display:flex;justify-content:center;gap:3px;flex-wrap:wrap;margin:0;padding:7px 14px}
+.site-nav a{display:block;text-decoration:none;color:#475467;font-size:.82rem;font-weight:600;padding:8px 12px;border-radius:8px}
+.site-nav a:hover,.site-nav a:focus{background:var(--soft);color:var(--accent)}
+section{padding:25px 48px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+h2{font-size:.82rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);margin:0 0 18px;display:flex;align-items:center;gap:10px}
+h2:after{content:"";height:1px;background:var(--line);flex:1}
+.summary{font-size:.96rem;color:#475467;margin:0}
+.entry{margin-bottom:20px}
+.entry:last-child{margin-bottom:0}
+.entry-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-weight:700;font-size:.98rem}
+.entry-top span:last-child{color:var(--muted);font-size:.83rem;font-weight:600}
+.entry-sub{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.84rem;margin:3px 0 7px}
+.desc{margin:0;color:#475467;font-size:.88rem}
+.desc strong{color:#344054}
+.project{padding:16px 17px;border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:12px;transition:.2s}
+.project:hover{border-color:#c7c9ff;box-shadow:0 7px 22px rgba(79,70,229,.08);transform:translateY(-1px)}
+.project-title{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;flex-wrap:wrap}
+.project-title h3{margin:0;font-size:.98rem}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-size:.7rem;color:#4338ca;background:#eef2ff;border:1px solid #e0e7ff;padding:3px 7px;border-radius:999px;font-weight:700}
+.project p{margin:7px 0 0;color:#475467;font-size:.86rem}
+.skills{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;margin:0;padding:0;list-style:none}
+.skills li{font-size:.86rem;color:#475467;padding:10px 12px;background:#f8f9fc;border-radius:9px}
+.skills strong{display:block;color:#172033;margin-bottom:2px;font-size:.82rem}
+.cert{padding:10px 0;border-bottom:1px dashed var(--line)}
+.cert:last-child{border-bottom:0}
+.cert strong{font-size:.9rem}
+.cert span{float:right;color:var(--muted);font-size:.8rem}
+.hobbies{display:flex;gap:10px;flex-wrap:wrap;margin:0;padding:0;list-style:none}
+.hobbies li{padding:7px 11px;border-radius:999px;background:#f5f7fa;color:#475467;font-size:.82rem}
+footer{text-align:center;padding:18px;background:#f8f9fc;color:#98a2b3;font-size:.78rem}
+@media print{
+ body{background:#fff}
+ main{margin:0;max-width:none;box-shadow:none;border-radius:0}
+ .site-nav{display:none}
+ header{padding:28px 36px}
+ section{padding:17px 36px}
+ .project:hover{transform:none;box-shadow:none}
+}
+@media(max-width:680px){
+ body{padding:0}
+ main{margin:0;border-radius:0}
+ header{padding:32px 22px 27px}
+ h1{font-size:2.15rem}
+ section{padding:22px}
+ .skills{grid-template-columns:1fr}
+ .site-nav ul{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap}
+ .site-nav a{white-space:nowrap}
+ .contact-bar{gap:7px}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<main id="main-content">
+<header>
+<div class="header-inner">
+<h1>Arshil</h1>
+<p class="role">B.Tech CSE Student · MERN Stack Developer · DSA Enthusiast</p>
+<div class="contact-bar">
+<a href="mailto:arshilg82@gmail.com">arshilg82@gmail.com</a>
+<a href="tel:+917906995731">+91 79069 95731</a>
+<a href="https://github.com/iarsh-gour18" target="_blank" rel="noopener">GitHub</a>
+<a href="https://www.linkedin.com/in/arshil-gour-315564327/" target="_blank" rel="noopener">LinkedIn</a>
+</div>
+</div>
+</header>
+
+<nav class="site-nav" aria-label="Main navigation">
+<ul>
+<li><a href="#summary">Profile</a></li>
+<li><a href="#education">Education</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#certifications">Certifications</a></li>
+</ul>
+</nav>
+
+<section id="summary">
+<h2>Profile</h2>
+<p class="summary">Computer Science student focused on <strong>software development, MERN stack and problem solving</strong>. Experienced in building responsive React interfaces, Express/Node.js APIs, MongoDB-backed applications and integrating third-party APIs. Currently strengthening DSA with C++ while building practical full-stack projects.</p>
+</section>
+
+<section id="education">
+<h2>Education</h2>
+<div class="entry">
+<div class="entry-top"><span>B.Tech in Computer Science and Engineering</span><span>CGPA: 8.3</span></div>
+<div class="entry-sub"><span>COER University, Roorkee</span><span>2024 – 2028</span></div>
+</div>
+<div class="entry">
+<div class="entry-top"><span>Senior Secondary (Class 12)</span><span>74%</span></div>
+<div class="entry-sub"><span>Unique Inter College</span><span>2024</span></div>
+</div>
+<div class="entry">
+<div class="entry-top"><span>Secondary (Class 10)</span><span>76.33%</span></div>
+<div class="entry-sub"><span>Unique Inter College</span><span>2022</span></div>
+</div>
+</section>
+
+<section id="projects">
+<h2>Projects</h2>
+
+<div class="project">
+<div class="project-title">
+<h3>Stock-Trade — MERN Stock Trading Platform</h3>
+<div class="badges"><span class="badge">React</span><span class="badge">Node.js</span><span class="badge">MongoDB</span></div>
+</div>
+<p>Full-stack stock trading application with authentication, sessions, portfolio/holdings, company data, transactions and dashboard functionality. Implemented REST APIs with Express, MongoDB models, Passport authentication, Axios-based frontend integration, responsive MUI/Tailwind UI and application-level error handling.</p>
+</div>
+
+<div class="project">
+<div class="project-title">
+<h3>Auren AI — LLM Chat Application</h3>
+<div class="badges"><span class="badge">React</span><span class="badge">Node.js</span><span class="badge">LLM APIs</span></div>
+</div>
+<p>AI chat application designed to call LLM APIs and return responses based on user prompts. The project is structured around a full-stack architecture with chat history storage and chronological conversation retrieval using timestamps.</p>
+</div>
+
+<div class="project">
+<div class="project-title">
+<h3>Wanderlust — Full-Stack Travel Listing Platform</h3>
+<div class="badges"><span class="badge">Express</span><span class="badge">MongoDB</span><span class="badge">EJS</span></div>
+</div>
+<p>Full-stack travel listing platform built with Node.js, Express, MongoDB and EJS. Implemented MVC controllers, CRUD functionality, search/filtering, authentication, image handling, validation, geocoding with OpenStreetMap Nominatim and interactive maps with Leaflet.</p>
+</div>
+</section>
+
+<section id="skills">
+<h2>Technical Skills</h2>
+<ul class="skills">
+<li><strong>Languages</strong>C++, JavaScript, Python, SQL, HTML, CSS</li>
+<li><strong>Frontend</strong>React.js, Tailwind CSS, Material UI, Vite, Responsive UI</li>
+<li><strong>Backend</strong>Node.js, Express.js, REST APIs, EJS, Middleware</li>
+<li><strong>Databases</strong>MongoDB, MongoDB Atlas, MySQL</li>
+<li><strong>Development Tools</strong>Git, GitHub, VS Code, npm, Axios</li>
+<li><strong>Core CS</strong>Data Structures & Algorithms, DBMS, OOP, Problem Solving</li>
+<li><strong>Python / Data</strong>NumPy, Pandas, Matplotlib, scikit-learn</li>
+<li><strong>Other</strong>Authentication, Passport.js, Sessions, API Integration</li>
+</ul>
+</section>
+
+<section id="certifications">
+<h2>Certifications & Experience</h2>
+<div class="cert"><strong>Web Development Internship — Intern Infobyte</strong><span>Internship</span></div>
+<div class="cert"><strong>DSA Internship — InternPE</strong><span>C++ · DSA</span></div>
+<div class="cert"><strong>C++ Course Certification</strong><span>C++</span></div>
+<div class="cert"><strong>Hackathon Participation Certificate</strong><span>COER University</span></div>
+</section>
+
+<section id="activities">
+<h2>Activities</h2>
+<ul class="hobbies">
+<li>DSA & competitive problem solving</li>
+<li>Full-stack web development</li>
+<li>Building practical projects</li>
+<li>Continuous technical learning</li>
+</ul>
+</section>
+
+<footer>© 2026 Arshil · Built with semantic HTML5 and responsive CSS</footer>
+</main>
+</body>
+</html>

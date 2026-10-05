@@ -1,0 +1,9 @@
+{
+  "name": "quickbite-frontend",
+  "version": "1.0.0",
+  "description": "QuickBite Food Delivery Frontend",
+  "scripts": {
+    "start": "npx serve -l 3000"
+  },
+  "keywords": ["food-delivery", "frontend", "spa"]
+}
