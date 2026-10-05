@@ -1,0 +1,57 @@
+name: CampusConnect Continuous Integration (CI)
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  backend-test:
+    name: Backend Test Suite & Security Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: 'LS/labsheet 11/backend/package-lock.json'
+
+      - name: Install Backend Dependencies
+        working-directory: './LS/labsheet 11/backend'
+        run: npm ci
+
+      - name: Run Backend Unit & Integration Tests (Jest)
+        working-directory: './LS/labsheet 11/backend'
+        env:
+          NODE_ENV: test
+          JWT_SECRET: test_jwt_secret_key_ci_environment_2026
+        run: npm test
+
+  frontend-build:
+    name: Frontend Production Build Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: 'LS/labsheet 11/frontend/package-lock.json'
+
+      - name: Install Frontend Dependencies
+        working-directory: './LS/labsheet 11/frontend'
+        run: npm ci
+
+      - name: Build Production Frontend Assets (Vite)
+        working-directory: './LS/labsheet 11/frontend'
+        run: npm run build

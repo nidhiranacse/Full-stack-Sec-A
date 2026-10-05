@@ -1,0 +1,89 @@
+services:
+  # 1. MongoDB Database with persistent volume
+  mongodb:
+    image: mongo:7.0
+    container_name: campusconnect-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=campusconnect
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - campusconnect-net
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # 2. Redis In-Memory Cache with persistent AOF
+  redis:
+    image: redis:7.2-alpine
+    container_name: campusconnect-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    networks:
+      - campusconnect-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 3. Node.js & Express REST API Backend with Socket.io
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: campusconnect-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongodb:27017/campusconnect
+      - REDIS_URL=redis://redis:6379
+      - CLIENT_URL=http://localhost:3000
+      - JWT_ACCESS_SECRET=campus_connect_jwt_access_super_secret_key_2026_xyz
+      - JWT_REFRESH_SECRET=campus_connect_jwt_refresh_super_secret_key_2026_abc
+      - JWT_ACCESS_EXPIRES_IN=15m
+      - JWT_REFRESH_EXPIRES_IN=7d
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - campusconnect-net
+
+  # 4. React Frontend (Vite + Nginx Multi-stage build)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: campusconnect-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - campusconnect-net
+
+volumes:
+  mongo-data:
+    driver: local
+  redis-data:
+    driver: local
+
+networks:
+  campusconnect-net:
+    driver: bridge

@@ -1,0 +1,10 @@
+node_modules/
+uploads/*.pdf
+uploads/*.docx
+uploads/*.doc
+uploads/*.txt
+uploads/*.zip
+uploads/*.pptx
+.env
+*.log
+dist/
