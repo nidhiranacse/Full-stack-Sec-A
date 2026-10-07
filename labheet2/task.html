@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Lab Sheet 02 - Dynamic Interface Styling & Scripting</title>
+
+
+    <style>
+
+        /* =====================================================
+           GLOBAL CSS VARIABLES
+        ====================================================== */
+
+        :root {
+
+            --bg-color: #f3f4f6;
+            --text-color: #222222;
+            --primary-color: #2563eb;
+            --secondary-color: #1f2937;
+            --card-color: #ffffff;
+            --border-color: #d1d5db;
+            --success-color: #16a34a;
+            --danger-color: #dc2626;
+
+        }
+
+
+        /* =====================================================
+           DARK MODE VARIABLES
+        ====================================================== */
+
+        body.dark-mode {
+
+            --bg-color: #111827;
+            --text-color: #f9fafb;
+            --primary-color: #60a5fa;
+            --secondary-color: #030712;
+            --card-color: #1f2937;
+            --border-color: #4b5563;
+
+        }
+
+
+        /* =====================================================
+           GENERAL STYLING
+        ====================================================== */
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
+
+        body {
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background-color: var(--bg-color);
+
+            color: var(--text-color);
+
+            line-height: 1.6;
+
+            transition: background-color 0.4s,
+                        color 0.4s;
+
+        }
+
+
+        /* =====================================================
+           MAIN HEADER
+        ====================================================== */
+
+        header {
+
+            background-color: var(--secondary-color);
+
+            color: white;
+
+            text-align: center;
+
+            padding: 30px 20px;
+
+        }
+
+
+        header h1 {
+
+            font-size: 30px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        header p {
+
+            font-size: 16px;
+
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ====================================================== */
+
+        nav {
+
+            background-color: #111827;
+
+            padding: 15px;
+
+            text-align: center;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+        }
+
+
+        nav a {
+
+            color: white;
+
+            text-decoration: none;
+
+            margin: 0 15px;
+
+            font-weight: bold;
+
+        }
+
+
+        nav a:hover {
+
+            color: #60a5fa;
+
+        }
+
+
+        /* =====================================================
+           COMMON SECTION
+        ====================================================== */
+
+        section {
+
+            width: 90%;
+
+            max-width: 1100px;
+
+            margin: 40px auto;
+
+            background-color: var(--card-color);
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 4px 15px
+                        rgba(0, 0, 0, 0.12);
+
+        }
+
+
+        section h2 {
+
+            text-align: center;
+
+            margin-bottom: 25px;
+
+            color: var(--primary-color);
+
+        }
+
+
+        /* =====================================================
+           TASK 2.1
+           DARK MODE LANDING PAGE
+        ====================================================== */
+
+        .landing-page {
+
+            min-height: 450px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+        }
+
+
+        .landing-content {
+
+            max-width: 750px;
+
+        }
+
+
+        .landing-content h3 {
+
+            font-size: 42px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .landing-content p {
+
+            font-size: 18px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .theme-button {
+
+            padding: 12px 25px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background-color: var(--primary-color);
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            margin: 5px;
+
+        }
+
+
+        .theme-button:hover {
+
+            transform: scale(1.05);
+
+        }
+
+
+        #landingMessage {
+
+            color: var(--primary-color);
+
+            font-weight: bold;
+
+            margin-top: 15px;
+
+        }
+
+
+        /* =====================================================
+           TASK 2.2
+           FLEXBOX PHOTO GRID
+        ====================================================== */
+
+        .photo-grid {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+
+            gap: 25px;
+
+        }
+
+
+        .photo-card {
+
+            width: 300px;
+
+            background-color: var(--bg-color);
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            border: 1px solid var(--border-color);
+
+            transition: transform 0.4s,
+                        box-shadow 0.4s;
+
+        }
+
+
+        /* Hover Transform Animation */
+
+        .photo-card:hover {
+
+            transform: scale(1.07);
+
+            box-shadow: 0 8px 20px
+                        rgba(0, 0, 0, 0.25);
+
+        }
+
+
+        .photo-card img {
+
+            width: 100%;
+
+            height: 210px;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition: transform 0.4s;
+
+        }
+
+
+        .photo-card:hover img {
+
+            transform: scale(1.08);
+
+        }
+
+
+        .photo-card h3 {
+
+            text-align: center;
+
+            padding: 15px;
+
+        }
+
+
+        /* =====================================================
+           TASK 2.3
+           TODO APPLICATION
+        ====================================================== */
+
+        .todo-container {
+
+            max-width: 700px;
+
+        }
+
+
+        .todo-input-area {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        #taskInput {
+
+            flex: 1;
+
+            padding: 12px;
+
+            font-size: 16px;
+
+            border: 1px solid var(--border-color);
+
+            border-radius: 5px;
+
+            background-color: var(--bg-color);
+
+            color: var(--text-color);
+
+        }
+
+
+        #addTaskButton {
+
+            padding: 12px 20px;
+
+            background-color: var(--primary-color);
+
+            color: white;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+        }
+
+
+        #addTaskButton:hover {
+
+            opacity: 0.85;
+
+        }
+
+
+        /* Validation Error */
+
+        #errorMessage {
+
+            color: var(--danger-color);
+
+            font-weight: bold;
+
+            margin: 10px 0;
+
+            min-height: 25px;
+
+        }
+
+
+        /* Todo List */
+
+        #taskList {
+
+            list-style: none;
+
+            margin-top: 20px;
+
+        }
+
+
+        #taskList li {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 12px 15px;
+
+            margin-bottom: 10px;
+
+            background-color: var(--bg-color);
+
+            border: 1px solid var(--border-color);
+
+            border-radius: 6px;
+
+        }
+
+
+        #taskList li span {
+
+            flex: 1;
+
+        }
+
+
+        /* Completed Task */
+
+        #taskList li.completed span {
+
+            text-decoration: line-through;
+
+            opacity: 0.6;
+
+        }
+
+
+        .task-buttons {
+
+            display: flex;
+
+            gap: 5px;
+
+        }
+
+
+        .complete-button {
+
+            background-color: var(--success-color);
+
+            color: white;
+
+            border: none;
+
+            padding: 7px 10px;
+
+            border-radius: 4px;
+
+            cursor: pointer;
+
+        }
+
+
+        .delete-button {
+
+            background-color: var(--danger-color);
+
+            color: white;
+
+            border: none;
+
+            padding: 7px 10px;
+
+            border-radius: 4px;
+
+            cursor: pointer;
+
+        }
+
+
+        .complete-button:hover,
+        .delete-button:hover {
+
+            opacity: 0.8;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        footer {
+
+            background-color: var(--secondary-color);
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+
+            margin-top: 40px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE DESIGN
+        ====================================================== */
+
+        @media (max-width: 700px) {
+
+
+            nav a {
+
+                display: inline-block;
+
+                margin: 5px 8px;
+
+            }
+
+
+            .landing-content h3 {
+
+                font-size: 30px;
+
+            }
+
+
+            .landing-content p {
+
+                font-size: 16px;
+
+            }
+
+
+            .photo-grid {
+
+                flex-direction: column;
+
+                align-items: center;
+
+            }
+
+
+            .photo-card {
+
+                width: 90%;
+
+            }
+
+
+            .todo-input-area {
+
+                flex-direction: column;
+
+            }
+
+
+            #addTaskButton {
+
+                width: 100%;
+
+            }
+
+
+            #taskList li {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+            }
+
+
+            .task-buttons {
+
+                justify-content: flex-end;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         MAIN HEADER
+    ====================================================== -->
+
+    <header>
+
+        <h1>
+            LAB SHEET 02:
+            DYNAMIC INTERFACE STYLING & SCRIPTING INTERACTIVITY
+        </h1>
+
+        <p>
+            HTML5 + CSS3 + JavaScript
+        </p>
+
+    </header>
+
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <nav>
+
+        <a href="#task21">
+            Task 2.1
+        </a>
+
+        <a href="#task22">
+            Task 2.2
+        </a>
+
+        <a href="#task23">
+            Task 2.3
+        </a>
+
+    </nav>
+
+
+    <main>
+
+
+        <!-- =====================================================
+             TASK 2.1
+             DARK MODE LANDING PAGE
+        ====================================================== -->
+
+        <section id="task21">
+
+            <h2>
+                Task 2.1: Dark Mode Landing Layout
+            </h2>
+
+
+            <div class="landing-page">
+
+                <div class="landing-content">
+
+                    <h3>
+                        Welcome to Janvee's Website
+                    </h3>
+
+
+                    <p>
+                        Hello! I am Janvee Tyagi,
+                        a Computer Science Engineering student
+                        at COER University.
+                    </p>
+
+
+                    <p>
+                        I am passionate about programming,
+                        web development, machine learning
+                        and learning new technologies.
+                    </p>
+
+
+                    <!-- Dark Mode Button -->
+
+                    <button
+                        class="theme-button"
+                        id="themeButton">
+
+                        🌙 Dark Mode
+
+                    </button>
+
+
+                    <!-- Message Button -->
+
+                    <button
+                        class="theme-button"
+                        id="messageButton">
+
+                        Explore Now
+
+                    </button>
+
+
+                    <p id="landingMessage"></p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             TASK 2.2
+             RESPONSIVE PHOTO GRID
+        ====================================================== -->
+
+        <section id="task22">
+
+            <h2>
+                Task 2.2: Responsive Web Photo Grid
+            </h2>
+
+
+            <div class="photo-grid">
+
+
+                <!-- Photo 1 -->
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=1"
+                        alt="Nature">
+
+                    <h3>
+                        Nature
+                    </h3>
+
+                </div>
+
+
+                <!-- Photo 2 -->
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=2"
+                        alt="Mountain">
+
+                    <h3>
+                        Mountain
+                    </h3>
+
+                </div>
+
+
+                <!-- Photo 3 -->
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=3"
+                        alt="Travel">
+
+                    <h3>
+                        Travel
+                    </h3>
+
+                </div>
+
+
+                <!-- Photo 4 -->
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=4"
+                        alt="City">
+
+                    <h3>
+                        City
+                    </h3>
+
+                </div>
+
+
+                <!-- Photo 5 -->
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=5"
+                        alt="Forest">
+
+                    <h3>
+                        Forest
+                    </h3>
+
+                </div>
+
+
+                <!-- Photo 6 -->
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=6"
+                        alt="Landscape">
+
+                    <h3>
+                        Landscape
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             TASK 2.3
+             TODO APPLICATION
+        ====================================================== -->
+
+        <section id="task23">
+
+            <h2>
+                Task 2.3: Interactive Todo Application
+            </h2>
+
+
+            <div class="todo-container">
+
+
+                <p>
+                    Add your daily tasks and manage them
+                    using the buttons below.
+                </p>
+
+
+                <!-- Input Area -->
+
+                <div class="todo-input-area">
+
+                    <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="Enter your task...">
+
+                    <button id="addTaskButton">
+                        Add Task
+                    </button>
+
+                </div>
+
+
+                <!-- Validation Error -->
+
+                <p id="errorMessage"></p>
+
+
+                <!-- Dynamic Todo List -->
+
+                <ul id="taskList"></ul>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 Janvee Tyagi
+        </p>
+
+        <p>
+            Computer Science Engineering |
+            COER University
+        </p>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           TASK 2.1
+           DARK MODE TOGGLER
+        ====================================================== */
+
+
+        const themeButton =
+            document.getElementById("themeButton");
+
+
+        themeButton.addEventListener("click", function () {
+
+
+            document.body.classList.toggle("dark-mode");
+
+
+            if (
+                document.body.classList.contains("dark-mode")
+            ) {
+
+                themeButton.innerHTML =
+                    "☀️ Light Mode";
+
+            }
+
+            else {
+
+                themeButton.innerHTML =
+                    "🌙 Dark Mode";
+
+            }
+
+        });
+
+
+
+        /* =====================================================
+           TASK 2.1
+           EXPLORE BUTTON
+        ====================================================== */
+
+
+        const messageButton =
+            document.getElementById("messageButton");
+
+
+        messageButton.addEventListener("click", function () {
+
+
+            document.getElementById("landingMessage")
+                .innerHTML =
+                "Welcome! Thanks for visiting Janvee's website.";
+
+        });
+
+
+
+        /* =====================================================
+           TASK 2.3
+           TODO APPLICATION
+        ====================================================== */
+
+
+        const taskInput =
+            document.getElementById("taskInput");
+
+
+        const addTaskButton =
+            document.getElementById("addTaskButton");
+
+
+        const taskList =
+            document.getElementById("taskList");
+
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+
+
+        /* =====================================================
+           ADD TASK FUNCTION
+        ====================================================== */
+
+
+        function addTask() {
+
+
+            // Get input value
+
+            const taskText =
+                taskInput.value.trim();
+
+
+
+            /* =================================================
+               VALIDATION
+            ================================================= */
+
+
+            if (taskText === "") {
+
+                errorMessage.innerHTML =
+                    "⚠ Please enter a task first.";
+
+                taskInput.focus();
+
+                return;
+
+            }
+
+
+            // Remove error message
+
+            errorMessage.innerHTML = "";
+
+
+
+            /* =================================================
+               CREATE LIST ITEM
+            ================================================= */
+
+
+            const listItem =
+                document.createElement("li");
+
+
+
+            /* =================================================
+               CREATE TASK TEXT
+            ================================================= */
+
+
+            const taskSpan =
+                document.createElement("span");
+
+
+            taskSpan.textContent =
+                taskText;
+
+
+
+            /* =================================================
+               CREATE BUTTON CONTAINER
+            ================================================= */
+
+
+            const buttonContainer =
+                document.createElement("div");
+
+
+            buttonContainer.className =
+                "task-buttons";
+
+
+
+            /* =================================================
+               CREATE COMPLETE BUTTON
+            ================================================= */
+
+
+            const completeButton =
+                document.createElement("button");
+
+
+            completeButton.textContent =
+                "Complete";
+
+
+            completeButton.className =
+                "complete-button";
+
+
+
+            /* =================================================
+               CREATE DELETE BUTTON
+            ================================================= */
+
+
+            const deleteButton =
+                document.createElement("button");
+
+
+            deleteButton.textContent =
+                "Delete";
+
+
+            deleteButton.className =
+                "delete-button";
+
+
+
+            /* =================================================
+               COMPLETE TASK
+            ================================================= */
+
+
+            completeButton.addEventListener(
+                "click",
+                function () {
+
+                    listItem.classList.toggle(
+                        "completed"
+                    );
+
+                }
+            );
+
+
+
+            /* =================================================
+               DELETE TASK
+            ================================================= */
+
+
+            deleteButton.addEventListener(
+                "click",
+                function () {
+
+                    listItem.remove();
+
+                }
+            );
+
+
+
+            /* =================================================
+               APPEND ELEMENTS
+            ================================================= */
+
+
+            buttonContainer.appendChild(
+                completeButton
+            );
+
+
+            buttonContainer.appendChild(
+                deleteButton
+            );
+
+
+            listItem.appendChild(
+                taskSpan
+            );
+
+
+            listItem.appendChild(
+                buttonContainer
+            );
+
+
+            /* =================================================
+               ADD TASK TO LIST
+            ================================================= */
+
+
+            taskList.appendChild(
+                listItem
+            );
+
+
+            /* =================================================
+               CLEAR INPUT
+            ================================================= */
+
+
+            taskInput.value = "";
+
+
+            taskInput.focus();
+
+        }
+
+
+
+        /* =====================================================
+           ADD BUTTON EVENT
+        ====================================================== */
+
+
+        addTaskButton.addEventListener(
+            "click",
+            addTask
+        );
+
+
+
+        /* =====================================================
+           ENTER KEY EVENT
+        ====================================================== */
+
+
+        taskInput.addEventListener(
+            "keypress",
+            function (event) {
+
+
+                if (event.key === "Enter") {
+
+                    addTask();
+
+                }
+
+            }
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>
