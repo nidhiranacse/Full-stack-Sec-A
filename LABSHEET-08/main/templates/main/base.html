@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}My Website{% endblock %}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        nav a.active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 30px;
+        }
+        .message {
+            padding:10px;
+            margin-bottom: 10px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="{% url 'home' %}"
+           class="{% if active_page == 'home' %}active{% endif %}">
+            Home
+        </a>
+
+        <a href="{% url 'about' %}"
+           class="{% if active_page == 'about' %}active{% endif %}">
+            About Us
+        </a>
+
+        <a href="{% url 'contact' %}"
+           class="{% if active_page == 'contact' %}active{% endif %}">
+            Contact Us
+        </a>
+    </nav>
+
+    <main>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+    </main>
+
+</body>
+</html>
