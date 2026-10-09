@@ -1,0 +1,9 @@
+```text
+node_modules
+.env
+*.sqlite
+*.sqlite3
+*.db
+coverage
+npm-debug.log
+```
