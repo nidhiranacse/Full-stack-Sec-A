@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django Lab Sheet 7</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background-color:#f4f6f9;
+            margin:0;
+            padding:0;
+        }
+
+        .navbar{
+            background:#1e3a8a;
+            padding:15px;
+        }
+
+        .navbar a{
+            color:white;
+            text-decoration:none;
+            margin-right:20px;
+            font-weight:bold;
+        }
+
+        .container{
+            width:80%;
+            margin:auto;
+            margin-top:30px;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0px 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .alert{
+            background:#ffdddd;
+            color:#a00000;
+            padding:12px;
+            border-radius:5px;
+            margin-top:15px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        table,th,td{
+            border:1px solid #ddd;
+        }
+
+        th{
+            background:#2563eb;
+            color:white;
+            padding:12px;
+        }
+
+        td{
+            padding:10px;
+            text-align:center;
+        }
+
+        input[type=text]{
+            padding:10px;
+            width:250px;
+        }
+
+        button{
+            padding:10px 15px;
+            background:#2563eb;
+            color:white;
+            border:none;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#1e40af;
+        }
+
+        .title{
+            text-align:center;
+            color:#1e3a8a;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <a href="/fruits/">Fruits</a>
+
+    <a href="/students/">Students</a>
+
+</div>
+
+<div class="container">
+
+{% block content %}
+
+{% endblock %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+{% extends 'records/base.html' %}
+
+{% block content %}
+
+<div class="card">
+
+<h2 class="title">
+
+Student Records
+
+</h2>
+
+<form method="GET">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search Student"
+        value="{{ search }}"
+    >
+
+    <button type="submit">
+
+        Search
+
+    </button>
+
+</form>
+
+{% if students %}
+
+<table>
+
+<tr>
+
+    <th>ID</th>
+
+    <th>Name</th>
+
+    <th>Course</th>
+
+</tr>
+
+{% for student in students %}
+
+<tr>
+
+    <td>{{ student.id }}</td>
+
+    <td>{{ student.name }}</td>
+
+    <td>{{ student.course }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<p>
+
+Records Sorted Alphabetically By Name
+
+</p>
+
+{% else %}
+
+<div class="alert">
+
+No Student Found
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}
