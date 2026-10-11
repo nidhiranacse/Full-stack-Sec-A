@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+
+  test:
+    needs: lint                 # lint runs first, then tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm            # caches npm dependencies
+      - run: npm ci
+      - run: npm test
+
+  deploy:
+    needs: test                 # runs only if every test matrix job passed
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build --if-present
+      - name: Deploy
+        run: echo "Deploying to production..."   # replace with your real deploy command

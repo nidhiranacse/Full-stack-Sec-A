@@ -1,0 +1,587 @@
+{
+  "info": {
+    "name": "CampusConnect API - Radha Pandey (CSE)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "eventId",
+      "value": "1"
+    },
+    {
+      "key": "resourceId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Health",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "health"
+              ],
+              "query": []
+            },
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Signup (student)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"token\", pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "signup"
+              ],
+              "query": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Radha Student\",\n  \"email\": \"radha.student@example.com\",\n  \"password\": \"secret123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login (student - sets token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"token\", pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ],
+              "query": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@campusconnect.com\",\n  \"password\": \"Student@123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login (admin - sets token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"token\", pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ],
+              "query": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@campusconnect.com\",\n  \"password\": \"Admin@123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Me",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "List events (search/filter/paginate)",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/events?q=workshop&category=workshop&upcoming=true&page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "events"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "Get event",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/events/{{eventId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "{{eventId}}"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "Create event (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"eventId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "events"
+              ],
+              "query": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Git & GitHub Workshop\",\n  \"description\": \"Hands-on session\",\n  \"category\": \"workshop\",\n  \"date\": \"2030-01-15T10:00:00.000Z\",\n  \"venue\": \"Lab 2\",\n  \"capacity\": 40\n}"
+            }
+          }
+        },
+        {
+          "name": "Update event (admin)",
+          "event": [],
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/api/events/{{eventId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "{{eventId}}"
+              ],
+              "query": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"capacity\": 60\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete event (admin)",
+          "event": [],
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/events/{{eventId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "{{eventId}}"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "Register (student)",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/events/{{eventId}}/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "{{eventId}}",
+                "register"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "Unregister (student)",
+          "event": [],
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/events/{{eventId}}/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "{{eventId}}",
+                "register"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "My registrations (student)",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/events/my",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "my"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "Registered students (admin)",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/events/{{eventId}}/registrations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "{{eventId}}",
+                "registrations"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resources",
+      "item": [
+        {
+          "name": "List resources",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/resources?subject=DBMS&semester=5&page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "resources"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "Upload resource (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"resourceId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/resources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "resources"
+              ],
+              "query": []
+            },
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "DBMS Notes",
+                  "type": "text"
+                },
+                {
+                  "key": "subject",
+                  "value": "DBMS",
+                  "type": "text"
+                },
+                {
+                  "key": "semester",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Download resource",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/resources/{{resourceId}}/download",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "resources",
+                "{{resourceId}}",
+                "download"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "Delete resource (admin)",
+          "event": [],
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/resources/{{resourceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "resources",
+                "{{resourceId}}"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Student dashboard",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/student",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "student"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "Admin dashboard",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/admin",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "admin"
+              ],
+              "query": []
+            },
+            "header": []
+          }
+        }
+      ]
+    }
+  ]
+}
