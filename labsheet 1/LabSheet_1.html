@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Accessibility and responsive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Lab Sheet 01 - Core Web Structures Using Semantic HTML">
+
+    <title>Lab Sheet 01 - Semantic HTML</title>
+</head>
+
+<body>
+
+    <!-- =========================
+         TASK 1.1 - SEMANTIC RESUME
+         ========================= -->
+
+    <header>
+        <h1>My Resume</h1>
+
+        <p>
+            Welcome to my personal resume webpage created using
+            <strong>HTML5 Semantic Elements</strong>.
+        </p>
+
+        <nav aria-label="Main Navigation">
+            <ul>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#navigation">Navigation Task</a></li>
+                <li><a href="#catalog">Web Catalog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- Resume - About Section -->
+        <section id="about">
+            <h2>About Me</h2>
+
+            <p>
+                I am a Computer Science student interested in
+                <strong>Web Development</strong>,
+                <strong>Artificial Intelligence</strong>, and
+                <strong>Machine Learning</strong>.
+            </p>
+
+            <p>
+                I enjoy learning new technologies and developing
+                practical software projects.
+            </p>
+        </section>
+
+
+        <!-- Resume - Education Section -->
+        <section id="education">
+            <h2>Education</h2>
+
+            <article>
+                <h3>Bachelor of Technology in Computer Science</h3>
+
+                <p>
+                    College of Engineering Roorkee
+                </p>
+
+                <p>
+                    Duration: 2024 - 2028
+                </p>
+            </article>
+        </section>
+
+
+        <!-- Resume - Skills Section -->
+        <section id="skills">
+            <h2>Technical Skills</h2>
+
+            <ul>
+                <li>Python</li>
+                <li>C++</li>
+                <li>Java</li>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>Machine Learning</li>
+            </ul>
+        </section>
+
+
+        <!-- Resume - Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+
+            <article>
+                <h3>Phishing Website Detection</h3>
+
+                <p>
+                    A machine learning based system used to identify
+                    potentially malicious phishing URLs.
+                </p>
+            </article>
+
+            <article>
+                <h3>FocusTrack</h3>
+
+                <p>
+                    A computer vision based productivity monitoring
+                    project using facial and eye-related features.
+                </p>
+            </article>
+        </section>
+
+
+        <!-- =========================
+             TASK 1.2 - NESTED NAVIGATION
+             ========================= -->
+
+        <section id="navigation">
+            <h2>Task 1.2 - Nested Navigation Menu</h2>
+
+            <p>
+                The following menu demonstrates nested list items
+                containing anchor elements.
+            </p>
+
+            <nav aria-label="Nested Navigation Menu">
+
+                <ul>
+
+                    <li>
+                        <a href="https://www.google.com/" target="_blank">
+                            Google
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://github.com/" target="_blank">
+                            GitHub
+                        </a>
+
+                        <ul>
+                            <li>
+                                <a href="https://github.com/explore" target="_blank">
+                                    Explore
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="https://github.com/topics" target="_blank">
+                                    Topics
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="https://github.com/marketplace" target="_blank">
+                                    Marketplace
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="https://www.w3.org/" target="_blank">
+                            W3C
+                        </a>
+
+                        <ul>
+                            <li>
+                                <a href="https://www.w3.org/html/" target="_blank">
+                                    HTML
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="https://www.w3.org/Style/CSS/" target="_blank">
+                                    CSS
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </nav>
+        </section>
+
+
+        <!-- =========================
+             TASK 1.3 - WEB CATALOG
+             ========================= -->
+
+        <section id="catalog">
+
+            <h2>Task 1.3 - Web Catalog</h2>
+
+            <p>
+                The following catalog uses HTML definition lists
+                to represent descriptive metadata.
+            </p>
+
+
+            <!-- Catalog Item 1 -->
+            <article>
+
+                <h3>HTML5 Course</h3>
+
+                <dl>
+
+                    <dt>Category</dt>
+                    <dd>Web Development</dd>
+
+                    <dt>Level</dt>
+                    <dd>Beginner</dd>
+
+                    <dt>Technology</dt>
+                    <dd>HTML5</dd>
+
+                    <dt>Description</dt>
+                    <dd>
+                        A course that introduces the fundamentals
+                        of creating structured webpages using HTML5.
+                    </dd>
+
+                </dl>
+
+            </article>
+
+
+            <!-- Catalog Item 2 -->
+            <article>
+
+                <h3>Python Programming</h3>
+
+                <dl>
+
+                    <dt>Category</dt>
+                    <dd>Programming</dd>
+
+                    <dt>Level</dt>
+                    <dd>Beginner to Intermediate</dd>
+
+                    <dt>Technology</dt>
+                    <dd>Python</dd>
+
+                    <dt>Description</dt>
+                    <dd>
+                        A programming course covering Python syntax,
+                        data structures, functions and object-oriented programming.
+                    </dd>
+
+                </dl>
+
+            </article>
+
+
+            <!-- Catalog Item 3 -->
+            <article>
+
+                <h3>Machine Learning</h3>
+
+                <dl>
+
+                    <dt>Category</dt>
+                    <dd>Artificial Intelligence</dd>
+
+                    <dt>Level</dt>
+                    <dd>Intermediate</dd>
+
+                    <dt>Technology</dt>
+                    <dd>Python, Scikit-learn</dd>
+
+                    <dt>Description</dt>
+                    <dd>
+                        A course introducing supervised and unsupervised
+                        machine learning techniques.
+                    </dd>
+
+                </dl>
+
+            </article>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 My Resume | Lab Sheet 01
+        </p>
+
+        <p>
+            Contact:
+            <a href="mailto:student@example.com">
+                Email Me
+            </a>
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
