@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 9 - Student Management System | Pulkit Goyal (CU24250263)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-brand">
+        <h1>🎓 Student Records Management System</h1>
+        <p>Full Stack Web Development &bull; Lab Sheet 9 (MERN CRUD)</p>
+      </div>
+      <div class="header-tags">
+        <span class="badge">Pulkit Goyal</span>
+        <span class="badge">CU24250263</span>
+        <span class="badge">Roll 40 &bull; Sec A</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <div id="alertBox" class="alert-box hidden"></div>
+
+    <div class="grid-layout">
+      <!-- FORM PANEL -->
+      <section class="card form-panel">
+        <h2 id="formTitle">Register New Student</h2>
+        <form id="studentForm">
+          <input type="hidden" id="studentId">
+
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" required placeholder="e.g. Pulkit Goyal">
+          </div>
+
+          <div class="form-group">
+            <label for="cuid">CUID *</label>
+            <input type="text" id="cuid" required placeholder="e.g. CU24250263">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="rollNumber">Roll Number *</label>
+              <input type="number" id="rollNumber" required placeholder="40" min="1">
+            </div>
+
+            <div class="form-group">
+              <label for="marks">Marks (%) *</label>
+              <input type="number" id="marks" required placeholder="95" min="0" max="100">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" required placeholder="student@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="course">Course Degree</label>
+            <input type="text" id="course" value="B.Tech Computer Science & Engineering">
+          </div>
+
+          <div class="btn-group">
+            <button type="submit" id="submitBtn" class="btn btn-primary">Save Student</button>
+            <button type="button" id="cancelBtn" class="btn btn-secondary hidden">Cancel Edit</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- TABLE & DIRECTORY PANEL -->
+      <section class="card table-panel">
+        <div class="table-header-row">
+          <div>
+            <h2>Student Directory</h2>
+            <p id="studentCount" class="text-muted">Loading records...</p>
+          </div>
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search by name, CUID, email...">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Roll</th>
+                <th>Name</th>
+                <th>CUID</th>
+                <th>Email</th>
+                <th>Marks</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody">
+              <!-- Dynamically populated via script.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>Lab Sheet 9 Submission &bull; Prepared by <strong>Pulkit Goyal</strong> (CUID: <strong>CU24250263</strong> | Roll: <strong>40</strong> | Section: <strong>A</strong>)</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

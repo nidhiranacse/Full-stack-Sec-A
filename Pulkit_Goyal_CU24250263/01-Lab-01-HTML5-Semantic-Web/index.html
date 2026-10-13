@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character encoding and responsive viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Lab 1 - Semantic HTML5 Web Page | Pulkit Goyal (CU24250263)</title>
+  <meta name="description" content="Lab Sheet 1: Semantic HTML5 Web Page and Student Profile by Pulkit Goyal, Roll 40, Section A">
+
+  <!-- Embedded modern styles for clean presentation -->
+  <style>
+    :root {
+      --primary-color: #1e3a8a;
+      --secondary-color: #2563eb;
+      --accent-color: #f59e0b;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 20px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #ffffff;
+      padding: 30px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .badge-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    nav {
+      background: #0f172a;
+      padding: 12px 20px;
+    }
+
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    /* Main Content Area */
+    main {
+      padding: 30px;
+    }
+
+    section {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      margin-bottom: 16px;
+      border-left: 4px solid var(--secondary-color);
+      padding-left: 10px;
+    }
+
+    /* Academic Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      margin-bottom: 14px;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 12px 14px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+
+    /* Form Styles */
+    fieldset {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background: #fdfdfd;
+    }
+
+    legend {
+      font-weight: bold;
+      color: var(--primary-color);
+      padding: 0 8px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #334155;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .radio-group, .checkbox-group {
+      display: flex;
+      gap: 18px;
+      margin-top: 6px;
+    }
+
+    .radio-item, .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    button[type="submit"], button[type="reset"] {
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button[type="submit"] {
+      background: var(--secondary-color);
+      color: #ffffff;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--primary-color);
+    }
+
+    button[type="reset"] {
+      background: #e2e8f0;
+      color: #475569;
+      margin-left: 10px;
+    }
+
+    button[type="reset"]:hover {
+      background: #cbd5e1;
+    }
+
+    /* Aside and Footer */
+    aside {
+      background: #eff6ff;
+      border-left: 4px solid var(--secondary-color);
+      padding: 16px;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin-bottom: 6px;
+    }
+
+    footer strong {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- SEMANTIC HEADER -->
+    <header>
+      <h1>Full Stack Web Development - Lab Sheet 1</h1>
+      <p>Semantic HTML5 Web Structure, Tables & Interactive Forms</p>
+      
+      <!-- Student Identity Credentials -->
+      <div class="badge-bar">
+        <span class="badge">Student: Pulkit Goyal</span>
+        <span class="badge">CUID: CU24250263</span>
+        <span class="badge">Roll No: 40</span>
+        <span class="badge">Section: A</span>
+        <span class="badge">B.Tech CSE</span>
+      </div>
+    </header>
+
+    <!-- SEMANTIC NAVIGATION -->
+    <nav aria-label="Main Navigation">
+      <ul>
+        <li><a href="#about">About Student</a></li>
+        <li><a href="#academics">Course Curriculum</a></li>
+        <li><a href="#projects">Highlighted Projects</a></li>
+        <li><a href="#enrollment-form">Lab Enrollment Form</a></li>
+        <li><a href="#notes">Lab Notes</a></li>
+      </ul>
+    </nav>
+
+    <!-- SEMANTIC MAIN CONTENT -->
+    <main>
+      
+      <!-- SECTION 1: ABOUT STUDENT -->
+      <section id="about">
+        <h2>1. Student Profile & Bio</h2>
+        <article>
+          <p>
+            Hello! I am <strong>Pulkit Goyal</strong>, a 3rd-year B.Tech Computer Science and Engineering student.
+            This lab sheet demonstrates the structured implementation of <strong>HTML5 Semantic Elements</strong>,
+            accessible table markup, media embedding, and native client-side validated web forms.
+          </p>
+          <p style="margin-top: 10px;">
+            My technical focus covers modern full stack engineering including <strong>React, Node.js, Express, MongoDB, and Django</strong>.
+          </p>
+        </article>
+      </section>
+
+      <!-- SECTION 2: ACADEMIC TABLE -->
+      <section id="academics">
+        <h2>2. Semester Course Curriculum & Schedule</h2>
+        <p>A formatted academic timetable illustrating HTML table semantics: <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, and <code>&lt;tfoot&gt;</code>.</p>
+        
+        <table>
+          <caption><strong>Course Overview & Credit Structure</strong></caption>
+          <thead>
+            <tr>
+              <th scope="col">Course Code</th>
+              <th scope="col">Course Title</th>
+              <th scope="col">Faculty / Lab In-Charge</th>
+              <th scope="col">Credits</th>
+              <th scope="col">Assessment Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>CS301</strong></td>
+              <td>Full Stack Web Development</td>
+              <td>Department of CSE</td>
+              <td>4</td>
+              <td>Practical + Project</td>
+            </tr>
+            <tr>
+              <td><strong>CS302</strong></td>
+              <td>Database Management Systems</td>
+              <td>Database Laboratory</td>
+              <td>4</td>
+              <td>Theory + Practical</td>
+            </tr>
+            <tr>
+              <td><strong>CS303</strong></td>
+              <td>Software Engineering & Agile</td>
+              <td>Software Systems Group</td>
+              <td>3</td>
+              <td>Continuous Evaluation</td>
+            </tr>
+            <tr>
+              <td><strong>CS304</strong></td>
+              <td>Computer Networks</td>
+              <td>Networking Lab</td>
+              <td>4</td>
+              <td>Practical & Viva</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3"><strong>Total Semester Registered Credits</strong></td>
+              <td colspan="2"><strong>15 Credits</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+
+      <!-- SECTION 3: HIGHLIGHTED PROJECTS -->
+      <section id="projects">
+        <h2>3. Full Stack Lab Portfolio Milestones</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 14px;">
+          <article style="border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; background: #ffffff;">
+            <h3 style="color: var(--secondary-color); margin-bottom: 6px;">Project 1: Real-Time Event Hub</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">MERN Stack + Socket.io + Redis Cache</p>
+            <p style="font-size: 0.92rem;">Instant broadcast notifications, event registration, and Redis-accelerated query caching.</p>
+          </article>
+
+          <article style="border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; background: #ffffff;">
+            <h3 style="color: var(--secondary-color); margin-bottom: 6px;">Project 2: CampusConnect Portal</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">MERN Stack + RBAC + Multer Storage</p>
+            <p style="font-size: 0.92rem;">Role-based student and faculty portal with study resource uploads, attendee lists, and CI/CD pipelines.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 4: INTERACTIVE FORM -->
+      <section id="enrollment-form">
+        <h2>4. Student Lab Registration & Project Selection Form</h2>
+        <p style="margin-bottom: 16px;">This form showcases comprehensive HTML5 form controls and browser-native validation rules.</p>
+
+        <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Form submitted successfully for student: Pulkit Goyal (CU24250263)!');">
+          
+          <!-- Fieldset 1: Personal Details -->
+          <fieldset>
+            <legend>Personal & Academic Information</legend>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fullName">Full Name <span style="color:red;">*</span></label>
+                <input type="text" id="fullName" name="fullName" value="Pulkit Goyal" required placeholder="Enter your full name">
+              </div>
+
+              <div class="form-group">
+                <label for="cuid">CUID (College University ID) <span style="color:red;">*</span></label>
+                <input type="text" id="cuid" name="cuid" value="CU24250263" required placeholder="e.g., CU24250263">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">College Email Address <span style="color:red;">*</span></label>
+                <input type="email" id="email" name="email" value="pulkitgoyal0103@gmail.com" required placeholder="student@example.com">
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="10-digit mobile number">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="rollNo">Class Roll Number</label>
+                <input type="number" id="rollNo" name="rollNo" value="40" min="1" max="150">
+              </div>
+
+              <div class="form-group">
+                <label for="section">Section</label>
+                <select id="section" name="section">
+                  <option value="A" selected>Section A</option>
+                  <option value="B">Section B</option>
+                  <option value="C">Section C</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Fieldset 2: Course & Project Track -->
+          <fieldset>
+            <legend>Lab Preferences & Technical Interests</legend>
+            
+            <div class="form-group">
+              <label>Preferred Primary Stack Track:</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input type="radio" name="stackTrack" value="mern" checked> MERN Stack (MongoDB, Express, React, Node)
+                </label>
+                <label class="radio-item">
+                  <input type="radio" name="stackTrack" value="django"> Python Django & SQL
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Areas of Technical Interest:</label>
+              <div class="checkbox-group">
+                <label class="checkbox-item">
+                  <input type="checkbox" name="interest" value="frontend" checked> Frontend Architecture
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="interest" value="backend" checked> RESTful APIs & Microservices
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="interest" value="realtime" checked> WebSockets & Real-Time Data
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="feedback">Project Goals / Lab Objectives:</label>
+              <textarea id="feedback" name="feedback" rows="4" placeholder="Briefly describe what you aim to build during this course...">Build robust, production-ready Full Stack applications with responsive user interfaces and scalable APIs.</textarea>
+            </div>
+          </fieldset>
+
+          <!-- Form Action Buttons -->
+          <div style="margin-top: 10px;">
+            <button type="submit">Submit Registration</button>
+            <button type="reset">Reset Form</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- SECTION 5: LAB NOTES (ASIDE) -->
+      <section id="notes">
+        <h2>5. Lab Evaluation Notes</h2>
+        <aside>
+          <strong>Instructor Check-off:</strong> This sheet verifies understanding of HTML5 semantic containers, ARIA accessibility attributes, data tables, and client-side form validation without external libraries.
+        </aside>
+      </section>
+
+    </main>
+
+    <!-- SEMANTIC FOOTER -->
+    <footer>
+      <p><strong>Full Stack Development Lab Submission</strong></p>
+      <p>Prepared by: <strong>Pulkit Goyal</strong> (CUID: <strong>CU24250263</strong> | Roll No: <strong>40</strong> | Section: <strong>A</strong>)</p>
+      <p style="margin-top: 6px; font-size: 0.8rem; color: #64748b;">Department of Computer Science & Engineering &copy; 2026</p>
+    </footer>
+  </div>
+
+</body>
+</html>

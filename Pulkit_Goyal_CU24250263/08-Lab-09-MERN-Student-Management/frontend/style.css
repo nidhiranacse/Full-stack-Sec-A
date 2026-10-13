@@ -1,0 +1,63 @@
+/* Lab 9 Student Management Stylesheet - Pulkit Goyal */
+:root {
+  --primary: #0284c7;
+  --primary-hover: #0369a1;
+  --secondary: #0f172a;
+  --danger: #ef4444;
+  --success: #10b981;
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --muted: #64748b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+
+.app-header { background: var(--secondary); color: white; padding: 20px 24px; }
+.header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.header-brand h1 { font-size: 1.4rem; margin-bottom: 4px; }
+.header-brand p { font-size: 0.85rem; color: #94a3b8; }
+.header-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.badge { background: rgba(255, 255, 255, 0.15); padding: 4px 12px; border-radius: 9999px; font-size: 0.8rem; font-weight: 500; }
+
+.main-container { max-width: 1200px; margin: 32px auto; padding: 0 20px; }
+.grid-layout { display: grid; grid-template-columns: 360px 1fr; gap: 24px; }
+@media (max-width: 900px) { .grid-layout { grid-template-columns: 1fr; } }
+
+.card { background: var(--card-bg); border-radius: 10px; border: 1px solid var(--border); box-shadow: 0 4px 14px rgba(0,0,0,0.04); padding: 24px; }
+.form-panel h2 { font-size: 1.25rem; margin-bottom: 18px; color: var(--secondary); }
+.form-group { margin-bottom: 14px; display: flex; flex-direction: column; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+label { font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; color: #334155; }
+input { padding: 9px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; }
+input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+
+.btn-group { display: flex; gap: 10px; margin-top: 18px; }
+.btn { padding: 10px 18px; border: none; border-radius: 6px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+.btn-primary { background: var(--primary); color: white; flex: 1; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-secondary { background: #e2e8f0; color: #475569; }
+
+.table-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px; }
+.table-header-row h2 { font-size: 1.25rem; color: var(--secondary); }
+.text-muted { font-size: 0.85rem; color: var(--muted); }
+.search-box input { width: 240px; }
+
+.table-responsive { overflow-x: auto; }
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th, .data-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+.data-table th { background: #f8fafc; font-weight: 600; color: #475569; }
+
+.btn-sm { padding: 4px 10px; border-radius: 4px; border: none; font-size: 0.8rem; cursor: pointer; font-weight: 500; }
+.btn-edit { background: #e0f2fe; color: #0369a1; margin-right: 6px; }
+.btn-delete { background: #fee2e2; color: #b91c1c; }
+
+.alert-box { padding: 12px 16px; border-radius: 6px; margin-bottom: 20px; font-size: 0.9rem; font-weight: 500; }
+.alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+.hidden { display: none; }
+
+footer { background: var(--secondary); color: var(--muted); text-align: center; padding: 24px; font-size: 0.85rem; margin-top: 60px; }
+footer strong { color: white; }

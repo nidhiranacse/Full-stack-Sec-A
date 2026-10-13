@@ -1,0 +1,35 @@
+{% extends 'students/base.html' %}
+
+{% block title %}Contact & Support{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h2>Department Lab Contact</h2>
+  <p style="color: #64748b; margin-bottom: 20px;">Submit questions regarding full-stack evaluations or grading.</p>
+
+  <form method="POST" action="{% url 'contact' %}" style="display: flex; flex-direction: column; gap: 14px; max-width: 500px;">
+    {% csrf_token %}
+    <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 4px;">Student Name</label>
+      <input type="text" value="Pulkit Goyal" style="width: 100%;" readonly>
+    </div>
+
+    <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 4px;">Email</label>
+      <input type="text" value="pulkitgoyal0103@gmail.com" style="width: 100%;" readonly>
+    </div>
+
+    <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 4px;">Subject</label>
+      <input type="text" placeholder="Enter inquiry subject..." style="width: 100%;" required>
+    </div>
+
+    <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 4px;">Message</label>
+      <textarea rows="4" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required placeholder="Type your inquiry here..."></textarea>
+    </div>
+
+    <button type="submit" class="btn" style="width: fit-content;">Submit Message</button>
+  </form>
+</div>
+{% endblock %}

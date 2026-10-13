@@ -1,0 +1,72 @@
+{% extends 'students/base.html' %}
+
+{% block title %}Directory{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <div>
+      <h2 style="margin: 0; color: #0f172a;">Enrolled Students Directory</h2>
+      <p style="color: #64748b; margin: 4px 0 0;">Displaying student records from SQLite via Django ORM.</p>
+    </div>
+    <a href="{% url 'search_students' %}" class="btn" style="background: #0284c7;">Filter Records</a>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Roll No</th>
+        <th>Full Name</th>
+        <th>CUID</th>
+        <th>Section</th>
+        <th>Department</th>
+        <th>GPA</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if students %}
+        {% for student in students %}
+        <tr>
+          <td><strong>{{ student.roll_number }}</strong></td>
+          <td>{{ student.full_name }}</td>
+          <td><code>{{ student.cuid }}</code></td>
+          <td>{{ student.section }}</td>
+          <td>{{ student.department }}</td>
+          <td>{{ student.gpa }}</td>
+          <td>{{ student.email }}</td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td><strong>40</strong></td>
+          <td>Pulkit Goyal</td>
+          <td><code>CU24250263</code></td>
+          <td>A</td>
+          <td>Computer Science &amp; Engineering</td>
+          <td>9.20</td>
+          <td>pulkitgoyal0103@gmail.com</td>
+        </tr>
+        <tr>
+          <td><strong>41</strong></td>
+          <td>Aarav Sharma</td>
+          <td><code>CU24250264</code></td>
+          <td>A</td>
+          <td>Computer Science &amp; Engineering</td>
+          <td>8.75</td>
+          <td>aarav.sharma@example.com</td>
+        </tr>
+        <tr>
+          <td><strong>42</strong></td>
+          <td>Ananya Patel</td>
+          <td><code>CU24250265</code></td>
+          <td>A</td>
+          <td>Computer Science &amp; Engineering</td>
+          <td>9.10</td>
+          <td>ananya.patel@example.com</td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

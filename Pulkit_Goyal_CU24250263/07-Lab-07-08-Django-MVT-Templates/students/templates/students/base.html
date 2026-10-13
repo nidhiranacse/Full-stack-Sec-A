@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Django Student Portal{% endblock %} | Pulkit Goyal (CU24250263)</title>
+  
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --secondary: #0f172a;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --border: #e2e8f0;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    header { background: var(--secondary); color: white; padding: 16px 24px; }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .brand { font-size: 1.25rem; font-weight: 700; color: white; text-decoration: none; }
+    .badge-bar { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge { background: rgba(255, 255, 255, 0.15); padding: 3px 10px; border-radius: 9999px; font-size: 0.8rem; }
+    nav { background: #1e293b; border-bottom: 1px solid #334155; }
+    nav ul { max-width: 1100px; margin: 0 auto; list-style: none; display: flex; gap: 20px; padding: 12px 24px; flex-wrap: wrap; }
+    nav a { color: #cbd5e1; text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.2s; }
+    nav a:hover { color: white; }
+    main { max-width: 1100px; margin: 32px auto; padding: 0 20px; min-height: 60vh; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    footer { background: var(--secondary); color: var(--muted); text-align: center; padding: 24px; font-size: 0.9rem; margin-top: 40px; }
+    footer strong { color: white; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #f1f5f9; color: var(--text); font-weight: 600; }
+    .btn { display: inline-block; background: var(--primary); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; border: none; cursor: pointer; }
+    .btn:hover { background: var(--primary-dark); }
+    input[type="text"] { padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header with Identity Credentials -->
+  <header>
+    <div class="header-inner">
+      <a href="{% url 'home' %}" class="brand">🎓 Django Student Portal</a>
+      <div class="badge-bar">
+        <span class="badge">Pulkit Goyal</span>
+        <span class="badge">CUID: CU24250263</span>
+        <span class="badge">Roll: 40</span>
+        <span class="badge">Sec: A</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <ul>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'student_list' %}">Student Directory</a></li>
+      <li><a href="{% url 'search_students' %}">Search Directory</a></li>
+      <li><a href="{% url 'about' %}">About Lab</a></li>
+      <li><a href="{% url 'contact' %}">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Dynamic Page Content Block -->
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p><strong>Full Stack Web Development &bull; Lab Sheet 7 &amp; 8 (Django MVT)</strong></p>
+    <p>Authored by <strong>Pulkit Goyal</strong> &bull; CUID: <strong>CU24250263</strong> &bull; Roll: <strong>40</strong> &bull; Section: <strong>A</strong></p>
+  </footer>
+
+</body>
+</html>
