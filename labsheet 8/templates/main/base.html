@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+        nav {
+            background: #222;
+            padding: 18px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            margin: 5px;
+        }
+        nav a:hover, nav a.active {
+            background: #007bff;
+            border-radius: 5px;
+        }
+        main {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+        }
+        .message {
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 5px;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+        <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About Us</a>
+        <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact Us</a>
+    </nav>
+    <main>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags == 'error' %}error{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        &copy; 2026 My Website
+    </footer>
+</body>
+</html>

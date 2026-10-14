@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Selected Event Students</title>
+</head>
+<body>
+    <h1>Selected Event Students</h1>
+
+    <form method="get">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search students..."
+            value="{{ search_query }}"
+        >
+        <button type="submit">Search</button>
+        <a href="{% url 'students' %}">Clear</a>
+    </form>
+
+    <p>Sort by:</p>
+    <a href="?sort=name&q={{ search_query|urlencode }}">Name</a> |
+    <a href="?sort=event&q={{ search_query|urlencode }}">Event</a> |
+    <a href="?sort=roll_number&q={{ search_query|urlencode }}">Roll Number</a>
+
+    {% if students %}
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Event</th>
+                    <th>Roll Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.event }}</td>
+                        <td>{{ student.roll_number }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p role="alert">No students found.</p>
+    {% endif %}
+
+    <p><a href="{% url 'fruits' %}">Back to Fruits Collection</a></p>
+</body>
+</html>

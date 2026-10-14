@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Interactive web page demonstrating dark mode, responsive photo gallery and Todo application">
+    <title>FeNova</title>
+    <style>
+        :root {
+            --bg-color: #f5f7fb;
+            --text-color: #1f2937;
+            --card-color: #ffffff;
+            --primary-color: #4f46e5;
+            --secondary-color: #eef2ff;
+            --border-color: #d1d5db;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        body.dark-mode {
+            --bg-color: #111827;
+            --text-color: #f9fafb;
+            --card-color: #1f2937;
+            --primary-color: #818cf8;
+            --secondary-color: #374151;
+            --border-color: #4b5563;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease;
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        header {
+            background-color: var(--card-color);
+            padding: 18px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            box-shadow: var(--shadow);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+
+        header h2 {
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+
+        nav a {
+            font-weight: bold;
+        }
+
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+
+        #themeButton {
+            border: none;
+            padding: 9px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+
+        /* =====================================================
+           TASK 2.1 - DARK MODE LANDING PAGE
+           ===================================================== */
+
+        .hero {
+            min-height: 75vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 15px;
+        }
+
+
+        .hero h1 span {
+            color: var(--primary-color);
+        }
+
+
+        .hero p {
+            font-size: 19px;
+            line-height: 1.7;
+        }
+
+
+        .hero-button {
+            display: inline-block;
+
+            margin-top: 20px;
+            padding: 12px 25px;
+
+            background-color: var(--primary-color);
+            color: white;
+
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+
+        section {
+            padding: 70px 7%;
+        }
+
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+
+        .section-heading h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+
+        .section-heading p {
+            opacity: 0.8;
+        }
+
+
+        /* =====================================================
+           TASK 2.2 - RESPONSIVE PHOTO GRID
+           ===================================================== */
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            gap: 25px;
+
+            max-width: 1100px;
+            margin: auto;
+        }
+
+
+        .photo-card {
+            flex: 1 1 280px;
+            max-width: 330px;
+
+            background-color: var(--card-color);
+
+            border-radius: 12px;
+            overflow: hidden;
+
+            box-shadow: var(--shadow);
+
+            transition: transform 0.3s ease;
+        }
+
+
+        .photo-card:hover {
+            transform: translateY(-8px);
+        }
+
+
+        .photo-card img {
+            width: 100%;
+            height: 220px;
+
+            object-fit: cover;
+            display: block;
+
+            transition: transform 0.4s ease;
+        }
+
+
+        .photo-card:hover img {
+            transform: scale(1.08);
+        }
+
+
+        .photo-info {
+            padding: 15px;
+        }
+
+
+        .photo-info h3 {
+            margin: 0 0 5px;
+        }
+
+
+        /* =====================================================
+           TASK 2.3 - TODO APPLICATION
+           ===================================================== */
+
+        .todo-container {
+            max-width: 650px;
+            margin: auto;
+
+            background-color: var(--card-color);
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow: var(--shadow);
+        }
+
+
+        .todo-input {
+            display: flex;
+            gap: 10px;
+        }
+
+
+        #taskInput {
+            flex: 1;
+
+            padding: 12px;
+
+            border: 1px solid var(--border-color);
+
+            border-radius: 8px;
+
+            background-color: var(--bg-color);
+            color: var(--text-color);
+
+            outline: none;
+        }
+
+
+        #addButton {
+            padding: 12px 20px;
+
+            border: none;
+            border-radius: 8px;
+
+            background-color: var(--primary-color);
+
+            color: white;
+
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+
+        #addButton:hover {
+            opacity: 0.85;
+        }
+
+
+        /* Validation Error */
+
+        #errorMessage {
+            display: none;
+            margin-top: 10px;
+        }
+
+
+        /* Todo List */
+
+        #todoList {
+            list-style: none;
+
+            padding: 0;
+
+            margin-top: 20px;
+        }
+
+
+        .todo-item {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 12px 15px;
+
+            margin-bottom: 10px;
+
+            background-color: var(--secondary-color);
+
+            border-radius: 8px;
+        }
+
+
+        .task-text {
+            cursor: pointer;
+        }
+
+
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+
+        .delete-button {
+            border: none;
+
+            padding: 7px 12px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        footer {
+            text-align: center;
+
+            padding: 25px;
+
+            background-color: var(--card-color);
+
+            border-top: 1px solid var(--border-color);
+        }
+
+
+        /* =====================================================
+           RESPONSIVE DESIGN
+           ===================================================== */
+
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+
+            nav {
+                gap: 12px;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+
+            .hero p {
+                font-size: 16px;
+            }
+
+
+            .todo-input {
+                flex-direction: column;
+            }
+
+
+            #addButton {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<!-- DARK MODE BY DEFAULT -->
+
+<body class="dark-mode">
+
+
+    <header>
+
+        <h2>FeNova</h2>
+
+
+        <nav aria-label="Main Navigation">
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#gallery">
+                Photo
+            </a>
+
+            <a href="#todo">
+                Todo
+            </a>
+
+        </nav>
+
+
+        <button id="themeButton">
+            ☀️ Light Mode
+        </button>
+
+    </header>
+
+
+    <!-- =====================================================
+         TASK 2.1 - DARK MODE LANDING PAGE
+         ===================================================== -->
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="hero-content">
+
+                <h1>
+                    Welcome to
+                    <span>FeNova</span>
+                </h1>
+
+
+                <p>
+                    A simple interactive website demonstrating modern
+                    CSS styling, responsive layouts, and JavaScript
+                    interactivity.
+                </p>
+
+
+                <a href="#gallery" class="hero-button">
+                    Explore Website
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             TASK 2.2 - RESPONSIVE PHOTO GRID
+             ================================================= -->
+
+        <section id="gallery">
+
+            <div class="section-heading">
+
+                <h2>
+                    Photo Gallery
+                </h2>
+
+            </div>
+
+
+            <div class="gallery">
+
+                <article class="photo-card">
+
+                    <img
+                        src="zootopia.jpg"
+                        alt="ZOOTOPIA MANIA">
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             TASK 2.3 - TODO APPLICATION
+             ================================================= -->
+
+        <section id="todo">
+
+            <div class="section-heading">
+
+                <h2>
+                    Todo list for your tasks
+                </h2>
+
+                <p>
+                    Manage your tasks!!!!
+                </p>
+
+            </div>
+
+
+            <div class="todo-container">
+
+
+                <div class="todo-input">
+
+                    <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="Enter a task">
+
+
+                    <button id="addButton">
+                        Add Task
+                    </button>
+
+                </div>
+
+
+                <!-- Validation Error -->
+
+                <p id="errorMessage">
+
+                    Please enter a task before adding.
+
+                </p>
+
+
+                <!-- Dynamic Tasks -->
+
+                <ul id="todoList"></ul>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 FeNova | HTML, CSS & JavaScript Lab
+        </p>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+
+        /* =================================================
+           TASK 2.1 - DARK MODE TOGGLE
+           ================================================= */
+
+        const themeButton =
+            document.getElementById("themeButton");
+
+
+        themeButton.addEventListener("click", function () {
+
+
+            document.body.classList.toggle("dark-mode");
+
+
+            if (
+                document.body.classList.contains("dark-mode")
+            ) {
+
+                themeButton.textContent =
+                    "☀️ Light Mode";
+
+            }
+
+            else {
+
+                themeButton.textContent =
+                    "🌙 Dark Mode";
+
+            }
+
+        });
+
+
+
+        /* =================================================
+           TASK 2.3 - TODO APPLICATION
+           ================================================= */
+
+
+        const taskInput =
+            document.getElementById("taskInput");
+
+
+        const addButton =
+            document.getElementById("addButton");
+
+
+        const todoList =
+            document.getElementById("todoList");
+
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+
+
+        /* Add Task Function */
+
+        function addTask() {
+
+            const taskText =
+                taskInput.value.trim();
+
+
+            /* Validation */
+
+            if (taskText === "") {
+
+                errorMessage.style.display =
+                    "block";
+
+                return;
+
+            }
+
+
+            /* Hide validation message */
+
+            errorMessage.style.display =
+                "none";
+
+
+            /* Create List Item */
+
+            const listItem =
+                document.createElement("li");
+
+            listItem.classList.add("todo-item");
+
+
+            /* Create Task Text */
+
+            const taskSpan =
+                document.createElement("span");
+
+            taskSpan.textContent =
+                taskText;
+
+            taskSpan.classList.add("task-text");
+
+
+            /* Create Delete Button */
+
+            const deleteButton =
+                document.createElement("button");
+
+            deleteButton.textContent =
+                "Delete";
+
+            deleteButton.classList.add(
+                "delete-button"
+            );
+
+
+            /* Complete Task */
+
+            taskSpan.addEventListener(
+                "click",
+                function () {
+
+                    taskSpan.classList.toggle(
+                        "completed"
+                    );
+
+                }
+            );
+
+
+            /* Delete Task */
+
+            deleteButton.addEventListener(
+                "click",
+                function () {
+
+                    listItem.remove();
+
+                }
+            );
+
+
+            /* Append Elements */
+
+            listItem.appendChild(taskSpan);
+
+            listItem.appendChild(deleteButton);
+
+            todoList.appendChild(listItem);
+
+
+            /* Clear Input */
+
+            taskInput.value = "";
+
+            taskInput.focus();
+
+        }
+
+
+
+        /* Add Button Event */
+
+        addButton.addEventListener(
+            "click",
+            addTask
+        );
+
+
+
+        /* Enter Key Event */
+
+        taskInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    addTask();
+
+                }
+
+            }
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>
