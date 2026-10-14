@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.next/
+.vite/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Local SQLite database and temporary files
+backend/quickbite.db
+backend/quickbite.db-journal
+backend/quickbite.db-wal
+backend/quickbite.db-shm
+
+# Keep dependency lockfiles for reproducible installs
+!backend/package-lock.json
+!frontend/frontend/package-lock.json
