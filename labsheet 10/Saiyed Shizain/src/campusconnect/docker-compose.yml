@@ -1,0 +1,63 @@
+version: "3.9"
+services:
+  mongo:
+    image: mongo:7
+    container_name: campusconnect-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: campusadmin
+      MONGO_INITDB_ROOT_PASSWORD: campuspass
+      MONGO_INITDB_DATABASE: campusconnect
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - campusnet
+  redis:
+    image: redis:7-alpine
+    container_name: campusconnect-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - campusnet
+  backend:
+    build: ./backend
+    container_name: campusconnect-backend
+    restart: unless-stopped
+    depends_on:
+      - mongo
+      - redis
+    environment:
+      PORT: 5000
+      MONGO_URI: mongodb://campusadmin:campuspass@mongo:27017/campusconnect?authSource=admin
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_ACCESS_SECRET: change_me_access_secret
+      JWT_REFRESH_SECRET: change_me_refresh_secret
+      FRONTEND_ORIGIN: http://localhost:3000
+      NODE_ENV: production
+    ports:
+      - "5000:5000"
+    networks:
+      - campusnet
+  frontend:
+    build: ./frontend
+    container_name: campusconnect-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:5000/api
+      VITE_SOCKET_URL: http://localhost:5000
+    ports:
+      - "3000:80"
+    networks:
+      - campusnet
+volumes:
+  mongo-data:
+    driver: local
+networks:
+  campusnet:
+    driver: bridge

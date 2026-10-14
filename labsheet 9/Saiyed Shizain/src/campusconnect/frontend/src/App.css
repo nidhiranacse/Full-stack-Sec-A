@@ -1,0 +1,15 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; background: #f4f6f8; color: #222; }
+.app { max-width: 720px; margin: auto; padding: 32px 20px 60px; }
+header { text-align: center; margin-bottom: 20px; }
+.card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+label { display: block; font-weight: bold; margin-top: 12px; }
+input { width: 100%; padding: 10px; margin-top: 4px; border: 1px solid #d1d5db; border-radius: 8px; }
+button { margin-top: 14px; padding: 10px 16px; border: 0; border-radius: 8px;
+         background: #4f46e5; color: #fff; cursor: pointer; }
+button:disabled { opacity: .5; }
+.error { color: #b42318; }
+ul { list-style: none; padding: 0; }
+li { background: #fff; padding: 12px; margin-top: 10px; border-radius: 8px;
+     display: flex; justify-content: space-between; align-items: center; }
+li button { margin-top: 0; }
