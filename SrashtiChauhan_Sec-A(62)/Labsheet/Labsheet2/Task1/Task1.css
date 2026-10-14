@@ -1,0 +1,55 @@
+:root {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --card-color: #1e1e1e;
+    --accent-color: #00bcd4;
+}
+
+.light-mode {
+    --bg-color: #ffffff;
+    --text-color: #222222;
+    --card-color: #f2f2f2;
+    --accent-color: #0077cc;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: 0.3s;
+}
+
+header {
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-color);
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: var(--accent-color);
+    color: white;
+}
+
+.hero {
+    text-align: center;
+    padding: 120px 20px;
+}
+
+.hero h2 {
+    font-size: 45px;
+}
+
+.hero p {
+    font-size: 18px;
+}
