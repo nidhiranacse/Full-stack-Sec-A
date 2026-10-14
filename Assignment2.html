@@ -1,0 +1,392 @@
+<!--q1-->
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Responsive Layout</title>
+
+    <style>
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .column {
+            flex: 1;
+            padding: 30px;
+            background-color: lightblue;
+            text-align: center;
+        }
+
+        /* Mobile View */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Responsive 3-Column Layout</h2>
+
+    <div class="container">
+
+        <div class="column">
+            <h3>Column 1</h3>
+            <p>Content of first column.</p>
+        </div>
+
+        <div class="column">
+            <h3>Column 2</h3>
+            <p>Content of second column.</p>
+        </div>
+
+        <div class="column">
+            <h3>Column 3</h3>
+            <p>Content of third column.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>-->
+<!--q2-->
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search with Debouncing</title>
+</head>
+
+<body>
+
+    <h2>Search</h2>
+
+    <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Type to search..."
+    >
+
+    <script>
+
+        // Debounce function
+        function debounce(func, delay) {
+            let timer;
+
+            return function () {
+                clearTimeout(timer);
+
+                timer = setTimeout(() => {
+                    func();
+                }, delay);
+            };
+        }
+
+        // Function to perform search
+        function searchData() {
+            let query = document.getElementById("searchInput").value;
+
+            if (query.length > 0) {
+                console.log("API call for:", query);
+
+                // Example API call
+                // fetch("https://example.com/api/search?q=" + query);
+            }
+        }
+
+        // Apply debounce
+        const delayedSearch = debounce(searchData, 500);
+
+        document.getElementById("searchInput")
+            .addEventListener("input", delayedSearch);
+
+    </script>
+
+</body>
+</html>
+-->
+<!--Q6-->
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Async Await Example</title>
+</head>
+
+<body>
+
+    <h2>Async Data Update</h2>
+
+    <button onclick="updateUI()">Update UI</button>
+
+    <p id="output"></p>
+
+    <script>
+
+        // Function to fetch user data
+        function fetchUserData() {
+            return new Promise(resolve => {
+
+                setTimeout(() => {
+                    document.getElementById("output").innerHTML +=
+                        "User data loaded<br>";
+
+                    resolve();
+
+                }, 2000);
+            });
+        }
+
+
+        // Function to fetch user posts
+        function fetchUserPosts() {
+            return new Promise(resolve => {
+
+                setTimeout(() => {
+                    document.getElementById("output").innerHTML +=
+                        "User posts loaded<br>";
+
+                    resolve();
+
+                }, 1000);
+            });
+        }
+
+
+        // Async function
+        async function updateUI() {
+
+            document.getElementById("output").innerHTML =
+                "Loading...<br>";
+
+            // Wait for user data first
+            await fetchUserData();
+
+            // Then load user posts
+            await fetchUserPosts();
+
+            document.getElementById("output").innerHTML +=
+                "UI Updated Successfully!";
+        }
+
+    </script>
+
+</body>
+</html>
+-->
+<!--Q4-->
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Modal</title>
+
+    <style>
+        .modal {
+            width: 300px;
+            padding: 20px;
+            margin: 50px auto;
+            border: 1px solid gray;
+            text-align: center;
+        }
+
+        input {
+            padding: 8px;
+            width: 90%;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: blue;
+            color: white;
+            border: none;
+        }
+
+        #error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="modal">
+
+        <h2>Registration Form</h2>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter your name"
+        >
+
+        <p id="error"></p>
+
+        <button onclick="handleSubmit()">
+            Submit
+        </button>
+
+    </div>
+
+
+    <script>
+
+        function handleSubmit() {
+
+            let name = document.getElementById("name").value;
+
+            if (name.trim() === "") {
+
+                document.getElementById("error").innerHTML =
+                    "Name is required";
+
+                return;
+            }
+
+            document.getElementById("error").innerHTML = "";
+
+            alert("Form submitted successfully!");
+        }
+
+    </script>
+
+</body>
+</html>
+-->
+<!--Q7-->
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            width: 300px;
+            margin: 50px auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+
+        <h2>Registration Form</h2>
+
+        <form onsubmit="return validateForm()">
+
+            <label>Name:</label>
+            <input type="text" id="name">
+
+            <p id="nameError" class="error"></p>
+
+
+            <label>Email:</label>
+            <input type="text" id="email">
+
+            <p id="emailError" class="error"></p>
+
+
+            <label>Password:</label>
+            <input type="password" id="password">
+
+            <p id="passwordError" class="error"></p>
+
+
+            <button type="submit">Submit</button>
+
+        </form>
+
+    </div>
+
+
+    <script>
+
+        function validateForm() {
+
+            let name =
+                document.getElementById("name").value;
+
+            let email =
+                document.getElementById("email").value;
+
+            let password =
+                document.getElementById("password").value;
+
+
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("passwordError").innerHTML = "";
+
+
+            let valid = true;
+
+
+            if (name.trim() === "") {
+
+                document.getElementById("nameError").innerHTML =
+                    "Name is required";
+
+                valid = false;
+            }
+
+
+            if (!email.includes("@")) {
+
+                document.getElementById("emailError").innerHTML =
+                    "Enter a valid email";
+
+                valid = false;
+            }
+
+
+            if (password.length < 6) {
+
+                document.getElementById("passwordError").innerHTML =
+                    "Password must contain at least 6 characters";
+
+                valid = false;
+            }
+
+
+            if (valid) {
+
+                alert("Form submitted successfully!");
+
+            }
+
+            return valid;
+        }
+
+    </script>
+
+</body>
+</html>
+-->

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Makes the page work properly on mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management</title>
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Page heading -->
+        <header>
+            <h1>Student Management</h1>
+            <p>Add, update and delete student records.</p>
+        </header>
+
+
+        <!-- Add student form -->
+        <div class="form-box">
+
+            <h2 id="formTitle">Add Student</h2>
+
+            <form id="studentForm">
+
+                <div class="input-group">
+                    <label for="name">Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter student name"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="age">Age</label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        placeholder="Enter age"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="course">Course</label>
+
+                    <input
+                        type="text"
+                        id="course"
+                        placeholder="Enter course"
+                        required
+                    >
+                </div>
+
+
+                <div class="buttons">
+
+                    <button
+                        type="submit"
+                        id="submitButton"
+                    >
+                        Add Student
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelButton"
+                        hidden
+                    >
+                        Cancel
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- Student records -->
+        <div class="students-box">
+
+            <div class="students-header">
+
+                <h2>Student Records</h2>
+
+                <button
+                    type="button"
+                    id="refreshButton"
+                >
+                    Refresh
+                </button>
+
+            </div>
+
+
+            <!-- Number of students -->
+            <p class="total">
+                Total Students:
+                <span id="studentCount">0</span>
+            </p>
+
+
+            <!-- Loading text -->
+            <p id="loading">
+                Loading...
+            </p>
+
+
+            <!-- JavaScript will add student cards here -->
+            <div id="studentList"></div>
+
+
+            <!-- Shows when there are no students -->
+            <p id="emptyMessage" hidden>
+                No student records found.
+            </p>
+
+        </div>
+
+
+        <!-- Small message area -->
+        <div id="statusMessage"></div>
+
+    </div>
+
+
+    <!-- JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>

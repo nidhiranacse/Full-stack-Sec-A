@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Users List</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Users List</h1>
+        <p>Data fetched using Fetch API</p>
+
+        <!-- Search box -->
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search users..."
+        >
+
+        <!-- Users table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>City</th>
+                    </tr>
+                </thead>
+
+                <tbody id="userTable">
+                    <!-- Data will be added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <p id="message"></p>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

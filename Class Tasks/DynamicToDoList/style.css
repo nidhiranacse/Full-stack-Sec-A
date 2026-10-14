@@ -1,0 +1,363 @@
+/* =================================
+   BASIC RESET
+================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =================================
+   BODY
+================================= */
+
+body {
+    min-height: 100vh;
+
+    font-family: "Poppins", sans-serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    /* Modern background */
+    background: linear-gradient(
+        135deg,
+        #eef2ff,
+        #f5f3ff,
+        #ecfeff
+    );
+}
+
+
+/* =================================
+   MAIN TODO CONTAINER
+================================= */
+
+.todo-container {
+    width: 600px;
+    max-width: 100%;
+
+    padding: 35px;
+
+    background: white;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 60px rgba(30, 41, 59, 0.15);
+}
+
+
+/* =================================
+   HEADING
+================================= */
+
+.heading {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+}
+
+
+/* Number circle */
+
+.number {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: white;
+
+    font-size: 20px;
+    font-weight: 600;
+
+    background: linear-gradient(
+        135deg,
+        #6366f1,
+        #06b6d4
+    );
+}
+
+
+/* Main heading */
+
+.heading h1 {
+    font-size: 28px;
+
+    color: #111827;
+}
+
+
+/* Small subtitle */
+
+.heading p {
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* =================================
+   INPUT SECTION
+================================= */
+
+.input-section {
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+}
+
+
+/* Task input */
+
+#taskInput {
+    flex: 1;
+
+    padding: 14px 16px;
+
+    border: 2px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    transition: border-color 0.2s ease;
+}
+
+
+/* Input focus */
+
+#taskInput:focus {
+    border-color: #6366f1;
+}
+
+
+/* =================================
+   ADD BUTTON
+================================= */
+
+#addButton {
+    border: none;
+
+    padding: 0 20px;
+
+    border-radius: 12px;
+
+    color: white;
+
+    background: linear-gradient(
+        135deg,
+        #6366f1,
+        #06b6d4
+    );
+
+    font-family: inherit;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Add button hover */
+
+#addButton:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+
+/* =================================
+   TASK LIST
+================================= */
+
+#taskList {
+    list-style: none;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+/* =================================
+   INDIVIDUAL TASK
+================================= */
+
+.task-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 14px 16px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Task hover */
+
+.task-item:hover {
+    transform: translateX(3px);
+
+    box-shadow:
+        0 5px 15px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =================================
+   TASK TEXT
+================================= */
+
+.task-text {
+    flex: 1;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    /* Prevent long text from breaking layout */
+    overflow-wrap: anywhere;
+}
+
+
+/* =================================
+   COMPLETED TASK
+================================= */
+
+.task-text.completed {
+    /* Requirement: completed task gets
+       strikethrough */
+    text-decoration: line-through;
+
+    color: #94a3b8;
+}
+
+
+/* =================================
+   DELETE BUTTON
+================================= */
+
+.delete-button {
+    border: none;
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+    background: #fee2e2;
+
+    color: #dc2626;
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* Delete hover */
+
+.delete-button:hover {
+    background: #fecaca;
+
+    transform: scale(1.05);
+}
+
+
+/* =================================
+   EMPTY MESSAGE
+================================= */
+
+#emptyMessage {
+    text-align: center;
+
+    color: #94a3b8;
+
+    font-size: 14px;
+
+    padding: 20px 0;
+}
+
+
+/* =================================
+   RESPONSIVE DESIGN
+================================= */
+
+@media (max-width: 480px) {
+
+    .todo-container {
+        padding: 25px 18px;
+
+        border-radius: 18px;
+    }
+
+
+    .heading h1 {
+        font-size: 23px;
+    }
+
+
+    /* Stack input and button */
+
+    .input-section {
+        flex-direction: column;
+    }
+
+
+    #addButton {
+        padding: 13px;
+    }
+
+
+    .task-item {
+        padding: 12px;
+    }
+}

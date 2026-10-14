@@ -1,0 +1,352 @@
+/* * {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  min-height: 100vh;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 430px;
+  background-color: white;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.login-card h1 {
+  text-align: center;
+  margin: 0 0 8px;
+  color: #222;
+}
+
+.subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 13px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #667eea;
+}
+
+.error-badge {
+  display: block;
+  margin-top: 7px;
+  padding: 8px 10px;
+  background-color: #ffe5e5;
+  color: #d62828;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.login-button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #667eea;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #5568d9;
+}
+
+.success-message {
+  text-align: center;
+  color: #198754;
+  background-color: #e8f7ee;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 15px;
+}
+
+@media (max-width: 500px) {
+  .login-card {
+    padding: 25px 20px;
+  }
+}*/
+/*q2*/
+/* * {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  min-height: 100vh;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.strength-container {
+  width: 100%;
+  max-width: 450px;
+  background-color: white;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.strength-container label {
+  display: block;
+  font-size: 22px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 15px;
+}
+
+.strength-container input {
+  width: 100%;
+  padding: 13px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+}
+
+.strength-container input:focus {
+  border-color: #667eea;
+}
+
+.progress-background {
+  width: 100%;
+  height: 12px;
+  background-color: #e5e5e5;
+  border-radius: 10px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #667eea;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.strength-text {
+  margin-top: 12px;
+  color: #555;
+}
+
+.requirements {
+  padding-left: 20px;
+  color: #777;
+  line-height: 1.8;
+}
+
+.requirements .valid {
+  color: #198754;
+  font-weight: bold;
+}
+
+@media (max-width: 500px) {
+  .strength-container {
+    padding: 25px 20px;
+  }
+}*/
+
+/*q3*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  min-height: 100vh;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.onboarding-card,
+.success-screen {
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.onboarding-card h1,
+.success-screen h2 {
+  text-align: center;
+  color: #222;
+  margin-top: 0;
+}
+
+.step-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin: 25px 0 30px;
+}
+
+.step-indicator span {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #ddd;
+  color: #666;
+  font-weight: bold;
+}
+
+.step-indicator span.active {
+  background-color: #667eea;
+  color: white;
+}
+
+.step-content h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.step-content label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 7px;
+  font-weight: bold;
+  color: #444;
+}
+
+.step-content input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+}
+
+.step-content input:focus {
+  border-color: #667eea;
+}
+
+.form-error {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 7px;
+  background-color: #ffe5e5;
+  color: #d62828;
+  font-size: 14px;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  gap: 10px;
+}
+
+.navigation-buttons button,
+.success-screen button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.back-button {
+  background-color: #777;
+}
+
+.next-button,
+.submit-button,
+.success-screen button {
+  background-color: #667eea;
+  margin-left: auto;
+}
+
+.review-box {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.review-box p {
+  margin: 10px 0;
+  color: #555;
+}
+
+.review-message {
+  color: #777;
+  font-size: 14px;
+  text-align: center;
+}
+
+.success-screen {
+  text-align: center;
+}
+
+.success-screen p {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+@media (max-width: 500px) {
+  .onboarding-card,
+  .success-screen {
+    padding: 25px 20px;
+  }
+
+  .step-indicator {
+    gap: 25px;
+  }
+}

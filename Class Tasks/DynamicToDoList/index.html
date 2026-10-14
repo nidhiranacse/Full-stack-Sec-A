@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Makes the page responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dynamic To-Do List</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Main To-Do container -->
+    <main class="todo-container">
+
+        <!-- Heading -->
+        <div class="heading">
+            <span class="number">2</span>
+
+            <div>
+                <h1>Dynamic To-Do List</h1>
+                <p>JavaScript + DOM</p>
+            </div>
+        </div>
+
+
+        <!-- Input section -->
+        <div class="input-section">
+
+            <!-- User enters task here -->
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="Enter a new task..."
+            >
+
+            <!-- Add button -->
+            <button id="addButton">
+                + Add Task
+            </button>
+
+        </div>
+
+
+        <!-- Task list -->
+        <ul id="taskList"></ul>
+
+
+        <!-- Empty message -->
+        <p id="emptyMessage">
+            No tasks yet. Add your first task!
+        </p>
+
+    </main>
+
+
+    <!-- JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
