@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Lab Sheet 7</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            margin: 40px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #ddd;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .alert {
+            padding: 15px;
+            background: #ffdddd;
+            border: 1px solid red;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1>Django Lab Sheet 7</h1>
+
+
+    <!-- TASK 7.1 -->
+
+    <div class="box">
+
+        <h2>Task 7.1 - Fruits List</h2>
+
+        {% if fruits %}
+
+            <ul>
+
+                {% for fruit in fruits %}
+
+                    <li>{{ fruit }}</li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% else %}
+
+            <div class="alert">
+                No fruits are available.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- TASK 8.2 -->
+
+    <div class="box">
+
+        <h2>Task 8.2 - Student Sorting</h2>
+
+        <a href="?sort=name">
+            <button>Sort by Name</button>
+        </a>
+
+        <a href="?sort=event">
+            <button>Sort by Event</button>
+        </a>
+
+
+        <table>
+
+            <tr>
+                <th>Student Name</th>
+                <th>Selected Event</th>
+            </tr>
+
+            {% if students %}
+
+                {% for student in students %}
+
+                    <tr>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.event }}</td>
+                    </tr>
+
+                {% endfor %}
+
+            {% else %}
+
+                <tr>
+                    <td colspan="2">
+                        No students found.
+                    </td>
+                </tr>
+
+            {% endif %}
+
+        </table>
+
+    </div>
+
+
+    <!-- TASK 8.3 -->
+
+    <div class="box">
+
+        <h2>Task 8.3 - Student Search</h2>
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search student name"
+                value="{{ search }}"
+            >
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+
+        <table>
+
+            <tr>
+                <th>Student Name</th>
+                <th>Selected Event</th>
+            </tr>
+
+            {% if students %}
+
+                {% for student in students %}
+
+                    <tr>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.event }}</td>
+                    </tr>
+
+                {% endfor %}
+
+            {% else %}
+
+                <tr>
+                    <td colspan="2">
+                        No matching student found.
+                    </td>
+                </tr>
+
+            {% endif %}
+
+        </table>
+
+    </div>
+
+
+</body>
+
+</html>

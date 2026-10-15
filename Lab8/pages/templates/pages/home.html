@@ -1,0 +1,40 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Home | Django Lab 08{% endblock %}
+
+{% block content %}
+
+<h1>🚀 Project Overview</h1>
+
+<p>
+    This application demonstrates how Django Template Inheritance
+    can be used to create a reusable and modular web interface.
+</p>
+
+<h2>⚡ Implemented Modules</h2>
+
+<div class="feature-grid">
+
+    <div class="feature">
+        <strong>🧩 Template Inheritance</strong>
+        <span>Reusable master layout shared across multiple pages.</span>
+    </div>
+
+    <div class="feature">
+        <strong>⭐ Dynamic Navigation</strong>
+        <span>Active navigation is assigned programmatically using Django context.</span>
+    </div>
+
+    <div class="feature">
+        <strong>🔔 Feedback System</strong>
+        <span>Persistent notification area is inherited by every child template.</span>
+    </div>
+
+    <div class="feature">
+        <strong>📩 Server-side Processing</strong>
+        <span>User feedback is validated and forwarded to the server log.</span>
+    </div>
+
+</div>
+
+{% endblock %}

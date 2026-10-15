@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Django Lab 8{% endblock %}</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        nav {
+            background: #0f172a;
+            padding: 16px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .brand span {
+            color: #38bdf8;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin-left: 5px;
+            border-radius: 8px;
+            transition: .2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+            background: #2563eb;
+        }
+
+        .hero {
+            background: linear-gradient(135deg,#0f172a,#1e3a8a);
+            color: white;
+            padding: 55px 8%;
+        }
+
+        .hero small {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin: 12px 0;
+        }
+
+        .hero p {
+            color: #cbd5e1;
+            max-width: 650px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: -30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .message {
+            background: #ecfdf5;
+            border-left: 5px solid #10b981;
+            color: #065f46;
+            padding: 14px 18px;
+            margin-bottom: 22px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px #0001;
+        }
+
+        .content-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px #0001;
+        }
+
+        h1, h2 {
+            color: #172554;
+        }
+
+        h2 {
+            margin-top: 28px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8fafc;
+        }
+
+        .feature strong {
+            display: block;
+            color: #1d4ed8;
+            margin-bottom: 7px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media(max-width:700px) {
+            nav { flex-direction: column; gap: 12px; }
+            .hero h1 { font-size: 30px; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+<nav>
+    <div class="brand">⚙️ Django<span>Lab 08</span></div>
+
+    <div class="nav-links">
+        <a href="/" class="{% if active_page == 'home' %}active{% endif %}">
+            🏠 Home
+        </a>
+
+        <a href="/about/" class="{% if active_page == 'about' %}active{% endif %}">
+            📘 About
+        </a>
+
+        <a href="/contact/" class="{% if active_page == 'contact' %}active{% endif %}">
+            📩 Contact
+        </a>
+    </div>
+</nav>
+
+<section class="hero">
+    <small>FULL STACK DEVELOPMENT • LAB SHEET 08</small>
+    <h1>Template Inheritance & Modular UI</h1>
+    <p>
+        A structured Django web application demonstrating reusable templates,
+        dynamic navigation, feedback notifications and server-side form processing.
+    </p>
+</section>
+
+<div class="container">
+
+    {% block feedback %}
+        {% if message %}
+            <div class="message">
+                🔔 {{ message }}
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    <div class="content-card">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</div>
+
+<footer>
+    Django Lab 08 • Template Inheritance • Modular UI Engineering
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Sheet 02 - Interactive Website</title>
+<style>
+:root{--bg:#f4f6f9;--text:#1e1e1e;--card:#fff;--accent:#3a6ea5;--border:#ddd}
+[data-theme="dark"]{--bg:#121417;--text:#f1f1f1;--card:#1e2126;--accent:#6db1ff;--border:#333}
+*{box-sizing:border-box}
+body{margin:0;padding:20px;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);transition:.3s}
+header{display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:0 auto 20px}
+#theme-toggle{background:var(--accent);color:#fff;border:none;padding:8px 16px;border-radius:20px;cursor:pointer}
+section{max-width:900px;margin:0 auto 25px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 25px}
+h2{color:var(--accent);margin-top:0}
+.photo-grid{display:flex;flex-wrap:wrap;gap:15px;justify-content:center}
+.photo-grid img{width:180px;height:130px;object-fit:cover;border-radius:8px;transition:.3s}
+.photo-grid img:hover{transform:scale(1.08);box-shadow:0 6px 14px rgba(0,0,0,.25)}
+@media(max-width:500px){.photo-grid img{width:45%;height:100px}}
+.todo-input-row{display:flex;gap:10px;margin-bottom:8px}
+#todo-input{flex:1;padding:10px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text)}
+#todo-add-btn{background:var(--accent);color:#fff;border:none;padding:10px 18px;border-radius:6px;cursor:pointer}
+.error-text{color:#e05555;font-size:.85em;min-height:18px}
+#todo-list{list-style:none;padding:0;margin:0}
+#todo-list li{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--border)}
+#todo-list li.completed span{text-decoration:line-through;opacity:.6}
+#todo-list li button{background:none;border:none;cursor:pointer;color:var(--accent)}
+#todo-list li button.delete-btn{color:#e05555}
+</style>
+</head>
+<body>
+<header><h1>Interactive Web Playground</h1><button id="theme-toggle">🌙 Dark Mode</button></header>
+
+<!-- Task 2.1: Dark mode via CSS variables + JS toggle -->
+<section><h2>Task 2.1 - Dark Mode Landing</h2><p>Click the button above to switch theme. Colors come from CSS variables, toggled with vanilla JS.</p></section>
+
+<!-- Task 2.2: Responsive Flexbox photo grid with hover animation -->
+<section><h2>Task 2.2 - Responsive Photo Grid</h2>
+<div class="photo-grid">
+<img src="https://picsum.photos/id/1015/300/200" alt="Mountain river landscape">
+<img src="https://picsum.photos/id/1016/300/200" alt="Rocky mountain range">
+<img src="https://picsum.photos/id/1018/300/200" alt="Forest and valley view">
+<img src="https://picsum.photos/id/1022/300/200" alt="Desert road landscape">
+<img src="https://picsum.photos/id/1024/300/200" alt="Dog sitting on grass">
+<img src="https://picsum.photos/id/1025/300/200" alt="Puppy portrait close-up">
+</div></section>
+
+<!-- Task 2.3: Todo App with append + validation -->
+<section><h2>Task 2.3 - Todo Application</h2>
+<div class="todo-input-row"><input type="text" id="todo-input" placeholder="Add a new task..."><button id="todo-add-btn">Add</button></div>
+<p class="error-text" id="todo-error"></p>
+<ul id="todo-list"></ul>
+</section>
+
+<script>
+const themeBtn=document.getElementById('theme-toggle');
+themeBtn.addEventListener('click',()=>{
+  const dark=document.documentElement.getAttribute('data-theme')==='dark';
+  document.documentElement.setAttribute('data-theme',dark?'light':'dark');
+  themeBtn.textContent=dark?'🌙 Dark Mode':'☀️ Light Mode';
+});
+
+const input=document.getElementById('todo-input'),addBtn=document.getElementById('todo-add-btn'),list=document.getElementById('todo-list'),err=document.getElementById('todo-error');
+function addTodo(){
+  const text=input.value.trim();
+  if(!text){err.textContent='⚠ Task cannot be empty.';return;}
+  err.textContent='';
+  const li=document.createElement('li');
+  const span=document.createElement('span');span.textContent=text;
+  const doneBtn=document.createElement('button');doneBtn.textContent='✔';
+  doneBtn.onclick=()=>li.classList.toggle('completed');
+  const delBtn=document.createElement('button');delBtn.textContent='✖';delBtn.className='delete-btn';
+  delBtn.onclick=()=>li.remove();
+  li.append(span,doneBtn,delBtn);
+  list.appendChild(li);
+  input.value='';input.focus();
+}
+addBtn.addEventListener('click',addTodo);
+input.addEventListener('keydown',e=>{if(e.key==='Enter')addTodo();});
+</script>
+</body>
+</html>
