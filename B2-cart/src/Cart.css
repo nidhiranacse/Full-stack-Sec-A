@@ -1,0 +1,183 @@
+:root {
+  --bg: #f3f4f8;
+  --card: #ffffff;
+  --text: #1f2430;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --primary: #4f46e5;
+  --primary-dark: #4338ca;
+  --danger: #ef4444;
+  --danger-dark: #dc2626;
+  --success: #059669;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+
+.shop {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.shop-title {
+  margin: 0 0 24px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .shop-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
+}
+
+.panel h2 {
+  margin: 0 0 14px;
+  font-size: 18px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-weight: 600;
+}
+
+.item-price {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qty-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.qty {
+  min-width: 32px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 8px 14px;
+  transition: background 0.15s, transform 0.05s;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-danger {
+  background: #fee2e2;
+  color: var(--danger-dark);
+}
+
+.btn-danger:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn-icon {
+  background: #f3f4f6;
+  color: var(--text);
+  border-radius: 0;
+  padding: 6px 12px;
+  font-weight: 700;
+}
+
+.btn-icon:hover {
+  background: #e5e7eb;
+}
+
+.empty {
+  margin: 8px 0 0;
+  padding: 24px 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+.summary {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 2px dashed var(--border);
+}
+
+.line {
+  margin: 6px 0;
+  font-size: 16px;
+}
+
+.discount {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.grand {
+  font-size: 20px;
+  font-weight: 700;
+}
