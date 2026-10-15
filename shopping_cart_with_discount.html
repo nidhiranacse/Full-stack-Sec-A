@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical B2: Shopping Cart with Discount</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel standalone for in-browser JSX parsing -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Inter Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+    <!-- React App Root Container -->
+    <div id="root"></div>
+
+    <!-- React Component Logic with Babel -->
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // ============================================================================
+        // 1. EXACT Practical B2 Cart Component (Requirements matching src/Cart.jsx)
+        // ============================================================================
+        function Cart({ products = [], discountRate = 0.10, discountThreshold = 200 }) {
+            // State to manage cart items: { [id]: quantity }
+            const [cart, setCart] = useState({});
+
+            // Add product to cart
+            const handleAddToCart = (id) => {
+                setCart((prev) => ({
+                    ...prev,
+                    [id]: (prev[id] || 0) + 1,
+                }));
+            };
+
+            // Increase quantity
+            const handleIncrease = (id) => {
+                setCart((prev) => ({
+                    ...prev,
+                    [id]: prev[id] + 1,
+                }));
+            };
+
+            // Decrease quantity
+            const handleDecrease = (id) => {
+                setCart((prev) => {
+                    const currentQty = prev[id];
+                    if (!currentQty) return prev;
+                    if (currentQty <= 1) {
+                        const updated = { ...prev };
+                        delete updated[id];
+                        return updated;
+                    }
+                    return {
+                        ...prev,
+                        [id]: currentQty - 1,
+                    };
+                });
+            };
+
+            // Remove line item
+            const handleRemove = (id) => {
+                setCart((prev) => {
+                    const updated = { ...prev };
+                    delete updated[id];
+                    return updated;
+                });
+            };
+
+            // Calculate Subtotal
+            const subtotal = Object.entries(cart).reduce((sum, [id, qty]) => {
+                const product = products.find((p) => String(p.id) === String(id));
+                return sum + (product ? product.price * qty : 0);
+            }, 0);
+
+            // Automatic Discount calculation (When subtotal >= threshold)
+            const isDiscountApplicable = subtotal >= discountThreshold && subtotal > 0;
+            const discountAmount = isDiscountApplicable ? subtotal * discountRate : 0;
+            const grandTotal = subtotal - discountAmount;
+
+            // Active cart items list
+            const cartItems = Object.entries(cart)
+                .map(([id, qty]) => {
+                    const product = products.find((p) => String(p.id) === String(id));
+                    return product ? { ...product, quantity: qty } : null;
+                })
+                .filter(Boolean);
+
+            return (
+                <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
+                    {/* Available Products List */}
+                    <div className="p-5 border-b border-slate-800">
+                        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i className="fa-solid fa-store text-sky-400"></i>
+                            Available Products
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {products.map((product) => (
+                                <div
+                                    key={product.id}
+                                    className="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80 flex items-center justify-between hover:border-slate-700 transition"
+                                >
+                                    <div>
+                                        <p className="font-semibold text-sm text-slate-200">{product.name}</p>
+                                        <p className="text-xs font-mono text-sky-400 mt-0.5">${product.price.toFixed(2)}</p>
+                                    </div>
+                                    <button
+                                        data-testid={`add-${product.id}`}
+                                        onClick={() => handleAddToCart(product.id)}
+                                        className="bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center gap-1.5 shadow-md shadow-sky-600/20 active:scale-95"
+                                    >
+                                        <i className="fa-solid fa-plus text-[10px]"></i> Add
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Cart Items Area */}
+                    <div className="p-5 space-y-4">
+                        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                            <i className="fa-solid fa-cart-shopping text-indigo-400"></i>
+                            Your Shopping Cart
+                        </h3>
+
+                        {cartItems.length === 0 ? (
+                            /* Requirement: data-testid="cart-empty" with text "Cart is empty" */
+                            <div
+                                data-testid="cart-empty"
+                                className="p-8 text-center bg-slate-950/60 rounded-xl border border-dashed border-slate-800 text-slate-400 text-sm font-medium"
+                            >
+                                Cart is empty
+                            </div>
+                        ) : (
+                            <div className="space-y-2.5">
+                                {cartItems.map((item) => (
+                                    <div
+                                        key={item.id}
+                                        className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between gap-3"
+                                    >
+                                        <div className="flex-1 min-w-0">
+                                            <p className="font-medium text-sm text-slate-200 truncate">{item.name}</p>
+                                            <p className="text-xs font-mono text-slate-400">
+                                                ${item.price.toFixed(2)} × {item.quantity} = ${(item.price * item.quantity).toFixed(2)}
+                                            </p>
+                                        </div>
+
+                                        {/* Quantity Controls & Actions */}
+                                        <div className="flex items-center gap-2">
+                                            <div className="flex items-center bg-slate-900 border border-slate-700/80 rounded-lg p-0.5">
+                                                <button
+                                                    data-testid={`dec-${item.id}`}
+                                                    onClick={() => handleDecrease(item.id)}
+                                                    className="w-7 h-7 flex items-center justify-center hover:bg-slate-800 text-slate-300 hover:text-white rounded transition"
+                                                    title="Decrease"
+                                                >
+                                                    <i className="fa-solid fa-minus text-[10px]"></i>
+                                                </button>
+
+                                                {/* Requirement: data-testid="qty-{id}" */}
+                                                <span
+                                                    data-testid={`qty-${item.id}`}
+                                                    className="px-2 text-xs font-mono font-bold text-sky-400 min-w-[28px] text-center"
+                                                >
+                                                    {item.quantity}
+                                                </span>
+
+                                                <button
+                                                    data-testid={`inc-${item.id}`}
+                                                    onClick={() => handleIncrease(item.id)}
+                                                    className="w-7 h-7 flex items-center justify-center hover:bg-slate-800 text-slate-300 hover:text-white rounded transition"
+                                                    title="Increase"
+                                                >
+                                                    <i className="fa-solid fa-plus text-[10px]"></i>
+                                                </button>
+                                            </div>
+
+                                            {/* Requirement: data-testid="remove-{id}" */}
+                                            <button
+                                                data-testid={`remove-${item.id}`}
+                                                onClick={() => handleRemove(item.id)}
+                                                className="w-8 h-8 flex items-center justify-center text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition"
+                                                title="Remove item"
+                                            >
+                                                <i className="fa-solid fa-trash-can text-xs"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Totals & Summary Block */}
+                        <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 mt-4 font-mono text-sm">
+                            <div className="flex justify-between items-center text-slate-300">
+                                <span>Subtotal:</span>
+                                {/* Requirement: data-testid="total" format "Total: 170.00" */}
+                                <span data-testid="total" className="font-bold text-slate-100">
+                                    Total: {subtotal.toFixed(2)}
+                                </span>
+                            </div>
+
+                            {/* Discount Block (Shown ONLY when subtotal >= $200) */}
+                            {isDiscountApplicable && (
+                                <div className="flex justify-between items-center text-emerald-400 bg-emerald-500/10 p-2.5 rounded-lg border border-emerald-500/20">
+                                    <span className="flex items-center gap-1.5 text-xs font-sans font-semibold">
+                                        <i className="fa-solid fa-tag"></i> 10% Auto Discount
+                                    </span>
+                                    {/* Requirement: data-testid="discount" format "Discount: 100.00" */}
+                                    <span data-testid="discount" className="font-bold">
+                                        Discount: {discountAmount.toFixed(2)}
+                                    </span>
+                                </div>
+                            )}
+
+                            <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-base">
+                                <span className="text-slate-200 font-sans font-semibold">Final Price:</span>
+                                {/* Requirement: data-testid="grand-total" format "Grand Total: 900.00" */}
+                                <span data-testid="grand-total" className="font-bold text-sky-400">
+                                    Grand Total: {grandTotal.toFixed(2)}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // ============================================================================
+        // 2. MAIN APP CONTAINER & AUTOMATED TEST RUNNER
+        // ============================================================================
+        function App() {
+            const [activeTab, setActiveTab] = useState('demo');
+            const [copied, setCopied] = useState(false);
+            const [testLogs, setTestLogs] = useState([]);
+            const [testResult, setTestResult] = useState(null);
+
+            // Sample Dataset passed as props
+            const sampleProducts = [
+                { id: 1, name: 'Wireless Headphones', price: 150.00 },
+                { id: 2, name: 'Mechanical Keyboard', price: 120.00 },
+                { id: 3, name: 'Gaming Mouse', price: 60.00 },
+                { id: 4, name: 'USB-C Hub', price: 50.00 },
+            ];
+
+            const runAutomatedTests = () => {
+                const logs = [];
+                let passed = 0;
+                let total = 0;
+
+                const assert = (title, condition, detail) => {
+                    total++;
+                    if (condition) {
+                        passed++;
+                        logs.push({ title, status: 'PASS', detail });
+                    } else {
+                        logs.push({ title, status: 'FAIL', detail });
+                    }
+                };
+
+                // Test 1: data-testid="cart-empty"
+                const emptyEl = document.querySelector('[data-testid="cart-empty"]');
+                assert(
+                    'data-testid="cart-empty" presence',
+                    Boolean(emptyEl),
+                    emptyEl ? `Found text: "${emptyEl.textContent.trim()}"` : 'Missing empty cart element'
+                );
+
+                if (emptyEl) {
+                    assert(
+                        'cart-empty exact text check',
+                        emptyEl.textContent.trim() === 'Cart is empty',
+                        `Expected "Cart is empty", got "${emptyEl.textContent.trim()}"`
+                    );
+                }
+
+                // Test 2: Add buttons check
+                const addBtn1 = document.querySelector('[data-testid="add-1"]');
+                assert(
+                    'data-testid="add-1" button check',
+                    Boolean(addBtn1),
+                    addBtn1 ? 'Add button for ID 1 exists' : 'Missing add-1 button'
+                );
+
+                // Test 3: Total format
+                const totalEl = document.querySelector('[data-testid="total"]');
+                assert(
+                    'data-testid="total" element check',
+                    Boolean(totalEl),
+                    totalEl ? `Text: "${totalEl.textContent.trim()}"` : 'Missing total element'
+                );
+
+                if (totalEl) {
+                    const matchTotal = /^Total:\s\d+\.\d{2}$/.test(totalEl.textContent.trim());
+                    assert(
+                        'Total format check ("Total: 170.00")',
+                        matchTotal,
+                        `Matches regex: ${matchTotal}`
+                    );
+                }
+
+                // Test 4: Grand Total format
+                const grandTotalEl = document.querySelector('[data-testid="grand-total"]');
+                assert(
+                    'data-testid="grand-total" element check',
+                    Boolean(grandTotalEl),
+                    grandTotalEl ? `Text: "${grandTotalEl.textContent.trim()}"` : 'Missing grand-total element'
+                );
+
+                if (grandTotalEl) {
+                    const matchGrand = /^Grand Total:\s\d+\.\d{2}$/.test(grandTotalEl.textContent.trim());
+                    assert(
+                        'Grand Total format check ("Grand Total: 900.00")',
+                        matchGrand,
+                        `Matches regex: ${matchGrand}`
+                    );
+                }
+
+                setTestLogs(logs);
+                setTestResult({ passed, total });
+            };
+
+            const cartCodeString = `import React, { useState } from 'react';
+
+// Practical B2: Shopping Cart with Discount (React)
+// Default export from src/Cart.jsx
+
+export default function Cart({ products = [] }) {
+  const [cart, setCart] = useState({});
+
+  const handleAddToCart = (id) => {
+    setCart((prev) => ({
+      ...prev,
+      [id]: (prev[id] || 0) + 1,
+    }));
+  };
+
+  const handleIncrease = (id) => {
+    setCart((prev) => ({
+      ...prev,
+      [id]: prev[id] + 1,
+    }));
+  };
+
+  const handleDecrease = (id) => {
+    setCart((prev) => {
+      const currentQty = prev[id];
+      if (!currentQty) return prev;
+      if (currentQty <= 1) {
+        const updated = { ...prev };
+        delete updated[id];
+        return updated;
+      }
+      return { ...prev, [id]: currentQty - 1 };
+    });
+  };
+
+  const handleRemove = (id) => {
+    setCart((prev) => {
+      const updated = { ...prev };
+      delete updated[id];
+      return updated;
+    });
+  };
+
+  // Subtotal Calculation
+  const subtotal = Object.entries(cart).reduce((sum, [id, qty]) => {
+    const product = products.find((p) => String(p.id) === String(id));
+    return sum + (product ? product.price * qty : 0);
+  }, 0);
+
+  // Discount Logic: e.g. 10% off when total >= 200
+  const isDiscountApplicable = subtotal >= 200 && subtotal > 0;
+  const discountAmount = isDiscountApplicable ? subtotal * 0.10 : 0;
+  const grandTotal = subtotal - discountAmount;
+
+  const cartItems = Object.entries(cart)
+    .map(([id, qty]) => {
+      const product = products.find((p) => String(p.id) === String(id));
+      return product ? { ...product, quantity: qty } : null;
+    })
+    .filter(Boolean);
+
+  return (
+    <div className="cart-container">
+      {/* Products List */}
+      <div className="products-list">
+        {products.map((product) => (
+          <div key={product.id} className="product-item">
+            <span>{product.name} - \${product.price.toFixed(2)}</span>
+            <button
+              data-testid={\`add-\${product.id}\`}
+              onClick={() => handleAddToCart(product.id)}
+            >
+              Add
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Cart Content */}
+      <div className="cart-items">
+        {cartItems.length === 0 ? (
+          <div data-testid="cart-empty">Cart is empty</div>
+        ) : (
+          cartItems.map((item) => (
+            <div key={item.id} className="cart-line">
+              <span>{item.name}</span>
+              <button
+                data-testid={\`dec-\${item.id}\`}
+                onClick={() => handleDecrease(item.id)}
+              >
+                -
+              </button>
+              <span data-testid={\`qty-\${item.id}\`}>{item.quantity}</span>
+              <button
+                data-testid={\`inc-\${item.id}\`}
+                onClick={() => handleIncrease(item.id)}
+              >
+                +
+              </button>
+              <button
+                data-testid={\`remove-\${item.id}\`}
+                onClick={() => handleRemove(item.id)}
+              >
+                Remove
+              </button>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Pricing Totals Summary */}
+      <div className="cart-summary">
+        <div data-testid="total">Total: {subtotal.toFixed(2)}</div>
+        {isDiscountApplicable && (
+          <div data-testid="discount">Discount: {discountAmount.toFixed(2)}</div>
+        )}
+        <div data-testid="grand-total">Grand Total: {grandTotal.toFixed(2)}</div>
+      </div>
+    </div>
+  );
+}`;
+
+            const handleCopyCode = () => {
+                const textarea = document.createElement('textarea');
+                textarea.value = cartCodeString;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2500);
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col">
+                    {/* Header */}
+                    <header className="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+                        <div className="max-w-6xl mx-auto px-4 py-3.5 flex flex-wrap justify-between items-center gap-4">
+                            <div className="flex items-center gap-3">
+                                <div className="bg-gradient-to-tr from-sky-500 to-indigo-600 p-2.5 rounded-xl shadow-lg shadow-sky-500/20">
+                                    <i className="fa-solid fa-cart-shopping text-white text-lg"></i>
+                                </div>
+                                <div>
+                                    <h1 className="text-base font-bold text-white flex items-center gap-2">
+                                        Practical B2: Shopping Cart with Discount
+                                        <span className="text-xs bg-sky-500/10 text-sky-400 border border-sky-500/20 px-2 py-0.5 rounded-full font-medium">Set B (5 Marks)</span>
+                                    </h1>
+                                    <p className="text-xs text-slate-400">React Component Solution with Automated Discount Rule</p>
+                                </div>
+                            </div>
+
+                            {/* Nav Tabs */}
+                            <div className="flex bg-slate-950 p-1 rounded-xl border border-slate-800 gap-1 text-xs font-medium">
+                                <button
+                                    onClick={() => setActiveTab('demo')}
+                                    className={`px-3.5 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
+                                        activeTab === 'demo' ? 'bg-sky-600 text-white shadow' : 'text-slate-400 hover:text-white'
+                                    }`}
+                                >
+                                    <i className="fa-solid fa-laptop"></i> Interactive Demo
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setActiveTab('tests');
+                                        setTimeout(runAutomatedTests, 100);
+                                    }}
+                                    className={`px-3.5 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
+                                        activeTab === 'tests' ? 'bg-sky-600 text-white shadow' : 'text-slate-400 hover:text-white'
+                                    }`}
+                                >
+                                    <i className="fa-solid fa-vial"></i> Test Runner
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('code')}
+                                    className={`px-3.5 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
+                                        activeTab === 'code' ? 'bg-sky-600 text-white shadow' : 'text-slate-400 hover:text-white'
+                                    }`}
+                                >
+                                    <i className="fa-solid fa-code"></i> src/Cart.jsx
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Main Content Area */}
+                    <main className="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6">
+                        {activeTab === 'demo' && (
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                                <div className="lg:col-span-7">
+                                    <Cart products={sampleProducts} />
+                                </div>
+
+                                {/* Sidebar Checklist */}
+                                <div className="lg:col-span-5 space-y-4">
+                                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+                                        <h3 className="text-sm font-bold text-white flex items-center gap-2 mb-3">
+                                            <i className="fa-solid fa-clipboard-check text-emerald-400"></i>
+                                            Prompt Requirements Checklist
+                                        </h3>
+
+                                        <ul className="space-y-2 text-xs text-slate-300">
+                                            <li className="flex items-start gap-2 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                                                <span className="font-mono text-sky-400 font-bold shrink-0">add-&#123;id&#125;</span>
+                                                <span>Add product button per list item (e.g. <code className="text-amber-300">add-1</code>)</span>
+                                            </li>
+                                            <li className="flex items-start gap-2 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                                                <span className="font-mono text-sky-400 font-bold shrink-0">qty-&#123;id&#125;</span>
+                                                <span>Quantity display text per cart line</span>
+                                            </li>
+                                            <li className="flex items-start gap-2 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                                                <span className="font-mono text-sky-400 font-bold shrink-0">inc-&#123;id&#125; / dec-&#123;id&#125;</span>
+                                                <span>Increase and decrease quantity buttons</span>
+                                            </li>
+                                            <li className="flex items-start gap-2 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                                                <span className="font-mono text-sky-400 font-bold shrink-0">remove-&#123;id&#125;</span>
+                                                <span>Remove line item button</span>
+                                            </li>
+                                            <li className="flex items-start gap-2 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                                                <span className="font-mono text-emerald-400 font-bold shrink-0">cart-empty</span>
+                                                <span>Element containing text <code className="text-amber-300">"Cart is empty"</code></span>
+                                            </li>
+                                            <li className="flex items-start gap-2 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                                                <span className="font-mono text-emerald-400 font-bold shrink-0">total</span>
+                                                <span>Format: <code className="text-amber-300">"Total: 170.00"</code></span>
+                                            </li>
+                                            <li className="flex items-start gap-2 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                                                <span className="font-mono text-emerald-400 font-bold shrink-0">discount</span>
+                                                <span>Format: <code className="text-amber-300">"Discount: 100.00"</code> (When applicable)</span>
+                                            </li>
+                                            <li className="flex items-start gap-2 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                                                <span className="font-mono text-emerald-400 font-bold shrink-0">grand-total</span>
+                                                <span>Format: <code className="text-amber-300">"Grand Total: 900.00"</code></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 text-xs text-slate-400 space-y-2">
+                                        <div className="flex items-center gap-2 text-amber-400 font-semibold">
+                                            <i className="fa-solid fa-percent"></i> Automatic Discount Trigger
+                                        </div>
+                                        <p>
+                                            A 10% discount applies automatically when the cart subtotal is <strong>$200.00 or higher</strong>. Try adding Wireless Headphones ($150) + Gaming Mouse ($60) to test!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Test Runner Tab */}
+                        {activeTab === 'tests' && (
+                            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+                                <div className="flex justify-between items-center border-b border-slate-800 pb-4">
+                                    <div>
+                                        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                                            <i className="fa-solid fa-shield-halved text-emerald-400"></i> Automated Spec Verification Suite
+                                        </h2>
+                                        <p className="text-xs text-slate-400 mt-1">
+                                            Verifies DOM `data-testid` attributes and text formatting matching the exam specification.
+                                        </p>
+                                    </div>
+                                    <button
+                                        onClick={runAutomatedTests}
+                                        className="bg-sky-600 hover:bg-sky-500 text-white text-xs px-4 py-2 rounded-lg font-medium transition"
+                                    >
+                                        Re-Run Spec Tests
+                                    </button>
+                                </div>
+
+                                {testResult && (
+                                    <div className="flex items-center gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800">
+                                        <div className="text-2xl font-bold font-mono text-sky-400">
+                                            {testResult.passed} / {testResult.total}
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-semibold text-slate-200">Test Cases Passed</p>
+                                            <p className="text-xs text-slate-400">Exact data-testid and output format assertions checked.</p>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="space-y-3">
+                                    {testLogs.map((log, index) => (
+                                        <div
+                                            key={index}
+                                            className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex items-start justify-between gap-4 text-xs"
+                                        >
+                                            <div className="space-y-1">
+                                                <span className="font-semibold text-slate-200 block">{log.title}</span>
+                                                <span className="text-slate-400 font-mono block">{log.detail}</span>
+                                            </div>
+                                            <span
+                                                className={`px-2.5 py-1 rounded font-mono font-bold text-[10px] ${
+                                                    log.status === 'PASS'
+                                                        ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                                                        : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                                                }`}
+                                            >
+                                                {log.status}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Code View Tab */}
+                        {activeTab === 'code' && (
+                            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                                <div className="flex justify-between items-center border-b border-slate-800 pb-4">
+                                    <div>
+                                        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                                            <i className="fa-solid fa-code text-sky-400"></i> Full Component Code (src/Cart.jsx)
+                                        </h2>
+                                        <p className="text-xs text-slate-400 mt-0.5">
+                                            Copy this React component for your practical exam submission.
+                                        </p>
+                                    </div>
+                                    <button
+                                        onClick={handleCopyCode}
+                                        className="bg-sky-600 hover:bg-sky-500 text-white text-xs px-4 py-2 rounded-lg font-medium transition flex items-center gap-2"
+                                    >
+                                        <i className={`fa-solid ${copied ? 'fa-check text-emerald-300' : 'fa-copy'}`}></i>
+                                        {copied ? 'Copied to Clipboard!' : 'Copy src/Cart.jsx'}
+                                    </button>
+                                </div>
+
+                                <pre className="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs font-mono text-slate-300 overflow-x-auto max-h-[500px]">
+                                    <code>{cartCodeString}</code>
+                                </pre>
+                            </div>
+                        )}
+                    </main>
+                </div>
+            );
+        }
+
+        // Mount React Application
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

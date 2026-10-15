@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical B1: JWT Authentication API</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Top Navigation Header -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-gradient-to-tr from-sky-500 to-indigo-600 p-2.5 rounded-xl shadow-lg shadow-sky-500/20">
+                    <i class="fa-solid me-0 fa-key text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-white flex items-center gap-2">
+                        Practical B1: JWT Auth API
+                        <span class="text-xs bg-sky-500/10 text-sky-400 border border-sky-500/20 px-2 py-0.5 rounded-full font-medium">Set B (5 Marks)</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Node.js & Express JWT Authentication Lab Solution</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="text-xs text-slate-400 flex items-center gap-1.5 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    In-Browser Simulator Active
+                </span>
+                <button onclick="switchTab('code-tab')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-code text-sky-400"></i> View Server Source
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left Column: Navigation & Forms (7 cols) -->
+        <div class="lg:col-span-7 space-y-6">
+
+            <!-- Problem Requirements Summary Card -->
+            <div class="bg-slate-800/50 border border-slate-700/60 rounded-xl p-4 text-sm text-slate-300 shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="font-semibold text-slate-100 flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-list text-sky-400"></i> API Requirements Checklist
+                    </h2>
+                    <button onclick="toggleRequirements()" id="req-toggle-btn" class="text-xs text-sky-400 hover:underline">Hide</button>
+                </div>
+                <div id="requirements-list" class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs pt-1 border-t border-slate-700/50">
+                    <div class="bg-slate-900/60 p-2 rounded border border-slate-800">
+                        <span class="font-mono text-emerald-400 font-bold">POST /register</span>
+                        <ul class="list-disc list-inside mt-1 space-y-0.5 text-slate-400">
+                            <li>201: Success</li>
+                            <li>400: Pass &lt; 6 / Empty</li>
+                            <li>409: Duplicate User</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-900/60 p-2 rounded border border-slate-800">
+                        <span class="font-mono text-emerald-400 font-bold">POST /login</span>
+                        <ul class="list-disc list-inside mt-1 space-y-0.5 text-slate-400">
+                            <li>200: Returns JWT (1h)</li>
+                            <li>401: Invalid Credentials</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-900/60 p-2 rounded border border-slate-800">
+                        <span class="font-mono text-sky-400 font-bold">GET /profile</span>
+                        <ul class="list-disc list-inside mt-1 space-y-0.5 text-slate-400">
+                            <li>Bearer Header required</li>
+                            <li>200: { username }</li>
+                            <li>401: Invalid / Expired</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Navigation Header -->
+            <div class="bg-slate-800/90 p-1.5 rounded-xl border border-slate-700 flex flex-wrap gap-1 shadow-md">
+                <button id="tab-btn-register" onclick="switchTab('register')" class="tab-btn flex-1 py-2 px-3 rounded-lg text-xs sm:text-sm font-medium transition flex items-center justify-center gap-2 bg-sky-600 text-white shadow">
+                    <i class="fa-solid fa-user-plus"></i> 1. Register
+                </button>
+                <button id="tab-btn-login" onclick="switchTab('login')" class="tab-btn flex-1 py-2 px-3 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-700/50 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket"></i> 2. Login
+                </button>
+                <button id="tab-btn-profile" onclick="switchTab('profile')" class="tab-btn flex-1 py-2 px-3 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-700/50 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-shield-halved"></i> 3. Profile
+                </button>
+                <button id="tab-btn-code" onclick="switchTab('code')" class="tab-btn flex-1 py-2 px-3 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-700/50 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-code"></i> Source Code
+                </button>
+            </div>
+
+            <!-- TAB 1: REGISTER -->
+            <div id="tab-register" class="tab-content bg-slate-800/60 border border-slate-700/70 rounded-xl p-6 shadow-xl space-y-5">
+                <div class="border-b border-slate-700/60 pb-3">
+                    <h3 class="text-base font-semibold text-white flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded text-xs bg-emerald-500/20 text-emerald-400 font-mono font-bold">POST</span>
+                        /register
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">Register a new user account with input validation.</p>
+                </div>
+
+                <form id="register-form" onsubmit="handleRegister(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Username</label>
+                        <input type="text" id="reg-username" placeholder="e.g. johndoe" required
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">
+                            Password <span class="text-slate-400 font-normal">(Min 6 characters)</span>
+                        </label>
+                        <input type="password" id="reg-password" placeholder="••••••••" required
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+                    </div>
+
+                    <div class="pt-2 flex flex-wrap gap-2">
+                        <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm px-5 py-2 rounded-lg shadow-lg shadow-emerald-600/20 transition flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Send POST Request
+                        </button>
+                        <button type="button" onclick="fillRegisterTest('short')" class="bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs px-3 py-2 rounded-lg transition">
+                            Test Invalid Password (&lt;6)
+                        </button>
+                        <button type="button" onclick="fillRegisterTest('valid')" class="bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs px-3 py-2 rounded-lg transition">
+                            Fill Sample User
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TAB 2: LOGIN -->
+            <div id="tab-login" class="tab-content hidden bg-slate-800/60 border border-slate-700/70 rounded-xl p-6 shadow-xl space-y-5">
+                <div class="border-b border-slate-700/60 pb-3">
+                    <h3 class="text-base font-semibold text-white flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded text-xs bg-emerald-500/20 text-emerald-400 font-mono font-bold">POST</span>
+                        /login
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">Authenticate credentials to receive a signed JWT valid for 1 hour.</p>
+                </div>
+
+                <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Username</label>
+                        <input type="text" id="login-username" placeholder="Registered username" required
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+                    </div>
+
+                    <div class="pt-2 flex flex-wrap gap-2">
+                        <button type="submit" class="bg-sky-600 hover:bg-sky-500 text-white font-medium text-sm px-5 py-2 rounded-lg shadow-lg shadow-sky-600/20 transition flex items-center gap-2">
+                            <i class="fa-solid fa-key"></i> Authenticate & Get JWT
+                        </button>
+                        <button type="button" onclick="fillLoginTest('wrong')" class="bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs px-3 py-2 rounded-lg transition">
+                            Test Bad Password
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Saved Token Status -->
+                <div class="mt-4 p-3 bg-slate-900/80 rounded-lg border border-slate-700/80 flex items-start justify-between gap-2 text-xs">
+                    <div class="overflow-hidden">
+                        <span class="text-slate-400 font-semibold block">Stored JWT Token (Active Session):</span>
+                        <code id="active-token-display" class="text-amber-400 text-[11px] break-all block mt-1 font-mono">None (Please login first)</code>
+                    </div>
+                    <button onclick="clearToken()" class="text-slate-400 hover:text-rose-400 p-1" title="Clear Token">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TAB 3: PROTECTED PROFILE -->
+            <div id="tab-profile" class="tab-content hidden bg-slate-800/60 border border-slate-700/70 rounded-xl p-6 shadow-xl space-y-5">
+                <div class="border-b border-slate-700/60 pb-3">
+                    <h3 class="text-base font-semibold text-white flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded text-xs bg-sky-500/20 text-sky-400 font-mono font-bold">GET</span>
+                        /profile
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">Access route protected by Authorization header: <code class="text-sky-300 font-mono">Bearer &lt;token&gt;</code></p>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Authorization Header Value</label>
+                        <div class="flex gap-2">
+                            <span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-slate-700 bg-slate-900 text-slate-400 text-xs font-mono">
+                                Bearer
+                            </span>
+                            <input type="text" id="profile-token-input" placeholder="Paste or login to auto-fill token..."
+                                class="w-full bg-slate-900 border border-slate-700 rounded-r-lg px-3 py-2 text-xs font-mono text-amber-300 focus:outline-none focus:border-sky-500">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <button onclick="handleFetchProfile()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-5 py-2 rounded-lg shadow-lg shadow-indigo-600/20 transition flex items-center gap-2">
+                            <i class="fa-solid fa-shield-cat"></i> Send Authorized GET Request
+                        </button>
+                        <button onclick="tamperToken()" class="bg-amber-600/80 hover:bg-amber-500 text-white text-xs px-3 py-2 rounded-lg transition">
+                            <i class="fa-solid fa-bug"></i> Corrupt Token (Test 401)
+                        </button>
+                        <button onclick="clearProfileHeader()" class="bg-rose-600/80 hover:bg-rose-500 text-white text-xs px-3 py-2 rounded-lg transition">
+                            Clear Header
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: CODE SUBMISSION -->
+            <div id="tab-code" class="tab-content hidden bg-slate-800/60 border border-slate-700/70 rounded-xl p-6 shadow-xl space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+                    <div>
+                        <h3 class="text-base font-semibold text-white">Express Backend Source Code</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">Copy these files to run your Express server locally for mid-sem evaluation.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="copyCode('server-code', 'Copy Server Code')" id="copy-server-btn" class="bg-sky-600 hover:bg-sky-500 text-white text-xs px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-copy"></i> Copy server.js
+                        </button>
+                    </div>
+                </div>
+
+                <!-- File Selector Tabs -->
+                <div class="flex gap-2 text-xs">
+                    <button onclick="showCodeFile('server')" id="file-btn-server" class="px-3 py-1.5 rounded bg-slate-700 text-white font-mono font-medium">server.js</button>
+                    <button onclick="showCodeFile('pkg')" id="file-btn-pkg" class="px-3 py-1.5 rounded bg-slate-900 text-slate-400 font-mono">package.json</button>
+                </div>
+
+                <!-- Server.js view -->
+                <div id="code-file-server" class="relative group">
+                    <pre class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs font-mono text-slate-300 overflow-x-auto max-h-[420px]"><code id="server-code">const express = require('express');
+const jwt = require('jsonwebtoken');
+
+const app = express();
+app.use(express.json());
+
+const JWT_SECRET = 'your-256-bit-secret-key-here';
+
+// In-memory database array
+const users = [];
+
+// ========================================================
+// 1. POST /register
+// ========================================================
+app.post('/register', (req, res) => {
+  const { username, password } = req.body;
+
+  // Validation: username missing/empty OR password < 6 characters
+  if (!username || typeof username !== 'string' || !username.trim() || !password || password.length < 6) {
+    return res.status(400).json({ error: "Invalid input" });
+  }
+
+  // Check if username already taken
+  const existingUser = users.find(u => u.username === username);
+  if (existingUser) {
+    return res.status(409).json({ error: "Username already exists" });
+  }
+
+  // Save new user
+  users.push({ username, password });
+  return res.status(201).json({ message: "User registered" });
+});
+
+// ========================================================
+// 2. POST /login
+// ========================================================
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Find user and verify password
+  const user = users.find(u => u.username === username && u.password === password);
+  if (!user) {
+    return res.status(401).json({ error: "Invalid credentials" });
+  }
+
+  // Sign JWT token containing username payload expiring in 1 hour
+  const token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: '1h' });
+
+  return res.status(200).json({ token });
+});
+
+// ========================================================
+// 3. GET /profile
+// ========================================================
+app.get('/profile', (req, res) => {
+  const authHeader = req.headers['authorization'];
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token signature and expiration
+    const decoded = jwt.verify(token, JWT_SECRET);
+    return res.status(200).json({ username: decoded.username });
+  } catch (err) {
+    // Header missing, malformed, invalid signature or expired token
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server listening on http://localhost:${PORT}`);
+});</code></pre>
+                </div>
+
+                <!-- Package.json view -->
+                <div id="code-file-pkg" class="hidden relative group">
+                    <pre class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs font-mono text-slate-300 overflow-x-auto max-h-[420px]"><code id="pkg-code">{
+  "name": "jwt-auth-practical-b1",
+  "version": "1.0.0",
+  "description": "JWT Authentication API Solution for Practical B1",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- In-Memory Users Database Inspector -->
+            <div class="bg-slate-800/40 border border-slate-700/60 rounded-xl p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                        <i class="fa-solid fa-database text-amber-400"></i> Server In-Memory User Store Inspector
+                    </h3>
+                    <button onclick="resetInMemoryDb()" class="text-[11px] text-rose-400 hover:underline">
+                        Reset DB
+                    </button>
+                </div>
+                <div id="db-inspector-list" class="text-xs font-mono space-y-1.5 text-slate-400 max-h-32 overflow-y-auto">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Live API Console Log Viewer (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col h-full space-y-4">
+            <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 flex-1 flex flex-col shadow-2xl min-h-[480px]">
+                <!-- Console Header -->
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                        <span class="text-xs font-mono font-semibold text-slate-300 ml-2">API Debugger Console</span>
+                    </div>
+                    <button onclick="clearConsoleLog()" class="text-xs text-slate-400 hover:text-slate-200 transition">
+                        <i class="fa-solid fa-ban"></i> Clear
+                    </button>
+                </div>
+
+                <!-- Console Body Output -->
+                <div id="console-output" class="flex-1 py-3 font-mono text-xs overflow-y-auto space-y-3 pr-1">
+                    <div class="text-slate-500 italic text-center py-8">
+                        No requests sent yet. Submit a form on the left to see live HTTP status & payload response.
+                    </div>
+                </div>
+
+                <!-- Console Footer Status -->
+                <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+                    <span>Base URL: <span class="text-sky-400">http://localhost:3000</span></span>
+                    <span id="req-count">0 Requests Made</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 translate-y-20 opacity-0 transition-all duration-300 bg-slate-800 border border-slate-700 text-slate-100 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 z-50 text-sm">
+        <i id="toast-icon" class="fa-solid fa-circle-info text-sky-400 text-lg"></i>
+        <span id="toast-msg">Notification Message</span>
+    </div>
+
+    <!-- JavaScript Simulator & Application Logic -->
+    <script>
+        // ========================================================
+        // IN-MEMORY BACKEND SIMULATOR STATE & ENGINE
+        // ========================================================
+        let mockUsers = [
+            { username: 'student', password: 'password123' }
+        ];
+        let activeJwtToken = null;
+        let requestCounter = 0;
+        const SECRET_KEY = "practical-b1-secret-key-express";
+
+        // Simple HMAC SHA256 / Base64 JWT Generator & Verifier Simulator
+        function generateJWT(payload) {
+            const header = { alg: "HS256", typ: "JWT" };
+            const now = Math.floor(Date.now() / 1000);
+            const expPayload = {
+                ...payload,
+                iat: now,
+                exp: now + 3600 // Valid for 1 hour
+            };
+
+            const b64Header = btoa(JSON.stringify(header)).replace(/=/g, '');
+            const b64Payload = btoa(JSON.stringify(expPayload)).replace(/=/g, '');
+            const signature = btoa(`${b64Header}.${b64Payload}.${SECRET_KEY}`).replace(/=/g, '').substring(0, 32);
+
+            return `${b64Header}.${b64Payload}.${signature}`;
+        }
+
+        function verifyJWT(token) {
+            if (!token) return { valid: false, reason: "Missing token" };
+            const parts = token.split('.');
+            if (parts.length !== 3) return { valid: false, reason: "Malformed token" };
+
+            const [b64Header, b64Payload, signature] = parts;
+            const expectedSignature = btoa(`${b64Header}.${b64Payload}.${SECRET_KEY}`).replace(/=/g, '').substring(0, 32);
+
+            if (signature !== expectedSignature) {
+                return { valid: false, reason: "Signature mismatch / corrupted token" };
+            }
+
+            try {
+                const payload = JSON.parse(atob(b64Payload));
+                const now = Math.floor(Date.now() / 1000);
+                if (payload.exp && payload.exp < now) {
+                    return { valid: false, reason: "Token expired" };
+                }
+                return { valid: true, payload };
+            } catch (e) {
+                return { valid: false, reason: "Invalid JSON encoding" };
+            }
+        }
+
+        // ========================================================
+        // ROUTE HANDLERS (Simulating Express endpoints)
+        // ========================================================
+
+        // POST /register
+        function simulateRegisterEndpoint(body) {
+            const { username, password } = body || {};
+
+            // Requirement check: username missing or empty, or password < 6 characters -> 400
+            if (!username || typeof username !== 'string' || !username.trim() || !password || password.length < 6) {
+                return {
+                    status: 400,
+                    data: { error: "Invalid input" }
+                };
+            }
+
+            // Requirement check: Username already taken -> 409
+            const userExists = mockUsers.some(u => u.username.toLowerCase() === username.trim().toLowerCase());
+            if (userExists) {
+                return {
+                    status: 409,
+                    data: { error: "Username already exists" }
+                };
+            }
+
+            // Success -> 201
+            mockUsers.push({ username: username.trim(), password });
+            updateDbInspector();
+            return {
+                status: 201,
+                data: { message: "User registered" }
+            };
+        }
+
+        // POST /login
+        function simulateLoginEndpoint(body) {
+            const { username, password } = body || {};
+
+            // Requirement check: Unknown user or wrong password -> 401
+            const user = mockUsers.find(u => u.username === username && u.password === password);
+            if (!user) {
+                return {
+                    status: 401,
+                    data: { error: "Invalid credentials" }
+                };
+            }
+
+            // Success -> 200 with JWT
+            const token = generateJWT({ username: user.username });
+            activeJwtToken = token;
+            updateTokenDisplay();
+
+            return {
+                status: 200,
+                data: { token }
+            };
+        }
+
+        // GET /profile
+        function simulateProfileEndpoint(headers) {
+            const authHeader = headers['Authorization'] || headers['authorization'];
+
+            // Requirement check: Header missing, token malformed, signature invalid, expired -> 401
+            if (!authHeader || !authHeader.startsWith('Bearer ')) {
+                return {
+                    status: 401,
+                    data: { error: "Unauthorized" }
+                };
+            }
+
+            const token = authHeader.split(' ')[1];
+            const verification = verifyJWT(token);
+
+            if (!verification.valid) {
+                return {
+                    status: 401,
+                    data: { error: "Unauthorized" }
+                };
+            }
+
+            // Success -> 200 with { username }
+            return {
+                status: 200,
+                data: { username: verification.payload.username }
+            };
+        }
+
+        // ========================================================
+        // UI INTERACTION HANDLERS
+        // ========================================================
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const username = document.getElementById('reg-username').value;
+            const password = document.getElementById('reg-password').value;
+
+            const reqBody = { username, password };
+            const result = simulateRegisterEndpoint(reqBody);
+
+            logApiCall({
+                method: 'POST',
+                url: '/register',
+                headers: { 'Content-Type': 'application/json' },
+                body: reqBody,
+                status: result.status,
+                response: result.data
+            });
+
+            if (result.status === 201) {
+                showToast("User successfully registered! You can now log in.", "success");
+            } else {
+                showToast(`Error ${result.status}: ${result.data.error}`, "error");
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            const reqBody = { username, password };
+            const result = simulateLoginEndpoint(reqBody);
+
+            logApiCall({
+                method: 'POST',
+                url: '/login',
+                headers: { 'Content-Type': 'application/json' },
+                body: reqBody,
+                status: result.status,
+                response: result.data
+            });
+
+            if (result.status === 200) {
+                showToast("Login successful! Token saved.", "success");
+                document.getElementById('profile-token-input').value = result.data.token;
+            } else {
+                showToast(`Login Failed (${result.status}): ${result.data.error}`, "error");
+            }
+        }
+
+        function handleFetchProfile() {
+            const tokenInput = document.getElementById('profile-token-input').value.trim();
+            const headers = {};
+
+            if (tokenInput) {
+                headers['Authorization'] = `Bearer ${tokenInput}`;
+            }
+
+            const result = simulateProfileEndpoint(headers);
+
+            logApiCall({
+                method: 'GET',
+                url: '/profile',
+                headers: headers,
+                body: null,
+                status: result.status,
+                response: result.data
+            });
+
+            if (result.status === 200) {
+                showToast(`Profile loaded for user: ${result.data.username}`, "success");
+            } else {
+                showToast(`Unauthorized (${result.status}): ${result.data.error}`, "error");
+            }
+        }
+
+        // Helper test button actions
+        function fillRegisterTest(type) {
+            if (type === 'short') {
+                document.getElementById('reg-username').value = 'alice';
+                document.getElementById('reg-password').value = '123'; // < 6 chars
+            } else {
+                document.getElementById('reg-username').value = 'student' + Math.floor(Math.random() * 899 + 100);
+                document.getElementById('reg-password').value = 'pass1234';
+            }
+        }
+
+        function fillLoginTest(type) {
+            if (type === 'wrong') {
+                document.getElementById('login-username').value = 'nobody';
+                document.getElementById('login-password').value = 'wrongpassword';
+            }
+        }
+
+        function tamperToken() {
+            const val = document.getElementById('profile-token-input').value;
+            if (val) {
+                document.getElementById('profile-token-input').value = val + 'corrupt';
+                showToast("Token corrupted! Try sending request now.", "info");
+            } else {
+                showToast("Login first to generate a token to tamper.", "error");
+            }
+        }
+
+        function clearProfileHeader() {
+            document.getElementById('profile-token-input').value = '';
+            showToast("Authorization header cleared.", "info");
+        }
+
+        function clearToken() {
+            activeJwtToken = null;
+            document.getElementById('profile-token-input').value = '';
+            updateTokenDisplay();
+            showToast("Stored session token cleared.", "info");
+        }
+
+        function updateTokenDisplay() {
+            const el = document.getElementById('active-token-display');
+            if (activeJwtToken) {
+                el.innerText = activeJwtToken;
+            } else {
+                el.innerText = 'None (Please login first)';
+            }
+        }
+
+        function resetInMemoryDb() {
+            mockUsers = [{ username: 'student', password: 'password123' }];
+            updateDbInspector();
+            showToast("In-memory database reset.", "info");
+        }
+
+        function updateDbInspector() {
+            const container = document.getElementById('db-inspector-list');
+            container.innerHTML = mockUsers.map(u => `
+                <div class="flex justify-between items-center bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">
+                    <span class="text-sky-300"><i class="fa-solid fa-user text-[10px] me-1"></i>${u.username}</span>
+                    <span class="text-slate-500 text-[10px]">pass: ${'*'.repeat(u.password.length)}</span>
+                </div>
+            `).join('');
+        }
+
+        // ========================================================
+        // DEBUG CONSOLE LOGGER
+        // ========================================================
+        function logApiCall({ method, url, headers, body, status, response }) {
+            requestCounter++;
+            document.getElementById('req-count').innerText = `${requestCounter} Request${requestCounter === 1 ? '' : 's'} Made`;
+
+            const consoleOut = document.getElementById('console-output');
+            
+            // Clear placeholder on first log
+            if (requestCounter === 1) {
+                consoleOut.innerHTML = '';
+            }
+
+            // HTTP Status badge style
+            let badgeStyle = 'bg-rose-500/20 text-rose-400 border-rose-500/30';
+            if (status === 200 || status === 201) {
+                badgeStyle = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
+            } else if (status === 409) {
+                badgeStyle = 'bg-amber-500/20 text-amber-400 border-amber-500/30';
+            }
+
+            const logEntry = document.createElement('div');
+            logEntry.className = 'bg-slate-900/90 border border-slate-800 rounded-lg p-3 space-y-2 animate-fadeIn';
+            logEntry.innerHTML = `
+                <div class="flex items-center justify-between font-bold text-xs">
+                    <div class="flex items-center gap-2">
+                        <span class="px-1.5 py-0.5 rounded text-[10px] font-mono ${method === 'POST' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-sky-500/20 text-sky-400'}">${method}</span>
+                        <span class="text-slate-200">${url}</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-mono border ${badgeStyle}">HTTP ${status}</span>
+                </div>
+
+                ${headers && Object.keys(headers).length ? `
+                <div class="text-[11px] text-slate-400">
+                    <span class="text-slate-500 font-semibold block">Headers:</span>
+                    <div class="pl-2 border-l border-slate-800 text-slate-300 font-mono text-[10px]">
+                        ${Object.entries(headers).map(([k,v]) => `<div><span class="text-indigo-400">${k}:</span> ${v}</div>`).join('')}
+                    </div>
+                </div>` : ''}
+
+                ${body ? `
+                <div class="text-[11px]">
+                    <span class="text-slate-500 font-semibold block">Request Body:</span>
+                    <pre class="bg-slate-950 p-1.5 rounded text-[10px] text-amber-300/90 overflow-x-auto">${JSON.stringify(body, null, 2)}</pre>
+                </div>` : ''}
+
+                <div class="text-[11px]">
+                    <span class="text-slate-500 font-semibold block">Response JSON:</span>
+                    <pre class="bg-slate-950 p-1.5 rounded text-[10px] ${status >= 400 ? 'text-rose-300' : 'text-emerald-300'} overflow-x-auto">${JSON.stringify(response, null, 2)}</pre>
+                </div>
+            `;
+
+            consoleOut.prepend(logEntry);
+        }
+
+        function clearConsoleLog() {
+            document.getElementById('console-output').innerHTML = `
+                <div class="text-slate-500 italic text-center py-8">
+                    Console cleared.
+                </div>
+            `;
+        }
+
+        // Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-sky-600', 'text-white', 'shadow');
+                btn.classList.add('text-slate-400');
+            });
+
+            if (tabId === 'code-tab') tabId = 'code';
+
+            const activeContent = document.getElementById(`tab-${tabId}`);
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-400');
+                activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow');
+            }
+        }
+
+        function showCodeFile(type) {
+            if (type === 'server') {
+                document.getElementById('code-file-server').classList.remove('hidden');
+                document.getElementById('code-file-pkg').classList.add('hidden');
+                document.getElementById('file-btn-server').className = 'px-3 py-1.5 rounded bg-slate-700 text-white font-mono font-medium';
+                document.getElementById('file-btn-pkg').className = 'px-3 py-1.5 rounded bg-slate-900 text-slate-400 font-mono';
+            } else {
+                document.getElementById('code-file-server').classList.add('hidden');
+                document.getElementById('code-file-pkg').classList.remove('hidden');
+                document.getElementById('file-btn-server').className = 'px-3 py-1.5 rounded bg-slate-900 text-slate-400 font-mono';
+                document.getElementById('file-btn-pkg').className = 'px-3 py-1.5 rounded bg-slate-700 text-white font-mono font-medium';
+            }
+        }
+
+        function toggleRequirements() {
+            const list = document.getElementById('requirements-list');
+            const btn = document.getElementById('req-toggle-btn');
+            if (list.classList.contains('hidden')) {
+                list.classList.remove('hidden');
+                btn.innerText = 'Hide';
+            } else {
+                list.classList.add('hidden');
+                btn.innerText = 'Show';
+            }
+        }
+
+        // Copy Code utility
+        function copyCode(elementId, label) {
+            const codeText = document.getElementById(elementId).innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = codeText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            showToast(`${label} copied to clipboard!`, "success");
+        }
+
+        // Toast messaging
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.innerText = message;
+
+            if (type === 'success') {
+                toastIcon.className = 'fa-solid fa-circle-check text-emerald-400 text-lg';
+            } else if (type === 'error') {
+                toastIcon.className = 'fa-solid fa-circle-xmark text-rose-400 text-lg';
+            } else {
+                toastIcon.className = 'fa-solid fa-circle-info text-sky-400 text-lg';
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Init database inspector
+        window.onload = function() {
+            updateDbInspector();
+        };
+    </script>
+</body>
+</html>
