@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QuickBite - Food Delivery</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">🍔 QuickBite</div>
+  <nav class="nav">
+    <button class="nav-btn active" data-page="menu">Menu</button>
+    <button class="nav-btn" data-page="orders">My Orders</button>
+    <button class="nav-btn" data-page="admin">Admin</button>
+  </nav>
+  <button id="cartToggle" class="cart-btn" aria-label="Go to cart">🛒 <span id="cartCount">0</span></button>
+</header>
+
+<div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+<main class="container">
+
+  <!-- ================= MENU PAGE ================= -->
+  <section id="page-menu" class="page active">
+    <div class="menu-layout">
+      <div>
+        <div class="filters">
+          <input type="search" id="searchInput" placeholder="Search dishes..." aria-label="Search menu">
+          <select id="categoryFilter" aria-label="Filter by category">
+            <option value="">All categories</option>
+          </select>
+        </div>
+        <div id="menuGrid" class="grid"></div>
+      </div>
+
+      <aside class="cart-panel card" id="cartPanel">
+        <h2>Your Cart</h2>
+        <div id="cartItems"></div>
+        <div class="cart-total"><span>Total</span><strong id="cartTotal">₹0.00</strong></div>
+
+        <form id="checkoutForm" novalidate>
+          <h3>Checkout</h3>
+          <label>Name
+            <input type="text" name="customerName" autocomplete="name">
+            <span class="error" data-error-for="customerName"></span>
+          </label>
+          <label>Phone (10 digits)
+            <input type="tel" name="phone" inputmode="numeric" maxlength="10" autocomplete="tel">
+            <span class="error" data-error-for="phone"></span>
+          </label>
+          <label>Delivery address
+            <textarea name="address" rows="2" autocomplete="street-address"></textarea>
+            <span class="error" data-error-for="address"></span>
+          </label>
+          <button type="submit" id="placeOrderBtn" class="btn btn-primary btn-block">Place Order</button>
+        </form>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= ORDERS PAGE ================= -->
+  <section id="page-orders" class="page">
+    <div class="page-head">
+      <h2>My Orders</h2>
+      <button class="btn" data-action="refresh-orders">↻ Refresh</button>
+    </div>
+    <div id="ordersList"></div>
+  </section>
+
+  <!-- ================= ADMIN PAGE ================= -->
+  <section id="page-admin" class="page">
+    <div class="admin-grid">
+      <div class="card">
+        <h2 id="itemFormTitle">Add Menu Item</h2>
+        <form id="itemForm" novalidate>
+          <label>Name
+            <input type="text" name="name">
+            <span class="error" data-error-for="name"></span>
+          </label>
+          <label>Price (₹)
+            <input type="number" name="price" step="0.01" min="0">
+            <span class="error" data-error-for="price"></span>
+          </label>
+          <label>Category
+            <input type="text" name="category" list="categoryList" placeholder="Main Course">
+            <datalist id="categoryList"></datalist>
+            <span class="error" data-error-for="category"></span>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" name="isAvailable" checked> Available for ordering
+          </label>
+          <div class="form-actions">
+            <button type="submit" id="itemSubmitBtn" class="btn btn-primary">Add Item</button>
+            <button type="button" id="cancelEditBtn" class="btn" hidden>Cancel edit</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Menu Items</h2>
+        <div id="adminItems" class="table-wrap"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="page-head">
+        <h2>Manage Orders</h2>
+        <button class="btn" data-action="refresh-orders">↻ Refresh</button>
+      </div>
+      <div id="adminOrders" class="table-wrap"></div>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

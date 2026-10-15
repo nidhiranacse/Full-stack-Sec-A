@@ -1,0 +1,28 @@
+// Task 6.2 - custom user shortcuts (goes in the VS Code *User* directory)
+[
+    {
+        "key": "ctrl+alt+l",
+        "command": "editor.action.formatDocument",
+        "when": "editorTextFocus && editorLangId == python"
+    },
+    {
+        "key": "ctrl+alt+o",
+        "command": "editor.action.organizeImports",
+        "when": "editorTextFocus && editorLangId == python"
+    },
+    {
+        "key": "ctrl+alt+t",
+        "command": "workbench.action.tasks.runTask",
+        "args": "PEP8 Lint (flake8)"
+    },
+    {
+        "key": "ctrl+alt+r",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Django: Run Server"
+    },
+    {
+        "key": "ctrl+alt+d",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Deployment Check"
+    }
+]

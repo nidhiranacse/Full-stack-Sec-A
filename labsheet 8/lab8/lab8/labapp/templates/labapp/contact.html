@@ -1,0 +1,16 @@
+{% extends "labapp/base.html" %}
+{% block title %}Contact Us{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Contact Us</h1>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}"><strong>{{ field.label }}</strong></label>
+      {{ field }}
+      {{ field.errors }}
+    {% endfor %}
+    <button type="submit">Send Feedback</button>
+  </form>
+</div>
+{% endblock %}

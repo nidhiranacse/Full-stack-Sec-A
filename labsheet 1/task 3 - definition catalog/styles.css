@@ -1,0 +1,10 @@
+* { box-sizing: border-box; }
+body { margin: 0; padding: 2rem 1rem; font-family: Arial, sans-serif; background: #eef3f8; color: #253247; }
+main { max-width: 850px; margin: auto; }
+header { text-align: center; margin-bottom: 2rem; }
+header h1 { margin-bottom: .4rem; color: #183153; }
+section { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 5px 20px #18315312; }
+h2 { color: #23608b; }
+dl { margin: 0; }
+dt { margin-top: 1.2rem; color: #183153; font-weight: 700; font-size: 1.1rem; }
+dd { margin: .35rem 0 0 1rem; padding-left: .8rem; border-left: 3px solid #9cc6e5; line-height: 1.6; }

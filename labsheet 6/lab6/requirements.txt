@@ -1,0 +1,5 @@
+# Project requirements (Task 6.1)
+# Regenerate with:  pip freeze > requirements.txt
+Django>=4.2,<6.0
+autopep8>=2.0
+flake8>=6.0

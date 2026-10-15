@@ -1,0 +1,14 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; color: #203047; background: #f5f8fc; }
+header { padding: 2rem; text-align: center; color: white; background: #243b55; }
+header h1 { margin: 0 0 .3rem; }
+nav { background: #17283f; }
+.menu, .menu ul { list-style: none; margin: 0; padding: 0; }
+.menu { display: flex; justify-content: center; flex-wrap: wrap; }
+.menu > li { position: relative; }
+.menu a { display: block; padding: 1rem 1.25rem; color: white; text-decoration: none; }
+.menu a:hover, .menu a:focus { background: #35618a; }
+.menu > li > ul { display: none; position: absolute; top: 100%; left: 0; min-width: 190px; z-index: 2; background: #243b55; box-shadow: 0 8px 16px #0002; }
+.menu > li:hover > ul, .menu > li:focus-within > ul { display: block; }
+main { max-width: 850px; margin: 2rem auto; padding: 0 1rem; }
+@media (max-width: 600px) { .menu { display: block; } .menu > li > ul { position: static; box-shadow: none; padding-left: 1rem; } .menu > li:focus-within > ul { display: block; } }

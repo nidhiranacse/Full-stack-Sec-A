@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todo List</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <p class="eyebrow">SMALL STEPS, EVERY DAY</p>
+    <h1>My tasks</h1>
+    <p class="subtitle">Capture what you need to do next.</p>
+    <form id="todoForm" novalidate>
+      <label for="todoInput">New task</label>
+      <div class="entry">
+        <input id="todoInput" type="text" placeholder="e.g. Finish lab assignment" autocomplete="off">
+        <button type="submit">Add task</button>
+      </div>
+      <p id="errorMessage" class="error" role="alert" aria-live="polite"></p>
+    </form>
+    <ul id="todoList" aria-label="Todo items"></ul>
+    <p id="emptyMessage" class="empty">No tasks yet. Add your first task above!</p>
+    <p id="taskCount" class="count">0 tasks</p>
+  </main>
+</body>
+</html>
