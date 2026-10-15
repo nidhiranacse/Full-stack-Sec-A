@@ -1,38 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Record Management</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <main>
-    <h1>Student Record Management</h1>
-
-    <form id="student-form" novalidate>
-      <h2 id="form-title">Add Student</h2>
-      <input type="hidden" id="student-id">
-      <div class="grid">
-        <div><label for="name">Name</label><input id="name" required><small class="err" id="err-name"></small></div>
-        <div><label for="rollNo">Roll No.</label><input id="rollNo" required><small class="err" id="err-rollNo"></small></div>
-        <div><label for="course">Course</label><input id="course" required><small class="err" id="err-course"></small></div>
-        <div><label for="marks">Marks (0-100)</label><input id="marks" type="number" step="0.01"><small class="err" id="err-marks"></small></div>
-      </div>
-      <div class="actions">
-        <button type="submit" id="submit-btn">Add Student</button>
-        <button type="button" id="cancel-btn" class="secondary" hidden>Cancel</button>
-      </div>
-      <p id="message" role="status"></p>
-    </form>
-
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Name</th><th>Roll No.</th><th>Course</th><th>Marks</th><th>Actions</th></tr></thead>
-        <tbody id="student-body"><tr><td colspan="5">Loading...</td></tr></tbody>
-      </table>
-    </div>
-  </main>
-  <script src="app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Feedback</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

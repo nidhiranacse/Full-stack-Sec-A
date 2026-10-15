@@ -1,19 +1,43 @@
-# Project 2 - Student Record Management (Express + MongoDB + vanilla JS)
+# Array Flatten
 
-## Run
-    npm install
-    cp .env.example .env      # edit MONGO_URI if needed (needs MongoDB running locally or Atlas)
-    npm start                 # open http://localhost:5000
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][downloads-image]][downloads-url]
+[![Build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
 
-## API
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | /students | Add student |
-| GET | /students | List all |
-| GET | /students/:id | Get one |
-| PUT | /students/:id | Update |
-| DELETE | /students/:id | Delete |
+> Flatten an array of nested arrays into a single flat array. Accepts an optional depth.
 
-Import `postman_collection.json` into Postman and set the `id` variable to test each endpoint
-before using the UI (as the lab objectives require).
-Validation: Roll No. required & unique (409 on duplicate), Marks 0-100 (checked on client and server).
+## Installation
+
+```
+npm install array-flatten --save
+```
+
+## Usage
+
+```javascript
+var flatten = require('array-flatten')
+
+flatten([1, [2, [3, [4, [5], 6], 7], 8], 9])
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+flatten([1, [2, [3, [4, [5], 6], 7], 8], 9], 2)
+//=> [1, 2, 3, [4, [5], 6], 7, 8, 9]
+
+(function () {
+  flatten(arguments) //=> [1, 2, 3]
+})(1, [2, 3])
+```
+
+## License
+
+MIT
+
+[npm-image]: https://img.shields.io/npm/v/array-flatten.svg?style=flat
+[npm-url]: https://npmjs.org/package/array-flatten
+[downloads-image]: https://img.shields.io/npm/dm/array-flatten.svg?style=flat
+[downloads-url]: https://npmjs.org/package/array-flatten
+[travis-image]: https://img.shields.io/travis/blakeembrey/array-flatten.svg?style=flat
+[travis-url]: https://travis-ci.org/blakeembrey/array-flatten
+[coveralls-image]: https://img.shields.io/coveralls/blakeembrey/array-flatten.svg?style=flat
+[coveralls-url]: https://coveralls.io/r/blakeembrey/array-flatten?branch=master
