@@ -1,0 +1,57 @@
+{% extends 'students/base.html' %}
+
+{% block title %}Search Students{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h2>Search Student Records</h2>
+  <p style="color: #64748b; margin-bottom: 20px;">Filter database records using query parameters and Django ORM <code>Q</code> lookups.</p>
+
+  <form method="GET" action="{% url 'search_students' %}" style="display: flex; gap: 10px; margin-bottom: 24px;">
+    <input
+      type="text"
+      name="q"
+      value="{{ query }}"
+      placeholder="Search by student name, CUID, or department..."
+      style="flex: 1; max-width: 450px;"
+      required
+    >
+    <button type="submit" class="btn">Search</button>
+    {% if query %}
+      <a href="{% url 'search_students' %}" class="btn" style="background: #94a3b8;">Clear</a>
+    {% endif %}
+  </form>
+
+  {% if query %}
+    <h3>Search Results for "{{ query }}" ({{ result_count }} found)</h3>
+    {% if results %}
+      <table>
+        <thead>
+          <tr>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>CUID</th>
+            <th>Department</th>
+            <th>GPA</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in results %}
+          <tr>
+            <td>{{ student.roll_number }}</td>
+            <td>{{ student.full_name }}</td>
+            <td><code>{{ student.cuid }}</code></td>
+            <td>{{ student.department }}</td>
+            <td>{{ student.gpa }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p style="margin-top: 16px; color: #64748b;">No students found matching your query.</p>
+    {% endif %}
+  {% else %}
+    <p style="color: #64748b;">Enter a search term above (for example: "Pulkit", "CU24250263", or "CSE").</p>
+  {% endif %}
+</div>
+{% endblock %}

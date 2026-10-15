@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 2 - Responsive Design, Flexbox & Grid | Pulkit Goyal (CU24250263)</title>
+  <meta name="description" content="Lab Sheet 2: Responsive CSS3 layout by Pulkit Goyal, Roll 40, Section A">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAVIGATION BAR (Flexbox) -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-badge">Lab 02</span>
+      <span class="brand-title">Pulkit Goyal Portfolio</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills (Flexbox)</a></li>
+      <li><a href="#projects">Projects (CSS Grid)</a></li>
+      <li><a href="#metrics">Metrics</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO BANNER -->
+  <header class="hero">
+    <div class="hero-content">
+      <p class="hero-subtitle">Full Stack Development &bull; Lab Sheet 2</p>
+      <h1>Modern Responsive Web Design with CSS3 Flexbox & Grid</h1>
+      <p>Demonstrating fluid viewports, custom properties, and multi-column grid systems without external frameworks.</p>
+      
+      <!-- Student Credentials -->
+      <div class="hero-credentials">
+        <span class="credential-pill">Student: Pulkit Goyal</span>
+        <span class="credential-pill">CUID: CU24250263</span>
+        <span class="credential-pill">Roll No: 40</span>
+        <span class="credential-pill">Section: A</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- METRICS SECTION (CSS Grid) -->
+    <section id="metrics">
+      <h2 class="section-title">Academic & Lab Overview</h2>
+      <p class="section-desc">Key metrics displayed using a responsive CSS Grid with dynamic breakpoint folding.</p>
+      
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <div class="metric-value">10</div>
+          <div class="metric-label">Completed Lab Sheets</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">2</div>
+          <div class="metric-label">Full Stack Projects</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Vanilla CSS (Zero Dep)</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">A</div>
+          <div class="metric-label">Section Designation</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION (Flexbox) -->
+    <section id="skills">
+      <h2 class="section-title">Core Competencies & Stack (Flexbox)</h2>
+      <p class="section-desc">Flexible inline badges arranged with <code>display: flex</code>, <code>flex-wrap: wrap</code>, and subtle hover transforms.</p>
+
+      <div class="skills-flex">
+        <span class="skill-tag">HTML5 Semantic Web</span>
+        <span class="skill-tag">CSS3 Flexbox &amp; Grid</span>
+        <span class="skill-tag">JavaScript ES6+</span>
+        <span class="skill-tag">React.js &amp; Hooks</span>
+        <span class="skill-tag">Node.js &amp; Express</span>
+        <span class="skill-tag">MongoDB &amp; Mongoose</span>
+        <span class="skill-tag">Python &amp; Django</span>
+        <span class="skill-tag">RESTful APIs</span>
+        <span class="skill-tag">WebSockets / Socket.io</span>
+        <span class="skill-tag">Docker &amp; CI/CD</span>
+      </div>
+    </section>
+
+    <!-- PROJECTS GALLERY (CSS Grid) -->
+    <section id="projects">
+      <h2 class="section-title">Featured Projects (CSS Grid)</h2>
+      <p class="section-desc">Multi-column responsive grid with cards adjusting from 1 to 3 columns depending on device width.</p>
+
+      <div class="projects-grid">
+        
+        <!-- Project 1 -->
+        <article class="project-card">
+          <div>
+            <span class="card-badge">Capstone 1</span>
+            <h3>Real-Time Event &amp; Announcement Portal</h3>
+            <p>Full-stack enterprise application featuring WebSocket announcements, Redis response caching, and admin broadcast controls.</p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Socket.io</span>
+              <span class="tech-tag">Redis</span>
+            </div>
+          </div>
+          <a href="#" class="btn-card">Explore Project Details</a>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card">
+          <div>
+            <span class="card-badge">Capstone 2</span>
+            <h3>CampusConnect University System</h3>
+            <p>University resource and event hub with Role-Based Access Control (Admin/Student), Multer file uploads, and MongoDB indexing.</p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">MERN</span>
+              <span class="tech-tag">RBAC</span>
+              <span class="tech-tag">Multer</span>
+              <span class="tech-tag">Docker</span>
+            </div>
+          </div>
+          <a href="#" class="btn-card">Explore Project Details</a>
+        </article>
+
+        <!-- Lab 3 Todo App -->
+        <article class="project-card">
+          <div>
+            <span class="card-badge">Lab 03</span>
+            <h3>React Task Manager (Todo SPA)</h3>
+            <p>Single-page application demonstrating React useState, props drilling patterns, task filtering (All/Active/Done), and local persistence.</p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Vite</span>
+              <span class="tech-tag">State Hooks</span>
+            </div>
+          </div>
+          <a href="#" class="btn-card">Explore Project Details</a>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>Full Stack Web Development &bull; Lab Sheet 2</strong></p>
+    <p>Submitted by: <strong>Pulkit Goyal</strong> &bull; CUID: <strong>CU24250263</strong> &bull; Roll: <strong>40</strong> &bull; Section: <strong>A</strong></p>
+  </footer>
+
+</body>
+</html>

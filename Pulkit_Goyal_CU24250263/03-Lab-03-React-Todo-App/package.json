@@ -1,0 +1,20 @@
+{
+  "name": "lab-03-react-todo-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Lab Sheet 3 - React Todo SPA by Pulkit Goyal (CU24250263)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.2"
+  }
+}

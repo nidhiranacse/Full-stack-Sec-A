@@ -1,0 +1,15 @@
+{
+  "name": "lab-12-problem1-jwt-task-api",
+  "version": "1.0.0",
+  "description": "Lab Sheet 12 Problem 1 - Secure JWT Task API by Pulkit Goyal (CU24250263)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

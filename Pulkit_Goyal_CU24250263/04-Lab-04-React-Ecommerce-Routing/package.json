@@ -1,0 +1,21 @@
+{
+  "name": "lab-04-react-ecommerce-routing",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Lab Sheet 4 - React Router DOM & Context API by Pulkit Goyal (CU24250263)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.2"
+  }
+}

@@ -1,0 +1,24 @@
+{% extends 'students/base.html' %}
+
+{% block title %}Home - {{ student_name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1 style="color: #0284c7; margin-bottom: 8px;">Welcome to Django Student Portal</h1>
+  <p style="color: #64748b; margin-bottom: 24px;">Lab Sheet 7 &amp; 8: Django Model-View-Template (MVT) Pattern &amp; Dynamic Template Inheritance.</p>
+
+  <div style="background: #f0f9ff; border-left: 4px solid #0284c7; padding: 18px; border-radius: 6px; margin-bottom: 24px;">
+    <h3 style="margin: 0 0 8px; color: #0369a1;">Student Evaluation Profile</h3>
+    <p style="margin: 4px 0;"><strong>Student Name:</strong> {{ student_name }}</p>
+    <p style="margin: 4px 0;"><strong>College ID (CUID):</strong> {{ cuid }}</p>
+    <p style="margin: 4px 0;"><strong>Class Roll Number:</strong> {{ roll_number }}</p>
+    <p style="margin: 4px 0;"><strong>Assigned Section:</strong> {{ section }}</p>
+    <p style="margin: 4px 0;"><strong>Department:</strong> Computer Science &amp; Engineering</p>
+  </div>
+
+  <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+    <a href="{% url 'student_list' %}" class="btn">View All Students &rarr;</a>
+    <a href="{% url 'search_students' %}" class="btn" style="background: #475569;">Search Student Database</a>
+  </div>
+</div>
+{% endblock %}
