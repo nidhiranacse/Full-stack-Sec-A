@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Responsive Photo Grid</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.gallery img {
+    width: 250px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+    .gallery img {
+        width: 100%;
+        height: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Responsive Photo Grid</h1>
+
+<div class="gallery">
+
+<img src="https://picsum.photos/id/1015/400/300" alt="Photo 1">
+
+<img src="https://picsum.photos/id/1016/400/300" alt="Photo 2">
+
+<img src="https://picsum.photos/id/1025/400/300" alt="Photo 3">
+
+<img src="https://picsum.photos/id/1035/400/300" alt="Photo 4">
+
+<img src="https://picsum.photos/id/1043/400/300" alt="Photo 5">
+
+<img src="https://picsum.photos/id/1050/400/300" alt="Photo 6">
+
+</div>
+
+</body>
+</html>

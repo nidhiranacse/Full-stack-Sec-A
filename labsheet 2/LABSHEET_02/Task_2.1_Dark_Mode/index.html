@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dark Mode Landing Page</title>
+
+<style>
+:root {
+    --bg: #ffffff;
+    --text: #222222;
+    --primary: #3498db;
+}
+
+[data-theme="dark"] {
+    --bg: #1e1e1e;
+    --text: #f1f1f1;
+    --primary: #9b59b6;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.3s;
+}
+
+header {
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary);
+    color: #fff;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+main {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+main h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+main p {
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>My Website</h1>
+    <button id="themeToggle">🌙 Dark Mode</button>
+</header>
+
+<main>
+    <h2>Welcome to My Landing Page</h2>
+    <p>
+        This is a simple responsive landing page with a dark mode
+        toggle using CSS variables and JavaScript.
+    </p>
+</main>
+
+<script>
+const toggle = document.getElementById("themeToggle");
+
+toggle.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+
+    if (currentTheme === "dark") {
+        document.documentElement.removeAttribute("data-theme");
+        toggle.textContent = "🌙 Dark Mode";
+    } else {
+        document.documentElement.setAttribute("data-theme", "dark");
+        toggle.textContent = "☀️ Light Mode";
+    }
+});
+</script>
+
+</body>
+</html>

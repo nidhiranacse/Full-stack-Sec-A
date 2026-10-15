@@ -1,0 +1,29 @@
+{% extends "students/base.html" %}
+
+{% block title %}Fruits{% endblock %}
+
+{% block content %}
+
+<h1>Fruits (Unordered Item Matrix)</h1>
+
+{% if fruits %}
+
+<ul class="fruit-list">
+    {% for fruit in fruits %}
+        <li>
+            {{ fruit.name }} &mdash; stock: {{ fruit.stock_count }}
+        </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+
+<div class="alert alert-warning">
+    <strong>No fruits found!</strong>
+    The fruit collection is currently empty.
+    Please add some fruit records to see them listed here.
+</div>
+
+{% endif %}
+
+{% endblock %}

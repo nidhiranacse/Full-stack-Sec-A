@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Todo Application</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 40px;
+}
+
+.todo-container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+h1 {
+    text-align: center;
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    background: #3498db;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-top: 8px;
+    background: #eee;
+    border-radius: 4px;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.delete {
+    background: #e74c3c;
+}
+</style>
+</head>
+
+<body>
+
+<div class="todo-container">
+
+    <h1>My Todo List</h1>
+
+    <div class="input-area">
+        <input type="text" id="todoInput" placeholder="Enter a task">
+        <button onclick="addTodo()">Add</button>
+    </div>
+
+    <ul id="todoList"></ul>
+
+</div>
+
+<script>
+function addTodo() {
+    const input = document.getElementById("todoInput");
+    const task = input.value.trim();
+
+    if (task === "") {
+        alert("Please enter a task.");
+        return;
+    }
+
+    const li = document.createElement("li");
+
+    const span = document.createElement("span");
+    span.textContent = task;
+
+    span.onclick = function() {
+        span.classList.toggle("completed");
+    };
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.className = "delete";
+
+    deleteButton.onclick = function() {
+        li.remove();
+    };
+
+    li.appendChild(span);
+    li.appendChild(deleteButton);
+
+    document.getElementById("todoList").appendChild(li);
+
+    input.value = "";
+}
+</script>
+
+</body>
+</html>

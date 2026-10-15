@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nested Navigation Menu</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+nav {
+    background: #34495e;
+}
+
+nav > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav > ul > li {
+    position: relative;
+}
+
+nav a {
+    display: block;
+    padding: 15px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+nav > ul > li:hover {
+    background: #1abc9c;
+}
+
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #2c3e50;
+    min-width: 200px;
+}
+
+nav ul li:hover > ul {
+    display: block;
+}
+
+nav ul ul li a {
+    padding: 10px 20px;
+    color: #ecf0f1;
+}
+
+nav ul ul li a:hover {
+    background: #16a085;
+}
+
+.content {
+    padding: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<ul>
+
+<li>
+<a href="https://www.coeru.ac.in/">Home</a>
+</li>
+
+<li>
+<a href="https://www.coeru.ac.in/about">About</a>
+
+<ul>
+<li>
+<a href="https://www.coeru.ac.in/about/vision">Vision &amp; Mission</a>
+</li>
+
+<li>
+<a href="https://www.coeru.ac.in/about/campus">Campus</a>
+</li>
+</ul>
+
+</li>
+
+<li>
+<a href="https://www.coeru.ac.in/courses">Courses</a>
+
+<ul>
+<li>
+<a href="https://www.coeru.ac.in/courses/btech">B.Tech CSE</a>
+</li>
+
+<li>
+<a href="https://www.coeru.ac.in/courses/mtech">M.Tech</a>
+</li>
+</ul>
+
+</li>
+
+<li>
+<a href="https://www.coeru.ac.in/contact">Contact</a>
+</li>
+
+</ul>
+</nav>
+
+<div class="content">
+<h1>Welcome</h1>
+<p>Hover over the menu items above to see the nested dropdown submenus.</p>
+</div>
+
+</body>
+</html>

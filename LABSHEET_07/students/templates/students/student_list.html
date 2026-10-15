@@ -1,0 +1,50 @@
+{% extends "students/base.html" %}
+
+{% block title %}Selected Event Students{% endblock %}
+
+{% block content %}
+
+<h1>Selected Event Students</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                <a href="?sort_by=name">Name</a>
+            </th>
+
+            <th>
+                <a href="?sort_by=roll_no">Roll No.</a>
+            </th>
+
+            <th>
+                <a href="?sort_by=event_name">Event</a>
+            </th>
+
+            <th>
+                <a href="?sort_by=registration_order">
+                    Registration Order
+                </a>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.roll_no }}</td>
+            <td>{{ student.event_name }}</td>
+            <td>{{ student.registration_order }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">
+                No students found.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

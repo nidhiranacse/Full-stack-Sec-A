@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lab Sheet 08{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li>
+                <a href="{{ url_for('home') }}"
+                   class="{{ 'active' if active_page == 'home' else '' }}">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('about') }}"
+                   class="{{ 'active' if active_page == 'about' else '' }}">
+                    About Us
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('contact') }}"
+                   class="{{ 'active' if active_page == 'contact' else '' }}">
+                    Contact Us
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="notification-wrapper">
+                {% for category, message in messages %}
+                    <div class="notification-box notification-{{ category }}">
+                        <span class="notification-text">{{ message }}</span>
+                        <span class="notification-close"
+                              onclick="this.parentElement.style.display='none';">
+                            &times;
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main class="page-content">
+        {% block content %}
+        <!-- Child views override this block -->
+        {% endblock %}
+    </main>
+
+</body>
+</html>
