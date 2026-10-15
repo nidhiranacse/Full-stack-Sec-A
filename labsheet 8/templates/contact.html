@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+
+Contact Us
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<h1>
+    Contact Us
+</h1>
+
+
+<p>
+    Send us your feedback below.
+    Verified submissions are written to the server log.
+</p>
+
+
+<form
+    class="contact-form"
+    method="POST"
+    action="{{ url_for('contact') }}"
+>
+
+
+    <!-- NAME -->
+
+    <label for="name">
+        Name
+    </label>
+
+    <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        value="{{ request.form.get('name', '') }}"
+    >
+
+
+
+    <!-- EMAIL -->
+
+    <label for="email">
+        Email
+    </label>
+
+    <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        value="{{ request.form.get('email', '') }}"
+    >
+
+
+
+    <!-- MESSAGE -->
+
+    <label for="message">
+        Feedback message
+    </label>
+
+    <textarea
+        id="message"
+        name="message"
+        rows="5"
+        required
+    >{{ request.form.get('message', '') }}</textarea>
+
+
+
+    <!-- SUBMIT -->
+
+    <button type="submit">
+        Submit Feedback
+    </button>
+
+
+</form>
+
+
+{% endblock %}
