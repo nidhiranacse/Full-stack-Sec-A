@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Sheet 02 — Dynamic Interface Styling & Scripting Interactivity</title>
+<style>
+  /* ================= CSS VARIABLES (Task 2.1) ================= */
+  :root {
+    --bg: #0e0f13;
+    --bg-alt: #16181f;
+    --card: #1c1f28;
+    --text: #eef0f5;
+    --text-muted: #9aa1b1;
+    --accent: #7c5cff;
+    --accent-2: #34d1a5;
+    --border: #2a2d38;
+    --shadow: 0 10px 30px rgba(0,0,0,0.45);
+    --radius: 14px;
+    --transition: 0.3s ease;
+  }
+
+  [data-theme="light"] {
+    --bg: #f5f6fa;
+    --bg-alt: #ffffff;
+    --card: #ffffff;
+    --text: #14161c;
+    --text-muted: #5a5f70;
+    --accent: #5b3df0;
+    --accent-2: #0f9d76;
+    --border: #e2e4ec;
+    --shadow: 0 10px 30px rgba(20,22,28,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background var(--transition), color var(--transition);
+    line-height: 1.5;
+  }
+
+  a { color: inherit; }
+
+  /* ================= NAV ================= */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 6%;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 0.5px; }
+  .logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    transition: color var(--transition);
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* Theme toggle switch */
+  .toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: transform var(--transition), background var(--transition);
+  }
+  .toggle-btn:hover { transform: translateY(-2px); }
+  .toggle-btn:active { transform: scale(0.95); }
+
+  /* ================= HERO (Task 2.1) ================= */
+  .hero {
+    min-height: 86vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 6%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10%;
+    background:
+      radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent) 25%, transparent), transparent 45%),
+      radial-gradient(circle at 80% 30%, color-mix(in srgb, var(--accent-2) 20%, transparent), transparent 45%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero * { position: relative; z-index: 1; }
+
+  .eyebrow {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 22px;
+    background: var(--card);
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    font-weight: 800;
+    max-width: 850px;
+    line-height: 1.15;
+  }
+
+  .hero h1 .gradient {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero p {
+    margin-top: 20px;
+    max-width: 560px;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  /* Scroll-reveal panel — vanilla JS driven "container scroll" style effect */
+  .scroll-stage {
+    margin-top: 60px;
+    width: 100%;
+    max-width: 960px;
+    perspective: 1200px;
+  }
+
+  .scroll-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    padding: 34px;
+    transform: rotateX(18deg) scale(0.94);
+    opacity: 0.5;
+    transition: transform 0.15s linear, opacity 0.15s linear;
+    transform-style: preserve-3d;
+  }
+
+  .scroll-card img {
+    width: 100%;
+    border-radius: 16px;
+    display: block;
+  }
+
+  section {
+    padding: 90px 6%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-heading { text-align: center; margin-bottom: 50px; }
+  .section-heading h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; }
+  .section-heading p { color: var(--text-muted); margin-top: 8px; }
+
+  /* ================= PHOTO GRID (Task 2.2) ================= */
+  .photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    justify-content: center;
+  }
+
+  .photo-card {
+    flex: 1 1 260px;
+    max-width: 300px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .photo-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  }
+
+  .photo-card .img-wrap { overflow: hidden; height: 190px; }
+
+  .photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .photo-card:hover img { transform: scale(1.12) rotate(1deg); }
+
+  .photo-card .caption { padding: 14px 16px; }
+  .photo-card .caption h3 { font-size: 1rem; margin-bottom: 4px; }
+  .photo-card .caption p { font-size: 0.85rem; color: var(--text-muted); }
+
+  @media (max-width: 480px) {
+    .photo-card { flex: 1 1 100%; max-width: 100%; }
+  }
+
+  /* ================= TODO APP (Task 2.3) ================= */
+  .todo-wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 30px;
+  }
+
+  .todo-input-row { display: flex; gap: 10px; }
+
+  .todo-input-row input {
+    flex: 1;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+    color: var(--text);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color var(--transition);
+  }
+
+  .todo-input-row input:focus { border-color: var(--accent); }
+
+  .todo-input-row button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter var(--transition), transform var(--transition);
+  }
+
+  .todo-input-row button:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .todo-input-row button:active { transform: scale(0.97); }
+
+  .error-msg {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    min-height: 18px;
+  }
+
+  .todo-filters {
+    display: flex;
+    gap: 8px;
+    margin: 18px 0 10px;
+  }
+
+  .todo-filters button {
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all var(--transition);
+  }
+
+  .todo-filters button.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .todo-list { list-style: none; margin-top: 6px; }
+
+  .todo-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--border);
+    animation: slideIn 0.25s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .todo-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .todo-item span {
+    flex: 1;
+    word-break: break-word;
+    transition: color var(--transition);
+  }
+
+  .todo-item.done span {
+    text-decoration: line-through;
+    color: var(--text-muted);
+  }
+
+  .todo-item .del-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: color var(--transition), background var(--transition);
+  }
+
+  .todo-item .del-btn:hover { color: #ff6b6b; background: color-mix(in srgb, #ff6b6b 12%, transparent); }
+
+  .todo-stats {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 24px 0;
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 6%;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="logo">Lab<span>Sheet</span>02</div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#todo">Todo</a></li>
+  </ul>
+  <button class="toggle-btn" id="themeToggle">
+    <span id="themeIcon">🌙</span>
+    <span id="themeLabel">Dark</span>
+  </button>
+</nav>
+
+<!-- ============ TASK 2.1 : HERO / DARK MODE ============ -->
+<header class="hero" id="hero">
+  <span class="eyebrow">Task 2.1 — CSS Variables + JS Toggle</span>
+  <h1>Dynamic Interfaces with <span class="gradient">Pure CSS &amp; JavaScript</span></h1>
+  <p>A dark-mode landing page built entirely with custom CSS variables and a vanilla JavaScript theme toggler — no frameworks required.</p>
+
+  <div class="scroll-stage">
+    <div class="scroll-card" id="scrollCard">
+      <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1400&q=80" alt="workspace preview">
+    </div>
+  </div>
+</header>
+
+<!-- ============ TASK 2.2 : PHOTO GRID ============ -->
+<section id="gallery">
+  <div class="section-heading">
+    <h2>Task 2.2 — Responsive Photo Grid</h2>
+    <p>Built with CSS Flexbox · wraps fluidly · hover transform animations</p>
+  </div>
+
+  <div class="photo-grid" id="photoGrid">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<!-- ============ TASK 2.3 : TODO APP ============ -->
+<section id="todo">
+  <div class="section-heading">
+    <h2>Task 2.3 — Client-Side Todo App</h2>
+    <p>Runtime element append + input validation</p>
+  </div>
+
+  <div class="todo-wrap">
+    <div class="todo-input-row">
+      <input type="text" id="todoInput" placeholder="What needs to be done?" maxlength="120">
+      <button id="addBtn">Add</button>
+    </div>
+    <div class="error-msg" id="errorMsg"></div>
+
+    <div class="todo-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="active">Active</button>
+      <button class="filter-btn" data-filter="done">Done</button>
+    </div>
+
+    <ul class="todo-list" id="todoList"></ul>
+
+    <div class="todo-stats">
+      <span id="itemCount">0 items</span>
+      <span id="doneCount">0 done</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Lab Sheet 02 — Dynamic Interface Styling &amp; Scripting Interactivity · Built with HTML, CSS &amp; vanilla JavaScript
+</footer>
+
+<script>
+  /* =========================================================
+     TASK 2.1 — Dark mode toggle via CSS custom properties
+  ========================================================== */
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const themeLabel = document.getElementById('themeLabel');
+
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      root.setAttribute('data-theme', 'light');
+      themeIcon.textContent = '☀️';
+      themeLabel.textContent = 'Light';
+    } else {
+      root.removeAttribute('data-theme');
+      themeIcon.textContent = '🌙';
+      themeLabel.textContent = 'Dark';
+    }
+  }
+
+  // In-memory theme state (no localStorage per artifact restrictions)
+  let currentTheme = 'dark';
+  applyTheme(currentTheme);
+
+  themeToggle.addEventListener('click', () => {
+    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(currentTheme);
+  });
+
+  /* Bonus: scroll-driven 3D reveal effect on the hero card,
+     built with plain JS scroll listener (no external animation library) */
+  const scrollCard = document.getElementById('scrollCard');
+  function updateScrollCard() {
+    const rect = scrollCard.parentElement.getBoundingClientRect();
+    const viewportH = window.innerHeight;
+    // progress: 0 when card enters view, 1 when fully centered
+    let progress = 1 - (rect.top / viewportH);
+    progress = Math.min(Math.max(progress, 0), 1);
+    const rotate = 18 - (18 * progress);
+    const scale = 0.94 + (0.06 * progress);
+    const opacity = 0.5 + (0.5 * progress);
+    scrollCard.style.transform = `rotateX(${rotate}deg) scale(${scale})`;
+    scrollCard.style.opacity = opacity;
+  }
+  window.addEventListener('scroll', updateScrollCard);
+  window.addEventListener('resize', updateScrollCard);
+  updateScrollCard();
+
+  /* =========================================================
+     TASK 2.2 — Responsive photo grid (Flexbox), populated via JS
+  ========================================================== */
+  const photos = [
+    { url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80', title: 'Mountain Ridge', desc: 'Golden hour over the peaks' },
+    { url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=600&q=80', title: 'Forest Path', desc: 'Sunlight through the trees' },
+    { url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80', title: 'Ocean Waves', desc: 'Calm tide at dusk' },
+    { url: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80', title: 'Desert Dunes', desc: 'Wind-carved sand patterns' },
+    { url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80', title: 'Starry Sky', desc: 'Milky way over the valley' },
+    { url: 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80', title: 'Alpine Lake', desc: 'Reflections of the range' },
+  ];
+
+  const photoGrid = document.getElementById('photoGrid');
+  photos.forEach(photo => {
+    const card = document.createElement('div');
+    card.className = 'photo-card';
+    card.innerHTML = `
+      <div class="img-wrap">
+        <img src="${photo.url}" alt="${photo.title}" loading="lazy">
+      </div>
+      <div class="caption">
+        <h3>${photo.title}</h3>
+        <p>${photo.desc}</p>
+      </div>
+    `;
+    photoGrid.appendChild(card);
+  });
+
+  /* =========================================================
+     TASK 2.3 — Client-side Todo App with validation
+  ========================================================== */
+  const todoInput = document.getElementById('todoInput');
+  const addBtn = document.getElementById('addBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  const todoList = document.getElementById('todoList');
+  const itemCount = document.getElementById('itemCount');
+  const doneCount = document.getElementById('doneCount');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+
+  let todos = [];
+  let idCounter = 0;
+  let currentFilter = 'all';
+
+  function validateInput(value) {
+    if (value.trim().length === 0) {
+      return 'Task cannot be empty.';
+    }
+    if (value.trim().length < 3) {
+      return 'Task must be at least 3 characters.';
+    }
+    if (todos.some(t => t.text.toLowerCase() === value.trim().toLowerCase())) {
+      return 'This task already exists.';
+    }
+    return null;
+  }
+
+  function addTodo() {
+    const value = todoInput.value;
+    const error = validateInput(value);
+
+    if (error) {
+      errorMsg.textContent = error;
+      todoInput.focus();
+      return;
+    }
+
+    errorMsg.textContent = '';
+    todos.push({ id: idCounter++, text: value.trim(), done: false });
+    todoInput.value = '';
+    renderTodos();
+  }
+
+  function deleteTodo(id) {
+    todos = todos.filter(t => t.id !== id);
+    renderTodos();
+  }
+
+  function toggleTodo(id) {
+    const todo = todos.find(t => t.id === id);
+    if (todo) todo.done = !todo.done;
+    renderTodos();
+  }
+
+  function renderTodos() {
+    todoList.innerHTML = '';
+
+    let visible = todos;
+    if (currentFilter === 'active') visible = todos.filter(t => !t.done);
+    if (currentFilter === 'done') visible = todos.filter(t => t.done);
+
+    if (visible.length === 0) {
+      const empty = document.createElement('li');
+      empty.className = 'empty-state';
+      empty.textContent = todos.length === 0
+        ? 'No tasks yet — add one above.'
+        : 'Nothing to show in this filter.';
+      todoList.appendChild(empty);
+    } else {
+      visible.forEach(todo => {
+        const li = document.createElement('li');
+        li.className = 'todo-item' + (todo.done ? ' done' : '');
+        li.innerHTML = `
+          <input type="checkbox" ${todo.done ? 'checked' : ''}>
+          <span></span>
+          <button class="del-btn" title="Delete">✕</button>
+        `;
+        li.querySelector('span').textContent = todo.text; // safe text insertion
+        li.querySelector('input[type="checkbox"]').addEventListener('change', () => toggleTodo(todo.id));
+        li.querySelector('.del-btn').addEventListener('click', () => deleteTodo(todo.id));
+        todoList.appendChild(li);
+      });
+    }
+
+    itemCount.textContent = `${todos.length} item${todos.length !== 1 ? 's' : ''}`;
+    doneCount.textContent = `${todos.filter(t => t.done).length} done`;
+  }
+
+  addBtn.addEventListener('click', addTodo);
+  todoInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') addTodo();
+  });
+  todoInput.addEventListener('input', () => { errorMsg.textContent = ''; });
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      renderTodos();
+    });
+  });
+
+  // Seed with a couple of sample tasks so the list isn't empty on load
+  todos.push({ id: idCounter++, text: 'Review Lab Sheet 02 requirements', done: true });
+  todos.push({ id: idCounter++, text: 'Style the dark mode toggle', done: false });
+  renderTodos();
+</script>
+
+</body>
+</html>
