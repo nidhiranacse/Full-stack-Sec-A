@@ -1,0 +1,217 @@
+/* Google Web Fonts for a modern, sleek tech application aesthetic */
+@import url('https://googleapis.com');
+
+:root {
+    --bg-main: #f1f5f9;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --success-bg: #f8fafc;
+    --border-color: #e2e8f0;
+    --input-focus: #818cf8;
+    
+    /* Soft premium shadows */
+    --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+    
+    --font-stack: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.todo-container {
+    width: 480px;
+    max-width: 100%;
+    background-color: var(--card-bg);
+    padding: 35px 30px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-xl);
+}
+
+h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--text-main);
+}
+
+.input-box {
+    display: flex;
+    gap: 12px;
+}
+
+#todoInput {
+    flex: 1;
+    padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: var(--font-stack);
+    font-weight: 500;
+    color: var(--text-main);
+    background-color: var(--card-bg);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+}
+
+#todoInput::placeholder {
+    color: var(--text-muted);
+}
+
+#todoInput:focus {
+    outline: none;
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+}
+
+#addBtn {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--primary);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    font-family: var(--font-stack);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+}
+
+#addBtn:hover {
+    background-color: var(--primary-hover);
+}
+
+#addBtn:active {
+    transform: scale(0.97);
+}
+
+#errorMessage {
+    color: var(--danger);
+    margin-top: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+#todoList {
+    list-style: none;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background-color: var(--success-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: all 0.25s ease;
+}
+
+.todo-item:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Styled checkbox framework indicator if you add input[type="checkbox"] later */
+.todo-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-main);
+    transition: all 0.2s ease;
+}
+
+.delete-btn {
+    border: none;
+    background-color: transparent;
+    color: var(--text-muted);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: var(--font-stack);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.todo-item:hover .delete-btn {
+    color: var(--danger);
+    background-color: rgba(239, 68, 68, 0.08);
+}
+
+.delete-btn:hover {
+    color: #ffffff !important;
+    background-color: var(--danger) !important;
+}
+
+/* Upgraded completed task state styling */
+.complete .todo-text {
+    text-decoration: line-through;
+    text-decoration-color: var(--text-muted);
+    color: var(--text-muted);
+    opacity: 0.65;
+}
+
+.complete {
+    background-color: #f8fafc;
+    border-color: var(--border-color);
+    opacity: 0.8;
+}
+
+/* Responsive adjustments for narrow viewports */
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
+    }
+
+    .todo-container {
+        padding: 25px 20px;
+        border-radius: 16px;
+    }
+
+    .input-box {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #addBtn {
+        width: 100%;
+        padding: 12px;
+    }
+    
+    #todoInput {
+        padding: 12px;
+    }
+}
