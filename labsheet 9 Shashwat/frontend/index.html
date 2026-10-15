@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Record Management System | Shashwat Saini</title>
+  <meta name="description" content="Full-stack Student Record Management System with Node.js, Express, MongoDB and REST APIs. Lab Sheet 9 - Shashwat Saini CU24250052" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Background Particles ─────────────────────────── -->
+  <div class="bg-particles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- ── Header ──────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">🎓</div>
+        <div class="logo-text">
+          <h1>Student Records</h1>
+          <span>Management System</span>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="badge" id="connection-badge">
+          <span class="badge-dot"></span>
+          <span id="connection-status">Connecting...</span>
+        </div>
+        <div class="student-info">
+          <span>Shashwat Saini</span>
+          <span class="roll">CU24250052</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main Content ─────────────────────────────────── -->
+  <main class="main-container">
+
+    <!-- Stats Row -->
+    <section class="stats-row" aria-label="Statistics">
+      <div class="stat-card" id="stat-total">
+        <div class="stat-icon">👥</div>
+        <div class="stat-body">
+          <div class="stat-value" id="total-count">0</div>
+          <div class="stat-label">Total Students</div>
+        </div>
+      </div>
+      <div class="stat-card" id="stat-avg">
+        <div class="stat-icon">📊</div>
+        <div class="stat-body">
+          <div class="stat-value" id="avg-marks">—</div>
+          <div class="stat-label">Average Marks</div>
+        </div>
+      </div>
+      <div class="stat-card" id="stat-top">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-body">
+          <div class="stat-value" id="top-marks">—</div>
+          <div class="stat-label">Highest Marks</div>
+        </div>
+      </div>
+      <div class="stat-card" id="stat-pass">
+        <div class="stat-icon">✅</div>
+        <div class="stat-body">
+          <div class="stat-value" id="pass-count">0</div>
+          <div class="stat-label">Passed (≥40)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Two Column Layout -->
+    <div class="two-col">
+
+      <!-- ── Form Panel ──────────────────────────────── -->
+      <section class="card form-panel" aria-label="Student Form">
+        <div class="card-header">
+          <div class="card-title" id="form-title">
+            <span class="title-icon">➕</span>
+            <span id="form-heading">Add New Student</span>
+          </div>
+          <button class="btn-reset" id="reset-btn" title="Reset form" style="display:none">✕ Cancel</button>
+        </div>
+
+        <form id="student-form" novalidate>
+          <input type="hidden" id="edit-id" value="" />
+
+          <div class="form-group">
+            <label for="name">Full Name <span class="required">*</span></label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="e.g. Arjun Sharma"
+              autocomplete="off"
+              required
+            />
+            <span class="field-error" id="name-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="rollNo">Roll Number <span class="required">*</span></label>
+            <input
+              type="text"
+              id="rollNo"
+              name="rollNo"
+              placeholder="e.g. CU24250001"
+              autocomplete="off"
+              required
+            />
+            <span class="field-error" id="rollNo-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="course">Course <span class="required">*</span></label>
+            <select id="course" name="course" required>
+              <option value="">— Select Course —</option>
+              <option value="B.Tech CSE">B.Tech CSE</option>
+              <option value="B.Tech IT">B.Tech IT</option>
+              <option value="B.Tech ECE">B.Tech ECE</option>
+              <option value="B.Tech ME">B.Tech ME</option>
+              <option value="B.Tech Civil">B.Tech Civil</option>
+              <option value="MCA">MCA</option>
+              <option value="MBA">MBA</option>
+              <option value="BCA">BCA</option>
+              <option value="B.Sc CS">B.Sc CS</option>
+            </select>
+            <span class="field-error" id="course-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="marks">
+              Marks (0–100) <span class="required">*</span>
+              <span class="marks-preview" id="marks-preview"></span>
+            </label>
+            <div class="marks-input-wrap">
+              <input
+                type="number"
+                id="marks"
+                name="marks"
+                placeholder="e.g. 85"
+                min="0"
+                max="100"
+                required
+              />
+              <div class="marks-bar-outer">
+                <div class="marks-bar-inner" id="marks-bar"></div>
+              </div>
+            </div>
+            <span class="field-error" id="marks-error"></span>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submit-btn">
+            <span class="btn-icon">✚</span>
+            <span id="submit-text">Add Student</span>
+            <span class="btn-loader" id="btn-loader" aria-hidden="true"></span>
+          </button>
+        </form>
+
+        <!-- Toast -->
+        <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+      </section>
+
+      <!-- ── Records Panel ──────────────────────────── -->
+      <section class="card records-panel" aria-label="Student Records">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="title-icon">📋</span>
+            <span>All Students</span>
+          </div>
+          <div class="records-controls">
+            <div class="search-wrap">
+              <input
+                type="search"
+                id="search-input"
+                placeholder="Search name, roll, course…"
+                aria-label="Search students"
+              />
+              <span class="search-icon">🔍</span>
+            </div>
+            <button class="btn-refresh" id="refresh-btn" title="Refresh records" aria-label="Refresh">
+              <span id="refresh-icon">↻</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="loading-state" aria-live="polite">
+          <div class="spinner"></div>
+          <p>Loading students…</p>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="empty-state" style="display:none">
+          <div class="empty-icon">🎒</div>
+          <h3>No students found</h3>
+          <p>Add a student using the form on the left.</p>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrap" id="table-wrap" style="display:none">
+          <table class="records-table" id="records-table" aria-label="Student records table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Roll No.</th>
+                <th>Course</th>
+                <th>Marks</th>
+                <th>Grade</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="records-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ── Delete Confirmation Modal ───────────────────── -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none">
+    <div class="modal">
+      <div class="modal-icon">🗑️</div>
+      <h2 id="modal-title">Delete Student?</h2>
+      <p id="modal-body">This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="modal-cancel">Cancel</button>
+        <button class="btn-delete-confirm" id="modal-confirm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ──────────────────────────────────────── -->
+  <footer class="footer">
+    <p>
+      Lab Sheet 9 &nbsp;|&nbsp; Full Stack Web Development &nbsp;|&nbsp;
+      <strong>Shashwat Saini</strong> (CU24250052) &nbsp;|&nbsp;
+      Stack: <code>Node.js</code> + <code>Express</code> + <code>MongoDB</code> + <code>Mongoose</code>
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

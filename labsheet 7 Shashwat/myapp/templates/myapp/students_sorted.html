@@ -1,0 +1,40 @@
+{% extends "myapp/base.html" %}
+{% block title %}Task 7.2 – Sorted Students{% endblock %}
+
+{% block content %}
+<h1>Task 7.2 – Dynamic Table Sorting</h1>
+<p class="subtitle">Click a column header to sort students by that field. Active sort: <strong style="color:#facc15;">{{ sort_by }}</strong></p>
+
+<div class="card">
+  <h2>🎓 Students Table</h2>
+
+  {% if students %}
+    <table>
+      <thead>
+        <tr>
+          <th class="{% if sort_by == 'name' %}active-sort{% endif %}">
+            <a href="?sort=name">Name {% if sort_by == 'name' %}▲{% endif %}</a>
+          </th>
+          <th class="{% if sort_by == 'event' %}active-sort{% endif %}">
+            <a href="?sort=event">Event {% if sort_by == 'event' %}▲{% endif %}</a>
+          </th>
+          <th class="{% if sort_by == 'roll_number' %}active-sort{% endif %}">
+            <a href="?sort=roll_number">Roll No. {% if sort_by == 'roll_number' %}▲{% endif %}</a>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+        <tr>
+          <td>{{ student.name }}</td>
+          <td><span class="badge">{{ student.event }}</span></td>
+          <td>{{ student.roll_number }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert">⚠️ No students found. Add records via the admin panel.</div>
+  {% endif %}
+</div>
+{% endblock %}

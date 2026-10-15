@@ -1,0 +1,12 @@
+{
+  "name": "student-records-api",
+  "version": "1.0.0",
+  "description": "Practical A1 - Student Records REST API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
