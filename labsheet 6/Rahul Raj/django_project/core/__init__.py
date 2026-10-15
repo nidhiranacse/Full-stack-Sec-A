@@ -1,0 +1,1 @@
+"""Core Django project package."""

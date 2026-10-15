@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  campusconnect-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: campusconnect-portal
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - JWT_SECRET=campusconnect-secret-key-btech-fullstack-2026
+    volumes:
+      - campusconnect_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  campusconnect_data:

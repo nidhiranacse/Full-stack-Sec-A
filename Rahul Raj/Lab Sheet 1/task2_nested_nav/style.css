@@ -1,0 +1,464 @@
+/* ==========================================================================
+   Lab Sheet 01 - Task 1.2: Nested Navigation Menu Bar Styling
+   Student: Rahul Raj
+   Features: Multi-level dropdowns, Absolute Path external linking, :focus-within A11y
+   ========================================================================== */
+
+:root {
+  --bg-dark: #0f172a;
+  --bg-surface: #1e293b;
+  --bg-card: #ffffff;
+  --text-main: #334155;
+  --text-light: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-soft: rgba(59, 130, 246, 0.12);
+  --border: #e2e8f0;
+  --border-dark: #334155;
+  --success: #10b981;
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-flyout: 0 20px 30px -10px rgba(15, 23, 42, 0.35);
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  background-color: #f8fafc;
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.top-header {
+  background: var(--bg-dark);
+  border-bottom: 1px solid var(--border-dark);
+  padding: 0.85rem 1.5rem;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: all 0.2s;
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateX(-2px);
+}
+
+.lab-pill {
+  background: #312e81;
+  color: #c7d2fe;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.student-tag {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Section Wrapper */
+.nav-demo-wrapper {
+  max-width: 1100px;
+  margin: 2.5rem auto;
+  padding: 0 1.5rem;
+  flex: 1;
+}
+
+.nav-intro {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  margin-bottom: 0.75rem;
+}
+
+.page-title {
+  font-size: 2.25rem;
+  color: var(--bg-dark);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.page-desc {
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.code-pill {
+  font-family: var(--font-mono);
+  background: #e2e8f0;
+  color: #0f172a;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   NESTED NAVIGATION MENU BAR (Core Syllabus Task 1.2 Implementation)
+   ========================================================================== */
+.main-navbar {
+  background: var(--bg-dark);
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg);
+  padding: 0 1.25rem;
+  position: relative;
+  z-index: 100;
+  border: 1px solid var(--border-dark);
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.nav-item {
+  position: relative;
+}
+
+/* Root Navigation Link */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 1.1rem 1rem;
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.925rem;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+
+.nav-link:hover,
+.nav-item:focus-within > .nav-link {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.chevron {
+  transition: transform 0.25s ease;
+  opacity: 0.7;
+}
+
+.nav-item:hover > .nav-link .chevron,
+.nav-item:focus-within > .nav-link .chevron {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.badge-external {
+  font-size: 0.7rem;
+  background: rgba(59, 130, 246, 0.25);
+  color: #60a5fa;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Sub-Menu Level 1 (Dropdown)
+   -------------------------------------------------------------------------- */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 260px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dark);
+  border-radius: 12px;
+  list-style: none;
+  padding: 0.6rem;
+  box-shadow: var(--shadow-flyout);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.has-dropdown:hover > .dropdown-menu,
+.has-dropdown:focus-within > .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-item {
+  position: relative;
+}
+
+.dropdown-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 0.9rem;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-link:hover,
+.dropdown-item:focus-within > .dropdown-link {
+  background: rgba(59, 130, 246, 0.15);
+  color: #ffffff;
+}
+
+.chevron-right {
+  transition: transform 0.2s ease;
+}
+
+.dropdown-item:hover > .dropdown-link .chevron-right,
+.dropdown-item:focus-within > .dropdown-link .chevron-right {
+  transform: translateX(3px);
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Sub-Menu Level 2 (Nested Flyout)
+   -------------------------------------------------------------------------- */
+.flyout-menu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 0.4rem;
+  min-width: 270px;
+  background: #111827;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  list-style: none;
+  padding: 0.6rem;
+  box-shadow: var(--shadow-flyout);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-8px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.has-flyout:hover > .flyout-menu,
+.has-flyout:focus-within > .flyout-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.flyout-link {
+  display: block;
+  padding: 0.65rem 0.85rem;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.825rem;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.flyout-link:hover,
+.flyout-link:focus-visible {
+  background: rgba(59, 130, 246, 0.2);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Absolute Path Inspection Panel
+   -------------------------------------------------------------------------- */
+.inspection-panel {
+  margin-top: 3rem;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.panel-header {
+  background: #0f172a;
+  padding: 0.9rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dot.red { background: #ef4444; }
+.dot.yellow { background: #f59e0b; }
+.dot.green { background: #10b981; }
+
+.panel-title {
+  color: #f8fafc;
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.status-indicator {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #34d399;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.panel-content {
+  padding: 1.5rem;
+}
+
+.instruction-note {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.path-table-wrap {
+  overflow-x: auto;
+}
+
+.path-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.path-table th {
+  text-align: left;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 2px solid var(--border);
+}
+
+.path-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-main);
+}
+
+.level-badge {
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+.level-badge.l1 { background: #e0e7ff; color: #3730a3; }
+.level-badge.l2 { background: #fef3c7; color: #92400e; }
+.level-badge.l3 { background: #dcfce7; color: #166534; }
+
+.url-text {
+  font-family: var(--font-mono);
+  color: #2563eb;
+  font-size: 0.825rem;
+}
+
+.tag-success {
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  display: inline-block;
+}
+
+/* Footer */
+.page-footer {
+  background: #ffffff;
+  border-top: 1px solid var(--border);
+  padding: 1.25rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .nav-menu {
+    flex-wrap: wrap;
+  }
+  .flyout-menu {
+    position: static;
+    transform: none;
+    margin-left: 1rem;
+    box-shadow: none;
+    border-left: 2px solid var(--accent);
+  }
+}

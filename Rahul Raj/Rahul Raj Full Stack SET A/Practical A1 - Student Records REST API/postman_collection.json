@@ -1,0 +1,150 @@
+{
+  "info": {
+    "name": "SET A - Practical A1: Student Records REST API",
+    "description": "Postman Collection for Full Stack Development Lab Manual - Practical Test Set A (Practical A1)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Create Student (Valid)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Rahul Raj\",\n  \"email\": \"rahulsri1208@gmail.com\",\n  \"age\": 21\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/students",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["students"]
+        }
+      }
+    },
+    {
+      "name": "2. Create Student (Duplicate Email - 409)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Another Person\",\n  \"email\": \"rahulsri1208@gmail.com\",\n  \"age\": 22\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/students",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["students"]
+        }
+      }
+    },
+    {
+      "name": "3. Create Student (Invalid Input - 400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"\",\n  \"email\": \"invalid-email\",\n  \"age\": -1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/students",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["students"]
+        }
+      }
+    },
+    {
+      "name": "4. Get All Students",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/students",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["students"]
+        }
+      }
+    },
+    {
+      "name": "5. Get Students Filtered By minAge",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/students?minAge=21",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["students"],
+          "query": [
+            { "key": "minAge", "value": "21" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. Get Student By ID (200)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/students/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["students", "1"]
+        }
+      }
+    },
+    {
+      "name": "7. Get Student By ID (Not Found - 404)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/students/9999",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["students", "9999"]
+        }
+      }
+    },
+    {
+      "name": "8. Delete Student By ID (204)",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:3000/students/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["students", "1"]
+        }
+      }
+    },
+    {
+      "name": "9. Delete Student By ID (Not Found - 404)",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:3000/students/9999",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["students", "9999"]
+        }
+      }
+    }
+  ]
+}

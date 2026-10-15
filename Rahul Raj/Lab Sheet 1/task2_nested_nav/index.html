@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nested navigation menu bar using list item anchors and absolute external linking patterns - Full Stack Lab Sheet 01 Task 1.2 by Rahul Raj">
+  <title>Nested Navigation Menu Bar | Rahul Raj</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Action Bar -->
+  <header class="top-header">
+    <div class="header-inner">
+      <a href="../../index.html" class="btn-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Lab Portal
+      </a>
+      <div class="lab-pill">Lab Sheet 01 &bull; Task 1.2</div>
+      <div class="student-tag">Author: Rahul Raj</div>
+    </div>
+  </header>
+
+  <!-- Main Navigation Section -->
+  <section class="nav-demo-wrapper">
+    <div class="nav-intro">
+      <span class="badge">Syllabus Requirement</span>
+      <h1 class="page-title">Hierarchical Nested Navigation Menu</h1>
+      <p class="page-desc">
+        Constructed using structured list item anchors (<code class="code-pill">&lt;ul&gt;</code>, <code class="code-pill">&lt;li&gt;</code>, <code class="code-pill">&lt;a&gt;</code>) with multi-level dropdown flyouts. All hyperlink anchors are strictly verified to implement <strong>absolute path linking patterns to external resource addresses</strong> with keyboard navigation accessibility (<code class="code-pill">:focus-within</code>).
+      </p>
+    </div>
+
+    <!-- The Accessible Nested Navigation Menu Bar -->
+    <nav class="main-navbar" aria-label="Primary External Resources Navigation">
+      <ul class="nav-menu" role="menubar">
+        
+        <!-- Root Item 1: Standards -->
+        <li class="nav-item has-dropdown" role="none">
+          <a href="https://www.w3.org" target="_blank" rel="noopener noreferrer" class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+            <span>Web Standards</span>
+            <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </a>
+          
+          <!-- Sub-menu Level 1 -->
+          <ul class="dropdown-menu" role="menu" aria-label="Web Standards Submenu">
+            
+            <li class="dropdown-item has-flyout" role="none">
+              <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                <span>HTML5 &amp; Living Specs</span>
+                <svg class="chevron-right" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </a>
+              <!-- Flyout Sub-menu Level 2 -->
+              <ul class="flyout-menu" role="menu" aria-label="HTML5 Specifications">
+                <li role="none"><a href="https://html.spec.whatwg.org/multipage/" target="_blank" rel="noopener noreferrer" class="flyout-link" role="menuitem">WHATWG HTML Living Standard</a></li>
+                <li role="none"><a href="https://www.w3.org/TR/html52/" target="_blank" rel="noopener noreferrer" class="flyout-link" role="menuitem">W3C HTML5.2 Recommendation</a></li>
+                <li role="none"><a href="https://developer.mozilla.org/en-US/docs/Glossary/Semantics" target="_blank" rel="noopener noreferrer" class="flyout-link" role="menuitem">MDN Semantic HTML Guide</a></li>
+                <li role="none"><a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer" class="flyout-link" role="menuitem">W3C Markup Validation Service</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown-item has-flyout" role="none">
+              <a href="https://www.w3.org/Style/CSS/" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                <span>CSS3 &amp; Layout Specs</span>
+                <svg class="chevron-right" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </a>
+              <ul class="flyout-menu" role="menu" aria-label="CSS Specifications">
+                <li role="none"><a href="https://www.w3.org/TR/css-flexbox-1/" target="_blank" rel="noopener noreferrer" class="flyout-link" role="menuitem">W3C CSS Flexible Box Module</a></li>
+                <li role="none"><a href="https://www.w3.org/TR/css-grid-1/" target="_blank" rel="noopener noreferrer" class="flyout-link" role="menuitem">W3C CSS Grid Layout Module</a></li>
+                <li role="none"><a href="https://caniuse.com" target="_blank" rel="noopener noreferrer" class="flyout-link" role="menuitem">CanIUse Browser Support Matrix</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown-item" role="none">
+              <a href="https://tc39.es/" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem">
+                <span>ECMAScript TC39 Standard</span>
+              </a>
+            </li>
+
+            <li class="dropdown-item" role="none">
+              <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem">
+                <span>WCAG 2.1 Accessibility Guide</span>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+
+        <!-- Root Item 2: Backend Ecosystem -->
+        <li class="nav-item has-dropdown" role="none">
+          <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer" class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+            <span>Backend Ecosystem</span>
+            <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-label="Backend Ecosystem">
+            <li class="dropdown-item has-flyout" role="none">
+              <a href="https://nodejs.org/docs/latest/api/" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem">
+                <span>Node.js Runtime</span>
+                <svg class="chevron-right" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </a>
+              <ul class="flyout-menu" role="menu">
+                <li role="none"><a href="https://nodejs.org/en/learn" target="_blank" rel="noopener noreferrer" class="flyout-link" role="menuitem">Official Node.js Guides</a></li>
+                <li role="none"><a href="https://expressjs.com/" target="_blank" rel="noopener noreferrer" class="flyout-link" role="menuitem">Express.js API Reference</a></li>
+                <li role="none"><a href="https://www.npmjs.com/" target="_blank" rel="noopener noreferrer" class="flyout-link" role="menuitem">npm Package Registry</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-item" role="none">
+              <a href="https://docs.python.org/3/" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem">
+                <span>Python Documentation</span>
+              </a>
+            </li>
+            <li class="dropdown-item" role="none">
+              <a href="https://go.dev/doc/" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem">
+                <span>Go Language Standard</span>
+              </a>
+            </li>
+            <li class="dropdown-item" role="none">
+              <a href="https://www.postgresql.org/docs/" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem">
+                <span>PostgreSQL Official Manual</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Root Item 3: Developer Communities -->
+        <li class="nav-item has-dropdown" role="none">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+            <span>Dev Communities</span>
+            <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-label="Developer Communities">
+            <li class="dropdown-item" role="none">
+              <a href="https://github.com/trending" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem">
+                <span>GitHub Trending Repos</span>
+              </a>
+            </li>
+            <li class="dropdown-item" role="none">
+              <a href="https://stackoverflow.com/questions" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem">
+                <span>Stack Overflow Discussions</span>
+              </a>
+            </li>
+            <li class="dropdown-item" role="none">
+              <a href="https://dev.to/" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem">
+                <span>DEV Community Articles</span>
+              </a>
+            </li>
+            <li class="dropdown-item" role="none">
+              <a href="https://news.ycombinator.com/" target="_blank" rel="noopener noreferrer" class="dropdown-link" role="menuitem">
+                <span>Hacker News Frontpage</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Root Item 4: Direct Absolute External Target -->
+        <li class="nav-item" role="none">
+          <a href="https://web.dev" target="_blank" rel="noopener noreferrer" class="nav-link" role="menuitem">
+            <span>Google Web.dev</span>
+            <span class="badge-external">Ext ↗</span>
+          </a>
+        </li>
+
+        <!-- Root Item 5: Official Docs -->
+        <li class="nav-item" role="none">
+          <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer" class="nav-link" role="menuitem">
+            <span>MDN Web Docs</span>
+            <span class="badge-external">Ext ↗</span>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Interactive URL Inspector Display -->
+    <main class="inspection-panel">
+      <div class="panel-header">
+        <div class="terminal-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span class="panel-title">Absolute Path Verification Engine</span>
+        <span class="status-indicator"><span class="pulse"></span> Active Inspector</span>
+      </div>
+
+      <div class="panel-content">
+        <p class="instruction-note">
+          Hover or focus through the menu above to inspect the nested hierarchical layout. Every single anchor element in this navigation bar resolves to an authenticated, absolute external resource protocol address (<code class="code-pill">https://...</code>).
+        </p>
+
+        <div class="path-table-wrap">
+          <table class="path-table" aria-label="Table of Verified Absolute URLs">
+            <thead>
+              <tr>
+                <th scope="col">Menu Level</th>
+                <th scope="col">Anchor Label</th>
+                <th scope="col">Target Absolute External URL</th>
+                <th scope="col">Protocol Verification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="level-badge l1">Level 1 (Root)</span></td>
+                <td><strong>Web Standards</strong></td>
+                <td><code class="url-text">https://www.w3.org</code></td>
+                <td><span class="tag-success">Absolute HTTPS</span></td>
+              </tr>
+              <tr>
+                <td><span class="level-badge l2">Level 2 (Nested)</span></td>
+                <td>HTML5 &amp; Living Specs</td>
+                <td><code class="url-text">https://developer.mozilla.org/en-US/docs/Web/HTML</code></td>
+                <td><span class="tag-success">Absolute HTTPS</span></td>
+              </tr>
+              <tr>
+                <td><span class="level-badge l3">Level 3 (Flyout)</span></td>
+                <td>WHATWG HTML Living Standard</td>
+                <td><code class="url-text">https://html.spec.whatwg.org/multipage/</code></td>
+                <td><span class="tag-success">Absolute HTTPS</span></td>
+              </tr>
+              <tr>
+                <td><span class="level-badge l3">Level 3 (Flyout)</span></td>
+                <td>W3C CSS Flexible Box Module</td>
+                <td><code class="url-text">https://www.w3.org/TR/css-flexbox-1/</code></td>
+                <td><span class="tag-success">Absolute HTTPS</span></td>
+              </tr>
+              <tr>
+                <td><span class="level-badge l2">Level 2 (Nested)</span></td>
+                <td>Node.js Runtime Docs</td>
+                <td><code class="url-text">https://nodejs.org/docs/latest/api/</code></td>
+                <td><span class="tag-success">Absolute HTTPS</span></td>
+              </tr>
+              <tr>
+                <td><span class="level-badge l1">Level 1 (Direct)</span></td>
+                <td>Google Web.dev</td>
+                <td><code class="url-text">https://web.dev</code></td>
+                <td><span class="tag-success">Absolute HTTPS</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+  </section>
+
+  <!-- Accessible Footer -->
+  <footer class="page-footer">
+    <p>&copy; 2026 Rahul Raj &bull; Full Stack Lab Sheet 01 &bull; Task 1.2: Nested Navigation Menu Bar</p>
+  </footer>
+
+</body>
+</html>

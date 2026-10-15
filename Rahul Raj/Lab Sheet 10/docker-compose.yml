@@ -1,0 +1,78 @@
+# Task 7: Full Stack Containerization Orchestration
+version: '3.8'
+
+services:
+  # 1. React Frontend Service (Multi-Stage Build)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: campusconnect-frontend
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_URL=http://localhost:4000/api
+      - VITE_SOCKET_URL=http://localhost:4000
+    depends_on:
+      - backend
+    networks:
+      - campusconnect-network
+    restart: unless-stopped
+
+  # 2. Node.js & Express REST/WebSocket Backend Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: campusconnect-backend
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongodb:27017/campusconnect
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=campusconnect-production-secret-jwt-key-2026
+      - REFRESH_SECRET=campusconnect-production-refresh-secret-2026
+      - FRONTEND_URL=http://localhost:3000
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - campusconnect-network
+    restart: unless-stopped
+
+  # 3. MongoDB Database Service
+  mongodb:
+    image: mongo:6.0
+    container_name: campusconnect-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - campusconnect-network
+    restart: unless-stopped
+
+  # 4. Redis In-Memory Cache Service
+  redis:
+    image: redis:7.0-alpine
+    container_name: campusconnect-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - campusconnect-network
+    restart: unless-stopped
+
+networks:
+  campusconnect-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
+  redis-data:
+    driver: local

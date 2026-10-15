@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Full Stack Web Development Lab Submissions - Lab Sheets 01 through 12 by Rahul Raj">
+  <title>Full Stack Lab Submissions (Labs 1-12) | Rahul Raj</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #0b0f19;
+      --bg-card: #151d2f;
+      --bg-card-hover: #1b253b;
+      --border: #1e293b;
+      --border-hover: #3b82f6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.4);
+      --success: #10b981;
+      --purple: #8b5cf6;
+      --cyan: #06b6d4;
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 5rem;
+    }
+
+    .ambient-glow {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 400px;
+      background: radial-gradient(circle at 50% 20%, rgba(59, 130, 246, 0.15), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Top Banner */
+    .top-banner {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .banner-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #ffffff;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .student-badge-top {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #93c5fd;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--success);
+    }
+
+    /* Hero Section */
+    .portal-hero {
+      text-align: center;
+      padding: 4rem 0 3rem;
+    }
+
+    .hero-pill {
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #60a5fa;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+      font-size: 3.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 820px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .meta-metrics-bar {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .metric-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .chip-icon {
+      font-size: 1.25rem;
+    }
+
+    .chip-content {
+      text-align: left;
+    }
+
+    .chip-lbl {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .chip-val {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Lab Sections */
+    .lab-section {
+      margin-top: 4rem;
+    }
+
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .lab-sheet-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      margin-bottom: 0.35rem;
+    }
+    .badge-sheet1 { background: #312e81; color: #c7d2fe; }
+    .badge-sheet2 { background: #064e3b; color: #a7f3d0; }
+    .badge-sheet3 { background: #1e1b4b; color: #a5b4fc; }
+    .badge-sheet4 { background: #164e63; color: #a5f3fc; }
+    .badge-sheet5 { background: #831843; color: #fbcfe8; }
+    .badge-sheet6 { background: #14532d; color: #bbf7d0; }
+    .badge-sheet7 { background: #075985; color: #bae6fd; }
+    .badge-sheet8 { background: #4338ca; color: #e0e7ff; }
+    .badge-sheet9 { background: #0f766e; color: #ccfbf1; }
+    .badge-sheet10 { background: #701a75; color: #f5d0fe; }
+    .badge-sheet11 { background: #0369a1; color: #e0f2fe; }
+
+    .lab-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .lab-syllabus {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      max-width: 540px;
+    }
+
+    /* Tasks Cards Grid */
+    .tasks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .task-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .task-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      box-shadow: 0 15px 30px -10px rgba(59, 130, 246, 0.25);
+    }
+
+    .task-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .task-id {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #60a5fa;
+      background: rgba(59, 130, 246, 0.12);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .task-status {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--success);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .task-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.65rem;
+      color: #ffffff;
+      line-height: 1.25;
+    }
+
+    .task-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+
+    .tech-stack-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tech-tag {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+    }
+
+    .btn-launch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: #2563eb;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.8rem 1.25rem;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-launch:hover {
+      background: #1d4ed8;
+      box-shadow: 0 0 15px rgba(37, 99, 235, 0.6);
+    }
+
+    .portal-footer {
+      margin-top: 5rem;
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.3rem;
+      }
+      .tasks-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <!-- Top Banner -->
+  <header class="top-banner">
+    <div class="container banner-inner">
+      <div class="brand-group">
+        <div class="brand-badge">RR</div>
+        <div>
+          <span class="brand-title">Full Stack Lab Submissions</span>
+        </div>
+      </div>
+      <div class="student-badge-top">
+        <span class="status-dot"></span>
+        <span>Student: <strong>Rahul Raj</strong> &bull; Labs 1 through 10 Complete</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Intro -->
+  <main class="container">
+    <section class="portal-hero">
+      <span class="hero-pill">Academic Curriculum Evaluation Portal</span>
+      <h1 class="hero-title">Full Stack Engineering: Complete Labs 01 &ndash; 10</h1>
+      <p class="hero-desc">
+        Production-grade laboratory deliverables by <strong>Rahul Raj</strong> spanning semantic HTML5, CSS3, React 18 SPAs, Form Validation Wizards, Python/Django Model Filtering &amp; Template Blueprints, Node.js REST CRUD APIs, and Enterprise Dockerized Microservices with Redis &amp; WebSockets.
+      </p>
+
+      <div class="meta-metrics-bar">
+        <div class="metric-chip">
+          <span class="chip-icon">📚</span>
+          <div class="chip-content">
+            <span class="chip-lbl">Curriculum Scope</span>
+            <span class="chip-val">Labs 1 through 10 Completed</span>
+          </div>
+        </div>
+        <div class="metric-chip">
+          <span class="chip-icon">⚛️</span>
+          <div class="chip-content">
+            <span class="chip-lbl">Frontend</span>
+            <span class="chip-val">React 18 + Vite + Router</span>
+          </div>
+        </div>
+        <div class="metric-chip">
+          <span class="chip-icon">🐍</span>
+          <div class="chip-content">
+            <span class="chip-lbl">Backend &amp; Tooling</span>
+            <span class="chip-val">Django + DRF + Black/PEP8</span>
+          </div>
+        </div>
+        <div class="metric-chip">
+          <span class="chip-icon">♿</span>
+          <div class="chip-content">
+            <span class="chip-lbl">Standards</span>
+            <span class="chip-val">W3C &bull; WCAG 2.1 Conformance</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 01 SECTION
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-1">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge badge-sheet1">Lab Sheet 01</span>
+          <h2 class="lab-title">Core Web Structures Using Semantic HTML</h2>
+        </div>
+        <p class="lab-syllabus">
+          Primary Exercise: Write a program to create a simple webpage using HTML5. Incorporate standard header elements, dynamic text formatting anchors, and a main container block.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card">
+          <div class="task-top">
+            <span class="task-id">Task 1.1</span>
+            <span class="task-status">● Complete</span>
+          </div>
+          <h3 class="task-name">Semantic HTML Resume Page</h3>
+          <p class="task-desc">
+            Structured resume for Rahul Raj incorporating semantic layout blocks (&lt;header&gt;, &lt;section&gt;, &lt;footer&gt;, &lt;main&gt;) with full modern accessibility parameters, skip-link navigation, and print stylesheet.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">HTML5 Semantics</span>
+            <span class="tech-tag">ARIA Landmarks</span>
+            <span class="tech-tag">Print Styles</span>
+            <span class="tech-tag">WCAG 2.1</span>
+          </div>
+          <a href="Lab Sheet 1/task1_resume/index.html" class="btn-launch">
+            Launch Task 1.1 &rarr;
+          </a>
+        </article>
+
+        <article class="task-card">
+          <div class="task-top">
+            <span class="task-id">Task 1.2</span>
+            <span class="task-status">● Complete</span>
+          </div>
+          <h3 class="task-name">Nested Navigation Menu Bar</h3>
+          <p class="task-desc">
+            Hierarchical multi-level menu bar using structured list item anchors (&lt;ul&gt;, &lt;li&gt;, &lt;a&gt;) guaranteeing absolute path linking patterns to external resource addresses with keyboard focus navigation.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">Nested &lt;ul&gt;&lt;li&gt;</span>
+            <span class="tech-tag">Absolute URLs</span>
+            <span class="tech-tag">:focus-within</span>
+            <span class="tech-tag">Flyout Dropdowns</span>
+          </div>
+          <a href="Lab Sheet 1/task2_nested_nav/index.html" class="btn-launch">
+            Launch Task 1.2 &rarr;
+          </a>
+        </article>
+
+        <article class="task-card">
+          <div class="task-top">
+            <span class="task-id">Task 1.3</span>
+            <span class="task-status">● Complete</span>
+          </div>
+          <h3 class="task-name">Itemized Web Catalog</h3>
+          <p class="task-desc">
+            Itemized developer systems and cloud runtimes catalog interface presenting descriptive metadata terms via structured definition lists (&lt;dl&gt;, &lt;dt&gt;, &lt;dd&gt;) and client-side category filtering.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">&lt;dl&gt;&lt;dt&gt;&lt;dd&gt;</span>
+            <span class="tech-tag">Metadata Schema</span>
+            <span class="tech-tag">Card UI</span>
+            <span class="tech-tag">Search &amp; Filter</span>
+          </div>
+          <a href="Lab Sheet 1/task3_catalog/index.html" class="btn-launch">
+            Launch Task 1.3 &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 02 SECTION
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-2">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge badge-sheet2">Lab Sheet 02</span>
+          <h2 class="lab-title">Dynamic Interface Styling &amp; Scripting Interactivity</h2>
+        </div>
+        <p class="lab-syllabus">
+          Primary Exercise: Write a program to create an interactive website using a combination of HTML layout nodes, external CSS stylesheets, and core JavaScript operational elements.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card">
+          <div class="task-top">
+            <span class="task-id">Task 2.1</span>
+            <span class="task-status">● Complete</span>
+          </div>
+          <h3 class="task-name">Clean Dark-Mode Landing Layout</h3>
+          <p class="task-desc">
+            Modern landing page implementing custom styling overrides via CSS custom properties (var(--theme-*)) and an interactive toggler method in vanilla JavaScript with localStorage state persistence.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">CSS Variables</span>
+            <span class="tech-tag">Vanilla JS Toggler</span>
+            <span class="tech-tag">localStorage</span>
+            <span class="tech-tag">Live Inspector</span>
+          </div>
+          <a href="Lab Sheet 2/task1_dark_mode/index.html" class="btn-launch">
+            Launch Task 2.1 &rarr;
+          </a>
+        </article>
+
+        <article class="task-card">
+          <div class="task-top">
+            <span class="task-id">Task 2.2</span>
+            <span class="task-status">● Complete</span>
+          </div>
+          <h3 class="task-name">Responsive Flexbox Photo Grid</h3>
+          <p class="task-desc">
+            Responsive web gallery layout constructed using pure CSS Flexbox rules (flex-wrap: wrap) that wraps fluidly across mobile viewports, featuring multi-axis hovering transform animations.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">CSS Flexbox</span>
+            <span class="tech-tag">Fluid Wrapping</span>
+            <span class="tech-tag">Hover Transforms</span>
+            <span class="tech-tag">Mobile Responsive</span>
+          </div>
+          <a href="Lab Sheet 2/task2_photo_grid/index.html" class="btn-launch">
+            Launch Task 2.2 &rarr;
+          </a>
+        </article>
+
+        <article class="task-card">
+          <div class="task-top">
+            <span class="task-id">Task 2.3</span>
+            <span class="task-status">● Complete</span>
+          </div>
+          <h3 class="task-name">Client-Side Interactive Todo App</h3>
+          <p class="task-desc">
+            Interactive task management application featuring dynamic runtime element append mechanisms (document.createElement) and operational validation error flags.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">DOM Runtime Append</span>
+            <span class="tech-tag">Validation Error Flags</span>
+            <span class="tech-tag">Filter States</span>
+            <span class="tech-tag">Local Persistence</span>
+          </div>
+          <a href="Lab Sheet 2/task3_todo_app/index.html" class="btn-launch">
+            Launch Task 2.3 &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 03 SECTION (NEW)
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-3">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge badge-sheet3">Lab Sheet 03</span>
+          <h2 class="lab-title">Lab 3 — Introduction to React.js</h2>
+        </div>
+        <p class="lab-syllabus">
+          Aim: Build a component-based front end using React. Recreate Lab 2 to-do app as React components (TaskList, TaskItem, AddTaskForm), useState/useEffect hooks, and props communication.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card" style="grid-column: 1 / -1;">
+          <div class="task-top">
+            <span class="task-id">Lab 3 &bull; React Full Project</span>
+            <span class="task-status">● Complete &bull; Built with Vite</span>
+          </div>
+          <h3 class="task-name">React Component-Based Todo Application &amp; Component Tree Diagram</h3>
+          <p class="task-desc">
+            Fully decomposed React application featuring modular components (<strong>&lt;TaskList /&gt;</strong>, <strong>&lt;TaskItem /&gt;</strong>, <strong>&lt;AddTaskForm /&gt;</strong>, <strong>&lt;FilterTabs /&gt;</strong>, <strong>&lt;TaskMetrics /&gt;</strong>), two-way props-based communication, operational validation error flags, <code>useState</code> &amp; <code>useEffect</code> persistence, and an interactive <strong>Component Tree Diagram</strong>.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">React 18</span>
+            <span class="tech-tag">Vite 5</span>
+            <span class="tech-tag">useState &amp; useEffect</span>
+            <span class="tech-tag">Props Communication</span>
+            <span class="tech-tag">Component Tree Deliverable</span>
+          </div>
+          <a href="Lab Sheet 3/dist/index.html" class="btn-launch" style="background: #4f46e5;">
+            Launch React.js Lab 3 Application &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 04 SECTION (NEW)
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-4">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge badge-sheet4">Lab Sheet 04</span>
+          <h2 class="lab-title">Lab 4 — React Routing and State Management</h2>
+        </div>
+        <p class="lab-syllabus">
+          Aim: Build a multi-page single-page application (SPA). 3-page app (Home, Products, Product Details) using react-router-dom, route params, Context API global state (cart/favorites), loading state, and 404 page.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card" style="grid-column: 1 / -1;">
+          <div class="task-top">
+            <span class="task-id">Lab 4 &bull; Multi-Page SPA</span>
+            <span class="task-status">● Complete &bull; Built with react-router-dom</span>
+          </div>
+          <h3 class="task-name">Multi-Page E-Commerce SPA with Context API Global State</h3>
+          <p class="task-desc">
+            Complete single-page application featuring <strong>Home</strong>, <strong>Products Catalog</strong> with category filtering &amp; sorting, dynamic <strong>Product Details (/products/:id)</strong> with route params, React <strong>Context API global state</strong> for Cart &amp; Favorites with reactive navbar badges, simulated <strong>Loading State skeleton</strong>, and a custom <strong>404 Not Found</strong> page.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">react-router-dom v6</span>
+            <span class="tech-tag">Route Params (:id)</span>
+            <span class="tech-tag">React Context API</span>
+            <span class="tech-tag">Global Cart Drawer</span>
+            <span class="tech-tag">Loading Skeleton</span>
+            <span class="tech-tag">404 Not Found Page</span>
+          </div>
+          <a href="Lab Sheet 4/dist/index.html" class="btn-launch" style="background: #0891b2;">
+            Launch React Router SPA Lab 4 &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 05 SECTION (NEW)
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-5">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge badge-sheet5">Lab Sheet 05</span>
+          <h2 class="lab-title">Form Validation &amp; Controlled Inputs in React</h2>
+        </div>
+        <p class="lab-syllabus">
+          Aim: Real-time controlled input validation with regex patterns, visual password strength meter with dynamic entropy score, and multi-step registration wizard with isolated step states.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card" style="grid-column: 1 / -1;">
+          <div class="task-top">
+            <span class="task-id">Lab 5 &bull; Form Validation &amp; Multi-Step Wizard</span>
+            <span class="task-status">● Complete &bull; Built with React &amp; Vite</span>
+          </div>
+          <h3 class="task-name">Real-Time Validation, Password Strength &amp; Onboarding Wizard</h3>
+          <p class="task-desc">
+            Production React application featuring <strong>Task 5.1 Real-time Controlled Form Validation</strong> with email/password regex criteria, <strong>Task 5.2 Password Strength Meter</strong> with dynamic entropy calculation and visual requirement badges, and <strong>Task 5.3 4-Step Registration Wizard</strong> with step isolation and state summary.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">React 18</span>
+            <span class="tech-tag">Controlled Components</span>
+            <span class="tech-tag">Regex Form Validation</span>
+            <span class="tech-tag">Password Entropy Meter</span>
+            <span class="tech-tag">Multi-Step Wizard</span>
+          </div>
+          <a href="Lab Sheet 5/dist/index.html" class="btn-launch" style="background: #be185d;">
+            Launch Form Validation Lab 5 &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 06 SECTION (NEW)
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-6">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge badge-sheet6">Lab Sheet 06</span>
+          <h2 class="lab-title">Back-End Infrastructure Preparation &amp; Shell Scripting Environments</h2>
+        </div>
+        <p class="lab-syllabus">
+          Aim: Provision production-grade Python virtual environments, automated shell provisioning scripts, PEP8/Black formatting guardrails, and pre-flight deployment health diagnostics.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card" style="grid-column: 1 / -1;">
+          <div class="task-top">
+            <span class="task-id">Lab 6 &bull; Infrastructure &amp; Tooling</span>
+            <span class="task-status">● Complete &bull; 8/8 Diagnostics Passed</span>
+          </div>
+          <h3 class="task-name">Automated Python/Django Environment Provisioner &amp; Pre-Flight Diagnostics</h3>
+          <p class="task-desc">
+            Complete backend engineering environment featuring <strong>Task 6.1 Cross-Platform Provisioner</strong> (<code>setup_environment.py</code> &amp; <code>setup_environment.ps1</code>), <strong>Task 6.2 IDE Formatting &amp; PEP8 Guardrails</strong> with custom shortcuts and snippets, and <strong>Task 6.3 Pre-Flight Health Diagnostic</strong> (<code>deploy_check.py</code>) running 8 system integrity validations.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">Python 3.14</span>
+            <span class="tech-tag">Django 6 + DRF</span>
+            <span class="tech-tag">Shell &amp; Python Scripting</span>
+            <span class="tech-tag">PEP8 &amp; Black Formatter</span>
+            <span class="tech-tag">Health Diagnostics (8/8)</span>
+          </div>
+          <a href="Lab Sheet 6/README.md" class="btn-launch" style="background: #15803d;">
+            View Lab 6 Documentation &amp; Diagnostics &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 07 SECTION (NEW)
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-7">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge badge-sheet7">Lab Sheet 07</span>
+          <h2 class="lab-title">Django Model Collections, Dynamic Sorting &amp; Search</h2>
+        </div>
+        <p class="lab-syllabus">
+          Primary Exercise: Develop a complete Django app mapping model array collections out to unordered item matrices (Fruits) alongside ordered indices (Selected Event Students). Task 7.1 fallback conditions, Task 7.2 multi-field sorting, and Task 7.3 query filtering.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card" style="grid-column: 1 / -1;">
+          <div class="task-top">
+            <span class="task-id">Lab 7 &bull; Django App</span>
+            <span class="task-status">● Complete &bull; 4/4 Verification Tests Passed</span>
+          </div>
+          <h3 class="task-name">Unordered Fruit Matrix &amp; Ranked Student Indices</h3>
+          <p class="task-desc">
+            Complete Django application featuring <strong>Task 7.1 Fallback Alert Logic</strong> ({% if %}), <strong>Task 7.2 Dynamic Table Sorting</strong> across multiple fields (name, roll no, score, event, rank), and <strong>Task 7.3 Search Input Filtering</strong> with verified Django test client suite.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">Django 6.0</span>
+            <span class="tech-tag">Model Collections</span>
+            <span class="tech-tag">Dynamic Sorting</span>
+            <span class="tech-tag">Search Filtering</span>
+            <span class="tech-tag">Fallback Alerts</span>
+          </div>
+          <a href="Lab Sheet 7/README.md" class="btn-launch" style="background: #0284c7;">
+            View Lab 7 Documentation &amp; Code &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 08 SECTION (NEW)
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-8">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge badge-sheet8">Lab Sheet 08</span>
+          <h2 class="lab-title">Template Inheritance Blueprints &amp; Modular UI Engineering</h2>
+        </div>
+        <p class="lab-syllabus">
+          Primary Exercise: Core master template layout blueprint (base.html) with shared menus and block overrides across Home, About Us, and Contact Us. Task 8.1 active nav markers, Task 8.2 persistent feedback messages hook, and Task 8.3 Contact form server logging.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card" style="grid-column: 1 / -1;">
+          <div class="task-top">
+            <span class="task-id">Lab 8 &bull; Template Blueprint</span>
+            <span class="task-status">● Complete &bull; 5/5 Verification Tests Passed</span>
+          </div>
+          <h3 class="task-name">Modular UI Blueprint, Active Markers &amp; Server Logging</h3>
+          <p class="task-desc">
+            Comprehensive Django master blueprint system featuring <strong>Task 8.1 Active Nav Context Highlighting</strong>, <strong>Task 8.2 Persistent Feedback Messages Box</strong>, and <strong>Task 8.3 Professional Contact Form</strong> streaming verified feedback text parameters directly into <code>server.log</code>.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">Django Templates</span>
+            <span class="tech-tag">Master base.html</span>
+            <span class="tech-tag">Active Nav Markers</span>
+            <span class="tech-tag">Messages Framework</span>
+            <span class="tech-tag">Server File Logging</span>
+          </div>
+          <a href="Lab Sheet 8/README.md" class="btn-launch" style="background: #4f46e5;">
+            View Lab 8 Documentation &amp; Code &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 09 SECTION (NEW)
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-9">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge badge-sheet9">Lab Sheet 09</span>
+          <h2 class="lab-title">Student Record Management Full-Stack CRUD Application</h2>
+        </div>
+        <p class="lab-syllabus">
+          Aim: Full-stack CRUD web application with frontend UI, backend REST API, and SQLite database persistence. Endpoints: POST /students, GET /students, GET /students/:id, PUT /students/:id, DELETE /students/:id.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card" style="grid-column: 1 / -1;">
+          <div class="task-top">
+            <span class="task-id">Lab 9 &bull; Full-Stack CRUD</span>
+            <span class="task-status">● Complete &bull; 6/6 REST Tests Passed</span>
+          </div>
+          <h3 class="task-name">Student Record Management REST API &amp; Frontend Interface</h3>
+          <p class="task-desc">
+            Full-stack system featuring an <strong>Express.js RESTful API</strong>, <strong>SQLite Database</strong> persistence via Node's native engine, interactive frontend with client-side form validation (Roll No required, marks 0-100), in-place Edit/Delete actions, and automated test suite.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">Node.js + Express</span>
+            <span class="tech-tag">SQLite Engine</span>
+            <span class="tech-tag">REST API (5 Endpoints)</span>
+            <span class="tech-tag">Form Validation</span>
+            <span class="tech-tag">Async/Await Fetch</span>
+          </div>
+          <a href="Lab Sheet 9/README.md" class="btn-launch" style="background: #0d9488;">
+            View Lab 9 Documentation &amp; Code &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 10 SECTION (NEW)
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-10">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge badge-sheet10">Lab Sheet 10</span>
+          <h2 class="lab-title">CampusConnect &mdash; Enterprise Event &amp; Announcement Portal</h2>
+        </div>
+        <p class="lab-syllabus">
+          Objectives: JWT Authentication &amp; RBAC (Admin, Student), Real-time Socket.io WebSockets, Redis Caching Layer (60s TTL), React Frontend State Management, Security Hardening (Rate Limiting, Helmet), Automated Tests, and Docker Compose Containerization.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card" style="grid-column: 1 / -1;">
+          <div class="task-top">
+            <span class="task-id">Lab 10 &bull; Enterprise Portal</span>
+            <span class="task-status">● Complete &bull; 6/6 Integration Tests &bull; 6.49x Redis Gain</span>
+          </div>
+          <h3 class="task-name">Role-Based Event Portal with Real-Time WebSockets &amp; Redis Caching</h3>
+          <p class="task-desc">
+            Production-grade microservices application featuring <strong>Task 1 JWT RBAC</strong>, <strong>Task 2 Socket.io Live Announcements</strong> with badge counter, <strong>Task 3 Redis Caching</strong> with automated benchmarking (6.49x speedup), <strong>Task 4 React 18 SPA</strong>, <strong>Task 5 Helmet/Rate Limiting</strong>, <strong>Task 6 Integration Tests</strong>, and <strong>Task 7 Docker Compose</strong> orchestration.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">JWT &amp; RBAC</span>
+            <span class="tech-tag">Socket.io WebSockets</span>
+            <span class="tech-tag">Redis Caching (60s TTL)</span>
+            <span class="tech-tag">React 18 + Vite</span>
+            <span class="tech-tag">Docker Compose</span>
+          </div>
+          <a href="Lab Sheet 10/README.md" class="btn-launch" style="background: #9333ea;">
+            View Lab 10 Documentation &amp; Docker Config &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 11 SECTION (NEW - PRACTICE QUESTION)
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-11">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge badge-sheet11">Lab Sheet 11</span>
+          <h2 class="lab-title">CampusConnect &mdash; Student Event &amp; Resource Management Portal</h2>
+        </div>
+        <p class="lab-syllabus">
+          Practice Question (B.Tech CSE 3rd Year): Full-stack portal featuring Student/Admin Roles, JWT Authentication, Event CRUD &amp; Dynamic Seat Capacity, Academic PDF/DOCX Resources, Student &amp; Admin Analytics Dashboards, Multi-parameter Search/Filter, Pagination (&gt;10 items), B-Tree Query Indexing Optimization, and Automated Testing.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card" style="grid-column: 1 / -1; border-color: rgba(56, 189, 248, 0.4);">
+          <div class="task-top">
+            <span class="task-id">Lab 11 &bull; CampusConnect Portal</span>
+            <span class="task-status">● Complete &bull; 7/7 Unit Tests Passed &bull; Index Optimization Verified</span>
+          </div>
+          <h3 class="task-name">Full-Stack Event Roster, Academic Repository &amp; Performance Indexing</h3>
+          <p class="task-desc">
+            Industry-grade full-stack architecture implementing <strong>JWT &amp; Bcrypt Authentication</strong>, <strong>Role-Based Access Control (RBAC)</strong>, <strong>Real-Time Seat Availability</strong> preventing overbooking, <strong>Academic Resource Management (PDF/DOCX)</strong> categorized by subject/semester with download tracking, <strong>Dual Dashboards (Student RSVP History &amp; Admin Analytics)</strong>, <strong>Database Index Optimization</strong> (&gt;10k rows benchmarked), <strong>Postman Collection</strong>, and <strong>GitHub Actions CI/CD</strong>.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">React 18 + Vite</span>
+            <span class="tech-tag">Node.js + Express</span>
+            <span class="tech-tag">Relational SQLite</span>
+            <span class="tech-tag">B-Tree Indexing</span>
+            <span class="tech-tag">JWT &amp; RBAC</span>
+            <span class="tech-tag">File Upload (Multer)</span>
+            <span class="tech-tag">Docker Compose</span>
+            <span class="tech-tag">CI/CD Pipeline</span>
+          </div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+            <a href="Lab Sheet 11/README.md" class="btn-launch" style="background: #0284c7; flex: 1; text-align: center;">
+              View Lab 11 Documentation &amp; Schema &rarr;
+            </a>
+            <a href="Lab Sheet 11/DEMO_WALKTHROUGH.md" class="btn-launch" style="background: #4338ca; flex: 1; text-align: center;">
+              Video Walkthrough &amp; Script &rarr;
+            </a>
+            <a href="Lab Sheet 11/postman_collection.json" class="btn-launch" style="background: #ea580c; flex: 1; text-align: center;">
+              Postman Collection JSON &rarr;
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAB SHEET 12 SECTION (CODING ASSESSMENT - PROBLEMS 1 TO 4)
+         ==================================================================== -->
+    <section class="lab-section" id="lab-sheet-12">
+      <div class="lab-header">
+        <div>
+          <span class="lab-sheet-badge" style="background: linear-gradient(135deg, #6366f1, #06b6d4); color: white;">Lab Sheet 12</span>
+          <h2 class="lab-title">Full Stack Coding Assessment (BTCS303T) &mdash; Problems 1 to 4</h2>
+        </div>
+        <p class="lab-syllabus">
+          Assessment Deliverable: Problem 1 Secure Express REST API with 15m JWT, bcrypt hashing &amp; sliding rate limiter (429 Retry-After); Problem 2 Relational SQL Analytics with DENSE_RANK() ties, multi-month continuity &amp; atomic inventory transactions; Problem 3 React 18 Product Search &amp; Cart SPA with 300ms debounce, AbortController, useReducer + Context &amp; localStorage; Problem 4 GitHub Actions matrix CI/CD (Node 18/20) &amp; git reflog force-push disaster recovery.
+        </p>
+      </div>
+
+      <div class="tasks-grid">
+        <article class="task-card" style="grid-column: 1 / -1; border-color: rgba(99, 102, 241, 0.45); box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);">
+          <div class="task-top">
+            <span class="task-id">Lab 12 &bull; Coding Assessment Complete Solution</span>
+            <span class="task-status" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);">
+              ● 100% Complete &bull; 24/24 Automated Tests Passed &bull; Production Built
+            </span>
+          </div>
+          <h3 class="task-name">Enterprise Secure Task API, Advanced SQL Concurrency, Reactive Cart SPA &amp; CI/CD</h3>
+          <p class="task-desc">
+            Full comprehensive implementation solving all assessment specifications:
+            <br>&bull; <strong>Problem 1:</strong> Node.js Express REST API passing 16/16 tests with ownership isolation, 429 rate-limiting with <code>Retry-After</code>, and crash-proof token handling.
+            <br>&bull; <strong>Problem 2:</strong> <code>answers.sql</code> with category revenue <code>DENSE_RANK()</code>, Jan-Mar 2025 monthly ordering, atomic transaction reservation, and 3-line TOCTOU analysis.
+            <br>&bull; <strong>Problem 3:</strong> React 18 + Vite SPA passing 8/8 tests with exact <code>data-testid</code> hooks (<code>search-input</code>, <code>product-item</code>, <code>add-btn</code>, <code>next-btn</code>, <code>cart-total</code>), 300ms debouncing, <code>AbortController</code> stale request cancellation, and <code>useReducer</code> + Context cart state.
+            <br>&bull; <strong>Problem 4:</strong> <code>.github/workflows/ci.yml</code> Node 18/20 matrix workflow, plus forensic <code>git reflog</code> and branch protection recovery guide in <code>GIT_CICD_SOLUTIONS.md</code>.
+          </p>
+          <div class="tech-stack-list">
+            <span class="tech-tag">Express.js API</span>
+            <span class="tech-tag">JWT (15m Expiry)</span>
+            <span class="tech-tag">Bcrypt Hashing</span>
+            <span class="tech-tag">Sliding Rate Limiter</span>
+            <span class="tech-tag">SQL Window DENSE_RANK</span>
+            <span class="tech-tag">Atomic Concurrency</span>
+            <span class="tech-tag">React 18 + Vite</span>
+            <span class="tech-tag">useReducer + Context</span>
+            <span class="tech-tag">AbortController</span>
+            <span class="tech-tag">GitHub Actions CI/CD</span>
+          </div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.25rem;">
+            <a href="Lab Sheet 12/README.md" class="btn-launch" style="background: #4f46e5; flex: 1; text-align: center;">
+              View Lab 12 Master Report &rarr;
+            </a>
+            <a href="Lab Sheet 12/answers.sql" class="btn-launch" style="background: #0d9488; flex: 1; text-align: center;">
+              View answers.sql (Problem 2) &rarr;
+            </a>
+            <a href="Lab Sheet 12/GIT_CICD_SOLUTIONS.md" class="btn-launch" style="background: #ea580c; flex: 1; text-align: center;">
+              Git &amp; CI/CD Solutions (Problem 4) &rarr;
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="portal-footer">
+    <div class="container">
+      <p>&copy; 2026 Rahul Raj &bull; Full Stack Lab Submissions (Labs 01 through 12) &bull; Designed &amp; Engineered for Mentor Evaluation</p>
+    </div>
+  </footer>
+
+</body>
+</html>

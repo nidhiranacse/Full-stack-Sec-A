@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab Sheet 09: Student Record Management CRUD | Rahul Raj</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090e1a;
+      --card: #151d30;
+      --border: #202b42;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --text: #f8fafc;
+      --text-dim: #94a3b8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      padding-bottom: 4rem;
+      line-height: 1.5;
+    }
+    .top-bar {
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .brand-wrap { display: flex; align-items: center; gap: 0.75rem; }
+    .brand-badge {
+      width: 38px; height: 38px; background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; color: #fff;
+    }
+    .student-pill {
+      background: #1e293b; border: 1px solid #334155; padding: 0.35rem 0.85rem;
+      border-radius: 9999px; font-size: 0.85rem; color: #93c5fd; font-weight: 600;
+    }
+    .container { max-width: 1200px; margin: 2rem auto; padding: 0 1.5rem; }
+
+    /* Stats Grid */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem; margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; display: flex; align-items: center; gap: 1rem;
+    }
+    .stat-icon {
+      width: 44px; height: 44px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; font-size: 1.35rem;
+    }
+    .stat-val { font-size: 1.4rem; font-weight: 800; color: #fff; }
+    .stat-lbl { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; }
+
+    /* Grid layout for Form + Table */
+    .main-grid {
+      display: grid; grid-template-columns: 360px 1fr; gap: 2rem;
+    }
+    @media (max-width: 960px) { .main-grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem;
+    }
+    .card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+    }
+    .card-title { font-size: 1.15rem; font-weight: 700; }
+
+    /* Form */
+    .form-group { margin-bottom: 1rem; }
+    .form-label {
+      display: block; font-size: 0.8rem; font-weight: 700;
+      color: var(--text-dim); margin-bottom: 0.35rem; text-transform: uppercase;
+    }
+    .form-control {
+      width: 100%; background: #0c1220; border: 1px solid #283654;
+      border-radius: 8px; padding: 0.6rem 0.85rem; color: #fff;
+      font-family: var(--font); font-size: 0.9rem;
+    }
+    .form-control:focus { outline: none; border-color: var(--accent); }
+    .error-hint { color: var(--danger); font-size: 0.75rem; margin-top: 0.25rem; display: none; }
+
+    .btn {
+      background: var(--accent); color: #fff; border: none; border-radius: 8px;
+      padding: 0.65rem 1.25rem; font-weight: 600; font-size: 0.85rem; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      transition: all 0.15s ease;
+    }
+    .btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .btn-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .btn-danger:hover { background: var(--danger); color: #fff; }
+    .btn-edit { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .btn-edit:hover { background: var(--accent); color: #fff; }
+    .btn-cancel { background: #1e293b; color: #94a3b8; }
+
+    /* Table */
+    .table-responsive { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th {
+      background: #0d1424; padding: 0.85rem 1rem; font-size: 0.75rem;
+      text-transform: uppercase; font-weight: 700; color: var(--text-dim); border-bottom: 1px solid var(--border);
+    }
+    td { padding: 0.85rem 1rem; border-bottom: 1px solid rgba(32, 43, 66, 0.5); font-size: 0.88rem; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+    .roll-cell { font-family: var(--mono); color: #93c5fd; font-weight: 600; }
+    .marks-badge {
+      font-family: var(--mono); font-weight: 700; padding: 0.2rem 0.5rem;
+      border-radius: 6px; font-size: 0.82rem;
+    }
+    .marks-high { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .marks-med { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .marks-low { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+
+    /* Toast */
+    #toast-container {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 1000;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .toast {
+      background: #1e293b; border: 1px solid #334155; padding: 0.75rem 1.25rem;
+      border-radius: 8px; font-size: 0.85rem; color: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      animation: slideUp 0.25s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  </style>
+</head>
+<body>
+
+  <header class="top-bar">
+    <div class="brand-wrap">
+      <div class="brand-badge">09</div>
+      <div>
+        <strong>Student Record Management System</strong>
+        <div style="font-size: 0.75rem; color: var(--text-dim);">Express.js REST API &bull; SQLite Persistence &bull; Full CRUD</div>
+      </div>
+    </div>
+    <div class="student-pill">
+      Developer: <strong>Rahul Raj</strong> (cu24250116)
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Live Metrics Dashboard -->
+    <section class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa;">👥</div>
+        <div>
+          <div class="stat-val" id="metric-total">0</div>
+          <div class="stat-lbl">Enrolled Students</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">📊</div>
+        <div>
+          <div class="stat-val" id="metric-avg">0.0</div>
+          <div class="stat-lbl">Average Score</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">🏆</div>
+        <div>
+          <div class="stat-val" id="metric-top">0.0</div>
+          <div class="stat-lbl">Highest Mark</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;">⚡</div>
+        <div>
+          <div class="stat-val" style="font-size: 1rem; color: #34d399;">REST API 200 OK</div>
+          <div class="stat-lbl">CRUD Endpoints Active</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form & Table Grid -->
+    <div class="main-grid">
+
+      <!-- Student Input Form -->
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title" id="form-heading">Add New Student</h2>
+          <span style="font-size: 0.72rem; background: rgba(59, 130, 246, 0.2); color: #93c5fd; padding: 0.2rem 0.5rem; border-radius: 6px;">POST /students</span>
+        </div>
+
+        <form id="student-form" novalidate>
+          <input type="hidden" id="student-id" value="">
+
+          <div class="form-group">
+            <label for="input-name" class="form-label">Full Name *</label>
+            <input type="text" id="input-name" class="form-control" placeholder="e.g. Rahul Raj" required>
+            <div class="error-hint" id="error-name">Student name is required.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="input-roll" class="form-label">Roll Number *</label>
+            <input type="text" id="input-roll" class="form-control" placeholder="e.g. cu24250116" required>
+            <div class="error-hint" id="error-roll">Roll number is required.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="input-course" class="form-label">Course / Program *</label>
+            <input type="text" id="input-course" class="form-control" placeholder="e.g. B.Tech CSE" required>
+            <div class="error-hint" id="error-course">Course is required.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="input-marks" class="form-label">Marks (0 to 100) *</label>
+            <input type="number" id="input-marks" class="form-control" placeholder="0 - 100" min="0" max="100" step="0.5" required>
+            <div class="error-hint" id="error-marks">Marks must be between 0 and 100.</div>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
+            <button type="submit" id="submit-btn" class="btn" style="flex: 1;">
+              ➕ Save Record
+            </button>
+            <button type="button" id="cancel-btn" class="btn btn-cancel" style="display: none;">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Student Record Table -->
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">Student Records Directory</h2>
+          <button onclick="fetchStudents()" class="btn btn-cancel" style="font-size: 0.75rem; padding: 0.35rem 0.75rem;">
+            🔄 Refresh
+          </button>
+        </div>
+
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Student Name</th>
+                <th>Roll No</th>
+                <th>Course</th>
+                <th>Marks</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="students-tbody">
+              <tr>
+                <td colspan="6" style="text-align: center; color: var(--text-dim); padding: 2rem;">Loading student records from REST API...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="toast-container"></div>
+
+  <script>
+    const API_URL = '/students';
+    let studentsData = [];
+
+    function showToast(msg, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = msg;
+      if (type === 'success') toast.style.borderColor = '#10b981';
+      if (type === 'error') toast.style.borderColor = '#ef4444';
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
+
+    // 1. Fetch all student records (GET /students)
+    async function fetchStudents() {
+      try {
+        const res = await fetch(API_URL);
+        const json = await res.json();
+        if (json.success) {
+          studentsData = json.data;
+          renderTable();
+          updateMetrics();
+        }
+      } catch (err) {
+        showToast('Error connecting to REST API: ' + err.message, 'error');
+      }
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('students-tbody');
+      if (studentsData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-dim); padding: 2rem;">No student records found in database.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = studentsData.map((s, idx) => {
+        let badgeClass = 'marks-med';
+        if (s.marks >= 85) badgeClass = 'marks-high';
+        else if (s.marks < 50) badgeClass = 'marks-low';
+
+        return `
+          <tr>
+            <td style="color: var(--text-dim); font-family: var(--mono);">${s.id}</td>
+            <td style="font-weight: 700;">${escapeHtml(s.name)}</td>
+            <td class="roll-cell">${escapeHtml(s.rollNo)}</td>
+            <td style="color: var(--text-dim);">${escapeHtml(s.course)}</td>
+            <td><span class="marks-badge ${badgeClass}">${s.marks.toFixed(1)}%</span></td>
+            <td style="text-align: right; white-space: nowrap;">
+              <button onclick="startEdit(${s.id})" class="btn btn-edit" style="padding: 0.25rem 0.6rem; font-size: 0.75rem; margin-right: 0.35rem;">Edit</button>
+              <button onclick="deleteStudent(${s.id})" class="btn btn-danger" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;">Delete</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function updateMetrics() {
+      const total = studentsData.length;
+      document.getElementById('metric-total').textContent = total;
+      if (total === 0) {
+        document.getElementById('metric-avg').textContent = '0.0';
+        document.getElementById('metric-top').textContent = '0.0';
+        return;
+      }
+      const sum = studentsData.reduce((acc, s) => acc + s.marks, 0);
+      const avg = (sum / total).toFixed(1);
+      const top = Math.max(...studentsData.map(s => s.marks)).toFixed(1);
+      document.getElementById('metric-avg').textContent = avg + '%';
+      document.getElementById('metric-top').textContent = top + '%';
+    }
+
+    // 2. Add or Update Student Record (POST or PUT)
+    document.getElementById('student-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('student-id').value;
+      const name = document.getElementById('input-name').value.trim();
+      const rollNo = document.getElementById('input-roll').value.trim();
+      const course = document.getElementById('input-course').value.trim();
+      const marksVal = document.getElementById('input-marks').value.trim();
+
+      // Client-Side Validation
+      let isValid = true;
+      document.querySelectorAll('.error-hint').forEach(el => el.style.display = 'none');
+
+      if (!name) {
+        document.getElementById('error-name').style.display = 'block';
+        isValid = false;
+      }
+      if (!rollNo) {
+        document.getElementById('error-roll').style.display = 'block';
+        isValid = false;
+      }
+      if (!course) {
+        document.getElementById('error-course').style.display = 'block';
+        isValid = false;
+      }
+      const parsedMarks = parseFloat(marksVal);
+      if (isNaN(parsedMarks) || parsedMarks < 0 || parsedMarks > 100) {
+        document.getElementById('error-marks').style.display = 'block';
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      const payload = { name, rollNo, course, marks: parsedMarks };
+
+      try {
+        let res, json;
+        if (id) {
+          // PUT /students/:id
+          res = await fetch(`${API_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } else {
+          // POST /students
+          res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        }
+        json = await res.json();
+        if (res.ok) {
+          showToast(json.message || 'Saved successfully', 'success');
+          resetForm();
+          fetchStudents();
+        } else {
+          showToast(json.message || 'Request failed', 'error');
+        }
+      } catch (err) {
+        showToast('Error saving record: ' + err.message, 'error');
+      }
+    });
+
+    // 3. Edit Record
+    function startEdit(id) {
+      const student = studentsData.find(s => s.id === id);
+      if (!student) return;
+
+      document.getElementById('student-id').value = student.id;
+      document.getElementById('input-name').value = student.name;
+      document.getElementById('input-roll').value = student.rollNo;
+      document.getElementById('input-course').value = student.course;
+      document.getElementById('input-marks').value = student.marks;
+
+      document.getElementById('form-heading').textContent = `Edit Record (#${student.id})`;
+      document.getElementById('submit-btn').textContent = '💾 Update Record';
+      document.getElementById('cancel-btn').style.display = 'inline-flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.getElementById('cancel-btn').addEventListener('click', resetForm);
+
+    function resetForm() {
+      document.getElementById('student-id').value = '';
+      document.getElementById('student-form').reset();
+      document.getElementById('form-heading').textContent = 'Add New Student';
+      document.getElementById('submit-btn').textContent = '➕ Save Record';
+      document.getElementById('cancel-btn').style.display = 'none';
+      document.querySelectorAll('.error-hint').forEach(el => el.style.display = 'none');
+    }
+
+    // 4. Delete Record (DELETE /students/:id)
+    async function deleteStudent(id) {
+      const student = studentsData.find(s => s.id === id);
+      if (!confirm(`Are you sure you want to delete record for ${student ? student.name : 'this student'}?`)) {
+        return;
+      }
+      try {
+        const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        const json = await res.json();
+        if (res.ok) {
+          showToast(json.message || 'Deleted successfully', 'success');
+          if (document.getElementById('student-id').value == id) {
+            resetForm();
+          }
+          fetchStudents();
+        } else {
+          showToast(json.message || 'Delete failed', 'error');
+        }
+      } catch (err) {
+        showToast('Error deleting student: ' + err.message, 'error');
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+      }[tag] || tag));
+    }
+
+    // Initialize on load
+    fetchStudents();
+  </script>
+</body>
+</html>

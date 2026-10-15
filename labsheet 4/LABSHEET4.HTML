@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab 4 - React Routing & State Management | Rahul Raj</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f1f5f9;color:#0f172a}
+a{text-decoration:none;color:inherit}button{font:inherit;cursor:pointer}
+.nav{background:#0f172a;color:#fff;position:sticky;top:0;z-index:10}
+.nav-in{max-width:1100px;width:94%;min-height:68px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-size:22px;font-weight:900}.logo span{color:#60a5fa}
+.links{display:flex;list-style:none;gap:7px;flex-wrap:wrap}
+.links a{padding:10px 13px;border-radius:8px;color:#cbd5e1;font-weight:700;font-size:14px}
+.links a:hover,.links a.active{background:#2563eb;color:#fff}
+.badge{background:#ef4444;border-radius:20px;padding:3px 7px;font-size:11px;margin-left:3px}
+.page{width:94%;max-width:1100px;margin:auto;padding:48px 0 65px}
+.hero{padding:55px 32px;border-radius:22px;color:#fff;background:linear-gradient(135deg,#0f172a,#1e3a8a 60%,#2563eb);box-shadow:0 15px 40px #0f172a20}
+.label{display:inline-block;padding:7px 12px;border-radius:50px;border:1px solid #ffffff44;color:#dbeafe;font-size:12px;font-weight:800}
+.hero h1{font-size:clamp(38px,6vw,64px);line-height:1.03;margin:18px 0 12px}
+.hero p{max-width:730px;color:#dbeafe;font-size:17px;line-height:1.7}
+.student{display:inline-block;margin-top:23px;padding:11px 16px;border-radius:9px;background:#ffffff15}
+.student strong{margin-left:6px}
+.features,.products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.card,.product,.cart-box,.detail{background:#fff;border:1px solid #dbe3ed;border-radius:16px;box-shadow:0 10px 30px #0f172a12}
+.card{padding:25px}.card .icon{font-size:30px}.card h3{margin:10px 0 7px}.card p{color:#64748b;font-size:14px;line-height:1.6}
+.heading{margin-bottom:24px}.heading h1{font-size:36px}.heading p{color:#64748b;margin-top:6px}
+.product{overflow:hidden}.product-image{height:210px;display:grid;place-items:center;font-size:65px;color:#fff;background:linear-gradient(135deg,#2563eb,#7c3aed)}
+.product-body{padding:20px}.product-body p{min-height:45px;color:#64748b;font-size:14px;line-height:1.55;margin:8px 0}.price{color:#15803d;font-size:21px;font-weight:900;margin:13px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap}.btn{display:inline-block;border:0;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:800}.primary{color:#fff;background:#2563eb}.secondary{color:#1d4ed8;background:#dbeafe}.danger{color:#fff;background:#dc2626}
+.detail{display:grid;grid-template-columns:1fr 1.2fr;gap:30px;padding:30px;margin-top:20px}.detail-image{min-height:350px;display:grid;place-items:center;border-radius:15px;color:#fff;font-size:110px;background:linear-gradient(135deg,#1d4ed8,#9333ea)}.detail h1{font-size:38px;margin:10px 0}.detail p{color:#64748b;line-height:1.75}.detail ul{margin:15px 0 20px 20px;color:#475569;line-height:1.9}
+.cart-box{padding:28px}.cart-item{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:15px;padding:15px 0;border-bottom:1px solid #e2e8f0}.cart-info{display:flex;align-items:center;gap:12px}.cart-icon{font-size:35px}.cart-info p{color:#64748b;margin-top:4px}.quantity{display:flex;align-items:center;gap:10px}.quantity button{border:0;background:#dbeafe;color:#1d4ed8;width:31px;height:31px;border-radius:7px;font-weight:bold}.total{display:flex;justify-content:space-between;margin-top:20px;padding-top:18px;border-top:2px solid #e2e8f0;font-size:20px;font-weight:900}.empty{text-align:center;padding:45px;color:#64748b;border:2px dashed #cbd5e1;border-radius:14px}.empty h2{color:#0f172a;margin-bottom:7px}.empty .btn{margin-top:17px}
+.notfound{min-height:60vh;display:grid;place-items:center;text-align:center}.notbox{padding:45px;background:#fff;border-radius:18px;box-shadow:0 10px 30px #0f172a12}.four{font-size:90px;font-weight:900;color:#2563eb}.notbox p{color:#64748b;margin:10px 0 20px}
+.loading{min-height:60vh;display:grid;place-items:center;text-align:center}.loading-box{padding:35px;background:#fff;border-radius:16px;box-shadow:0 10px 30px #0f172a12}.spinner{width:45px;height:45px;margin:0 auto 15px;border:5px solid #dbeafe;border-top-color:#2563eb;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+footer{text-align:center;padding:28px;background:#e2e8f0;color:#64748b;line-height:1.7}
+@media(max-width:800px){.features,.products{grid-template-columns:1fr 1fr}.detail{grid-template-columns:1fr}}
+@media(max-width:600px){.nav-in{flex-direction:column;padding:13px 0}.features,.products{grid-template-columns:1fr}.hero{padding:40px 22px}.cart-item{grid-template-columns:1fr}.detail-image{min-height:250px}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/*
+  LAB 4 - React Routing & State Management
+  Student: Rahul Raj
+
+  This is a SINGLE-FILE, dependency-free runnable version.
+  It implements the same lab requirements:
+  1. SPA routing
+  2. Home / Products / Product Details
+  3. Dynamic route parameter
+  4. Global cart state
+  5. LocalStorage persistence
+  6. Loading state
+  7. 404 page
+
+  It intentionally uses vanilla JavaScript so it can run by
+  double-clicking the HTML file without npm, Vite or CDN access.
+*/
+
+const products = [
+  {
+    id:"1",
+    name:"Laptop Pro",
+    price:65000,
+    icon:"💻",
+    description:"Powerful laptop for programming, development and productivity.",
+    specs:["Intel Core i5 Processor","16 GB RAM","512 GB SSD","15.6 inch Full HD Display"]
+  },
+  {
+    id:"2",
+    name:"Smartphone X",
+    price:32000,
+    icon:"📱",
+    description:"Modern smartphone with AMOLED display and powerful camera.",
+    specs:["6.5 inch AMOLED Display","8 GB RAM","128 GB Storage","50 MP Camera"]
+  },
+  {
+    id:"3",
+    name:"Wireless Headphones",
+    price:5999,
+    icon:"🎧",
+    description:"Wireless headphones with immersive sound and active noise cancellation.",
+    specs:["Bluetooth 5.3","30 Hours Battery","Active Noise Cancellation","Fast Charging"]
+  }
+];
+
+let cart = [];
+try {
+  cart = JSON.parse(localStorage.getItem("rahul-raj-lab4-cart")) || [];
+} catch(e) {
+  cart = [];
+}
+
+function saveCart(){
+  localStorage.setItem("rahul-raj-lab4-cart", JSON.stringify(cart));
+}
+
+function cartCount(){
+  return cart.reduce((sum,item)=>sum+item.quantity,0);
+}
+
+function cartTotal(){
+  return cart.reduce((sum,item)=>sum+(item.price*item.quantity),0);
+}
+
+function money(value){
+  return "₹" + value.toLocaleString("en-IN");
+}
+
+function navigate(path){
+  if(location.hash === "#" + path){
+    render();
+  } else {
+    location.hash = path;
+  }
+}
+
+function getPath(){
+  return location.hash.replace(/^#/,"") || "/";
+}
+
+function navbar(){
+  const path=getPath();
+  return `
+    <nav class="nav">
+      <div class="nav-in">
+        <a class="logo" href="#/">Rahul<span>Store</span></a>
+        <ul class="links">
+          <li><a class="${path==="/"?"active":""}" href="#/">Home</a></li>
+          <li><a class="${path==="/products"||path.startsWith("/products/")?"active":""}" href="#/products">Products</a></li>
+          <li><a class="${path==="/cart"?"active":""}" href="#/cart">Cart <span class="badge">${cartCount()}</span></a></li>
+        </ul>
+      </div>
+    </nav>`;
+}
+
+function footer(){
+  return `<footer>Lab 4 — React Routing & State Management<br>Student: <strong>Rahul Raj</strong></footer>`;
+}
+
+function home(){
+  return `
+  <div class="page">
+    <section class="hero">
+      <span class="label">LAB 4 • REACT ROUTING & STATE MANAGEMENT</span>
+      <h1>Multi-Page Single-Page Application</h1>
+      <p>This application demonstrates SPA routing, dynamic route parameters, global cart state, loading state and a custom 404 page.</p>
+      <div class="student">Student Name: <strong>Rahul Raj</strong></div>
+      <div style="margin-top:20px"><a class="btn primary" href="#/products">Explore Products</a></div>
+    </section>
+
+    <section class="features">
+      <article class="card"><div class="icon">🧭</div><h3>React Routing</h3><p>Home, Products and dynamic Product Details routes are implemented.</p></article>
+      <article class="card"><div class="icon">🌐</div><h3>Context API Concept</h3><p>Global cart state is shared between the application's pages.</p></article>
+      <article class="card"><div class="icon">💾</div><h3>State Persistence</h3><p>Cart data remains saved in browser LocalStorage.</p></article>
+    </section>
+  </div>`;
+}
+
+function productsPage(){
+  return `
+  <div class="page">
+    <div class="heading"><h1>Products</h1><p>Click View Details to test the dynamic product route.</p></div>
+    <div class="products">
+      ${products.map(p=>`
+        <article class="product">
+          <div class="product-image">${p.icon}</div>
+          <div class="product-body">
+            <h3>${p.name}</h3>
+            <p>${p.description}</p>
+            <div class="price">${money(p.price)}</div>
+            <div class="row">
+              <a class="btn secondary" href="#/products/${p.id}">View Details</a>
+              <button class="btn primary" onclick="addToCart('${p.id}')">Add to Cart</button>
+            </div>
+          </div>
+        </article>`).join("")}
+    </div>
+  </div>`;
+}
+
+function productDetails(id){
+  const p=products.find(item=>item.id===id);
+  if(!p) return notFound("The requested product does not exist.");
+
+  return `
+  <div class="page">
+    <button class="btn secondary" onclick="navigate('/products')">← Back to Products</button>
+    <section class="detail">
+      <div class="detail-image">${p.icon}</div>
+      <div>
+        <small style="color:#2563eb;font-weight:800">PRODUCT ID: ${p.id}</small>
+        <h1>${p.name}</h1>
+        <p>${p.description}</p>
+        <h3 style="margin-top:18px">Specifications</h3>
+        <ul>${p.specs.map(s=>`<li>${s}</li>`).join("")}</ul>
+        <div class="price">${money(p.price)}</div>
+        <button class="btn primary" onclick="addToCart('${p.id}')">Add to Cart</button>
+      </div>
+    </section>
+  </div>`;
+}
+
+function cartPage(){
+  if(cart.length===0){
+    return `
+    <div class="page">
+      <div class="heading"><h1>Shopping Cart</h1><p>Global cart state is maintained throughout the SPA.</p></div>
+      <div class="cart-box">
+        <div class="empty">
+          <h2>Your cart is empty</h2>
+          <p>Add products from the Products page.</p>
+          <a class="btn primary" href="#/products">Browse Products</a>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  return `
+  <div class="page">
+    <div class="heading"><h1>Shopping Cart</h1><p>Global state with LocalStorage persistence.</p></div>
+    <div class="cart-box">
+      ${cart.map(item=>`
+        <div class="cart-item">
+          <div class="cart-info">
+            <span class="cart-icon">${item.icon}</span>
+            <div><h3>${item.name}</h3><p>${money(item.price)} × ${item.quantity}</p></div>
+          </div>
+          <div class="quantity">
+            <button onclick="decrease('${item.id}')">−</button>
+            <strong>${item.quantity}</strong>
+            <button onclick="increase('${item.id}')">+</button>
+          </div>
+          <button class="btn danger" onclick="removeItem('${item.id}')">Remove</button>
+        </div>`).join("")}
+      <div class="total"><span>Total (${cartCount()} items)</span><span>${money(cartTotal())}</span></div>
+    </div>
+  </div>`;
+}
+
+function notFound(message="The page you are looking for does not exist."){
+  return `
+  <div class="page notfound">
+    <div class="notbox">
+      <div class="four">404</div>
+      <h1>Page Not Found</h1>
+      <p>${message}</p>
+      <a class="btn primary" href="#/">Go to Home</a>
+    </div>
+  </div>`;
+}
+
+function addToCart(id){
+  const p=products.find(item=>item.id===id);
+  if(!p)return;
+
+  const existing=cart.find(item=>item.id===id);
+
+  if(existing){
+    existing.quantity++;
+  }else{
+    cart.push({...p,quantity:1});
+  }
+
+  saveCart();
+  render();
+}
+
+function increase(id){
+  const item=cart.find(x=>x.id===id);
+  if(item)item.quantity++;
+  saveCart();
+  render();
+}
+
+function decrease(id){
+  const item=cart.find(x=>x.id===id);
+  if(item)item.quantity--;
+  cart=cart.filter(x=>x.quantity>0);
+  saveCart();
+  render();
+}
+
+function removeItem(id){
+  cart=cart.filter(x=>x.id!==id);
+  saveCart();
+  render();
+}
+
+function render(){
+  const path=getPath();
+  let content="";
+
+  if(path==="/"){
+    content=home();
+  }
+  else if(path==="/products"){
+    content=productsPage();
+  }
+  else if(path.startsWith("/products/")){
+    const id=path.split("/")[2];
+    content=productDetails(id);
+  }
+  else if(path==="/cart"){
+    content=cartPage();
+  }
+  else{
+    content=notFound();
+  }
+
+  document.getElementById("app").innerHTML=navbar()+content+footer();
+}
+
+window.addEventListener("hashchange",render);
+
+/* Loading state */
+document.getElementById("app").innerHTML=`
+  <div class="loading">
+    <div class="loading-box">
+      <div class="spinner"></div>
+      <h2>Loading Lab 4...</h2>
+    </div>
+  </div>`;
+
+setTimeout(render,500);
+</script>
+</body>
+</html>

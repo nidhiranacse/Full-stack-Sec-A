@@ -1,0 +1,375 @@
+{
+  "info": {
+    "_postman_id": "c71a39f1-9b16-4d1e-8fe2-8a9d18e89f11",
+    "name": "CampusConnect - Student Event & Resource Management API",
+    "description": "Comprehensive Postman collection for Lab Sheet 11 (B.Tech CSE 3rd Year) covering Auth, Events, Resources, Student/Admin Dashboards, and Performance Indexing.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "studentToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "System Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Health check and system metadata verification"
+      }
+    },
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Login as Admin (Faculty)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@campus.edu\",\n  \"password\": \"Admin@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login as Student (Rahul Raj)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@campus.edu\",\n  \"password\": \"Student@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Register New Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Vikram Aditya\",\n  \"email\": \"vikram.aditya@campus.edu\",\n  \"password\": \"SecurePass@123\",\n  \"role\": \"student\",\n  \"department\": \"Computer Science & Engineering\",\n  \"semester\": \"Semester 6\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/signup",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "signup"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User Profile (/me)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Events Module",
+      "item": [
+        {
+          "name": "Get All Events (Search, Category & Pagination)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events?page=1&limit=10&category=All&q=",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "category", "value": "All" },
+                { "key": "q", "value": "" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filter Events by Category (Workshop)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events?category=Workshop",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"],
+              "query": [
+                { "key": "category", "value": "Workshop" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Single Event Details & Seat Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create New Event (Admin Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Quantum Machine Learning Symposium 2026\",\n  \"description\": \"Interactive research symposium introducing hybrid classical-quantum models and PennyLane frameworks.\",\n  \"category\": \"Seminar\",\n  \"date\": \"2026-11-28\",\n  \"time\": \"11:00 AM - 02:00 PM\",\n  \"venue\": \"Center for Quantum Technologies, Hall 4\",\n  \"maxSeats\": 45\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"]
+            }
+          }
+        },
+        {
+          "name": "Register for Event (Student)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/events/1/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "1", "register"]
+            }
+          }
+        },
+        {
+          "name": "Unregister from Event (Student)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/events/1/unregister",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "1", "unregister"]
+            }
+          }
+        },
+        {
+          "name": "View Registered Students / Attendees (Admin Only)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/events/1/attendees",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "1", "attendees"]
+            }
+          }
+        },
+        {
+          "name": "Update Event (Admin Only)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Full Stack Web Development Workshop: MERN & Next.js (Updated)\",\n  \"description\": \"Upgraded masterclass covering Next.js 15, React Server Components, and TailwindCSS design systems.\",\n  \"category\": \"Workshop\",\n  \"date\": \"2026-10-06\",\n  \"time\": \"10:00 AM - 02:00 PM\",\n  \"venue\": \"Seminar Hall 3, Block B\",\n  \"maxSeats\": 75\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Event (Admin Only)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/events/13",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "13"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Academic Resources Module",
+      "item": [
+        {
+          "name": "List Resources (Subject/Semester Filter & Pagination)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/resources?page=1&limit=10&subject=All&semester=All",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "subject", "value": "All" },
+                { "key": "semester", "value": "All" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Upload Academic Resource (Admin Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Computer Graphics & WebGL Foundations Notes\",\n  \"description\": \"Rasterization algorithms, Bresenham line drawing, 3D transformations, and shader programming.\",\n  \"subject\": \"Computer Science Core\",\n  \"semester\": \"Semester 5\",\n  \"fileType\": \"pdf\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/resources",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources"]
+            }
+          }
+        },
+        {
+          "name": "Download Resource File",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/resources/1/download",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources", "1", "download"]
+            }
+          }
+        },
+        {
+          "name": "Delete Resource (Admin Only)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/resources/12",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources", "12"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Dashboards & Analytics",
+      "item": [
+        {
+          "name": "Student Dashboard (My Events, History & Recommendations)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/student",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard", "student"]
+            }
+          }
+        },
+        {
+          "name": "Admin Dashboard (College-Wide Analytics)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/admin",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard", "admin"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Performance & Indexing Benchmark",
+      "item": [
+        {
+          "name": "Database Query Indexing Benchmark (10k Records)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/benchmark/indexing",
+              "host": ["{{baseUrl}}"],
+              "path": ["benchmark", "indexing"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

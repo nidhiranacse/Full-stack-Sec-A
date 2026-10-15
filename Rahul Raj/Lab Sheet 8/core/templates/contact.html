@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us &amp; Feedback Logger{% endblock %}
+
+{% block content %}
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+
+  <!-- Contact Form (Task 8.3) -->
+  <section class="content-card">
+    <div style="margin-bottom: 1.25rem;">
+      <span style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #fbbf24; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 9999px;">
+        Task 8.3 &bull; Server Logging Verification Form
+      </span>
+    </div>
+
+    <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;">
+      Send Verified Feedback
+    </h2>
+    <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.5rem;">
+      Submitting this form executes backend verification and streams the feedback text parameters directly into <code>server.log</code>.
+    </p>
+
+    <form method="POST" action="{% url 'contact' %}">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="contact-name" class="form-label">Full Name</label>
+        {{ form.name }}
+        {% if form.name.errors %}
+          <div style="color: var(--error); font-size: 0.78rem; margin-top: 0.25rem;">{{ form.name.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <label for="contact-email" class="form-label">Email Address</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+          <div style="color: var(--error); font-size: 0.78rem; margin-top: 0.25rem;">{{ form.email.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <label for="contact-subject" class="form-label">Inquiry Subject</label>
+        {{ form.subject }}
+        {% if form.subject.errors %}
+          <div style="color: var(--error); font-size: 0.78rem; margin-top: 0.25rem;">{{ form.subject.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <label for="contact-message" class="form-label">Feedback Message</label>
+        {{ form.message }}
+        {% if form.message.errors %}
+          <div style="color: var(--error); font-size: 0.78rem; margin-top: 0.25rem;">{{ form.message.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="btn" style="width: 100%; justify-content: center; padding: 0.8rem;">
+        🚀 Submit Feedback &amp; Log to Server
+      </button>
+    </form>
+  </section>
+
+  <!-- Technical Audit & Live Info -->
+  <aside class="content-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; color: #a5b4fc;">
+        🔍 System Audit Specifications
+      </h3>
+      <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.25rem;">
+        When feedback is received:
+      </p>
+
+      <div style="background: #0f172a; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; font-family: var(--mono); font-size: 0.82rem; color: #93c5fd; margin-bottom: 1.25rem;">
+        [VERIFIED FEEDBACK LOGGED]<br>
+        Student=Rahul Raj (cu24250116)<br>
+        Destination: server.log<br>
+        Logging Level: INFO
+      </div>
+
+      <ul style="padding-left: 1.25rem; color: var(--text-dim); font-size: 0.85rem; line-height: 1.7;">
+        <li>Form data is sanitized &amp; validated via Django <code>forms.Form</code>.</li>
+        <li>Backend dispatches persistent user feedback notification via <code>messages.success</code> hook.</li>
+        <li>Log entry is generated with timestamp, thread ID, and sanitized payload.</li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+      <div style="font-size: 0.8rem; color: var(--text-dim);">
+        Candidate: <strong>{{ student_name }}</strong> &bull; {{ course }}
+      </div>
+    </div>
+  </aside>
+
+</div>
+{% endblock %}

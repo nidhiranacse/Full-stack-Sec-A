@@ -1,0 +1,23 @@
+{
+  "name": "lab-sheet-9-student-record-management",
+  "version": "1.0.0",
+  "description": "Full-Stack Student Record Management System with Express.js REST API & Database CRUD",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node api_test.js"
+  },
+  "keywords": [
+    "fullstack",
+    "crud",
+    "express",
+    "sqlite",
+    "rest-api"
+  ],
+  "author": "Rahul Raj (cu24250116)",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

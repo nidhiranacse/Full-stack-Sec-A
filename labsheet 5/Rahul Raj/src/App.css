@@ -1,0 +1,790 @@
+/* ==========================================================================
+   Lab Sheet 05: Form Validation Architecture & Controlled Inputs in React
+   Student: Rahul Raj
+   Features: Regex Verification, Interactive Warning Badges, Password Tracker, Stepper Wizard
+   ========================================================================== */
+
+:root {
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-dark: #0f172a;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --border-focus: #3b82f6;
+  --danger: #ef4444;
+  --danger-bg: #fef2f2;
+  --danger-border: #fecaca;
+  --warning: #f59e0b;
+  --warning-bg: #fffbeb;
+  --warning-border: #fde68a;
+  --success: #10b981;
+  --success-bg: #ecfdf5;
+  --success-border: #a7f3d0;
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.lab5-app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+.lab5-header {
+  background: var(--bg-dark);
+  border-bottom: 1px solid #1e293b;
+  padding: 0.85rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1050px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-portal-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  text-decoration: none;
+  font-size: 0.825rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.btn-portal-back:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.badge-sheet {
+  background: #312e81;
+  color: #c7d2fe;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.module-switch-tabs {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.25rem;
+  border-radius: 10px;
+  gap: 0.4rem;
+}
+
+.switch-tab-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 0.825rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.switch-tab-btn:hover {
+  color: #ffffff;
+}
+
+.switch-tab-btn.active {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.student-tag {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   Hero Section
+   -------------------------------------------------------------------------- */
+.lab5-main-container {
+  max-width: 900px;
+  margin: 2.5rem auto;
+  padding: 0 1.5rem;
+  flex: 1;
+  width: 100%;
+}
+
+.lab5-hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.hero-kicker {
+  display: inline-block;
+  background: #eff6ff;
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 0.85rem;
+}
+
+.hero-title {
+  font-size: 2.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.hero-desc {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   Interactive Validation Warning Badges (Task 5.1)
+   -------------------------------------------------------------------------- */
+.validation-badge-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.825rem;
+  margin-top: 0.5rem;
+  animation: badgeSlide 0.3s ease;
+}
+
+@keyframes badgeSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.badge-error {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-border);
+  color: #991b1b;
+}
+
+.badge-warning {
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  color: #92400e;
+}
+
+.badge-icon {
+  font-size: 1rem;
+}
+
+.badge-field {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Password Strength Meter (Task 5.2)
+   -------------------------------------------------------------------------- */
+.strength-meter-subcomponent {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-top: 0.85rem;
+}
+
+.strength-meter-empty {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+
+.meter-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.meter-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.meter-status-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+}
+
+.meter-status-tag.bar-very-weak { background: #fee2e2; color: #b91c1c; }
+.meter-status-tag.bar-weak { background: #ffedd5; color: #c2410c; }
+.meter-status-tag.bar-moderate { background: #fef3c7; color: #b45309; }
+.meter-status-tag.bar-strong { background: #dbeafe; color: #1d4ed8; }
+.meter-status-tag.bar-bulletproof { background: #dcfce7; color: #15803d; }
+
+/* Dynamic Progress Tracker Bar */
+.progress-track-bg {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 0.85rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
+}
+
+.progress-bar-fill.bar-very-weak { background-color: #ef4444; }
+.progress-bar-fill.bar-weak { background-color: #f97316; }
+.progress-bar-fill.bar-moderate { background-color: #f59e0b; }
+.progress-bar-fill.bar-strong { background-color: #3b82f6; }
+.progress-bar-fill.bar-bulletproof { background-color: #10b981; }
+
+.strength-checklist {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.4rem;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.checklist-item.met {
+  color: #15803d;
+}
+
+.checklist-item.unmet {
+  color: #94a3b8;
+}
+
+.check-icon {
+  font-weight: 800;
+}
+
+/* --------------------------------------------------------------------------
+   Login Module Card (Task 5.1)
+   -------------------------------------------------------------------------- */
+.login-module-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  padding: 2.5rem;
+}
+
+.module-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: #eff6ff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  margin-bottom: 0.5rem;
+}
+
+.module-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+}
+
+.module-desc {
+  color: var(--text-muted);
+  font-size: 0.925rem;
+}
+
+.login-controlled-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.input-field-wrap {
+  position: relative;
+}
+
+.controlled-text-input,
+.controlled-select-input,
+.controlled-textarea {
+  width: 100%;
+  padding: 0.85rem 1.15rem;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s;
+  background: #ffffff;
+}
+
+.controlled-text-input:focus,
+.controlled-select-input:focus,
+.controlled-textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.controlled-text-input.field-violated {
+  border-color: var(--danger);
+  background: #fffafb;
+}
+
+.input-regex-hint {
+  display: block;
+  font-size: 0.725rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-top: 0.3rem;
+}
+
+.checkbox-row-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.controlled-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.btn-submit-login {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding: 0.95rem;
+  border-radius: 12px;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.5rem;
+}
+
+.btn-submit-login:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.login-success-view {
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+
+.success-icon-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  color: #10b981;
+  font-size: 2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  border: 2px solid #a7f3d0;
+}
+
+.btn-login-reset {
+  background: #f1f5f9;
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 0.65rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   Onboarding Wizard (Task 5.3)
+   -------------------------------------------------------------------------- */
+.wizard-container-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.wizard-header-section {
+  padding: 2.25rem 2.5rem 1.75rem;
+  background: #f8fafc;
+  border-bottom: 1px solid var(--border);
+}
+
+.wizard-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+}
+
+.wizard-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+}
+
+.wizard-sub {
+  color: var(--text-muted);
+  font-size: 0.925rem;
+  margin-bottom: 1.75rem;
+}
+
+.wizard-stepper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.step-milestone {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1.5px solid var(--border);
+  transition: all 0.2s;
+}
+
+.step-milestone.active {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.step-milestone.completed {
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+}
+
+.milestone-indicator {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: var(--text-main);
+  font-weight: 800;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-milestone.active .milestone-indicator {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.step-milestone.completed .milestone-indicator {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.milestone-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wizard-body-card {
+  padding: 2.5rem;
+}
+
+.wizard-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.step-header {
+  margin-bottom: 0.5rem;
+}
+
+.step-heading {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.step-subheading {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+/* Summary Metadata Review Card */
+.summary-metadata-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.summary-group {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+.summary-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.summary-group-header h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.btn-edit-step {
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.summary-dl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.dl-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  font-size: 0.85rem;
+}
+
+.dl-row dt {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.dl-row dd {
+  font-weight: 500;
+}
+
+.wizard-actions-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn-wizard-prev {
+  background: #f1f5f9;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-wizard-prev:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-wizard-next {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-wizard-submit {
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.step-counter-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Final Success */
+.onboarding-final-success {
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+
+.final-icon-badge {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+}
+
+.final-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.final-desc {
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto 2rem;
+}
+
+.final-details-box {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.final-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-restart-wizard {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Footer */
+.lab5-footer {
+  background: #ffffff;
+  border-top: 1px solid var(--border);
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+  .wizard-stepper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dl-row {
+    grid-template-columns: 1fr;
+  }
+}

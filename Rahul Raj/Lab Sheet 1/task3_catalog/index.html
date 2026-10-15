@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Itemized web catalog interface containing descriptive metadata terms via structured definition lists (<dl>, <dt>, <dd>) - Full Stack Lab Sheet 01 Task 1.3 by Rahul Raj">
+  <title>Developer Systems Web Catalog | Rahul Raj</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Action Bar -->
+  <header class="top-header">
+    <div class="header-inner">
+      <a href="../../index.html" class="btn-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Lab Portal
+      </a>
+      <div class="lab-pill">Lab Sheet 01 &bull; Task 1.3</div>
+      <div class="student-tag">Author: Rahul Raj</div>
+    </div>
+  </header>
+
+  <!-- Main Catalog Container -->
+  <main class="catalog-container">
+    
+    <!-- Hero & Introduction -->
+    <section class="catalog-hero">
+      <span class="badge">Syllabus Requirement &bull; Semantic Definition Lists</span>
+      <h1 class="hero-title">Developer Systems &amp; Runtimes Catalog</h1>
+      <p class="hero-desc">
+        An itemized technical catalog formulating complex descriptive system metadata terms utilizing structured HTML5 definition lists (<code class="code-pill">&lt;dl&gt;</code>, <code class="code-pill">&lt;dt&gt;</code>, <code class="code-pill">&lt;dd&gt;</code>). Explore runtime specifications, memory models, protocols, and architectural attributes.
+      </p>
+
+      <!-- Interactive Filter Controls -->
+      <div class="filter-toolbar">
+        <div class="search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="catalog-search" placeholder="Filter by metadata term, engine, or protocol..." aria-label="Search catalog items">
+        </div>
+        <div class="category-filters">
+          <button class="filter-btn active" data-category="all">All Systems (<span id="count-all">4</span>)</button>
+          <button class="filter-btn" data-category="runtime">JavaScript Runtimes</button>
+          <button class="filter-btn" data-category="database">Databases</button>
+          <button class="filter-btn" data-category="webserver">Edge &amp; Web Servers</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catalog Grid of Item Cards containing Structured <dl> -->
+    <section class="catalog-grid" id="catalog-grid" aria-label="Catalog Items">
+      
+      <!-- Catalog Item 1: Node.js -->
+      <article class="catalog-card" data-category="runtime">
+        <div class="card-header">
+          <div class="item-icon js-icon">JS</div>
+          <div>
+            <span class="card-category-badge">JavaScript Runtime</span>
+            <h2 class="item-title">Node.js LTS Runtime Engine</h2>
+          </div>
+          <span class="status-pill active-pill">Production Ready</span>
+        </div>
+        <p class="item-summary">
+          Asynchronous event-driven JavaScript runtime built on Chrome's V8 engine designed to build scalable network applications.
+        </p>
+
+        <!-- Structured Definition List for Item 1 -->
+        <dl class="metadata-list" aria-label="Node.js Technical Specifications">
+          <div class="metadata-row">
+            <dt class="meta-term">Execution Model</dt>
+            <dd class="meta-desc">Single-threaded event loop with non-blocking libuv I/O multiplexing</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Core Engine</dt>
+            <dd class="meta-desc">Google V8 JIT Compiler with Ignition bytecode interpreter</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Supported Protocols</dt>
+            <dd class="meta-desc">HTTP/1.1, HTTP/2, WebSockets, TLS 1.3, TCP/UDP sockets</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Memory Footprint</dt>
+            <dd class="meta-desc">Approx. 35MB base resident set size (RSS)</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Package Registry</dt>
+            <dd class="meta-desc">npm (over 2.1 million published reusable packages)</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Standard License</dt>
+            <dd class="meta-desc">MIT Open Source License</dd>
+          </div>
+        </dl>
+      </article>
+
+      <!-- Catalog Item 2: PostgreSQL -->
+      <article class="catalog-card" data-category="database">
+        <div class="card-header">
+          <div class="item-icon pg-icon">PG</div>
+          <div>
+            <span class="card-category-badge">Relational Database</span>
+            <h2 class="item-title">PostgreSQL Enterprise Engine</h2>
+          </div>
+          <span class="status-pill active-pill">ACID Compliant</span>
+        </div>
+        <p class="item-summary">
+          Advanced, enterprise-class open source relational database system supporting both SQL relational and JSON querying.
+        </p>
+
+        <!-- Structured Definition List for Item 2 -->
+        <dl class="metadata-list" aria-label="PostgreSQL Technical Specifications">
+          <div class="metadata-row">
+            <dt class="meta-term">Architecture Type</dt>
+            <dd class="meta-desc">Process-per-connection client-server relational DBMS</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Storage Engine</dt>
+            <dd class="meta-desc">Write-Ahead Logging (WAL) with Multi-Version Concurrency Control (MVCC)</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Indexing Mechanisms</dt>
+            <dd class="meta-desc">B-Tree, Hash, GiST, SP-GiST, GIN, BRIN, and Bloom indexes</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Data Types Supported</dt>
+            <dd class="meta-desc">JSONB, Geometric, UUID, Arrays, Hstore, Range types, Custom composites</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Replication Modes</dt>
+            <dd class="meta-desc">Synchronous &amp; Asynchronous Streaming, Logical Replication</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Standard License</dt>
+            <dd class="meta-desc">PostgreSQL License (liberal BSD-style license)</dd>
+          </div>
+        </dl>
+      </article>
+
+      <!-- Catalog Item 3: NGINX -->
+      <article class="catalog-card" data-category="webserver">
+        <div class="card-header">
+          <div class="item-icon nx-icon">NX</div>
+          <div>
+            <span class="card-category-badge">Edge &amp; Web Server</span>
+            <h2 class="item-title">NGINX High Performance Proxy</h2>
+          </div>
+          <span class="status-pill active-pill">High Concurrency</span>
+        </div>
+        <p class="item-summary">
+          High-performance HTTP web server, reverse proxy, and edge load balancer handling massive concurrent connection pools.
+        </p>
+
+        <!-- Structured Definition List for Item 3 -->
+        <dl class="metadata-list" aria-label="NGINX Technical Specifications">
+          <div class="metadata-row">
+            <dt class="meta-term">Concurrency Model</dt>
+            <dd class="meta-desc">Event-driven, asynchronous master-worker process architecture</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Operating Capabilities</dt>
+            <dd class="meta-desc">Reverse proxying, SSL/TLS offloading, Layer 7 load balancing, Static caching</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Protocols Handled</dt>
+            <dd class="meta-desc">HTTP/1.1, HTTP/2, HTTP/3 (QUIC), FastCGI, SCGI, uWSGI, gRPC</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Performance Peak</dt>
+            <dd class="meta-desc">Handles 50,000+ simultaneous connections per single worker core</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Security Features</dt>
+            <dd class="meta-desc">Rate limiting, IP access whitelisting, GeoIP filtering, OCSP stapling</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Standard License</dt>
+            <dd class="meta-desc">2-Clause BSD-like license</dd>
+          </div>
+        </dl>
+      </article>
+
+      <!-- Catalog Item 4: Redis In-Memory Store -->
+      <article class="catalog-card" data-category="database">
+        <div class="card-header">
+          <div class="item-icon rd-icon">RD</div>
+          <div>
+            <span class="card-category-badge">In-Memory Cache &amp; Store</span>
+            <h2 class="item-title">Redis Sub-Millisecond Data Engine</h2>
+          </div>
+          <span class="status-pill active-pill">Sub-ms Latency</span>
+        </div>
+        <p class="item-summary">
+          In-memory data structure store used as a database, cache, streaming engine, and message broker.
+        </p>
+
+        <!-- Structured Definition List for Item 4 -->
+        <dl class="metadata-list" aria-label="Redis Technical Specifications">
+          <div class="metadata-row">
+            <dt class="meta-term">Data Structures</dt>
+            <dd class="meta-desc">Strings, Hashes, Lists, Sets, Sorted Sets with range queries, HyperLogLogs, Geospatial indexes</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Persistence Options</dt>
+            <dd class="meta-desc">RDB (snapshotting at intervals) and AOF (append-only file logs)</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Clustering &amp; HA</dt>
+            <dd class="meta-desc">Redis Sentinel for high availability and automatic failover, Redis Cluster for horizontal sharding</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Pub/Sub Capabilities</dt>
+            <dd class="meta-desc">Native publish/subscribe channels and consumer stream groups</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Throughput Benchmark</dt>
+            <dd class="meta-desc">Exceeds 100,000 operations per second on standard commodity hardware</dd>
+          </div>
+          <div class="metadata-row">
+            <dt class="meta-term">Standard License</dt>
+            <dd class="meta-desc">Dual RSALv2 / SSPLv1 community licensing</dd>
+          </div>
+        </dl>
+      </article>
+
+    </section>
+
+    <!-- Empty State for Search Filter -->
+    <div id="no-results" class="no-results" style="display: none;">
+      <p>No matching catalog items found. Try searching for "JavaScript", "SQL", "Protocol", or "Engine".</p>
+    </div>
+
+  </main>
+
+  <footer class="catalog-footer">
+    <p>&copy; 2026 Rahul Raj &bull; Full Stack Lab Sheet 01 &bull; Task 1.3: Itemized Web Catalog using Structured Definition Lists (&lt;dl&gt;, &lt;dt&gt;, &lt;dd&gt;)</p>
+  </footer>
+
+  <script>
+    // Client-side filtering script
+    const searchInput = document.getElementById('catalog-search');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.catalog-card');
+    const noResults = document.getElementById('no-results');
+
+    let currentCategory = 'all';
+
+    function filterCatalog() {
+      const query = searchInput.value.toLowerCase().trim();
+      let matchCount = 0;
+
+      cards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const text = card.textContent.toLowerCase();
+        const matchesCategory = (currentCategory === 'all' || category === currentCategory);
+        const matchesQuery = query === '' || text.includes(query);
+
+        if (matchesCategory && matchesQuery) {
+          card.style.display = 'flex';
+          matchCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      noResults.style.display = matchCount === 0 ? 'block' : 'none';
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.getAttribute('data-category');
+        filterCatalog();
+      });
+    });
+
+    searchInput.addEventListener('input', filterCatalog);
+  </script>
+
+</body>
+</html>

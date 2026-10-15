@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Clean dark-mode landing layout implementing custom styling overrides via CSS variables and an interactive toggler method inside vanilla JavaScript - Lab Sheet 02 Task 2.1 by Rahul Raj">
+  <title>Dynamic Dark-Mode Landing Layout | Rahul Raj</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Action Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="../../index.html" class="btn-back">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Back to Lab Portal
+        </a>
+        <span class="lab-badge">Lab Sheet 02 &bull; Task 2.1</span>
+      </div>
+
+      <div class="nav-center brand-logo">
+        <span class="logo-mark">⚡</span>
+        <span class="logo-text">AuraCore</span>
+      </div>
+
+      <div class="nav-right">
+        <!-- Interactive Theme Toggler -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark and Light Mode" aria-pressed="false">
+          <span class="toggle-icon-wrap" aria-hidden="true">
+            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+          <span class="theme-label" id="theme-label">Light Mode</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-container">
+        <div class="hero-badge">
+          <span class="pulse-indicator"></span>
+          <span>CSS Variables &bull; Dynamic Token Architecture</span>
+        </div>
+        <h1 class="hero-title">
+          Engineered for <span class="gradient-text">Instant Clarity</span> Across Any Lighting.
+        </h1>
+        <p class="hero-subtext">
+          A high-performance landing layout implementing custom styling overrides via CSS custom properties (<code class="code-pill">var(--theme-*)</code>) and a reactive vanilla JavaScript toggler method with local storage persistence.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="document.getElementById('theme-toggle').click()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            Switch Theme State
+          </button>
+          <a href="#token-inspector" class="btn-secondary">
+            Inspect CSS Variable Tokens
+          </a>
+        </div>
+
+        <!-- Live Theme Status Card -->
+        <div class="theme-status-card">
+          <div class="status-col">
+            <span class="status-title">Current Theme:</span>
+            <span class="status-val" id="active-theme-text">light</span>
+          </div>
+          <div class="status-col">
+            <span class="status-title">Active Root Token:</span>
+            <span class="status-val font-mono" id="active-token-bg">#ffffff</span>
+          </div>
+          <div class="status-col">
+            <span class="status-title">Storage Persistence:</span>
+            <span class="status-val font-mono">localStorage.theme</span>
+          </div>
+          <div class="status-col">
+            <span class="status-title">CSS Transition:</span>
+            <span class="status-val font-mono">cubic-bezier(0.4, 0, 0.2, 1)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Features Section -->
+    <section class="features-section">
+      <div class="container">
+        <div class="section-heading-wrap">
+          <span class="sec-badge">Design Architecture</span>
+          <h2 class="section-heading">Custom Styling Tokenization</h2>
+          <p class="section-desc">Every element dynamically updates without recalculating the DOM tree or flashing unstyled content.</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Card 1 -->
+          <article class="feature-card">
+            <div class="icon-wrap color-indigo">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+            </div>
+            <h3 class="card-title">Declarative CSS Variables</h3>
+            <p class="card-desc">
+              Centralized color design system mapping surface tokens, border luminosity, typographic contrast, and elevation shadows seamlessly across modes.
+            </p>
+            <div class="token-snippet">
+              <code>--bg-surface: var(--dynamic-surface);</code>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="feature-card">
+            <div class="icon-wrap color-emerald">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            </div>
+            <h3 class="card-title">Pure Vanilla JS Toggler</h3>
+            <p class="card-desc">
+              Lightweight JavaScript engine managing state via HTML data attributes (<code class="code-pill">data-theme="dark"</code>) and syncs with system preferences.
+            </p>
+            <div class="token-snippet">
+              <code>toggleTheme(): localStorage.setItem(...)</code>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="feature-card">
+            <div class="icon-wrap color-amber">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+            </div>
+            <h3 class="card-title">WCAG 2.1 Contrast Guarantee</h3>
+            <p class="card-desc">
+              All dark mode overrides adhere to a minimum 7:1 contrast ratio for normal body copy and 4.5:1 for interactive controls and badges.
+            </p>
+            <div class="token-snippet">
+              <code>contrast-ratio &gt; 7:1 AAA Standard</code>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dynamic Metrics Section -->
+    <section class="stats-section">
+      <div class="container stats-container">
+        <div class="stat-card">
+          <span class="stat-number">0ms</span>
+          <span class="stat-caption">Runtime Re-render Lag</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">100%</span>
+          <span class="stat-caption">Vanilla JavaScript Native</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">16+</span>
+          <span class="stat-caption">Mapped Dynamic CSS Variables</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">&lt; 1KB</span>
+          <span class="stat-caption">Script Payload Overhead</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CSS Variable Inspector Section -->
+    <section class="container" id="token-inspector" style="margin-bottom: 4rem;">
+      <div class="inspector-box">
+        <h3 class="inspector-title">Active CSS Variable Override Registry</h3>
+        <p class="inspector-subtitle">Inspect the underlying CSS variables driving this layout in real-time:</p>
+        
+        <div class="tokens-table-wrap">
+          <table class="tokens-table">
+            <thead>
+              <tr>
+                <th>CSS Variable Token</th>
+                <th>Light Mode Value</th>
+                <th>Dark Mode Override</th>
+                <th>Current Live Sample</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>--bg-page</code></td>
+                <td>#ffffff</td>
+                <td>#0b0f19</td>
+                <td><span class="color-swatch" style="background-color: var(--bg-page);"></span></td>
+              </tr>
+              <tr>
+                <td><code>--bg-card</code></td>
+                <td>#f8fafc</td>
+                <td>#151d2f</td>
+                <td><span class="color-swatch" style="background-color: var(--bg-card);"></span></td>
+              </tr>
+              <tr>
+                <td><code>--text-primary</code></td>
+                <td>#0f172a</td>
+                <td>#f8fafc</td>
+                <td><span class="color-swatch" style="background-color: var(--text-primary);"></span></td>
+              </tr>
+              <tr>
+                <td><code>--accent-primary</code></td>
+                <td>#4f46e5</td>
+                <td>#818cf8</td>
+                <td><span class="color-swatch" style="background-color: var(--accent-primary);"></span></td>
+              </tr>
+              <tr>
+                <td><code>--border-subtle</code></td>
+                <td>#e2e8f0</td>
+                <td>#1e293b</td>
+                <td><span class="color-swatch" style="background-color: var(--border-subtle);"></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 Rahul Raj &bull; Full Stack Lab Sheet 02 &bull; Task 2.1: Dark-Mode Landing Layout with CSS Variables</p>
+      <p class="author-note">Author: Rahul Raj &bull; Computer Science &amp; Engineering</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

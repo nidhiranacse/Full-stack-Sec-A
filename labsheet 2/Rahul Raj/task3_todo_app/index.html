@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Client-side interactive Todo Application featuring runtime element append mechanisms and operational validation error flags - Lab Sheet 02 Task 2.3 by Rahul Raj">
+  <title>Interactive Task Engine &amp; Todo App | Rahul Raj</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Action Bar -->
+  <header class="top-header">
+    <div class="header-inner">
+      <a href="../../index.html" class="btn-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Lab Portal
+      </a>
+      <div class="lab-pill">Lab Sheet 02 &bull; Task 2.3</div>
+      <div class="student-tag">Author: Rahul Raj</div>
+    </div>
+  </header>
+
+  <main class="app-wrapper">
+    <!-- Header Summary Section -->
+    <section class="app-intro">
+      <span class="badge">Runtime Append &bull; Validation Error Flags</span>
+      <h1 class="page-title">Interactive Task Management Engine</h1>
+      <p class="page-desc">
+        A client-side interactive Todo application featuring dynamic <strong>runtime DOM element append mechanisms</strong> and real-time <strong>operational validation error flags</strong> for robust input verification.
+      </p>
+    </section>
+
+    <!-- Operational Validation Error Flag Banner (Dynamic) -->
+    <div id="validation-flag-container" class="validation-flag-container" role="alert" aria-live="assertive" style="display: none;">
+      <div class="validation-flag">
+        <div class="flag-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        </div>
+        <div class="flag-body">
+          <strong class="flag-title">Operational Validation Flag Triggered</strong>
+          <p id="validation-error-message" class="flag-message">Task description cannot be empty or contain only whitespace.</p>
+        </div>
+        <button id="dismiss-flag-btn" class="dismiss-flag-btn" aria-label="Dismiss error flag">&times;</button>
+      </div>
+    </div>
+
+    <!-- Main Application Card -->
+    <div class="todo-card">
+      
+      <!-- Input Form Section -->
+      <form id="todo-form" class="todo-form" novalidate>
+        <div class="form-row-main">
+          <div class="input-wrap">
+            <input type="text" id="task-input" class="task-input" placeholder="What task needs to be engineered today? (Min. 3 characters)" autocomplete="off" aria-label="New Task Description">
+            <span class="input-counter" id="char-counter">0/100</span>
+          </div>
+          <button type="submit" id="add-task-btn" class="btn-add">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Append Task
+          </button>
+        </div>
+
+        <div class="form-row-options">
+          <div class="option-item">
+            <label for="priority-select" class="option-label">Priority Flag:</label>
+            <select id="priority-select" class="select-control">
+              <option value="high">🔴 High Priority</option>
+              <option value="medium" selected>🟡 Medium Priority</option>
+              <option value="low">🟢 Low Priority</option>
+            </select>
+          </div>
+
+          <div class="option-item">
+            <label for="category-select" class="option-label">Domain Area:</label>
+            <select id="category-select" class="select-control">
+              <option value="Full Stack" selected>Full Stack</option>
+              <option value="Architecture">Architecture</option>
+              <option value="Database">Database</option>
+              <option value="DevOps">DevOps &amp; Cloud</option>
+              <option value="Docs">Documentation</option>
+            </select>
+          </div>
+        </div>
+      </form>
+
+      <!-- App Status & Controls Bar -->
+      <div class="controls-bar">
+        <div class="filter-group" role="tablist" aria-label="Task Status Filters">
+          <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All (<span id="total-count">0</span>)</button>
+          <button class="filter-tab" data-filter="active" role="tab" aria-selected="false">Active (<span id="active-count">0</span>)</button>
+          <button class="filter-tab" data-filter="completed" role="tab" aria-selected="false">Completed (<span id="completed-count">0</span>)</button>
+        </div>
+
+        <div class="actions-group">
+          <button id="clear-completed-btn" class="btn-text-action" title="Clear all completed tasks">
+            Clear Completed
+          </button>
+        </div>
+      </div>
+
+      <!-- Runtime Element Append Target Container -->
+      <ul id="todo-list" class="todo-list" aria-label="Interactive Task Items">
+        <!-- Dynamically appended items will be injected here via document.createElement() -->
+      </ul>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">📋</div>
+        <h3 class="empty-title">No tasks found</h3>
+        <p class="empty-desc">Your queue is currently clear. Enter a task title above to test runtime element append mechanisms.</p>
+      </div>
+
+      <!-- Task Metrics Analytics Footer -->
+      <div class="metrics-footer">
+        <div class="metric-item">
+          <span class="metric-num" id="metric-total">0</span>
+          <span class="metric-lbl">Total Tasks</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-num text-amber" id="metric-active">0</span>
+          <span class="metric-lbl">Active</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-num text-green" id="metric-done">0</span>
+          <span class="metric-lbl">Completed</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-num text-indigo" id="metric-rate">0%</span>
+          <span class="metric-lbl">Completion Rate</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Syllabus Architecture Highlights -->
+    <section class="code-architecture-box">
+      <h3 class="arch-title">Core Implementation Mechanics</h3>
+      <div class="arch-grid">
+        <div class="arch-item">
+          <strong class="arch-label">Runtime Element Append:</strong>
+          <code>document.createElement('li') -> appendChild() / prepend()</code>
+          <p>Creates structured task elements in memory, sets attributes, styles, ARIA tags, and binds listeners before live insertion.</p>
+        </div>
+        <div class="arch-item">
+          <strong class="arch-label">Operational Validation Error Flags:</strong>
+          <code>validateInput(text): { isValid: false, reason: 'EMPTY' | 'SHORT' | 'DUPLICATE' }</code>
+          <p>Multi-condition client-side validation engine preventing empty strings, whitespace spoofing, and duplicate tasks.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>&copy; 2026 Rahul Raj &bull; Full Stack Lab Sheet 02 &bull; Task 2.3: Interactive Todo Application</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

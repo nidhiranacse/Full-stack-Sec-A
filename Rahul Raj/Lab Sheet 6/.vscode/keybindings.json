@@ -1,0 +1,21 @@
+[
+  {
+    "key": "ctrl+shift+d",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "python deploy_check.py\u000D"
+    }
+  },
+  {
+    "key": "ctrl+alt+r",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "python django_project/manage.py runserver\u000D"
+    }
+  },
+  {
+    "key": "shift+alt+f",
+    "command": "editor.action.formatDocument",
+    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+  }
+]

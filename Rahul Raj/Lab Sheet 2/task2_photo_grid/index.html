@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Responsive web photo grid layout using CSS Flexbox rules that wraps fluidly across mobile viewports, with hovering transform animations - Lab Sheet 02 Task 2.2 by Rahul Raj">
+  <title>Responsive Flexbox Photo Grid | Rahul Raj</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Action Bar -->
+  <header class="top-header">
+    <div class="header-inner">
+      <a href="../../index.html" class="btn-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Lab Portal
+      </a>
+      <div class="lab-pill">Lab Sheet 02 &bull; Task 2.2</div>
+      <div class="student-tag">Author: Rahul Raj</div>
+    </div>
+  </header>
+
+  <!-- Main Hero & Grid Section -->
+  <main class="gallery-wrapper">
+    <section class="gallery-hero">
+      <span class="badge">CSS Flexbox Architecture &bull; Hover Transforms</span>
+      <h1 class="page-title">Dynamic Fluid Photo Grid</h1>
+      <p class="page-desc">
+        Constructed using pure <strong>CSS Flexbox rules</strong> (<code class="code-pill">display: flex; flex-wrap: wrap;</code>) engineered to wrap fluidly across all mobile, tablet, and desktop viewports. Features interactive 3D scale and translateY <strong>hovering transform animations</strong>.
+      </p>
+
+      <!-- Interactive Filter Controls -->
+      <div class="filter-bar">
+        <button class="filter-tab active" data-filter="all">All Shots (8)</button>
+        <button class="filter-tab" data-filter="architecture">Architecture</button>
+        <button class="filter-tab" data-filter="nature">Nature &amp; Vistas</button>
+        <button class="filter-tab" data-filter="tech">Engineering &amp; Tech</button>
+      </div>
+    </section>
+
+    <!-- The CSS Flexbox Grid Container -->
+    <section class="flex-photo-grid" id="photo-grid" aria-label="Photo Gallery Grid">
+      
+      <!-- Photo Card 1 (Architecture) -->
+      <article class="photo-card" data-category="architecture">
+        <div class="img-wrapper">
+          <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" 
+               alt="Modern architectural glass facade reflecting geometric sky patterns" 
+               loading="lazy">
+          <div class="photo-overlay">
+            <span class="photo-category">Architecture</span>
+            <h2 class="photo-title">Futuristic Glass Atrium</h2>
+            <p class="photo-meta">Focal: 24mm &bull; f/2.8 &bull; ISO 100</p>
+          </div>
+        </div>
+        <div class="card-caption">
+          <span class="caption-tag">Geometric Facades</span>
+          <span class="view-pill">Zoom ↗</span>
+        </div>
+      </article>
+
+      <!-- Photo Card 2 (Nature) -->
+      <article class="photo-card" data-category="nature">
+        <div class="img-wrapper">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" 
+               alt="Majestic mountain lake alpine reflection at sunrise" 
+               loading="lazy">
+          <div class="photo-overlay">
+            <span class="photo-category">Nature &amp; Vistas</span>
+            <h2 class="photo-title">Alpine Valley Reverie</h2>
+            <p class="photo-meta">Focal: 35mm &bull; f/5.6 &bull; ISO 200</p>
+          </div>
+        </div>
+        <div class="card-caption">
+          <span class="caption-tag">Alpine Wilderness</span>
+          <span class="view-pill">Zoom ↗</span>
+        </div>
+      </article>
+
+      <!-- Photo Card 3 (Tech) -->
+      <article class="photo-card" data-category="tech">
+        <div class="img-wrapper">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" 
+               alt="High performance electronic circuit board with glowing microchip bus lines" 
+               loading="lazy">
+          <div class="photo-overlay">
+            <span class="photo-category">Engineering &amp; Tech</span>
+            <h2 class="photo-title">Semiconductor Array</h2>
+            <p class="photo-meta">Focal: 50mm &bull; f/1.8 &bull; ISO 400</p>
+          </div>
+        </div>
+        <div class="card-caption">
+          <span class="caption-tag">Hardware Engineering</span>
+          <span class="view-pill">Zoom ↗</span>
+        </div>
+      </article>
+
+      <!-- Photo Card 4 (Architecture) -->
+      <article class="photo-card" data-category="architecture">
+        <div class="img-wrapper">
+          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" 
+               alt="Modern skyscraper rising into clouds with symmetrical metallic lines" 
+               loading="lazy">
+          <div class="photo-overlay">
+            <span class="photo-category">Architecture</span>
+            <h2 class="photo-title">Metropolis Monolith</h2>
+            <p class="photo-meta">Focal: 18mm &bull; f/8.0 &bull; ISO 100</p>
+          </div>
+        </div>
+        <div class="card-caption">
+          <span class="caption-tag">Urban Highrise</span>
+          <span class="view-pill">Zoom ↗</span>
+        </div>
+      </article>
+
+      <!-- Photo Card 5 (Nature) -->
+      <article class="photo-card" data-category="nature">
+        <div class="img-wrapper">
+          <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80" 
+               alt="Dense misty forest canopy with atmospheric fog and sunrise rays" 
+               loading="lazy">
+          <div class="photo-overlay">
+            <span class="photo-category">Nature &amp; Vistas</span>
+            <h2 class="photo-title">Emerald Mist Valley</h2>
+            <p class="photo-meta">Focal: 70mm &bull; f/4.0 &bull; ISO 320</p>
+          </div>
+        </div>
+        <div class="card-caption">
+          <span class="caption-tag">Highland Woodlands</span>
+          <span class="view-pill">Zoom ↗</span>
+        </div>
+      </article>
+
+      <!-- Photo Card 6 (Tech) -->
+      <article class="photo-card" data-category="tech">
+        <div class="img-wrapper">
+          <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" 
+               alt="Matrix digital code streams across dark server console screen" 
+               loading="lazy">
+          <div class="photo-overlay">
+            <span class="photo-category">Engineering &amp; Tech</span>
+            <h2 class="photo-title">Cyber Telemetry Stream</h2>
+            <p class="photo-meta">Focal: 35mm &bull; f/2.0 &bull; ISO 800</p>
+          </div>
+        </div>
+        <div class="card-caption">
+          <span class="caption-tag">Code Infrastructure</span>
+          <span class="view-pill">Zoom ↗</span>
+        </div>
+      </article>
+
+      <!-- Photo Card 7 (Architecture) -->
+      <article class="photo-card" data-category="architecture">
+        <div class="img-wrapper">
+          <img src="https://images.unsplash.com/photo-1493397212122-2b85dda8106b?auto=format&fit=crop&w=800&q=80" 
+               alt="Minimalist spiral staircase looking up towards sunlight aperture" 
+               loading="lazy">
+          <div class="photo-overlay">
+            <span class="photo-category">Architecture</span>
+            <h2 class="photo-title">Vortex Helical Stair</h2>
+            <p class="photo-meta">Focal: 16mm &bull; f/5.6 &bull; ISO 100</p>
+          </div>
+        </div>
+        <div class="card-caption">
+          <span class="caption-tag">Minimalist Curve</span>
+          <span class="view-pill">Zoom ↗</span>
+        </div>
+      </article>
+
+      <!-- Photo Card 8 (Nature) -->
+      <article class="photo-card" data-category="nature">
+        <div class="img-wrapper">
+          <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80" 
+               alt="Rolling green meadow hills during golden twilight sunset" 
+               loading="lazy">
+          <div class="photo-overlay">
+            <span class="photo-category">Nature &amp; Vistas</span>
+            <h2 class="photo-title">Golden Horizon Meadow</h2>
+            <p class="photo-meta">Focal: 28mm &bull; f/8.0 &bull; ISO 160</p>
+          </div>
+        </div>
+        <div class="card-caption">
+          <span class="caption-tag">Twilight Rolling Hills</span>
+          <span class="view-pill">Zoom ↗</span>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Flexbox Architecture Spec Callout -->
+    <section class="flexbox-specs">
+      <h3 class="specs-title">Flexbox Rules Implementation Breakdown</h3>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="spec-label">Container Engine:</span>
+          <code>display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;</code>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Child Card Rule:</span>
+          <code>flex: 1 1 280px; max-width: 380px;</code>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Hover Animation:</span>
+          <code>transform: translateY(-8px) scale(1.02);</code>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Image Zoom Transform:</span>
+          <code>transform: scale(1.12); transition: 0.4s ease;</code>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="gallery-footer">
+    <p>&copy; 2026 Rahul Raj &bull; Full Stack Lab Sheet 02 &bull; Task 2.2: Responsive Flexbox Photo Grid</p>
+  </footer>
+
+  <script>
+    // Tab filter script
+    const tabs = document.querySelectorAll('.filter-tab');
+    const cards = document.querySelectorAll('.photo-card');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const filter = tab.getAttribute('data-filter');
+
+        cards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

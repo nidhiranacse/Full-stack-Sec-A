@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Blueprint{% endblock %}
+
+{% block content %}
+<section class="content-card">
+  <div style="margin-bottom: 1.5rem;">
+    <span style="background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3); color: #818cf8; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 9999px;">
+      Task 8.1 &bull; Template Inheritance Demonstration
+    </span>
+  </div>
+
+  <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+    Master Layout Blueprint &amp; Dynamic Markers
+  </h1>
+
+  <p style="color: var(--text-dim); margin-bottom: 1.75rem; font-size: 1.05rem;">
+    This view inherits all properties, fonts, responsive meta-tags, and shared menus from <code>base.html</code>. Notice that the <strong>Home</strong> item in the top navigation bar receives dynamic CSS structural active utility highlighting through backend context marker <code>active_page='home'</code>.
+  </p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+    <div style="background: #0f172a; border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem;">
+      <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #818cf8;">📌 Task 8.1 Active Markers</h3>
+      <p style="font-size: 0.85rem; color: var(--text-dim);">
+        Navigation items dynamically reflect context without client-side DOM queries, eliminating UI flickering.
+      </p>
+    </div>
+    <div style="background: #0f172a; border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem;">
+      <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #34d399;">📬 Task 8.2 Feedback Box</h3>
+      <p style="font-size: 0.85rem; color: var(--text-dim);">
+        Standardized message hooks render toasts and flash alerts consistently across all child view hierarchies.
+      </p>
+    </div>
+    <div style="background: #0f172a; border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem;">
+      <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #f59e0b;">🪵 Task 8.3 Server Logger</h3>
+      <p style="font-size: 0.85rem; color: var(--text-dim);">
+        Contact submissions directly stream verified feedback text parameters into server log outputs.
+      </p>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+    <a href="{% url 'contact' %}" class="btn">Test Contact Us Logger &rarr;</a>
+    <a href="?simulate_alert=info" class="btn" style="background: #1e293b; border: 1px solid #334155;">Simulate Info Flash Alert</a>
+    <a href="?simulate_alert=warning" class="btn" style="background: #1e293b; border: 1px solid #334155;">Simulate Warning Alert</a>
+  </div>
+</section>
+{% endblock %}

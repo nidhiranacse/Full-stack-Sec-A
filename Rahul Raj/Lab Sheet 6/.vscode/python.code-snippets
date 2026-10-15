@@ -1,0 +1,74 @@
+{
+  "Django Model Skeleton": {
+    "prefix": "djmodel",
+    "body": [
+      "class ${1:ModelName}(models.Model):",
+      "    \"\"\"Model definition for ${1:ModelName}.\"\"\"",
+      "    name = models.CharField(max_length=200, help_text=\"Unique descriptive name\")",
+      "    created_at = models.DateTimeField(auto_now_add=True)",
+      "    updated_at = models.DateTimeField(auto_now=True)",
+      "",
+      "    class Meta:",
+      "        verbose_name = \"${1:ModelName}\"",
+      "        verbose_name_plural = \"${1:ModelName}s\"",
+      "        ordering = [\"-created_at\"]",
+      "",
+      "    def __str__(self):",
+      "        return str(self.name)",
+      ""
+    ],
+    "description": "Standard production Django Model with timestamps and Meta class"
+  },
+  "DRF ModelSerializer Skeleton": {
+    "prefix": "drfser",
+    "body": [
+      "from rest_framework import serializers",
+      "from .models import ${1:ModelName}",
+      "",
+      "class ${1:ModelName}Serializer(serializers.ModelSerializer):",
+      "    \"\"\"Serializer for ${1:ModelName} data transfer objects.\"\"\"",
+      "    class Meta:",
+      "        model = ${1:ModelName}",
+      "        fields = \"__all__\"",
+      "        read_only_fields = [\"id\", \"created_at\", \"updated_at\"]",
+      ""
+    ],
+    "description": "Django REST Framework ModelSerializer template"
+  },
+  "DRF APIView Skeleton": {
+    "prefix": "drfview",
+    "body": [
+      "from rest_framework.views import APIView",
+      "from rest_framework.response import Response",
+      "from rest_framework import status",
+      "",
+      "class ${1:Feature}APIView(APIView):",
+      "    \"\"\"API View handling ${1:Feature} endpoints.\"\"\"",
+      "",
+      "    def get(self, request, *args, **kwargs):",
+      "        return Response({\"status\": \"ok\", \"data\": []}, status=status.HTTP_200_OK)",
+      "",
+      "    def post(self, request, *args, **kwargs):",
+      "        return Response({\"message\": \"Resource created\"}, status=status.HTTP_201_CREATED)",
+      ""
+    ],
+    "description": "Django REST Framework APIView template"
+  },
+  "Django HealthCheck View": {
+    "prefix": "djhealth",
+    "body": [
+      "from django.http import JsonResponse",
+      "import os",
+      "import sys",
+      "",
+      "def health_check(request):",
+      "    return JsonResponse({",
+      "        \"status\": \"healthy\",",
+      "        \"python_version\": sys.version,",
+      "        \"environment\": os.environ.get(\"ENV\", \"development\"),",
+      "    })",
+      ""
+    ],
+    "description": "Production Health Check Endpoint"
+  }
+}

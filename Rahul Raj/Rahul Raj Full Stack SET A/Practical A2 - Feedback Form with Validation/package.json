@@ -1,0 +1,27 @@
+{
+  "name": "practical-a2-feedback-form-with-validation",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "SET A - Practical A2: Feedback Form with Validation (React)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "jsdom": "^24.0.0",
+    "vite": "^5.2.0",
+    "vitest": "^1.4.0"
+  }
+}

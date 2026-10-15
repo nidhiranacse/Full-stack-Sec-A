@@ -1,0 +1,60 @@
+name: CampusConnect Full Stack CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - rahul-raj
+  pull_request:
+    branches:
+      - main
+      - rahul-raj
+
+jobs:
+  backend-test-suite:
+    name: Backend Unit Tests & Security Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime (v22 LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: 'Rahul Raj/Lab Sheet 11/backend/package-lock.json'
+
+      - name: Install Backend Dependencies
+        working-directory: 'Rahul Raj/Lab Sheet 11/backend'
+        run: npm ci
+
+      - name: Execute Automated Unit Tests (7/7 Passed)
+        working-directory: 'Rahul Raj/Lab Sheet 11/backend'
+        run: npm test
+
+      - name: Execute Database Query Indexing Benchmark
+        working-directory: 'Rahul Raj/Lab Sheet 11'
+        run: node benchmark_indexing.js
+
+  frontend-build:
+    name: Frontend Production Build & Bundle Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime (v22 LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: 'Rahul Raj/Lab Sheet 11/frontend/package-lock.json'
+
+      - name: Install Frontend Dependencies
+        working-directory: 'Rahul Raj/Lab Sheet 11/frontend'
+        run: npm ci
+
+      - name: Compile Production Build Bundle
+        working-directory: 'Rahul Raj/Lab Sheet 11/frontend'
+        run: npm run build

@@ -1,0 +1,127 @@
+/**
+ * Product Catalog Data
+ * Used across Routes, Route Params (/products/:id), and Global State
+ */
+export const products = [
+  {
+    id: 'prod_1',
+    name: 'Vortex Pro Developer Laptop',
+    category: 'Computing',
+    price: 1899,
+    rating: 4.9,
+    reviewsCount: 142,
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
+    tagline: 'High-throughput 16-Core UNIX Workstation with 64GB Unified RAM',
+    description:
+      'Engineered specifically for full-stack software engineers, kernel developers, and ML researchers. Featuring dedicated thermal dissipation cooling and ultra-low latency memory bus.',
+    specs: {
+      Processor: '16-Core Neural Silicon @ 4.2GHz',
+      Memory: '64GB LPDDR5X 7500MT/s',
+      Storage: '2TB NVMe PCIe 4.0 SSD (7200MB/s)',
+      Display: '16.2" Mini-LED 3456x2234 120Hz ProMotion',
+      Battery: '99.6Wh Lithium Polymer (22hr Runtime)',
+      OS: 'Custom UNIX / Linux / Windows compatible',
+    },
+  },
+  {
+    id: 'prod_2',
+    name: 'AuraWave ANC Studio Headphones',
+    category: 'Audio',
+    price: 349,
+    rating: 4.8,
+    reviewsCount: 88,
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80',
+    tagline: 'Lossless Spatial Acoustic Isolation for Maximum Coding Focus',
+    description:
+      'Engineered for deep concentration and extended studio sessions. Incorporates dual-chamber hybrid noise cancellation algorithm and beryllium dynamic drivers.',
+    specs: {
+      Driver: '40mm Pure Beryllium Dynamic Transducers',
+      FrequencyResponse: '5Hz - 42,000Hz (Hi-Res Certified)',
+      ANC: 'Quad-mic Adaptive Active Noise Cancellation',
+      Connectivity: 'Bluetooth 5.3 + 3.5mm Analog + USB-C DAC',
+      BatteryLife: '45 hours with continuous ANC enabled',
+    },
+  },
+  {
+    id: 'prod_3',
+    name: 'CipherKey Mechanical Keyboard',
+    category: 'Peripherals',
+    price: 179,
+    rating: 4.9,
+    reviewsCount: 230,
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80',
+    tagline: '75% Gasket-Mount Hot-Swappable PBT Keyboard',
+    description:
+      'CNC milled anodized aluminum chassis paired with pre-lubricated linear switches. QMK/VIA programmable firmware for custom developer shortcut keymaps.',
+    specs: {
+      Layout: '75% Compact (82 Keys with Rotary Encoder)',
+      Switches: 'Gateron Oil King Linear (Pre-lubed, 55g)',
+      Mounting: 'Poron Multi-Layer Gasket Cushioning',
+      Keycaps: 'Double-Shot PBT Cherry Profile',
+      PollingRate: '1000Hz Ultra-Low Latency USB-C',
+    },
+  },
+  {
+    id: 'prod_4',
+    name: 'Horizon 38" Curved Ultrawide Display',
+    category: 'Displays',
+    price: 1199,
+    rating: 4.7,
+    reviewsCount: 64,
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=800&q=80',
+    tagline: 'IPS Black 3840x1600 Ergonomic Canvas with 90W USB-C Hub',
+    description:
+      'A sprawling 21:9 visual field providing simultaneous three-pane code view and live browser preview without window cycling.',
+    specs: {
+      PanelSize: '38" WQHD+ (3840 x 1600, 21:9 Aspect)',
+      Curvature: '2300R Subtle Immersion Curve',
+      ColorAccuracy: '98% DCI-P3, Delta E < 2 Factory Calibrated',
+      RefreshRate: '144Hz with AMD FreeSync Premium Pro',
+      IOPorts: 'Thunderbolt 4 (90W PD), DisplayPort 1.4, HDMI 2.1, 4x USB-A',
+    },
+  },
+  {
+    id: 'prod_5',
+    name: 'Nexus Edge Serverless Cluster Node',
+    category: 'Computing',
+    price: 499,
+    rating: 4.9,
+    reviewsCount: 45,
+    inStock: false,
+    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80',
+    tagline: 'Silent Micro-Server for Self-Hosted Kubernetes & Docker Stacks',
+    description:
+      'Passive aluminum heat-sink micro tower engineered for round-the-clock home lab CI/CD automation, PostgreSQL replicas, and localized AI inference.',
+    specs: {
+      CPU: 'AMD Ryzen 7 7840HS (8 Cores / 16 Threads)',
+      RAM: '32GB DDR5 5600MHz (Upgradeable to 64GB)',
+      Storage: '1TB M.2 NVMe + 2.5" SATA Bay',
+      Networking: 'Dual 2.5GbE Intel I226-V Ethernet Ports',
+      Cooling: '0 dB Fanless Solid Copper Block',
+    },
+  },
+  {
+    id: 'prod_6',
+    name: 'ErgoGlide Precision Wireless Mouse',
+    category: 'Peripherals',
+    price: 129,
+    rating: 4.8,
+    reviewsCount: 195,
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=800&q=80',
+    tagline: 'Electromagnetic MagSpeed Ergonomic Thumb Sculpted Mouse',
+    description:
+      'Reduces wrist pronation strain during long software development sprints. Features hyper-fast 1,000 lines-per-second scrolling.',
+    specs: {
+      Sensor: 'Darkfield 8000 DPI (Tracks on glass surfaces)',
+      ScrollWheel: 'Dual-Mode Electromagnetic SmartShift',
+      Connectivity: 'Bluetooth LE + 2.4GHz Logi Bolt USB Receiver',
+      Battery: 'USB-C fast charge: 3 minutes gives 1 full workday',
+      Weight: '141 grams calibrated balance',
+    },
+  },
+];

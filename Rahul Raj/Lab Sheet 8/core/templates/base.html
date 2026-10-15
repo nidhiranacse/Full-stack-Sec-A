@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ page_title }}{% endblock %} | Lab Sheet 08 - {{ student_name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: rgba(21, 29, 47, 0.85);
+      --border: #1e293b;
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --text: #f8fafc;
+      --text-dim: #94a3b8;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      --info: #3b82f6;
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    /* Master Layout Navigation Header */
+    .master-header {
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+    }
+    .brand-title { font-size: 1.05rem; font-weight: 800; }
+    .brand-sub { font-size: 0.72rem; color: var(--text-dim); }
+
+    /* Task 8.1: Programmatic Active Navigation Item Markers */
+    .master-nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .nav-item { position: relative; }
+    .nav-link {
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 0.45rem 0.95rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: inline-block;
+    }
+    .nav-link:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    /* Active Utility Highlight (Task 8.1) */
+    .nav-link.active {
+      color: #ffffff;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.25);
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Task 8.2: Inherited Persistent User Message Feedback Notification Box */
+    .feedback-messages-hook {
+      margin-bottom: 2rem;
+    }
+    .alert-box {
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      animation: fadeIn 0.3s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .alert-success {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+    }
+    .alert-warning {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+    }
+    .alert-error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+    }
+    .alert-info {
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: #60a5fa;
+    }
+
+    /* Common Card Styles */
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.65rem 1.35rem;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+    /* Form Styles */
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-dim);
+      margin-bottom: 0.4rem;
+    }
+    .form-input {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 0.65rem 1rem;
+      color: #fff;
+      font-family: var(--font);
+      font-size: 0.92rem;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .master-footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.82rem;
+      background: rgba(15, 23, 42, 0.6);
+    }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <!-- Shared Master Menu Blueprint -->
+  <header class="master-header">
+    <div class="nav-container">
+      <a href="{% url 'home' %}" class="brand-box">
+        <div class="brand-icon">08</div>
+        <div>
+          <div class="brand-title">Modular UI Blueprints</div>
+          <div class="brand-sub">Candidate: {{ student_name }} ({{ student_id }})</div>
+        </div>
+      </a>
+
+      <!-- Task 8.1: Programmatic Active Navigation Item Markers -->
+      <nav aria-label="Primary Navigation">
+        <ul class="master-nav-links">
+          <li class="nav-item">
+            <a href="{% url 'home' %}" class="nav-link {% if active_page == 'home' %}active{% endif %}">
+              Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'about' %}" class="nav-link {% if active_page == 'about' %}active{% endif %}">
+              About Us
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'contact' %}" class="nav-link {% if active_page == 'contact' %}active{% endif %}">
+              Contact Us
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Task 8.2: Inherited Message Notification Feedback Hook -->
+    {% block messages %}
+      {% if messages %}
+        <div class="feedback-messages-hook" role="region" aria-label="User Feedback Notifications">
+          {% for message in messages %}
+            <div class="alert-box alert-{{ message.tags }}">
+              {% if message.tags == 'success' %}✓{% elif message.tags == 'warning' %}⚠️{% elif message.tags == 'error' %}✕{% else %}ℹ{% endif %}
+              <span>{{ message }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endblock %}
+
+    <!-- Specialized Child View Content Block Override -->
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="master-footer">
+    <p>&copy; 2026 {{ student_name }} &bull; Lab Sheet 08 &bull; Template Inheritance Blueprints &amp; Modular UI Engineering</p>
+  </footer>
+
+</body>
+</html>

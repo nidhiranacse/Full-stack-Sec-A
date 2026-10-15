@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us Blueprint{% endblock %}
+
+{% block content %}
+<section class="content-card">
+  <div style="margin-bottom: 1.5rem;">
+    <span style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 9999px;">
+      Task 8.1 &bull; Active Route Marker: About Us
+    </span>
+  </div>
+
+  <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem;">
+    About Modular UI Engineering
+  </h1>
+
+  <p style="color: var(--text-dim); margin-bottom: 1.5rem; font-size: 1.05rem;">
+    Template inheritance operates under the DRY (Don't Repeat Yourself) principle. By establishing a single source of truth in <code>base.html</code>, all navigational headers, brand indicators, footer scripts, and persistent message notification boxes remain universally cohesive.
+  </p>
+
+  <div style="background: #0f172a; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+    <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: #93c5fd;">Architecture Benefits:</h3>
+    <ul style="padding-left: 1.5rem; color: var(--text-dim); font-size: 0.95rem; line-height: 1.8;">
+      <li><strong>Atomic Header Updates:</strong> Changing a menu item in <code>base.html</code> propagates instantly across 100+ child templates.</li>
+      <li><strong>Predictable Layout Hierarchy:</strong> Enforces consistent container widths, grid setups, and accessibility landmarks.</li>
+      <li><strong>Clean Server Communication:</strong> Child views focus strictly on payload presentation without having to re-declare structural boilerplate.</li>
+    </ul>
+  </div>
+
+  <a href="{% url 'contact' %}" class="btn">Proceed to Contact View &rarr;</a>
+</section>
+{% endblock %}
