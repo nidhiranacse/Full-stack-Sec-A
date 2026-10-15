@@ -1,0 +1,1038 @@
+<!-- Name: Mishti Verma, CU ID: CU24250174  -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Mishti Verma B.Tech Computer Science Portfolio">
+
+    <title>Mishti Verma - B.Tech Portfolio</title>
+
+
+    <style>
+
+        /* =========================================
+           GENERAL STYLING
+           ========================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #111827;
+            color: white;
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           HEADER
+           TASK 1.1 - SEMANTIC RESUME
+           ========================================= */
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #1f2937;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            color: #818cf8;
+        }
+
+        header p {
+            color: #d1d5db;
+        }
+
+        address {
+            margin-top: 15px;
+            color: #d1d5db;
+            font-style: normal;
+        }
+
+        address a {
+            color: #818cf8;
+        }
+
+
+        /* =========================================
+           TASK 1.2 - NAVIGATION MENU
+           ========================================= */
+
+        nav {
+            background-color: #0f172a;
+        }
+
+        nav > ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            margin: 0;
+            padding: 0;
+
+            list-style: none;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            display: block;
+
+            padding: 15px 20px;
+
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            background-color: #374151;
+            color: #818cf8;
+        }
+
+
+        /* First dropdown */
+
+        nav ul ul {
+            display: none;
+
+            position: absolute;
+
+            top: 100%;
+            left: 0;
+
+            min-width: 190px;
+
+            margin: 0;
+            padding: 0;
+
+            list-style: none;
+
+            background-color: #1f2937;
+
+            z-index: 100;
+        }
+
+        nav li:hover > ul,
+        nav li:focus-within > ul {
+            display: block;
+        }
+
+
+        /* Second dropdown */
+
+        nav ul ul ul {
+            top: 0;
+            left: 100%;
+        }
+
+
+        /* =========================================
+           MAIN CONTENT
+           ========================================= */
+
+        main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 25px;
+        }
+
+        section {
+            margin-bottom: 30px;
+            padding: 30px;
+
+            background-color: #1f2937;
+
+            border: 1px solid #374151;
+            border-radius: 12px;
+        }
+
+        h2 {
+            color: #818cf8;
+
+            border-bottom: 2px solid #818cf8;
+
+            padding-bottom: 10px;
+        }
+
+
+        /* =========================================
+           TASK 1.1 - ABOUT / RESUME
+           ========================================= */
+
+        .about-text {
+            color: #d1d5db;
+        }
+
+        .education {
+            margin-top: 20px;
+            padding: 20px;
+
+            background-color: #111827;
+
+            border-radius: 8px;
+        }
+
+        .education h3 {
+            color: #a5b4fc;
+        }
+
+
+        /* =========================================
+           SKILLS
+           ========================================= */
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            padding: 0;
+
+            list-style: none;
+        }
+
+        .skill {
+            padding: 10px 18px;
+
+            background-color: #4f46e5;
+
+            border-radius: 20px;
+        }
+
+
+        /* =========================================
+           PROJECTS
+           ========================================= */
+
+        .projects {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+        .project-card {
+            padding: 20px;
+
+            background-color: #111827;
+
+            border: 1px solid #374151;
+
+            border-radius: 10px;
+        }
+
+        .project-card h3 {
+            color: #a5b4fc;
+        }
+
+        .project-card p {
+            color: #d1d5db;
+        }
+
+
+        /* =========================================
+           TASK 1.3 - WEB CATALOG
+           ========================================= */
+
+        dl {
+            margin: 0;
+        }
+
+        dt {
+            margin-top: 25px;
+
+            color: #a5b4fc;
+
+            font-size: 1.25rem;
+
+            font-weight: bold;
+        }
+
+        dd {
+            margin-left: 20px;
+            margin-top: 8px;
+
+            color: #d1d5db;
+        }
+
+        .catalog-price {
+            color: #4ade80;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================================
+           CONTACT
+           ========================================= */
+
+        form {
+            max-width: 600px;
+        }
+
+        label {
+            color: #d1d5db;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+
+            padding: 12px;
+
+            margin-top: 5px;
+
+            background-color: #111827;
+
+            color: white;
+
+            border: 1px solid #4b5563;
+
+            border-radius: 6px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            padding: 12px 25px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background-color: #4f46e5;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #6366f1;
+        }
+
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+
+        footer {
+            padding: 25px;
+
+            background-color: #0f172a;
+
+            color: #9ca3af;
+
+            text-align: center;
+        }
+
+
+        /* =========================================
+           RESPONSIVE DESIGN
+           ========================================= */
+
+        @media (max-width: 700px) {
+
+            nav > ul {
+                flex-direction: column;
+            }
+
+            nav ul ul {
+                position: static;
+            }
+
+            nav ul ul ul {
+                position: static;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         TASK 1.1
+         SEMANTIC RESUME HEADER
+         ========================================= -->
+
+    <header>
+
+        <h1>
+            Hello, I'm Mishti Verma 👋🏻
+        </h1>
+
+        <p>
+            B.Tech Computer Science and Engineering Student |
+            Front-end Developer (Intermediate) |
+            Back-end Developer (Intermediate)
+        </p>
+
+        <address>
+
+            Email:
+            <a href="mailto:mishtiverma319@gmail.com">
+                mishtiverma319@gmail.com
+            </a>
+
+            <br>
+
+            Location:
+            Roorkee, Uttarakhand, India
+
+        </address>
+
+    </header>
+
+
+
+    <!-- =========================================
+         TASK 1.2
+         NESTED NAVIGATION MENU
+         ========================================= -->
+
+    <nav aria-label="Main Navigation">
+
+        <ul>
+
+
+            <!-- HOME -->
+
+            <li>
+
+                <a href="#home">
+                    Home
+                </a>
+
+            </li>
+
+
+            <!-- ABOUT -->
+
+            <li>
+
+                <a href="#about">
+                    About
+                </a>
+
+                <ul>
+
+                    <li>
+
+                        <a href="#education">
+                            Education
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="#hobbies">
+                            Hobbies
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </li>
+
+
+            <!-- SKILLS -->
+
+            <li>
+
+                <a href="#skills">
+                    Skills
+                </a>
+
+                <ul>
+
+                    <li>
+
+                        <a href="#programming">
+                            Programming
+                        </a>
+
+                        <ul>
+
+                            <li>
+
+                                <a href="#python">
+                                    Python
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="#cpp">
+                                    C++
+                                </a>
+
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="#web">
+                            Web Development
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </li>
+
+
+            <!-- PROJECTS -->
+
+            <li>
+
+                <a href="#projects">
+                    Projects
+                </a>
+
+            </li>
+
+
+            <!-- CATALOG -->
+
+            <li>
+
+                <a href="#catalog">
+                    Web Catalog
+                </a>
+
+            </li>
+
+
+            <!-- CONTACT -->
+
+            <li>
+
+                <a href="#contact">
+                    Contact
+                </a>
+
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+
+    <!-- =========================================
+         MAIN CONTENT
+         ========================================= -->
+
+    <main id="home">
+
+
+        <!-- =========================================
+             TASK 1.1 - ABOUT ME
+             ========================================= -->
+
+        <section id="about">
+
+            <h2>
+                About Me
+            </h2>
+
+            <p class="about-text">
+
+                Hello, I'm
+                <strong>Mishti Verma</strong>,
+                currently pursuing a
+                <strong>Bachelor of Technology in
+                Computer Science and Engineering</strong>
+                at COER University.
+
+                I'm passionate about coding and eager
+                to learn and grow by applying my skills
+                through projects, internships and
+                collaborative work.
+
+            </p>
+
+
+            <p class="about-text">
+
+                I completed my intermediate education
+                (2023-2024) and higher education
+                (2021-2022) from Greenway Modern Senior
+                Secondary School, Roorkee.
+
+            </p>
+
+
+            <p
+                class="about-text"
+                id="hobbies">
+
+                <strong>My Hobbies:</strong>
+
+                Listening to music,
+                playing badminton and coding.
+
+            </p>
+
+
+            <!-- EDUCATION -->
+
+            <article
+                class="education"
+                id="education">
+
+                <h3>
+                    Education
+                </h3>
+
+                <p>
+                    <strong>
+                        Bachelor of Technology (B.Tech)
+                    </strong>
+                </p>
+
+                <p>
+                    Computer Science and Engineering
+                </p>
+
+                <p>
+                    COER University
+                </p>
+
+                <p>
+                    Currently Pursuing
+                </p>
+
+            </article>
+
+        </section>
+
+
+
+        <!-- =========================================
+             SKILLS
+             ========================================= -->
+
+        <section id="skills">
+
+            <h2>
+                Skills
+            </h2>
+
+            <ul class="skills-list">
+
+                <li
+                    class="skill"
+                    id="programming">
+
+                    Machine Learning
+
+                </li>
+
+                <li
+                    class="skill"
+                    id="python">
+
+                    Python
+
+                </li>
+
+                <li
+                    class="skill"
+                    id="web">
+
+                    HTML
+
+                </li>
+
+                <li class="skill">
+                    CSS
+                </li>
+
+                <li class="skill">
+                    JavaScript
+                </li>
+
+                <li
+                    class="skill"
+                    id="cpp">
+
+                    C++
+
+                </li>
+
+            </ul>
+
+        </section>
+
+
+
+        <!-- =========================================
+             PROJECTS
+             ONLY FIRST TWO PROJECTS
+             ========================================= -->
+
+        <section id="projects">
+
+            <h2>
+                Projects
+            </h2>
+
+
+            <div class="projects">
+
+
+                <!-- PROJECT 1 -->
+
+                <article class="project-card">
+
+                    <h3>
+                        Customer Support Ticket
+                        Classifier System
+                    </h3>
+
+                    <p>
+
+                        A Machine Learning-powered
+                        web application that automatically
+                        classifies customer support tickets
+                        into appropriate departments and
+                        predicts priority levels.
+
+                        The system also provides routing
+                        decisions, urgency scoring and
+                        interactive visual analytics.
+
+                    </p>
+
+                </article>
+
+
+
+                <!-- PROJECT 2 -->
+
+                <article class="project-card">
+
+                    <h3>
+                        Customer Behaviour Prediction
+                        Using Web Usage Mining
+                    </h3>
+
+                    <p>
+
+                        Analyze and predict customer behaviour
+                        based on user activities.
+
+                        The project focuses on uncovering
+                        patterns that help anticipate customer
+                        actions and improve insights into
+                        online user journeys.
+
+                    </p>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             TASK 1.3
+             WEB CATALOG
+             ========================================= -->
+
+        <section id="catalog">
+
+            <h2>
+                Web Catalog
+            </h2>
+
+            <p class="about-text">
+
+                This catalog contains information about
+                different technology products using the
+                HTML definition list elements
+                <strong>&lt;dl&gt;</strong>,
+                <strong>&lt;dt&gt;</strong> and
+                <strong>&lt;dd&gt;</strong>.
+
+            </p>
+
+
+            <dl>
+
+
+                <!-- PRODUCT 1 -->
+
+                <dt>
+                    Laptop
+                </dt>
+
+                <dd>
+
+                    <strong>
+                        Description:
+                    </strong>
+
+                    High-performance laptop suitable
+                    for programming, machine learning
+                    and web development.
+
+                </dd>
+
+                <dd class="catalog-price">
+
+                    Price: ₹55,000
+
+                </dd>
+
+
+
+                <!-- PRODUCT 2 -->
+
+                <dt>
+                    Wireless Headphones
+                </dt>
+
+                <dd>
+
+                    <strong>
+                        Description:
+                    </strong>
+
+                    Bluetooth headphones with
+                    noise cancellation and long
+                    battery life.
+
+                </dd>
+
+                <dd class="catalog-price">
+
+                    Price: ₹4,999
+
+                </dd>
+
+
+
+                <!-- PRODUCT 3 -->
+
+                <dt>
+                    Mechanical Keyboard
+                </dt>
+
+                <dd>
+
+                    <strong>
+                        Description:
+                    </strong>
+
+                    RGB mechanical keyboard with
+                    tactile switches, suitable for
+                    programming and gaming.
+
+                </dd>
+
+                <dd class="catalog-price">
+
+                    Price: ₹3,499
+
+                </dd>
+
+
+
+                <!-- PRODUCT 4 -->
+
+                <dt>
+                    Smart Watch
+                </dt>
+
+                <dd>
+
+                    <strong>
+                        Description:
+                    </strong>
+
+                    Smart wearable device with fitness
+                    tracking, notifications and
+                    health monitoring.
+
+                </dd>
+
+                <dd class="catalog-price">
+
+                    Price: ₹6,999
+
+                </dd>
+
+
+
+                <!-- PRODUCT 5 -->
+
+                <dt>
+                    Wireless Mouse
+                </dt>
+
+                <dd>
+
+                    <strong>
+                        Description:
+                    </strong>
+
+                    Ergonomic wireless mouse with
+                    adjustable DPI and rechargeable
+                    battery.
+
+                </dd>
+
+                <dd class="catalog-price">
+
+                    Price: ₹1,299
+
+                </dd>
+
+
+            </dl>
+
+        </section>
+
+
+
+        <!-- =========================================
+             CONTACT
+             ========================================= -->
+
+        <section id="contact">
+
+            <h2>
+                Contact Me
+            </h2>
+
+            <form>
+
+
+                <label for="name">
+                    Your Name
+                </label>
+
+                <br>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Your Name"
+                    required>
+
+                <br><br>
+
+
+
+                <label for="email">
+                    Your Email
+                </label>
+
+                <br>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Your Email"
+                    required>
+
+                <br><br>
+
+
+
+                <label for="message">
+                    Your Message
+                </label>
+
+                <br>
+
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    placeholder="Your Message"
+                    required>
+                </textarea>
+
+                <br><br>
+
+
+                <button type="submit">
+                    Send Message
+                </button>
+
+            </form>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         FOOTER
+         ========================================= -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 Mishti Verma |
+            B.Tech Computer Science and Engineering
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>
