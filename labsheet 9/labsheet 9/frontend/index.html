@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Record Management System</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>Student Record Management System</h1>
+
+  <!-- Form used for BOTH adding a new student and editing an existing one -->
+  <form id="studentForm">
+    <input type="hidden" id="studentId" />
+
+    <label for="name">Name</label>
+    <input type="text" id="name" required />
+
+    <label for="rollNo">Roll No.</label>
+    <input type="text" id="rollNo" required />
+
+    <label for="course">Course</label>
+    <input type="text" id="course" required />
+
+    <label for="marks">Marks (0-100)</label>
+    <input type="number" id="marks" min="0" max="100" required />
+
+    <button type="submit" id="submitBtn">Add Student</button>
+    <button type="button" id="cancelBtn" style="display:none;">Cancel</button>
+  </form>
+
+  <p id="formError" class="error"></p>
+
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Roll No.</th>
+        <th>Course</th>
+        <th>Marks</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody><!-- rows injected by script.js --></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>

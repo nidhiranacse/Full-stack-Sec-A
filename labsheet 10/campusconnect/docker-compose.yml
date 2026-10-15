@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: campusconnect_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app_network
+
+  redis:
+    image: redis:alpine
+    container_name: campusconnect_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app_network
+
+  backend:
+    build: ./backend
+    container_name: campusconnect_backend
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      MONGO_URI: mongodb://mongodb:27017/campusconnect
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: super_secret_jwt_key
+      REFRESH_SECRET: super_secret_refresh_key
+      CLIENT_ORIGIN: http://localhost
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - app_network
+
+  frontend:
+    build: ./frontend
+    container_name: campusconnect_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+volumes:
+  mongo_data:
+
+networks:
+  app_network:
+    driver: bridge

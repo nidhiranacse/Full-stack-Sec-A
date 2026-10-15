@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 5 - Controlled Forms, Validation & Onboarding Wizard</title>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: #0f172a; color: #e2e8f0; }
+    .app-shell { max-width: 760px; margin: 0 auto; padding: 1.5rem; }
+    .card {
+      background: #1e293b; border: 1px solid #334155; border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35); padding: 2rem; margin-bottom: 1.5rem;
+    }
+    .field { margin-bottom: 1.25rem; }
+    .field label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; color: #cbd5e1; }
+    .field input, .field select, .field textarea {
+      width: 100%; padding: 0.85rem 1rem; border: 1px solid #334155;
+      border-radius: 10px; font-size: 1rem; outline: none; transition: all .15s;
+      background: #0f172a; color: #e2e8f0;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: #22d3ee; box-shadow: 0 0 0 3px rgba(34,211,238,0.15); }
+    .field.invalid input { border-color: #f43f5e; background: #2a0f18; }
+    .field.valid input { border-color: #22c55e; }
+    .badge {
+      display: inline-block; font-size: 0.74rem; font-weight: 700; letter-spacing: .02em;
+      padding: 0.2rem 0.6rem; border-radius: 999px; margin-top: 0.5rem;
+    }
+    .badge.error { background: #f43f5e; color: #fff; }
+    .badge.ok { background: #22c55e; color: #fff; }
+    .hint { color: #64748b; font-size: 0.82rem; margin-top: 0.45rem; }
+    .btn {
+      padding: 0.8rem 1.6rem; border: none; border-radius: 10px; cursor: pointer;
+      font-size: 1rem; font-weight: 600; background: linear-gradient(135deg, #22d3ee, #06b6d4); color: #0f172a;
+      transition: all .15s;
+    }
+    .btn:hover { background: linear-gradient(135deg, #06b6d4, #0891b2); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(34,211,238,0.35); }
+    .btn.secondary { background: #334155; color: #e2e8f0; }
+    .btn.secondary:hover { background: #475569; }
+    .btn:disabled { background: #1e293b; color: #64748b; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-row { display: flex; gap: 0.75rem; justify-content: space-between; margin-top: 1.5rem; flex-wrap: wrap; }
+    /* Password strength bar */
+    .strength-track { width: 100%; height: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 999px; overflow: hidden; margin-top: 0.6rem; }
+    .strength-fill { height: 100%; border-radius: 999px; transition: width .3s cubic-bezier(.4,0,.2,1), background .3s ease; }
+    .strength-label { font-size: 0.85rem; font-weight: 600; margin-top: 0.5rem; display: block; }
+    /* Wizard steps */
+    .steps { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .step-pill {
+      flex: 1; text-align: center; padding: 0.6rem; border-radius: 10px; font-size: 0.82rem;
+      font-weight: 600; background: #334155; color: #94a3b8;
+    }
+    .step-pill.active { background: linear-gradient(135deg, #22d3ee, #06b6d4); color: #0f172a; }
+    .step-pill.done { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; }
+    .summary-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed #334155; }
+    .summary-row span:first-child { color: #94a3b8; }
+    .tab-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab-bar button {
+      flex: 1; min-width: 140px; padding: 0.75rem; border: 1px solid #334155; background: #1e293b;
+      border-radius: 10px; cursor: pointer; font-weight: 600; color: #94a3b8; transition: all .15s;
+    }
+    .tab-bar button:hover { border-color: #22d3ee; color: #22d3ee; }
+    .tab-bar button.active { background: linear-gradient(135deg, #22d3ee, #06b6d4); color: #0f172a; border-color: transparent; }
+    .success-box { text-align: center; padding: 1.25rem; background: #052e16; border: 1px solid #166534; border-radius: 12px; color: #86efac; }
+    @media (max-width: 540px) {
+      .app-shell { padding: 0.9rem; }
+      .card { padding: 1.5rem; }
+      .step-pill { font-size: 0.72rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
+
+    const VALIDATION_RULES = {
+      email: {
+        pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+        message: 'Invalid email (must be user@domain.tld)',
+      },
+      password: {
+        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
+        message: '8+ chars, upper, lower, digit & symbol required',
+      },
+    };
+
+    function LoginForm() {
+      const [values, setValues] = useState({ email: '', password: '' });
+      const [touched, setTouched] = useState({ email: false, password: false });
+      const [submitted, setSubmitted] = useState(false);
+
+      // Live regex verification inside the controller
+      const errors = useMemo(() => {
+        const next = {};
+        Object.keys(VALIDATION_RULES).forEach((field) => {
+          const { pattern, message } = VALIDATION_RULES[field];
+          next[field] = pattern.test(values[field]) ? null : message;
+        });
+        return next;
+      }, [values]);
+
+      const handleChange = (field) => (e) => {
+        setValues((v) => ({ ...v, [field]: e.target.value }));
+      };
+
+      const handleBlur = (field) => () => {
+        setTouched((t) => ({ ...t, [field]: true }));
+      };
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        setTouched({ email: true, password: true });
+        if (!errors.email && !errors.password) {
+          setSubmitted(true);
+        }
+      };
+
+      const showBadge = (field) =>
+        touched[field] && values[field].length > 0;
+
+      return (
+        <div className="card">
+          <h2>5.1 Controlled Login Form</h2>
+          <p className="hint">Controlled inputs verified live against security regex. Badges warn on violation.</p>
+
+          {submitted ? (
+            <div className="success-box">
+              <h3>✅ Authenticated</h3>
+              <p>Welcome, <strong>{values.email}</strong>. Credentials passed all patterns.</p>
+              <button className="btn secondary" onClick={() => { setSubmitted(false); setValues({ email: '', password: '' }); setTouched({ email: false, password: false }); }}>
+                Log out
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} noValidate>
+              <div className={'field ' + (showBadge('email') ? (errors.email ? 'invalid' : 'valid') : '')}>
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={values.email}
+                  onChange={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                />
+                {showBadge('email') &&
+                  (errors.email
+                    ? <span className="badge error">⚠ {errors.email}</span>
+                    : <span className="badge ok">✓ Valid</span>)}
+              </div>
+
+              <div className={'field ' + (showBadge('password') ? (errors.password ? 'invalid' : 'valid') : '')}>
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={values.password}
+                  onChange={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                />
+                {showBadge('password') &&
+                  (errors.password
+                    ? <span className="badge error">⚠ {errors.password}</span>
+                    : <span className="badge ok">✓ Valid</span>)}
+              </div>
+
+              <button type="submit" className="btn">Sign in</button>
+            </form>
+          )}
+        </div>
+      );
+    }
+
+    /* =========================================================================
+       Task 5.2 - PASSWORD STRENGTH CHECKER (sub-component)
+       Maps text input variations to a dynamic visual progress bar.
+       ========================================================================= */
+    function PasswordStrength({ password }) {
+      const analysis = useMemo(() => {
+        let score = 0;
+        const checks = {
+          length: password.length >= 8,
+          lower: /[a-z]/.test(password),
+          upper: /[A-Z]/.test(password),
+          digit: /\d/.test(password),
+          symbol: /[^A-Za-z0-9]/.test(password),
+        };
+        Object.values(checks).forEach((ok) => { if (ok) score++; });
+
+        let label = 'Empty', color = '#334155', pct = 0;
+        if (password.length > 0) {
+          if (score <= 2) { label = 'Weak'; color = '#f43f5e'; pct = 30; }
+          else if (score === 3) { label = 'Fair'; color = '#f97316'; pct = 55; }
+          else if (score === 4) { label = 'Good'; color = '#eab308'; pct = 78; }
+          else { label = 'Strong'; color = '#22c55e'; pct = 100; }
+        }
+        return { checks, score, label, color, pct };
+      }, [password]);
+
+      const criteriaList = [
+        ['length', 'At least 8 characters'],
+        ['lower', 'Lowercase letter'],
+        ['upper', 'Uppercase letter'],
+        ['digit', 'Number'],
+        ['symbol', 'Symbol'],
+      ];
+
+      return (
+        <div style={{ marginTop: '0.5rem' }}>
+          <div className="strength-track">
+            <div className="strength-fill" style={{ width: analysis.pct + '%', background: analysis.color }}></div>
+          </div>
+          <span className="strength-label" style={{ color: analysis.color }}>
+            Strength: {analysis.label} ({analysis.score}/5)
+          </span>
+          <ul style={{ listStyle: 'none', padding: 0, margin: '0.6rem 0 0', fontSize: '0.82rem' }}>
+            {criteriaList.map(([key, text]) => (
+              <li key={key} style={{ color: analysis.checks[key] ? '#22c55e' : '#64748b' }}>
+                {analysis.checks[key] ? '✓' : '○'} {text}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    function PasswordStrengthDemo() {
+      const [pwd, setPwd] = useState('');
+      return (
+        <div className="card">
+          <h2>5.2 Password Strength Checker</h2>
+          <p className="hint">Type to map input variations onto a live progress tracker.</p>
+          <div className="field">
+            <label htmlFor="demo-pwd">Password</label>
+            <input
+              id="demo-pwd"
+              type="password"
+              placeholder="Start typing..."
+              value={pwd}
+              onChange={(e) => setPwd(e.target.value)}
+            />
+            <PasswordStrength password={pwd} />
+          </div>
+        </div>
+      );
+    }
+
+    /* =========================================================================
+       Task 5.3 - MULTI-STEP ONBOARDING WIZARD
+       Encapsulates child step components, holds a single shared form state
+       until the final submit routine finalizes.
+       ========================================================================= */
+    const EMPTY_ONBOARD = { fullName: '', email: '', phone: '', company: '', role: '', plan: 'free', bio: '' };
+
+    function StepAccount({ data, update, errors }) {
+      return (
+        <>
+          <div className={'field ' + (errors.fullName ? 'invalid' : '')}>
+            <label>Full Name</label>
+            <input value={data.fullName} onChange={(e) => update('fullName', e.target.value)} placeholder="Jane Doe" />
+            {errors.fullName && <span className="badge error">⚠ {errors.fullName}</span>}
+          </div>
+          <div className={'field ' + (errors.email ? 'invalid' : '')}>
+            <label>Email</label>
+            <input value={data.email} onChange={(e) => update('email', e.target.value)} placeholder="jane@company.com" />
+            {errors.email && <span className="badge error">⚠ {errors.email}</span>}
+          </div>
+          <div className={'field ' + (errors.phone ? 'invalid' : '')}>
+            <label>Phone</label>
+            <input value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="+1 555 0100" />
+            {errors.phone && <span className="badge error">⚠ {errors.phone}</span>}
+          </div>
+        </>
+      );
+    }
+
+    function StepOrg({ data, update, errors }) {
+      return (
+        <>
+          <div className={'field ' + (errors.company ? 'invalid' : '')}>
+            <label>Company</label>
+            <input value={data.company} onChange={(e) => update('company', e.target.value)} placeholder="Acme Inc." />
+            {errors.company && <span className="badge error">⚠ {errors.company}</span>}
+          </div>
+          <div className={'field ' + (errors.role ? 'invalid' : '')}>
+            <label>Role</label>
+            <select value={data.role} onChange={(e) => update('role', e.target.value)}>
+              <option value="">Select role...</option>
+              <option value="developer">Developer</option>
+              <option value="manager">Manager</option>
+              <option value="designer">Designer</option>
+              <option value="other">Other</option>
+            </select>
+            {errors.role && <span className="badge error">⚠ {errors.role}</span>}
+          </div>
+          <div className="field">
+            <label>Plan</label>
+            <select value={data.plan} onChange={(e) => update('plan', e.target.value)}>
+              <option value="free">Free</option>
+              <option value="pro">Pro</option>
+              <option value="enterprise">Enterprise</option>
+            </select>
+          </div>
+        </>
+      );
+    }
+
+    function StepProfile({ data, update }) {
+      return (
+        <div className="field">
+          <label>Short Bio (optional)</label>
+          <textarea
+            rows="4"
+            style={{ width: '100%', padding: '0.7rem 0.85rem', border: '1px solid #ccd2dc', borderRadius: '8px', fontSize: '1rem', resize: 'vertical' }}
+            value={data.bio}
+            onChange={(e) => update('bio', e.target.value)}
+            placeholder="Tell us about yourself..."
+          ></textarea>
+        </div>
+      );
+    }
+
+    function StepReview({ data }) {
+      const rows = [
+        ['Full Name', data.fullName],
+        ['Email', data.email],
+        ['Phone', data.phone],
+        ['Company', data.company],
+        ['Role', data.role],
+        ['Plan', data.plan],
+        ['Bio', data.bio || '—'],
+      ];
+      return (
+        <div>
+          <p className="hint">Review the data held in the wizard state before final submission.</p>
+          {rows.map(([k, v]) => (
+            <div className="summary-row" key={k}><span>{k}</span><strong>{v}</strong></div>
+          ))}
+        </div>
+      );
+    }
+
+    function OnboardingWizard() {
+      const [step, setStep] = useState(0);
+      const [data, setData] = useState(EMPTY_ONBOARD);
+      const [errors, setErrors] = useState({});
+      const [done, setDone] = useState(false);
+
+      const steps = ['Account', 'Organization', 'Profile', 'Review'];
+
+      const update = (field, value) => {
+        setData((d) => ({ ...d, [field]: value }));
+        setErrors((e) => ({ ...e, [field]: undefined }));
+      };
+
+      // Per-step regex / required validation
+      const validateStep = (idx) => {
+        const e = {};
+        if (idx === 0) {
+          if (!data.fullName.trim()) e.fullName = 'Required';
+          if (!VALIDATION_RULES.email.pattern.test(data.email)) e.email = VALIDATION_RULES.email.message;
+          if (!/^\+?[\d\s()-]{7,}$/.test(data.phone)) e.phone = 'Invalid phone number';
+        }
+        if (idx === 1) {
+          if (!data.company.trim()) e.company = 'Required';
+          if (!data.role) e.role = 'Select a role';
+        }
+        setErrors(e);
+        return Object.keys(e).length === 0;
+      };
+
+      const next = () => { if (validateStep(step)) setStep((s) => Math.min(s + 1, steps.length - 1)); };
+      const back = () => setStep((s) => Math.max(s - 1, 0));
+
+      const finalize = () => {
+        // Final submit routine: re-validate every step, then "submit"
+        for (let i = 0; i < 2; i++) { if (!validateStep(i)) { setStep(i); return; } }
+        setDone(true);
+      };
+
+      if (done) {
+        return (
+          <div className="card">
+            <div className="success-box">
+              <h3>🎉 Onboarding Complete</h3>
+              <p>Account for <strong>{data.fullName}</strong> ({data.email}) created on the <strong>{data.plan}</strong> plan.</p>
+              <button className="btn" onClick={() => { setData(EMPTY_ONBOARD); setStep(0); setErrors({}); setDone(false); }}>
+                Start new onboarding
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <div className="card">
+          <h2>5.3 Multi-Step Onboarding Wizard</h2>
+          <div className="steps">
+            {steps.map((s, i) => (
+              <div key={s} className={'step-pill ' + (i === step ? 'active' : (i < step ? 'done' : ''))}>
+                {i < step ? '✓ ' : ''}{s}
+              </div>
+            ))}
+          </div>
+
+          {step === 0 && <StepAccount data={data} update={update} errors={errors} />}
+          {step === 1 && <StepOrg data={data} update={update} errors={errors} />}
+          {step === 2 && <StepProfile data={data} update={update} />}
+          {step === 3 && <StepReview data={data} />}
+
+          <div className="btn-row">
+            <button className="btn secondary" onClick={back} disabled={step === 0}>← Back</button>
+            {step < steps.length - 1
+              ? <button className="btn" onClick={next}>Next →</button>
+              : <button className="btn" onClick={finalize}>Submit ✓</button>}
+          </div>
+        </div>
+      );
+    }
+
+    /* =========================================================================
+       ROOT APP - tab switcher between the three modules
+       ========================================================================= */
+    function App() {
+      const [tab, setTab] = useState('login');
+      return (
+        <div className="app-shell">
+          <h1 style={{ textAlign: 'center' }}>Lab Sheet 5 — React Controlled Forms</h1>
+          <div className="tab-bar">
+            <button className={tab === 'login' ? 'active' : ''} onClick={() => setTab('login')}>5.1 Login</button>
+            <button className={tab === 'strength' ? 'active' : ''} onClick={() => setTab('strength')}>5.2 Strength</button>
+            <button className={tab === 'wizard' ? 'active' : ''} onClick={() => setTab('wizard')}>5.3 Wizard</button>
+          </div>
+
+          {tab === 'login' && <LoginForm />}
+          {tab === 'strength' && <PasswordStrengthDemo />}
+          {tab === 'wizard' && <OnboardingWizard />}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

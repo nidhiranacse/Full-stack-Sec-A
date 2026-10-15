@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lab 3-React Todo App</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+        }
+
+        .app {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        .form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form input {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .form input:focus {
+            border-color: #2563eb;
+        }
+
+        .form button {
+            padding: 13px 20px;
+            border: none;
+            border-radius: 7px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+
+        .form button:hover {
+            background: #1d4ed8;
+        }
+
+        .error {
+            width: 100%;
+            color: #dc2626;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .tasks {
+            margin-top: 25px;
+        }
+
+        .task {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f1f5f9;
+            padding: 14px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .task-text {
+            flex: 1;
+            cursor: pointer;
+            color: #1e293b;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+
+        .delete {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete:hover {
+            background: #b91c1c;
+        }
+
+        .empty {
+            text-align: center;
+            color: #64748b;
+            margin-top: 25px;
+        }
+
+        .count {
+            text-align: center;
+            color: #475569;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            .form {
+                flex-direction: column;
+            }
+
+            .form button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function AddTaskForm({ addTask }) {
+
+            const [task, setTask] = React.useState("");
+            const [error, setError] = React.useState("");
+
+            function handleSubmit(event) {
+
+                event.preventDefault();
+
+                if (task.trim() === "") {
+                    setError("Please enter a task!");
+                    return;
+                }
+
+                addTask(task.trim());
+
+                setTask("");
+                setError("");
+            }
+
+            return (
+                <form className="form" onSubmit={handleSubmit}>
+
+                    <input
+                        type="text"
+                        placeholder="Enter a new task"
+                        value={task}
+                        onChange={(event) =>
+                            setTask(event.target.value)
+                        }
+                    />
+
+                    <button type="submit">
+                        Add Task
+                    </button>
+
+                    {error && (
+                        <p className="error">
+                            {error}
+                        </p>
+                    )}
+
+                </form>
+            );
+        }
+
+
+        function TaskItem({
+            task,
+            deleteTask,
+            completeTask
+        }) {
+
+            return (
+                <div className="task">
+
+                    <span
+                        className={
+                            task.completed
+                                ? "task-text completed"
+                                : "task-text"
+                        }
+
+                        onClick={() =>
+                            completeTask(task.id)
+                        }
+                    >
+                        {task.text}
+                    </span>
+
+                    <button
+                        className="delete"
+                        onClick={() =>
+                            deleteTask(task.id)
+                        }
+                    >
+                        Delete
+                    </button>
+
+                </div>
+            );
+        }
+
+
+        function TaskList({
+            tasks,
+            deleteTask,
+            completeTask
+        }) {
+
+            if (tasks.length === 0) {
+
+                return (
+                    <p className="empty">
+                        No tasks available
+                    </p>
+                );
+            }
+
+            return (
+                <div className="tasks">
+
+                    {tasks.map(task => (
+
+                        <TaskItem
+                            key={task.id}
+                            task={task}
+                            deleteTask={deleteTask}
+                            completeTask={completeTask}
+                        />
+
+                    ))}
+
+                </div>
+            );
+        }
+
+
+        function App() {
+
+            const [tasks, setTasks] = React.useState(() => {
+
+                const savedTasks =
+                    localStorage.getItem("lab3Tasks");
+
+                return savedTasks
+                    ? JSON.parse(savedTasks)
+                    : [];
+            });
+
+
+            React.useEffect(() => {
+
+                localStorage.setItem(
+                    "lab3Tasks",
+                    JSON.stringify(tasks)
+                );
+
+            }, [tasks]);
+
+
+            function addTask(text) {
+
+                const newTask = {
+                    id: Date.now(),
+                    text: text,
+                    completed: false
+                };
+
+                setTasks([
+                    ...tasks,
+                    newTask
+                ]);
+            }
+
+
+            function deleteTask(id) {
+
+                setTasks(
+                    tasks.filter(
+                        task => task.id !== id
+                    )
+                );
+            }
+
+
+            function completeTask(id) {
+
+                setTasks(
+
+                    tasks.map(task =>
+
+                        task.id === id
+                            ? {
+                                ...task,
+                                completed:
+                                    !task.completed
+                            }
+                            : task
+                    )
+                );
+            }
+
+
+            return (
+                <div className="app">
+
+                    <div className="container">
+
+                        <h1>My Todo App</h1>
+
+                        <p className="subtitle">
+                            React.js Lab 3
+                        </p>
+
+                        <AddTaskForm
+                            addTask={addTask}
+                        />
+
+                        <TaskList
+                            tasks={tasks}
+                            deleteTask={deleteTask}
+                            completeTask={completeTask}
+                        />
+
+                        <p className="count">
+                            Total Tasks: {tasks.length}
+                        </p>
+
+                    </div>
+
+                </div>
+            );
+        }
+
+
+        ReactDOM
+            .createRoot(
+                document.getElementById("root")
+            )
+            .render(<App />);
+
+    </script>
+
+
+</body>
+</html>

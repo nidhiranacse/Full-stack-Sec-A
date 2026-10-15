@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 4 - React SPA & Routing</title>
+  
+  <!-- React & ReactDOM CDNs -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  
+  <!-- React Router DOM CDN -->
+  <script src="https://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js"></script>
+  
+  <!-- Babel Standalone (transpiles JSX in the browser) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body style="margin: 0; font-family: sans-serif;">
+
+  <!-- Root mount element -->
+  <div id="root"></div>
+
+  <!-- React Code with Babel Type -->
+  <script type="text/babel">
+    const { useState, useEffect, createContext, useContext } = React;
+    const { HashRouter, Routes, Route, Link, useParams, useNavigate } = window.ReactRouterDOM;
+
+    // --- Mock Data ---
+    const PRODUCTS = [
+      { id: '1', name: 'Wireless Headphones', price: 99.99, description: 'High quality active noise-cancelling wireless headphones with 30-hour battery life.' },
+      { id: '2', name: 'Smart Watch', price: 149.99, description: 'Track your health, fitness goals, and smartphone notifications seamlessly on the go.' },
+      { id: '3', name: 'Mechanical Keyboard', price: 79.99, description: 'RGB backlit mechanical keyboard featuring durable switches and customizable lighting profiles.' },
+    ];
+
+    // --- Context API for Global State (Cart) ---
+    const ShopContext = createContext();
+
+    const ShopProvider = ({ children }) => {
+      const [cart, setCart] = useState([]);
+
+      const addToCart = (product) => {
+        setCart((prev) => {
+          const existing = prev.find((item) => item.id === product.id);
+          if (existing) {
+            return prev.map((item) => 
+              item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+            );
+          }
+          return [...prev, { ...product, qty: 1 }];
+        });
+      };
+
+      return (
+        <ShopContext.Provider value={{ cart, addToCart }}>
+          {children}
+        </ShopContext.Provider>
+      );
+    };
+
+    const useShop = () => useContext(ShopContext);
+
+    // --- Navigation Bar ---
+    function Navbar() {
+      const { cart } = useShop();
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+
+      return (
+        <nav style={{ padding: '1rem 2rem', background: '#20232a', color: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <Link to="/" style={{ color: '#61dafb', marginRight: '1.5rem', textDecoration: 'none', fontWeight: 'bold' }}>Home</Link>
+            <Link to="/products" style={{ color: '#61dafb', textDecoration: 'none', fontWeight: 'bold' }}>Products</Link>
+          </div>
+          <div style={{ background: '#282c34', padding: '0.5rem 1rem', borderRadius: '4px', border: '1px solid #444' }}>
+            <span>Cart: 🛒 <strong>{totalItems}</strong> items</span>
+          </div>
+        </nav>
+      );
+    }
+
+    // --- Page 1: Home ---
+    function Home() {
+      return (
+        <div style={{ padding: '3rem', textAlign: 'center' }}>
+          <h1>Welcome to ReactShop</h1>
+          <p style={{ color: '#666', fontSize: '1.1rem', margin: '1rem 0' }}>Explore our featured collection of modern tech gear and accessories.</p>
+          <Link to="/products">
+            <button style={{ padding: '0.75rem 1.5rem', background: '#007bff', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '1rem' }}>
+              Browse Products
+            </button>
+          </Link>
+        </div>
+      );
+    }
+
+    // --- Page 2: Products (with loading state) ---
+    function Products() {
+      const [loading, setLoading] = useState(true);
+      const [products, setProducts] = useState([]);
+
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          setProducts(PRODUCTS);
+          setLoading(false);
+        }, 800);
+        return () => clearTimeout(timer);
+      }, []);
+
+      if (loading) {
+        return <div style={{ padding: '4rem', textAlign: 'center', fontSize: '1.2rem' }}>Loading products... ⏳</div>;
+      }
+
+      return (
+        <div style={{ padding: '2rem' }}>
+          <h2>Product Catalog</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.5rem', marginTop: '1.5rem' }}>
+            {products.map((p) => (
+              <div key={p.id} style={{ border: '1px solid #e1e4e8', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+                <h3 style={{ margin: '0 0 0.5rem 0' }}>{p.name}</h3>
+                <p style={{ color: '#28a745', fontWeight: 'bold' }}>${p.price.toFixed(2)}</p>
+                <Link to={`/products/${p.id}`} style={{ display: 'inline-block', marginTop: '1rem', color: '#007bff', textDecoration: 'none' }}>
+                  View Details →
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // --- Page 3: Product Details (Route Params & Loading) ---
+    function ProductDetails() {
+      const { id } = useParams();
+      const navigate = useNavigate();
+      const { addToCart } = useShop();
+      
+      const [product, setProduct] = useState(null);
+      const [loading, setLoading] = useState(true);
+
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          const found = PRODUCTS.find((p) => p.id === id);
+          setProduct(found);
+          setLoading(false);
+        }, 500);
+        return () => clearTimeout(timer);
+      }, [id]);
+
+      if (loading) {
+        return <div style={{ padding: '4rem', textAlign: 'center', fontSize: '1.2rem' }}>Loading product details... ⏳</div>;
+      }
+
+      if (!product) {
+        return (
+          <div style={{ padding: '3rem', textAlign: 'center' }}>
+            <h2>Product Not Found</h2>
+            <p style={{ color: '#666' }}>The product you are looking for does not exist or has been removed.</p>
+            <button onClick={() => navigate('/products')} style={{ marginTop: '1rem', padding: '0.5rem 1rem', background: '#333', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+              Back to Products
+            </button>
+          </div>
+        );
+      }
+
+      return (
+        <div style={{ padding: '3rem', maxWidth: '600px', margin: '0 auto' }}>
+          <button onClick={() => navigate(-1)} style={{ marginBottom: '1.5rem', padding: '0.4rem 0.8rem', cursor: 'pointer', background: '#f1f1f1', border: '1px solid #ccc', borderRadius: '4px' }}>
+            ← Back
+          </button>
+          <h1>{product.name}</h1>
+          <h2 style={{ color: '#28a745', margin: '0.5rem 0' }}>${product.price.toFixed(2)}</h2>
+          <p style={{ color: '#555', lineHeight: '1.6', margin: '1.5rem 0' }}>{product.description}</p>
+          <button 
+            onClick={() => addToCart(product)} 
+            style={{ padding: '0.75rem 1.5rem', background: '#28a745', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '1rem', fontWeight: 'bold' }}>
+            Add to Cart 🛒
+          </button>
+        </div>
+      );
+    }
+
+    // --- 404 Not Found Page ---
+    function NotFound() {
+      return (
+        <div style={{ padding: '4rem', textAlign: 'center' }}>
+          <h1 style={{ fontSize: '3rem', color: '#dc3545', margin: '0' }}>404</h1>
+          <h2>Page Not Found</h2>
+          <p style={{ color: '#666', margin: '1rem 0' }}>The URL you entered does not map to any valid route.</p>
+          <Link to="/" style={{ color: '#007bff', textDecoration: 'underline' }}>Return to Home</Link>
+        </div>
+      );
+    }
+
+    // --- Root App Component ---
+    function App() {
+      return (
+        <ShopProvider>
+          {/* HashRouter is used here so local file paths run nicely without server config */}
+          <HashRouter>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/products/:id" element={<ProductDetails />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </HashRouter>
+        </ShopProvider>
+      );
+    }
+
+    // Render to DOM
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+
+</body>
+</html>
