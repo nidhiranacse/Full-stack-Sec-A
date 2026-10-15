@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selected Event Students</title>
+</head>
+<body>
+
+    <h1>Selected Event Students</h1>
+
+    <form method="get">
+        <input
+            type="text"
+            name="search"
+            placeholder="Search student name"
+            value="{{ search_query }}"
+        >
+        <button type="submit">Search</button>
+    </form>
+
+    <p>
+        <a href="{% url 'students' %}">Original Order</a> |
+        <a href="{% url 'students' %}?sort=name">Sort by Name</a>
+    </p>
+
+    {% if students %}
+        <table border="1" cellpadding="10">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Selected Event</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.event }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No students found.</p>
+    {% endif %}
+
+</body>
+</html>
