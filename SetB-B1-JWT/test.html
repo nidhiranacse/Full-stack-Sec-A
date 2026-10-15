@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT API Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2ff;
+            padding: 30px;
+            color: #1e293b
+        }
+
+        .card {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px #cbd5e1
+        }
+
+        h1 {
+            color: #6d28d9
+        }
+
+        input,
+        button {
+            width: 100%;
+            padding: 12px;
+            margin: 7px 0;
+            box-sizing: border-box;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px
+        }
+
+        button {
+            background: #6d28d9;
+            color: white;
+            border: 0;
+            cursor: pointer;
+            font-weight: bold
+        }
+
+        button:hover {
+            background: #4c1d95
+        }
+
+        pre {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 7px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere
+        }
+
+        .note {
+            font-size: 13px;
+            color: #64748b
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>🔐 JWT Authentication Tester</h1>
+        <p>Practical B1 — Node.js and Express</p>
+
+        <label>Username</label>
+        <input id="username" value="anshul">
+
+        <label>Password</label>
+        <input id="password" type="password" value="Anshul123">
+
+        <button onclick="registerUser()">1. Register</button>
+        <button onclick="loginUser()">2. Login & Get Token</button>
+        <button onclick="getProfile()">3. Access Protected Profile</button>
+
+        <h3>API Response</h3>
+        <pre id="output">Results will appear here.</pre>
+        <p class="note">Keep the Node.js server running while testing.</p>
+    </div>
+
+    <script>
+        let token = "";
+
+        async function callAPI(path, method, data) {
+            try {
+                const options = { method, headers: {} };
+
+                if (data) {
+                    options.headers["Content-Type"] = "application/json";
+                    options.body = JSON.stringify(data);
+                }
+
+                if (path === "/profile" && token) {
+                    options.headers.Authorization = "Bearer " + token;
+                }
+
+                const response = await fetch("http://127.0.0.1:5000" + path, options);
+                const result = await response.json();
+
+                document.getElementById("output").textContent =
+                    "Status: " + response.status + "\n" +
+                    JSON.stringify(result, null, 2);
+
+                return result;
+            } catch (error) {
+                document.getElementById("output").textContent =
+                    "Connection error. Check that the server is running on port 5000.";
+            }
+        }
+
+        async function registerUser() {
+            await callAPI("/register", "POST", {
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value
+            });
+        }
+
+        async function loginUser() {
+            const result = await callAPI("/login", "POST", {
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value
+            });
+
+            if (result && result.token) {
+                token = result.token;
+            }
+        }
+
+        async function getProfile() {
+            await callAPI("/profile", "GET");
+        }
+    </script>
+</body>
+
+</html>

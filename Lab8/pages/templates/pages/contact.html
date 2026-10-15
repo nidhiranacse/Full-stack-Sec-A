@@ -1,0 +1,76 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Contact | Django Lab 08{% endblock %}
+{% block extra_css %}
+
+<style>
+    form {
+        max-width: 700px;
+        margin-top: 25px;
+    }
+
+    label {
+        display: block;
+        margin: 15px 0 7px;
+        font-weight: bold;
+        color: #172554;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-family: Arial;
+        font-size: 14px;
+    }
+
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px #2563eb22;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 13px 22px;
+        border: 0;
+        border-radius: 8px;
+        background: #2563eb;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #1d4ed8;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+
+<h1>📩 Contact & Feedback</h1>
+
+<p>
+    Share your feedback with us. Your message will be
+    verified and processed by the Django server.
+</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Name</label>
+    <input type="text" name="name" placeholder="Enter your name" required>
+
+    <label>Email</label>
+    <input type="email" name="email" placeholder="Enter your email" required>
+
+    <label>Feedback</label>
+    <textarea name="feedback" rows="6"
+        placeholder="Write your feedback here..." required></textarea>
+
+    <button type="submit">📤 Submit Feedback</button>
+</form>
+
+{% endblock %}

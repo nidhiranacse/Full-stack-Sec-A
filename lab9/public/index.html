@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Record Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-shape shape-one"></div>
+    <div class="background-shape shape-two"></div>
+
+    <main class="container">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">FULL STACK DEVELOPMENT</p>
+                <h1>Student Record Management</h1>
+                <p class="subtitle">Manage student information with a simple and modern dashboard.</p>
+            </div>
+            <div class="status">
+                <span class="status-dot"></span>
+                System Online
+            </div>
+        </header>
+
+        <section class="stats">
+            <div class="stat-card">
+                <span class="stat-icon">👨‍🎓</span>
+                <div>
+                    <p>Total Students</p>
+                    <h2 id="totalStudents">0</h2>
+                </div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">📚</span>
+                <div>
+                    <p>Courses</p>
+                    <h2 id="totalCourses">0</h2>
+                </div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🏆</span>
+                <div>
+                    <p>Average Marks</p>
+                    <h2 id="averageMarks">0</h2>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-grid">
+            <div class="card form-card">
+                <div class="card-heading">
+                    <div>
+                        <p class="section-label">RECORD FORM</p>
+                        <h2 id="formTitle">Add New Student</h2>
+                    </div>
+                    <span class="heading-icon">＋</span>
+                </div>
+
+                <form id="studentForm">
+                    <input type="hidden" id="studentId">
+
+                    <div class="input-group">
+                        <label for="name">Student Name</label>
+                        <input type="text" id="name" placeholder="Enter full name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="rollNo">Roll Number</label>
+                        <input type="text" id="rollNo" placeholder="Enter roll number" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="course">Course</label>
+                        <select id="course" required>
+                            <option value="">Select course</option>
+                            <option value="B.Tech CSE">B.Tech CSE</option>
+                            <option value="B.Tech AI & ML">B.Tech AI & ML</option>
+                            <option value="B.Tech ECE">B.Tech ECE</option>
+                            <option value="BCA">BCA</option>
+                            <option value="MCA">MCA</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="marks">Marks</label>
+                        <input type="number" id="marks" placeholder="0 - 100" min="0" max="100" required>
+                    </div>
+
+                    <div id="message" class="message"></div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary-btn" id="submitBtn">
+                            <span>＋</span> Add Student
+                        </button>
+                        <button type="button" class="btn cancel-btn" id="cancelBtn">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card records-card">
+                <div class="card-heading">
+                    <div>
+                        <p class="section-label">DATABASE RECORDS</p>
+                        <h2>Student Directory</h2>
+                    </div>
+                    <span class="heading-icon">▣</span>
+                </div>
+
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input type="text" id="searchInput" placeholder="Search by name, roll number or course...">
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student</th>
+                                <th>Roll No.</th>
+                                <th>Course</th>
+                                <th>Marks</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTable">
+                            <tr>
+                                <td colspan="6" class="empty-state">
+                                    Loading student records...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span>Student Record Management System</span>
+            <span>Built with Node.js • Express • MongoDB</span>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

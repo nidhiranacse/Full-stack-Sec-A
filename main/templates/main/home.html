@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Django Lab Sheet 7</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(circle at top left, #dbeafe, transparent 35%),
+                radial-gradient(circle at bottom right, #ede9fe, transparent 35%),
+                linear-gradient(135deg, #f8fafc, #eef2ff);
+
+            color: #1e293b;
+
+            padding: 35px 20px;
+        }
+
+
+        /* Main Container */
+
+        .container {
+            max-width: 1000px;
+
+            margin: auto;
+        }
+
+
+        /* Header */
+
+        .header {
+            text-align: center;
+
+            background: rgba(255, 255, 255, 0.85);
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 30px rgba(15, 23, 42, 0.10);
+
+            border: 1px solid rgba(255, 255, 255, 0.8);
+
+            margin-bottom: 25px;
+        }
+
+
+        .header h1 {
+            font-size: 32px;
+
+            color: #312e81;
+
+            margin-bottom: 10px;
+        }
+
+
+        .header p {
+            color: #64748b;
+
+            font-size: 15px;
+        }
+
+
+        /* Cards */
+
+        .box {
+            background: rgba(255, 255, 255, 0.92);
+
+            padding: 28px;
+
+            margin: 22px 0;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 25px rgba(15, 23, 42, 0.08);
+
+            border: 1px solid #e2e8f0;
+
+            transition: 0.3s;
+        }
+
+
+        .box:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 14px 30px rgba(15, 23, 42, 0.12);
+        }
+
+
+        .box h2 {
+            margin-bottom: 20px;
+
+            color: #3730a3;
+
+            font-size: 22px;
+        }
+
+
+        /* Fruits */
+
+        .fruit-list {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(150px, 1fr));
+
+            gap: 12px;
+
+            list-style: none;
+        }
+
+
+        .fruit-list li {
+            background: linear-gradient(
+                135deg,
+                #eef2ff,
+                #f5f3ff
+            );
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            color: #4338ca;
+
+            border: 1px solid #c7d2fe;
+
+            transition: 0.25s;
+        }
+
+
+        .fruit-list li:hover {
+            transform: scale(1.03);
+
+            background: #e0e7ff;
+        }
+
+
+        /* Buttons */
+
+        .buttons {
+            margin-bottom: 18px;
+        }
+
+
+        .btn {
+            display: inline-block;
+
+            text-decoration: none;
+
+            border: none;
+
+            padding: 11px 18px;
+
+            margin: 5px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            color: white;
+
+            background: #4f46e5;
+
+            transition: 0.25s;
+
+            box-shadow:
+                0 4px 10px rgba(79, 70, 229, 0.20);
+        }
+
+
+        .btn:hover {
+            background: #3730a3;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 15px rgba(79, 70, 229, 0.25);
+        }
+
+
+        .btn-event {
+            background: #0891b2;
+        }
+
+
+        .btn-event:hover {
+            background: #0e7490;
+        }
+
+
+        /* Table */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+
+        table {
+            width: 100%;
+
+            border-collapse: separate;
+
+            border-spacing: 0;
+
+            overflow: hidden;
+
+            border-radius: 12px;
+
+            border: 1px solid #e2e8f0;
+        }
+
+
+        th {
+            background: #312e81;
+
+            color: white;
+
+            padding: 14px;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+
+        td {
+            padding: 13px;
+
+            text-align: center;
+
+            border-top: 1px solid #e2e8f0;
+
+            font-size: 14px;
+        }
+
+
+        tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+
+        tr:hover td {
+            background: #eef2ff;
+        }
+
+
+        /* Search */
+
+        .search-form {
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 20px;
+        }
+
+
+        .search-form input {
+            flex: 1;
+
+            min-width: 220px;
+
+            padding: 12px 15px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            background: #ffffff;
+
+            transition: 0.2s;
+        }
+
+
+        .search-form input:focus {
+            border-color: #6366f1;
+
+            box-shadow:
+                0 0 0 3px rgba(99, 102, 241, 0.12);
+        }
+
+
+        .search-btn {
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            background: #16a34a;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+
+        .search-btn:hover {
+            background: #15803d;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* Alert */
+
+        .alert {
+            padding: 15px 18px;
+
+            border-radius: 10px;
+
+            background: #fef2f2;
+
+            color: #b91c1c;
+
+            border: 1px solid #fecaca;
+
+            font-weight: bold;
+        }
+
+
+        /* Empty Table */
+
+        .empty {
+            color: #64748b;
+
+            padding: 20px;
+        }
+
+
+        /* Footer */
+
+        .footer {
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #64748b;
+
+            font-size: 13px;
+        }
+
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+
+            .box {
+                padding: 20px;
+            }
+
+
+            .box h2 {
+                font-size: 19px;
+            }
+
+
+            .search-form {
+                flex-direction: column;
+            }
+
+
+            .search-form input {
+                width: 100%;
+            }
+
+
+            .search-btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>🎓 Django Lab Sheet 7</h1>
+
+        <p>
+            Template Conditions • Student Sorting • Student Search
+        </p>
+
+    </div>
+
+
+
+    <!-- ================================= -->
+    <!-- TASK 7.1 -->
+    <!-- ================================= -->
+
+    <div class="box">
+
+        <h2>🍎  Fruits Collection</h2>
+
+
+        {% if fruits %}
+
+            <ul class="fruit-list">
+
+                {% for fruit in fruits %}
+
+                    <li>
+                        🍓 {{ fruit }}
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+
+        {% else %}
+
+            <div class="alert">
+                ⚠️ No fruits are available.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- ================================= -->
+    <!-- TASK 8.2 -->
+    <!-- ================================= -->
+
+    <div class="box">
+
+        <h2>🎯 Selected Event Students</h2>
+
+
+        <div class="buttons">
+
+            <a href="?sort=name" class="btn">
+                🔤 Sort by Name
+            </a>
+
+
+            <a href="?sort=event" class="btn btn-event">
+                🎪 Sort by Event
+            </a>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>👤 Student Name</th>
+                        <th>🎯 Selected Event</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% if students %}
+
+                        {% for student in students %}
+
+                            <tr>
+
+                                <td>
+                                    {{ student.name }}
+                                </td>
+
+                                <td>
+                                    {{ student.event }}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="2" class="empty">
+                                😕 No students found.
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================= -->
+    <!-- TASK 8.3 -->
+    <!-- ================================= -->
+
+    <div class="box">
+
+        <h2>🔎 Search Students</h2>
+
+
+        <form method="GET" class="search-form">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="🔍 Enter student name..."
+                value="{{ search }}"
+            >
+
+
+            <button type="submit" class="search-btn">
+                🔎 Search
+            </button>
+
+        </form>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>👤 Student Name</th>
+                        <th>🎯 Selected Event</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% if students %}
+
+                        {% for student in students %}
+
+                            <tr>
+
+                                <td>
+                                    {{ student.name }}
+                                </td>
+
+                                <td>
+                                    {{ student.event }}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="2" class="empty">
+                                😕 No matching student found.
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+        💻 Django Template Lab • Lab Sheet 7
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

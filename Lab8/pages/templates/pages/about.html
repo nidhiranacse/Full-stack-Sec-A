@@ -1,0 +1,61 @@
+{% extends "pages/base.html" %}
+
+{% block title %}About | Django Lab 08{% endblock %}
+
+{% block content %}
+
+<h1>📘 About This Project</h1>
+
+<p>
+    This Django application demonstrates a modular web architecture
+    where common interface elements are maintained in a reusable
+    master template.
+</p>
+
+<h2>🧠 Architecture</h2>
+
+<div class="feature-grid">
+
+    <div class="feature">
+        <strong>🏗️ Master Template</strong>
+        <span>
+            base.html contains the common navigation, layout,
+            notification area and footer.
+        </span>
+    </div>
+
+    <div class="feature">
+        <strong>🔗 Child Templates</strong>
+        <span>
+            Home, About and Contact pages inherit the master layout
+            using Django template inheritance.
+        </span>
+    </div>
+
+    <div class="feature">
+        <strong>⚙️ Dynamic Context</strong>
+        <span>
+            Each view sends an active-page identifier to highlight
+            the current navigation item.
+        </span>
+    </div>
+
+    <div class="feature">
+        <strong>🛡️ Server Processing</strong>
+        <span>
+            Contact feedback is validated on the server before
+            being written to the development log.
+        </span>
+    </div>
+
+</div>
+
+<h2>🎯 Lab Objective</h2>
+
+<p>
+    The objective is to build a reusable and maintainable Django UI
+    using template inheritance, dynamic navigation and server-side
+    feedback processing.
+</p>
+
+{% endblock %}
