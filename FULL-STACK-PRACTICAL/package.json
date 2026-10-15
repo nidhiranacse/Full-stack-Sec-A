@@ -1,0 +1,27 @@
+{
+  "name": "full-stack-practical-section-b",
+  "private": true,
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "start:b1": "node server.js",
+    "test:b1": "node test-b1.js",
+    "test:b2": "vitest run src/Cart.test.jsx --reporter=basic",
+    "test": "npm run test:b1 && npm run test:b2",
+    "dev:b2": "vite",
+    "build:b2": "vite build"
+  },
+  "dependencies": {
+    "express": "^4.22.3",
+    "jsonwebtoken": "^9.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.0.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "jsdom": "^25.0.1",
+    "vite": "^5.4.2",
+    "vitest": "^2.1.8"
+  }
+}

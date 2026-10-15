@@ -1,0 +1,14 @@
+{
+  "name": "practical-b1-jwt-auth",
+  "version": "1.0.0",
+  "description": "SET B Practical B1: JWT Authentication API (Node.js and Express)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test-b1.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
