@@ -1,0 +1,1473 @@
+/*== ISHIKA AWASTHI ===== CU24250188 ==== */
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Ishika Awasthi - Data and Machine Learning Portfolio">
+
+    <title>Ishika Awasthi — Data & ML</title>
+
+    <style>
+
+        /* ================= GENERAL ================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: #f7f5f0;
+            color: #222;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #333;
+        }
+
+        a:focus {
+            outline: 3px solid #ffbf47;
+            outline-offset: 3px;
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 25px;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .site-header {
+            background: #ffffff;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .site-header__inner {
+            min-height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .logo__dot {
+            color: #d85c38;
+        }
+
+
+        /* ================= NAVIGATION ================= */
+
+        .nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav a {
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav a:hover {
+            color: #d85c38;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
+        .cellnum {
+            font-family: monospace;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .hero__code {
+            font-family: monospace;
+            color: #555;
+        }
+
+        .str {
+            color: #a04b28;
+        }
+
+        .hero__title {
+            font-family: Georgia, serif;
+            font-size: 60px;
+            margin: 10px 0;
+        }
+
+        .hero__desc {
+            max-width: 850px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .hero__out {
+            font-family: monospace;
+            color: #555;
+        }
+
+
+        /* ================= STAT TILES ================= */
+
+        .tiles {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 35px 0;
+        }
+
+        .tile {
+            border: 1px solid #ddd;
+            padding: 20px;
+            background: white;
+        }
+
+        .tile__value {
+            display: block;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .tile__label {
+            color: #777;
+            font-size: 14px;
+        }
+
+
+        /* ================= SECTIONS ================= */
+
+        .section {
+            padding: 70px 0;
+            border-top: 1px solid #ddd;
+        }
+
+        .section--alt {
+            background: #eeece6;
+        }
+
+        .section__title {
+            font-family: Georgia, serif;
+            font-size: 32px;
+        }
+
+        .section__num {
+            font-family: monospace;
+            color: #d85c38;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .section__sub {
+            color: #666;
+            max-width: 800px;
+        }
+
+
+        /* ================= PROJECTS ================= */
+
+        .log {
+            display: grid;
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .cell {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 25px;
+        }
+
+        .cell__code {
+            font-family: monospace;
+        }
+
+        .cell__title {
+            font-family: Georgia, serif;
+            font-size: 24px;
+        }
+
+        .cell__desc {
+            color: #555;
+        }
+
+        .cell__result {
+            font-family: monospace;
+            color: #444;
+        }
+
+        .tags {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0;
+        }
+
+        .tags li {
+            background: #eee;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        .cell__link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #a04b28;
+        }
+
+
+        /* ================= SKILLS ================= */
+
+        .importgrid {
+            margin-top: 30px;
+        }
+
+        .importrow {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            padding: 18px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .importrow__label {
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            border: 1px solid #bbb;
+            padding: 5px 10px;
+            background: white;
+        }
+
+
+        /* ================= CERTIFICATIONS ================= */
+
+        .badges__title {
+            margin-top: 45px;
+        }
+
+        .badges {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .badge {
+            display: flex;
+            gap: 15px;
+            padding: 18px;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .badge__dot {
+            width: 12px;
+            height: 12px;
+            background: #d85c38;
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .badge__name {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .badge__issuer {
+            color: #777;
+            margin: 5px 0 0;
+        }
+
+
+        /* ================= ABOUT / EDUCATION ================= */
+
+        .wrap--narrow {
+            max-width: 850px;
+        }
+
+        .cell--about {
+            margin-top: 25px;
+        }
+
+        .cell__result--prose {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+        }
+
+        .timeline {
+            list-style: none;
+            padding: 0;
+            margin-top: 25px;
+        }
+
+        .timeline__item {
+            display: flex;
+            gap: 25px;
+            padding: 18px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .timeline__year {
+            font-family: monospace;
+            min-width: 100px;
+        }
+
+        .timeline__name {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .timeline__meta {
+            color: #777;
+            margin: 5px 0 0;
+        }
+
+
+        /* ================= CONTACT ================= */
+
+        .contact-card {
+            margin-top: 30px;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .contact-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            padding: 18px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .contact-label {
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .contact-value {
+            color: #a04b28;
+        }
+
+
+        /* ================= TASK 1.3 : CATALOG ================= */
+
+        .catalog__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .catalog__item {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 25px;
+        }
+
+        .catalog__item h3 {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .catalog__item dl {
+            margin: 0;
+        }
+
+        .catalog__item dt {
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        .catalog__item dd {
+            margin: 3px 0 0;
+            color: #555;
+        }
+
+        .catalog__price {
+            font-weight: bold;
+            color: #a04b28 !important;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        .site-footer {
+            background: #222;
+            color: white;
+            padding: 25px 0;
+        }
+
+        .site-footer__inner {
+            display: flex;
+            justify-content: space-between;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 800px) {
+
+            .hero__title {
+                font-size: 42px;
+            }
+
+            .tiles {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .catalog__grid {
+                grid-template-columns: 1fr;
+            }
+
+            .badges {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .site-header__inner {
+                flex-direction: column;
+                padding: 15px 0;
+                gap: 10px;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding-top: 40px;
+            }
+
+            .hero__title {
+                font-size: 36px;
+            }
+
+            .tiles {
+                grid-template-columns: 1fr;
+            }
+
+            .importrow {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .timeline__item {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .contact-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+
+            .site-footer__inner {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         TASK 1.1 : SEMANTIC HEADER + NAVIGATION
+         ===================================================== -->
+
+    <header class="site-header">
+
+        <div class="wrap site-header__inner">
+
+
+            <!-- TASK 1.2 : Navigation using anchor links -->
+            <nav class="nav" aria-label="Main Navigation">
+
+                <a href="#work">work</a>
+
+                <a href="#skills">skills</a>
+
+                <a href="#about">about</a>
+
+                <a href="#catalog">catalog</a>
+
+                <a href="#contact">contact</a>
+
+                <!-- Absolute external resource addresses -->
+
+                <a href="https://www.w3.org/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    W3C
+                </a>
+
+                <a href="https://github.com/ishika-awasthi"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    GitHub
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main id="top">
+
+
+        <!-- =================================================
+             RESUME INTRODUCTION
+             ================================================= -->
+
+        <section class="hero wrap"
+                 aria-labelledby="intro-heading">
+
+            <div class="cellnum">
+                In [1]:
+            </div>
+
+
+            <h1 id="intro-heading" class="hero__title">
+                Ishika Awasthi
+            </h1>
+
+            <p class="hero__desc">
+                CS undergrad building machine learning models and data
+                pipelines — from predicting purchase intent on e-commerce
+                sessions to dashboards that make 55,000 patient records
+                legible. I like turning messy data into something a model,
+                or a person, can actually use.
+            </p>
+
+
+            <div class="tiles">
+
+                <div class="tile">
+                    <span class="tile__value">8.77</span>
+                    <span class="tile__label">CGPA</span>
+                </div>
+
+                <div class="tile">
+                    <span class="tile__value">3</span>
+                    <span class="tile__label">ML projects</span>
+                </div>
+
+                <div class="tile">
+                    <span class="tile__value">4</span>
+                    <span class="tile__label">certifications</span>
+                </div>
+
+                <div class="tile">
+                    <span class="tile__value">2028</span>
+                    <span class="tile__label">Graduation</span>
+                </div>
+
+            </div>
+
+
+            <div class="cellnum">
+                Out[1]:
+            </div>
+
+            <p class="hero__out">
+                B.Tech Computer Science &amp; Engineering,
+                COER University, Roorkee
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             TASK 1.1 : PROJECTS
+             ================================================= -->
+
+        <section id="work"
+                 class="section"
+                 aria-labelledby="work-heading">
+
+            <div class="wrap">
+
+                <h2 id="work-heading" class="section__title">
+                    <span class="section__num">01</span>
+                    experiment log
+                </h2>
+
+                <p class="section__sub">
+                    Three notebooks, three problems — classification,
+                    regression, and a dashboard.
+                </p>
+
+
+                <div class="log">
+
+
+                    <!-- Project 1 -->
+
+                    <article class="cell">
+
+                        <div class="cell__io">
+
+                            <span class="cellnum">
+                                In [1]:
+                            </span>
+
+                            <p class="cell__code">
+                                predict(purchase_intent,
+                                sessions=<span class="num">12_330</span>,
+                                features=<span class="num">18</span>)
+                            </p>
+
+                        </div>
+
+
+                        <h3 class="cell__title">
+                            Customer Behaviour Prediction using
+                            Web Usage Mining
+                        </h3>
+
+
+                        <p class="cell__desc">
+                            Analyzed 12,330 e-commerce user sessions across
+                            18 behavioral features — bounce rate, exit rate,
+                            page value — to predict purchase intent.
+                            Trained and compared four classifiers;
+                            preprocessed with label encoding, feature
+                            scaling, and session-level aggregation.
+                            Deployed as an end-to-end Flask app with an
+                            HTML/CSS/JS frontend for real-time prediction.
+                        </p>
+
+
+                        <div class="cell__io">
+
+                            <span class="cellnum">
+                                Out [1]:
+                            </span>
+
+                            <p class="cell__result">
+                                <strong>Random Forest</strong> —
+                                best performer via ensemble learning,
+                                out of 4 models compared
+                            </p>
+
+                        </div>
+
+
+                        <ul class="tags">
+                            <li>Python</li>
+                            <li>Flask</li>
+                            <li>Scikit-learn</li>
+                            <li>HTML/CSS/JS</li>
+                        </ul>
+
+
+                        <a class="cell__link"
+                           href="https://github.com/ishika-awasthi"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            view repo →
+                        </a>
+
+                    </article>
+
+
+                    <!-- Project 2 -->
+
+                    <article class="cell">
+
+                        <div class="cell__io">
+
+                            <span class="cellnum">
+                                In [2]:
+                            </span>
+
+                            <p class="cell__code">
+                                predict(house_price,
+                                models=["LinearReg",
+                                "RandomForest",
+                                "XGBoost"])
+                            </p>
+
+                        </div>
+
+
+                        <h3 class="cell__title">
+                            House Price Prediction
+                        </h3>
+
+
+                        <p class="cell__desc">
+                            Built a regression pipeline on a Kaggle housing
+                            dataset comparing Linear Regression, Random
+                            Forest, and XGBoost. Tuned hyperparameters with
+                            GridSearchCV, evaluated with R², MSE, and MAE,
+                            and visualized predicted-vs-actual prices
+                            alongside feature importance.
+                        </p>
+
+
+                        <div class="cell__io">
+
+                            <span class="cellnum">
+                                Out [2]:
+                            </span>
+
+                            <p class="cell__result">
+                                3 regressors compared —
+                                tuned via <strong>GridSearchCV</strong>
+                            </p>
+
+                        </div>
+
+
+                        <ul class="tags">
+                            <li>Python</li>
+                            <li>XGBoost</li>
+                            <li>Scikit-learn</li>
+                            <li>GridSearchCV</li>
+                        </ul>
+
+
+                        <a class="cell__link"
+                           href="https://github.com/ishika-awasthi"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            view repo →
+                        </a>
+
+                    </article>
+
+
+                    <!-- Project 3 -->
+
+                    <article class="cell">
+
+                        <div class="cell__io">
+
+                            <span class="cellnum">
+                                In [3]:
+                            </span>
+
+                            <p class="cell__code">
+                                dashboard(patients=<span class="num">55_000</span>+,
+                                pages=<span class="num">2</span>)
+                            </p>
+
+                        </div>
+
+
+                        <h3 class="cell__title">
+                            Healthcare Analytics Dashboard
+                        </h3>
+
+
+                        <p class="cell__desc">
+                            Built a 2-page Power BI dashboard over 55,000+
+                            patient records, tracking admissions, billing,
+                            and mortality. Segmented by age group, gender,
+                            admission type, and medical condition, with
+                            daily/monthly/quarterly trend views. Data was
+                            cleaned and preprocessed in Pandas before import.
+                        </p>
+
+
+                        <div class="cell__io">
+
+                            <span class="cellnum">
+                                Out [3]:
+                            </span>
+
+                            <p class="cell__result">
+                                KPI cards for <strong>mortality rate</strong>,
+                                average billing, and weekday vs. weekend
+                                admissions
+                            </p>
+
+                        </div>
+
+
+                        <ul class="tags">
+                            <li>Power BI</li>
+                            <li>Python</li>
+                            <li>Pandas</li>
+                        </ul>
+
+
+                        <a class="cell__link"
+                           href="https://github.com/ishika-awasthi"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            view repo →
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SKILLS
+             ================================================= -->
+
+        <section id="skills"
+                 class="section section--alt"
+                 aria-labelledby="skills-heading">
+
+            <div class="wrap">
+
+                <h2 id="skills-heading" class="section__title">
+                    <span class="section__num">02</span>
+                    imports
+                </h2>
+
+                <p class="section__sub">
+                    What's in the environment.
+                </p>
+
+
+                <div class="importgrid">
+
+                    <div class="importrow">
+
+                        <span class="importrow__label">
+                            languages
+                        </span>
+
+                        <div class="chips">
+                            <span class="chip">Python</span>
+                            <span class="chip">C++</span>
+                            <span class="chip">SQL</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="importrow">
+
+                        <span class="importrow__label">
+                            machine learning
+                        </span>
+
+                        <div class="chips">
+                            <span class="chip">Regression</span>
+                            <span class="chip">Classification</span>
+                            <span class="chip">Feature Engineering</span>
+                            <span class="chip">Model Evaluation</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="importrow">
+
+                        <span class="importrow__label">
+                            libraries
+                        </span>
+
+                        <div class="chips">
+                            <span class="chip">Pandas</span>
+                            <span class="chip">NumPy</span>
+                            <span class="chip">Matplotlib</span>
+                            <span class="chip">Seaborn</span>
+                            <span class="chip">Scikit-learn</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="importrow">
+
+                        <span class="importrow__label">
+                            databases
+                        </span>
+
+                        <div class="chips">
+                            <span class="chip">MySQL</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="importrow">
+
+                        <span class="importrow__label">
+                            tools &amp; platforms
+                        </span>
+
+                        <div class="chips">
+                            <span class="chip">Git</span>
+                            <span class="chip">GitHub</span>
+                            <span class="chip">VS Code</span>
+                            <span class="chip">Power BI</span>
+                            <span class="chip">Canva</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="importrow">
+
+                        <span class="importrow__label">
+                            web
+                        </span>
+
+                        <div class="chips">
+                            <span class="chip">HTML</span>
+                            <span class="chip">CSS</span>
+                            <span class="chip">Flask</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Certifications -->
+
+                <h3 class="badges__title">
+                    Certifications
+                </h3>
+
+
+                <div class="badges">
+
+                    <div class="badge">
+
+                        <span class="badge__dot"></span>
+
+                        <div>
+                            <p class="badge__name">
+                                Oracle Cloud Infrastructure 2025
+                                Certified AI Foundations Associate
+                            </p>
+
+                            <p class="badge__issuer">
+                                Oracle University
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="badge">
+
+                        <span class="badge__dot"></span>
+
+                        <div>
+                            <p class="badge__name">
+                                Applied Machine Learning using Python
+                            </p>
+
+                            <p class="badge__issuer">
+                                Dept. of Computer Engineering,
+                                NIT Kurukshetra
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="badge">
+
+                        <span class="badge__dot"></span>
+
+                        <div>
+                            <p class="badge__name">
+                                Artificial Intelligence using Python
+                            </p>
+
+                            <p class="badge__issuer">
+                                Infosys Springboard
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="badge">
+
+                        <span class="badge__dot"></span>
+
+                        <div>
+                            <p class="badge__name">
+                                Internal Hackathon Participant
+                            </p>
+
+                            <p class="badge__issuer">
+                                12-hour Internal Hackathon,
+                                COER University
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ABOUT + EDUCATION
+             ================================================= -->
+
+        <section id="about"
+                 class="section"
+                 aria-labelledby="about-heading">
+
+            <div class="wrap wrap--narrow">
+
+                <h2 id="about-heading" class="section__title">
+                    <span class="section__num">03</span>
+                    about
+                </h2>
+
+
+                <div class="cell cell--about">
+
+                    <div class="cell__io">
+
+                        <span class="cellnum">
+                            In [4]:
+                        </span>
+
+                        <p class="cell__code">
+                            summary()
+                        </p>
+
+                    </div>
+
+
+                    <div class="cell__io">
+
+                        <span class="cellnum">
+                            Out [4]:
+                        </span>
+
+                        <p class="cell__result cell__result--prose">
+                            Currently a Computer Science undergrad at
+                            COER University, Roorkee, where most of my
+                            time goes into notebooks — training models,
+                            tuning them, and occasionally getting a
+                            dashboard to load faster than the coffee it
+                            took to build it. In May–June 2025 I completed
+                            a training program with Xplorin Academy covering
+                            DSA, web development, and data analytics &amp; AI.
+                            I like problems where the data is a little messy
+                            and the answer isn't obvious yet.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <h3 class="timeline__title">
+                    Education
+                </h3>
+
+
+                <ul class="timeline">
+
+                    <li class="timeline__item">
+
+                        <span class="timeline__year">
+                            2024–2028
+                        </span>
+
+                        <div>
+
+                            <p class="timeline__name">
+                                B.Tech, Computer Science &amp; Engineering
+                            </p>
+
+                            <p class="timeline__meta">
+                                COER University, Roorkee ·
+                                CGPA 8.73 · in progress
+                            </p>
+
+                        </div>
+
+                    </li>
+
+
+                    <li class="timeline__item">
+
+                        <span class="timeline__year">
+                            2024
+                        </span>
+
+                        <div>
+
+                            <p class="timeline__name">
+                                Intermediate (CBSE)
+                            </p>
+
+                            <p class="timeline__meta">
+                                Delhi Public School, Roorkee · 88.2%
+                            </p>
+
+                        </div>
+
+                    </li>
+
+
+                    <li class="timeline__item">
+
+                        <span class="timeline__year">
+                            2022
+                        </span>
+
+                        <div>
+
+                            <p class="timeline__name">
+                                High School (CBSE)
+                            </p>
+
+                            <p class="timeline__meta">
+                                Delhi Public School, Roorkee · 94.3%
+                            </p>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+        <section id="contact"
+                 class="section section--alt"
+                 aria-labelledby="contact-heading">
+
+            <div class="wrap wrap--narrow">
+
+                <h2 id="contact-heading" class="section__title">
+                    <span class="section__num">05</span>
+                    contact
+                </h2>
+
+                <p class="section__sub">
+                    Based in Roorkee, open to internships and
+                    collaborations in data &amp; ML.
+                </p>
+
+
+                <div class="contact-card">
+
+                    <div class="contact-row">
+
+                        <span class="contact-label">
+                            email
+                        </span>
+
+                        <a class="contact-value"
+                           href="mailto:awasthiishika661@gmail.com">
+                            awasthiishika661@gmail.com
+                        </a>
+
+                    </div>
+
+
+                    <div class="contact-row">
+
+                        <span class="contact-label">
+                            phone
+                        </span>
+
+                        <a class="contact-value"
+                           href="tel:+919193339205">
+                            +91 91933 39205
+                        </a>
+
+                    </div>
+
+
+                    <div class="contact-row">
+
+                        <span class="contact-label">
+                            linkedin
+                        </span>
+
+                        <a class="contact-value"
+                           href="https://www.linkedin.com/in/ishika-awasthi-138609324/"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            ishika-awasthi-138609324
+                        </a>
+
+                    </div>
+
+
+                    <div class="contact-row">
+
+                        <span class="contact-label">
+                            github
+                        </span>
+
+                        <a class="contact-value"
+                           href="https://github.com/ishika-awasthi"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            github.com/ishika-awasthi
+                        </a>
+
+                    </div>
+
+
+                    <div class="contact-row">
+
+                        <span class="contact-label">
+                            location
+                        </span>
+
+                        <span class="contact-value">
+                            Roorkee, India
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TASK 1.3 : WEB CATALOG
+             ================================================= -->
+
+        <section id="catalog"
+                 class="section section--alt"
+                 aria-labelledby="catalog-heading">
+
+            <div class="wrap">
+
+                <h2 id="catalog-heading" class="section__title">
+                    <span class="section__num">04</span>
+                    web catalog
+                </h2>
+
+                <p class="section__sub">
+                    Product information organized using structured
+                    HTML definition lists.
+                </p>
+
+
+                <div class="catalog__grid">
+
+
+                    <!-- PRODUCT 1 -->
+
+                    <article class="catalog__item"
+                             aria-labelledby="laptop-heading">
+
+                        <h3 id="laptop-heading">
+                            Laptop
+                        </h3>
+
+                        <dl>
+
+                            <dt>Brand</dt>
+                            <dd>HP</dd>
+
+                            <dt>Model</dt>
+                            <dd>Pavilion 15</dd>
+
+                            <dt>Processor</dt>
+                            <dd>Intel Core i5</dd>
+
+                            <dt>RAM</dt>
+                            <dd>16 GB</dd>
+
+                            <dt>Storage</dt>
+                            <dd>512 GB SSD</dd>
+
+                            <dt>Display</dt>
+                            <dd>15.6-inch Full HD</dd>
+
+                            <dt>Price</dt>
+                            <dd class="catalog__price">
+                                ₹65,000
+                            </dd>
+
+                        </dl>
+
+                    </article>
+
+
+                    <!-- PRODUCT 2 -->
+
+                    <article class="catalog__item"
+                             aria-labelledby="phone-heading">
+
+                        <h3 id="phone-heading">
+                            Smartphone
+                        </h3>
+
+                        <dl>
+
+                            <dt>Brand</dt>
+                            <dd>Samsung</dd>
+
+                            <dt>Model</dt>
+                            <dd>Galaxy S Series</dd>
+
+                            <dt>Display</dt>
+                            <dd>6.5-inch AMOLED</dd>
+
+                            <dt>RAM</dt>
+                            <dd>8 GB</dd>
+
+                            <dt>Storage</dt>
+                            <dd>128 GB</dd>
+
+                            <dt>Camera</dt>
+                            <dd>50 MP Primary Camera</dd>
+
+                            <dt>Price</dt>
+                            <dd class="catalog__price">
+                                ₹45,000
+                            </dd>
+
+                        </dl>
+
+                    </article>
+
+
+                    <!-- PRODUCT 3 -->
+
+                    <article class="catalog__item"
+                             aria-labelledby="headphones-heading">
+
+                        <h3 id="headphones-heading">
+                            Wireless Headphones
+                        </h3>
+
+                        <dl>
+
+                            <dt>Brand</dt>
+                            <dd>Sony</dd>
+
+                            <dt>Type</dt>
+                            <dd>Over-Ear Wireless Headphones</dd>
+
+                            <dt>Connectivity</dt>
+                            <dd>Bluetooth 5.3</dd>
+
+                            <dt>Battery Life</dt>
+                            <dd>30 Hours</dd>
+
+                            <dt>Noise Cancellation</dt>
+                            <dd>Active Noise Cancellation</dd>
+
+                            <dt>Price</dt>
+                            <dd class="catalog__price">
+                                ₹12,999
+                            </dd>
+
+                        </dl>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTACT
+             ================================================= -->
+
+        
+
+    </main>
+
+
+    <!-- =====================================================
+         TASK 1.1 : FOOTER
+         ===================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="wrap site-footer__inner">
+
+            <span>
+                © 2026 Ishika Awasthi
+            </span>
+
+            <span>
+                HTML5 Resume &amp; Web Catalog
+            </span>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

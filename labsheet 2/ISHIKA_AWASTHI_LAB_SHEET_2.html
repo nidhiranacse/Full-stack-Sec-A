@@ -1,0 +1,526 @@
+/*== ISHIKA AWASTHI ===== CU24250188 ==== */
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbench — 2.1 / 2.2 / 2.3</title>
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --bg:            #12141a;
+    --bg-panel:      #1a1d24;
+    --bg-panel-2:    #20242c;
+    --line:          #2c313c;
+    --text:          #e7e9ee;
+    --text-dim:      #8b93a1;
+    --accent:        #5eead4;   /* signal teal */
+    --accent-2:      #f5a623;   /* warm amber */
+    --danger:        #ff6b6b;
+    --ok:            #7ee787;
+    --radius:        10px;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+    --disp: 'Space Grotesk', 'Segoe UI', sans-serif;
+    --body: 'Inter', 'Segoe UI', sans-serif;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  html[data-theme="light"]{
+    --bg:            #f2efe8;
+    --bg-panel:      #ffffff;
+    --bg-panel-2:    #eae6db;
+    --line:          #d8d2c2;
+    --text:          #1c1f24;
+    --text-dim:      #666a5c;
+    --accent:        #0f8f7d;
+    --accent-2:      #b5760f;
+    --danger:        #c73838;
+    --ok:            #2a8f4a;
+    --shadow: 0 10px 30px rgba(0,0,0,.08);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.55;
+    transition:background .35s ease, color .35s ease;
+    overflow-x:hidden;
+  }
+  a{ color:inherit; }
+  ::selection{ background:var(--accent); color:#0b0d10; }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 28px; }
+
+  /* ============ NAV / TOGGLE (Task 2.1) ============ */
+  header.top{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+    max-width:1120px; margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:14px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--text-dim);
+  }
+  .brand .dot{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .brand strong{ color:var(--text); font-weight:600; }
+
+  .navlinks{ display:flex; gap:22px; font-family:var(--mono); font-size:12.5px; letter-spacing:.06em; }
+  .navlinks a{ color:var(--text-dim); text-decoration:none; padding:6px 2px; border-bottom:1px solid transparent; }
+  .navlinks a:hover{ color:var(--accent); border-color:var(--accent); }
+
+  /* physical rocker switch */
+  .switch{
+    --w:56px; --h:28px;
+    width:var(--w); height:var(--h);
+    border-radius:999px;
+    background:var(--bg-panel-2);
+    border:1px solid var(--line);
+    position:relative; cursor:pointer;
+    display:inline-flex; align-items:center;
+    padding:3px;
+    transition:background .3s ease;
+  }
+  .switch .knob{
+    width:20px; height:20px; border-radius:50%;
+    background:var(--accent);
+    transform:translateX(0);
+    transition:transform .3s cubic-bezier(.5,-0.3,.4,1.3), background .3s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+  html[data-theme="light"] .switch .knob{ transform:translateX(28px); background:var(--accent-2); }
+  .switch::after{
+    content:"";
+  }
+  .switchwrap{ display:flex; align-items:center; gap:10px; }
+  .switchlabel{ font-family:var(--mono); font-size:11px; color:var(--text-dim); width:34px; }
+
+  /* ============ HERO (Task 2.1) ============ */
+  .hero{
+    padding:96px 0 84px;
+    position:relative;
+  }
+  .kicker{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.18em;
+    color:var(--accent); text-transform:uppercase; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .kicker::before{ content:"§ 2.1"; border:1px solid var(--line); border-radius:4px; padding:2px 7px; color:var(--text-dim); }
+  h1.display{
+    font-family:var(--disp);
+    font-weight:600;
+    font-size:clamp(2.4rem, 5.4vw, 4.4rem);
+    line-height:1.03;
+    letter-spacing:-.02em;
+    max-width:15ch;
+  }
+  h1.display em{
+    font-style:normal; color:var(--accent);
+  }
+  .hero p.lead{
+    margin-top:22px; max-width:56ch;
+    color:var(--text-dim); font-size:1.08rem;
+  }
+  .hero .cta-row{ margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:13px; letter-spacing:.03em;
+    padding:12px 20px; border-radius:8px; border:1px solid var(--line);
+    background:var(--bg-panel); color:var(--text); cursor:pointer;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, border-color .2s ease, background .2s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); border-color:var(--accent); }
+  .btn.primary{ background:var(--accent); color:#0b0d10; border-color:var(--accent); font-weight:600;}
+  .btn.primary:hover{ background:color-mix(in srgb, var(--accent) 85%, white); }
+
+  .hero-frame{
+    margin-top:60px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:var(--bg-panel);
+    padding:22px 24px;
+    font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
+    box-shadow:var(--shadow);
+    position:relative;
+  }
+  .hero-frame::before{
+    content:"◆ theme.js"; position:absolute; top:-11px; left:18px;
+    background:var(--bg); padding:0 8px; color:var(--accent); font-size:11px;
+  }
+  .hero-frame .line{ white-space:pre; }
+  .hero-frame .k{ color:var(--accent-2); }
+  .hero-frame .s{ color:var(--accent); }
+
+  /* section shells */
+  section{ padding:80px 0; border-top:1px solid var(--line); }
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:34px; flex-wrap:wrap; }
+  .section-num{
+    font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
+    border:1px solid var(--line); border-radius:4px; padding:2px 7px;
+  }
+  .section-title{ font-family:var(--disp); font-size:1.7rem; font-weight:600; }
+  .section-sub{ color:var(--text-dim); max-width:60ch; margin-top:6px; font-size:.96rem; }
+
+  /* ============ PHOTO GRID (Task 2.2) ============ */
+  .grid{
+    display:flex; flex-wrap:wrap; gap:16px;
+  }
+  .tile{
+    position:relative;
+    flex:1 1 220px;
+    max-width:280px;
+    aspect-ratio:4/5;
+    border-radius:var(--radius);
+    overflow:hidden;
+    background:var(--bg-panel-2);
+    border:1px solid var(--line);
+    cursor:pointer;
+  }
+  .tile img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .5s cubic-bezier(.2,.7,.2,1), filter .5s ease;
+    filter:grayscale(45%) contrast(1.02);
+  }
+  .tile:hover img{
+    transform:scale(1.09) rotate(-1deg);
+    filter:grayscale(0%) contrast(1.05);
+  }
+  .tile .cap{
+    position:absolute; left:0; right:0; bottom:0;
+    padding:12px 14px;
+    background:linear-gradient(180deg, transparent, rgba(0,0,0,.75));
+    color:#fff;
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.04em;
+    transform:translateY(8px);
+    opacity:0;
+    transition:transform .35s ease, opacity .35s ease;
+  }
+  .tile:hover .cap{ transform:translateY(0); opacity:1; }
+  .tile .idx{
+    position:absolute; top:10px; left:10px;
+    font-family:var(--mono); font-size:10.5px;
+    background:rgba(0,0,0,.55); color:#fff;
+    padding:3px 7px; border-radius:4px;
+    opacity:0; transform:translateY(-6px);
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  .tile:hover .idx{ opacity:1; transform:translateY(0); }
+
+  @media (max-width:520px){
+    .tile{ flex:1 1 42%; }
+  }
+
+  /* ============ TODO APP (Task 2.3) ============ */
+  .todo-panel{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px;
+    max-width:620px;
+    box-shadow:var(--shadow);
+  }
+  .todo-input-row{ display:flex; gap:10px; }
+  #todoInput{
+    flex:1; padding:13px 14px;
+    background:var(--bg-panel-2); border:1px solid var(--line); border-radius:8px;
+    color:var(--text); font-family:var(--body); font-size:.95rem;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  #todoInput:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
+  #todoInput.error{ border-color:var(--danger); animation:shake .32s ease; }
+  @keyframes shake{
+    0%,100%{ transform:translateX(0); }
+    25%{ transform:translateX(-6px); }
+    75%{ transform:translateX(6px); }
+  }
+  .error-msg{
+    color:var(--danger); font-family:var(--mono); font-size:12px;
+    margin-top:8px; height:14px;
+    opacity:0; transition:opacity .2s ease;
+  }
+  .error-msg.show{ opacity:1; }
+
+  .todo-meta{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:18px; padding-bottom:14px; border-bottom:1px solid var(--line);
+    font-family:var(--mono); font-size:11.5px; color:var(--text-dim);
+  }
+  .filters{ display:flex; gap:6px; }
+  .filters button{
+    background:none; border:1px solid var(--line); color:var(--text-dim);
+    font-family:var(--mono); font-size:11px; padding:4px 9px; border-radius:6px; cursor:pointer;
+  }
+  .filters button.active{ color:var(--accent); border-color:var(--accent); }
+
+  #todoList{ list-style:none; margin-top:6px; }
+  #todoList li{
+    display:flex; align-items:center; gap:12px;
+    padding:13px 4px;
+    border-bottom:1px solid var(--line);
+    animation:enter .28s ease;
+  }
+  @keyframes enter{
+    from{ opacity:0; transform:translateY(-6px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  #todoList li .check{
+    width:19px; height:19px; border-radius:5px; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; flex-shrink:0; color:var(--ok); font-size:12px;
+    transition:border-color .2s ease;
+  }
+  #todoList li.done .check{ background:var(--ok); border-color:var(--ok); color:#0b0d10; }
+  #todoList li span.txt{ flex:1; font-size:.95rem; word-break:break-word; }
+  #todoList li.done span.txt{ text-decoration:line-through; color:var(--text-dim); }
+  #todoList li .del{
+    background:none; border:none; color:var(--text-dim); cursor:pointer;
+    font-family:var(--mono); font-size:16px; line-height:1; padding:4px;
+    transition:color .2s ease;
+  }
+  #todoList li .del:hover{ color:var(--danger); }
+
+  .empty-state{
+    text-align:center; padding:34px 10px; color:var(--text-dim);
+    font-family:var(--mono); font-size:12.5px;
+  }
+
+  footer{
+    padding:40px 0 60px; text-align:center;
+    color:var(--text-dim); font-family:var(--mono); font-size:11.5px;
+    letter-spacing:.06em;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span> <strong>WORKBENCH</strong>/2</div>
+    <nav class="navlinks">
+      <a href="#hero">2.1 landing</a>
+      <a href="#grid">2.2 grid</a>
+      <a href="#todo">2.3 todo</a>
+    </nav>
+    <div class="switchwrap">
+      <span class="switchlabel" id="switchLabel">dark</span>
+      <div class="switch" id="themeSwitch" role="button" aria-label="Toggle theme"><div class="knob"></div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ TASK 2.1 : DARK-MODE LANDING ============ -->
+<section id="hero" class="hero" style="border-top:none;">
+  <div class="wrap">
+    <div class="kicker">custom css variables · runtime toggle</div>
+    <h1 class="display">A landing surface that <em>rewires itself</em> in one click.</h1>
+    <p class="lead">Every color on this page is a CSS custom property. Flipping the switch above swaps a single <code>data-theme</code> attribute on <code>&lt;html&gt;</code> — no reload, no flash, no separate stylesheet.</p>
+    <div class="cta-row">
+      <a href="#grid" class="btn primary">View the grid ↓</a>
+      <a href="#todo" class="btn">Open the todo app ↓</a>
+    </div>
+    <div class="hero-frame">
+      <div class="line"><span class="k">const</span> root = document.documentElement;</div>
+      <div class="line"><span class="k">function</span> <span class="s">toggleTheme</span>() {</div>
+      <div class="line">  <span class="k">const</span> next = root.dataset.theme === <span class="s">'dark'</span> ? <span class="s">'light'</span> : <span class="s">'dark'</span>;</div>
+      <div class="line">  root.dataset.theme = next;</div>
+      <div class="line">  localStorage.setItem(<span class="s">'wb-theme'</span>, next);</div>
+      <div class="line">}</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TASK 2.2 : PHOTO GRID ============ -->
+<section id="grid">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">2.2</span>
+      <div>
+        <div class="section-title">Specimen grid</div>
+        <div class="section-sub">Pure Flexbox wrap — tiles reflow fluidly down to phone width. Hover any tile for a scale + tilt transform and a caption reveal.</div>
+      </div>
+    </div>
+    <div class="grid" id="photoGrid"></div>
+  </div>
+</section>
+
+<!-- ============ TASK 2.3 : TODO APP ============ -->
+<section id="todo">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">2.3</span>
+      <div>
+        <div class="section-title">Task log</div>
+        <div class="section-sub">Fully client-side: items are appended at runtime, empty submissions raise an inline validation flag, and state lives entirely in memory.</div>
+      </div>
+    </div>
+
+    <div class="todo-panel">
+      <div class="todo-input-row">
+        <input id="todoInput" type="text" placeholder="Log a task and press Enter…" maxlength="120">
+        <button class="btn primary" id="addBtn">Add</button>
+      </div>
+      <div class="error-msg" id="todoError">⚠ enter a task before adding it</div>
+
+      <div class="todo-meta">
+        <span id="todoCount">0 open</span>
+        <div class="filters">
+          <button class="active" data-filter="all">all</button>
+          <button data-filter="open">open</button>
+          <button data-filter="done">done</button>
+        </div>
+      </div>
+
+      <ul id="todoList"></ul>
+      <div class="empty-state" id="emptyState">— nothing logged yet —</div>
+    </div>
+  </div>
+</section>
+
+<footer>workbench / task 2.1 · 2.2 · 2.3 — single-file build, vanilla js only</footer>
+
+<script>
+/* ===================== TASK 2.1 : THEME TOGGLE ===================== */
+(function(){
+  const root = document.documentElement;
+  const switchEl = document.getElementById('themeSwitch');
+  const label = document.getElementById('switchLabel');
+  const saved = localStorage.getItem('wb-theme');
+  if(saved){ root.setAttribute('data-theme', saved); }
+  function sync(){ label.textContent = root.getAttribute('data-theme'); }
+  function toggleTheme(){
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('wb-theme', next);
+    sync();
+  }
+  switchEl.addEventListener('click', toggleTheme);
+  sync();
+})();
+
+/* ===================== TASK 2.2 : PHOTO GRID ===================== */
+(function(){
+  const grid = document.getElementById('photoGrid');
+  const specimens = [
+    { seed: 'workbench-01', cap: 'field notes / 01' },
+    { seed: 'workbench-02', cap: 'field notes / 02' },
+    { seed: 'workbench-03', cap: 'field notes / 03' },
+    { seed: 'workbench-04', cap: 'field notes / 04' },
+    { seed: 'workbench-05', cap: 'field notes / 05' },
+    { seed: 'workbench-06', cap: 'field notes / 06' },
+    { seed: 'workbench-07', cap: 'field notes / 07' },
+    { seed: 'workbench-08', cap: 'field notes / 08' },
+  ];
+  specimens.forEach((s, i) => {
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.innerHTML = `
+      <span class="idx">${String(i+1).padStart(2,'0')}</span>
+      <img src="https://picsum.photos/seed/${s.seed}/500/620" alt="${s.cap}" loading="lazy">
+      <div class="cap">${s.cap}</div>
+    `;
+    grid.appendChild(tile);
+  });
+})();
+
+/* ===================== TASK 2.3 : TODO APP ===================== */
+(function(){
+  const input = document.getElementById('todoInput');
+  const addBtn = document.getElementById('addBtn');
+  const list = document.getElementById('todoList');
+  const errorMsg = document.getElementById('todoError');
+  const countEl = document.getElementById('todoCount');
+  const emptyState = document.getElementById('emptyState');
+  const filterBtns = document.querySelectorAll('.filters button');
+
+  let todos = [];   // { id, text, done }
+  let filter = 'all';
+  let uid = 0;
+
+  function showError(){
+    input.classList.add('error');
+    errorMsg.classList.add('show');
+    input.addEventListener('animationend', () => input.classList.remove('error'), { once:true });
+  }
+  function clearError(){
+    errorMsg.classList.remove('show');
+  }
+
+  function addTodo(){
+    const value = input.value.trim();
+    if(!value){
+      showError();
+      input.focus();
+      return;
+    }
+    clearError();
+    todos.push({ id: uid++, text: value, done:false });
+    input.value = '';
+    render();
+  }
+
+  function render(){
+    list.innerHTML = '';
+    const visible = todos.filter(t => filter === 'all' ? true : filter === 'open' ? !t.done : t.done);
+
+    emptyState.style.display = visible.length ? 'none' : 'block';
+    emptyState.textContent = todos.length
+      ? '— nothing matches this filter —'
+      : '— nothing logged yet —';
+
+    visible.forEach(t => {
+      const li = document.createElement('li');
+      if(t.done) li.classList.add('done');
+      li.innerHTML = `
+        <div class="check">${t.done ? '✓' : ''}</div>
+        <span class="txt"></span>
+        <button class="del" aria-label="delete">×</button>
+      `;
+      li.querySelector('.txt').textContent = t.text; // safe text insert, no HTML injection
+      li.querySelector('.check').addEventListener('click', () => {
+        t.done = !t.done;
+        render();
+      });
+      li.querySelector('.del').addEventListener('click', () => {
+        todos = todos.filter(x => x.id !== t.id);
+        render();
+      });
+      list.appendChild(li);
+    });
+
+    const openCount = todos.filter(t => !t.done).length;
+    countEl.textContent = `${openCount} open · ${todos.length} total`;
+  }
+
+  addBtn.addEventListener('click', addTodo);
+  input.addEventListener('keydown', e => {
+    if(e.key === 'Enter') addTodo();
+  });
+  input.addEventListener('input', clearError);
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filter = btn.dataset.filter;
+      render();
+    });
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
