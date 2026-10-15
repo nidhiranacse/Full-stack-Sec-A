@@ -1,0 +1,197 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#f5f7fb;
+  font-family:'Segoe UI',sans-serif;
+}
+
+.stats{
+  display:flex;
+  gap:20px;
+  margin-bottom:20px;
+}
+
+.card{
+  flex:1;
+}
+.container{
+  max-width:1000px;
+  width:90%;
+  margin:0 auto;
+  padding:20px;
+}
+}
+
+h1{
+  text-align:center;
+  color:#243b6b;
+  margin-bottom:25px;
+}
+
+/* Form Card */
+
+form{
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+
+  display:grid;
+  gap:12px;
+  margin-bottom:30px;
+}
+
+input{
+  padding:12px;
+  border:1px solid #d6dce5;
+  border-radius:8px;
+  font-size:15px;
+}
+
+input:focus{
+  outline:none;
+  border-color:#4f46e5;
+}
+
+/* Main Button */
+
+button{
+  background:#4f46e5;
+  color:white;
+  border:none;
+  padding:12px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#3730a3;
+}
+
+/* Table Card */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+th{
+  background:#243b6b;
+  color:white;
+  padding:15px;
+}
+
+td{
+  padding:12px;
+  border-bottom:1px solid #e6e6e6;
+  text-align:center;
+}
+
+tr:hover{
+  background:#f8f9ff;
+}
+
+/* Action Buttons */
+
+.edit-btn{
+  background:#f59e0b;
+  margin-right:8px;
+}
+
+.edit-btn:hover{
+  background:#d97706;
+}
+
+.delete-btn{
+  background:#ef4444;
+}
+
+.delete-btn:hover{
+  background:#dc2626;
+}
+
+/* Stats Card */
+
+.stats{
+  display:flex;
+  gap:20px;
+  margin-bottom:20px;
+}
+
+.card{
+  flex:1;
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  text-align:center;
+}
+
+.card h2{
+  color:#4f46e5;
+}
+
+.card p{
+  color:#666;
+}
+
+.stats{
+  display:flex;
+  gap:20px;
+  margin-bottom:20px;
+}
+
+.card{
+  flex:1;
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0px 2px 8px rgba(0,0,0,0.1);
+}
+
+.card h2{
+  color:#1f3c88;
+}
+
+.card p{
+  color:gray;
+}
+
+
+.edit-btn{
+  background:#f59e0b;
+  margin-right:8px;
+}
+
+.edit-btn:hover{
+  background:#d97706;
+}
+
+.delete-btn{
+  background:#ef4444;
+}
+
+.delete-btn:hover{
+  background:#dc2626;
+}
+
+.message{
+  background:#d1fae5;
+  color:#065f46;
+  padding:12px;
+  margin-bottom:20px;
+  border-radius:8px;
+  text-align:center;
+  font-weight:bold;
+}
