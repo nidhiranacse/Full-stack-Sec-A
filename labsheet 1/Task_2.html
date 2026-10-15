@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaryan Verma | Portfolio Navigation</title>
+    <style>
+        :root {
+            --bg-gradient-start: #e0eafc;
+            --bg-gradient-end: #cfdef3;
+            --text-color: #2d3748;
+            --text-muted: #4a5568;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --dropdown-bg: rgba(255, 255, 255, 0.95);
+            --accent-color: #3182ce;
+            --accent-hover: #2b6cb0;
+            --border-color: #e2e8f0;
+        }
+
+        [data-theme="dark"] {
+            --bg-gradient-start: #1a202c;
+            --bg-gradient-end: #2d3748;
+            --text-color: #f7fafc;
+            --text-muted: #e2e8f0;
+            --nav-bg: rgba(26, 32, 44, 0.95);
+            --dropdown-bg: rgba(26, 32, 44, 0.98);
+            --accent-color: #63b3ed;
+            --accent-hover: #4299e1;
+            --border-color: #4a5568;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Controls */
+        .controls {
+            display: flex;
+            justify-content: flex-end;
+            padding: 1rem 2rem;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.1s ease, background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation Bar */
+        header {
+            width: 100%;
+            padding: 0 2rem;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--nav-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 1.2rem 1.5rem;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-item:hover > .nav-link {
+            color: var(--accent-color);
+        }
+
+        /* Nested Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--dropdown-bg);
+            min-width: 220px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            list-style: none;
+            z-index: 100;
+        }
+
+        /* Show dropdown on hover */
+        .nav-item:hover > .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            transition: background-color 0.2s, padding-left 0.2s;
+        }
+
+        .dropdown-link:hover {
+            background-color: var(--border-color);
+            color: var(--accent-color);
+            padding-left: 1.8rem; /* Smooth slide effect on hover */
+        }
+
+        /* Main Content & Footer Placeholder */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-text {
+            background: var(--nav-bg);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+        }
+
+        .hero-text h1 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <button id="themeToggle" aria-label="Toggle Dark Mode">🌙 Dark Mode</button>
+    </div>
+
+    <header>
+        <nav aria-label="Main Navigation">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="https://github.com/" class="nav-link" target="_blank" rel="noopener noreferrer">Overview</a>
+                </li>
+                
+                <!-- Dropdown 1: Academics & Training -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Institutions ▾</a>
+                    <ul class="dropdown" aria-label="Institutions submenu">
+                        <li class="dropdown-item">
+                            <a href="https://coeruniversity.in/" class="dropdown-link" target="_blank" rel="noopener noreferrer">COER University</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="https://www.iitmandi.ac.in/" class="dropdown-link" target="_blank" rel="noopener noreferrer">IIT Mandi</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown 2: Technical Domains -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Technical Stacks ▾</a>
+                    <ul class="dropdown" aria-label="Technical Stacks submenu">
+                        <li class="dropdown-item">
+                            <a href="https://www.tensorflow.org/" class="dropdown-link" target="_blank" rel="noopener noreferrer">Machine Learning Frameworks</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="https://developer.mozilla.org/en-US/docs/Web" class="dropdown-link" target="_blank" rel="noopener noreferrer">Web Development (MDN)</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="https://www.python.org/" class="dropdown-link" target="_blank" rel="noopener noreferrer">Python Documentation</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown 3: Hobbies & Interests -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Interests ▾</a>
+                    <ul class="dropdown" aria-label="Interests submenu">
+                        <li class="dropdown-item">
+                            <a href="https://myanimelist.net/" class="dropdown-link" target="_blank" rel="noopener noreferrer">Anime Repository</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="https://www.flutetunes.com/" class="dropdown-link" target="_blank" rel="noopener noreferrer">Flute Sheet Music</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="mailto:ps4137647@gmail.com" class="nav-link">Contact</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-text">
+            <h1>Nested Navigation System</h1>
+            <p>Hover over "Institutions", "Technical Stacks", or "Interests" to interact with the CSS-driven nested menus. All links route externally using absolute URLs (`https://...`) opening securely in new tabs.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> System Navigation UI. Built with HTML, CSS, and JavaScript.</p>
+    </footer>
+
+    <script>
+        // JavaScript for Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeToggle.innerHTML = '🌙 Dark Mode';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '☀️ Light Mode';
+            }
+        });
+    </script>
+</body>
+</html>

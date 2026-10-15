@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practical B1: JWT Authentication API | Aaryan Verma</title>
+  <meta name="description" content="Node.js and Express JWT Authentication System implementing register, login, and protected profile routes with comprehensive edge-case handling." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background Decorative Shapes -->
+  <div class="bg-gradient-shapes" aria-hidden="true">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="badge-row">
+            <span class="badge badge-sky">Practical B1 • 5 Marks</span>
+            <span class="badge badge-cream">Full Stack Practical</span>
+          </div>
+          <h1 class="app-title">JWT Authentication API</h1>
+          <p class="app-subtitle">Node.js • Express • JSON Web Tokens • Bcrypt</p>
+        </div>
+      </div>
+
+      <div class="author-badge">
+        <div class="author-avatar">AV</div>
+        <div class="author-details">
+          <span class="author-label">Developed by</span>
+          <span class="author-name">Aaryan Verma</span>
+        </div>
+        <div class="status-indicator" id="server-status" title="API Status">
+          <span class="status-dot"></span>
+          <span class="status-text">Online</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Session Status Bar (shows when user is authenticated) -->
+    <div id="session-banner" class="session-banner hidden">
+      <div class="session-info">
+        <div class="user-chip">
+          <span class="chip-dot"></span>
+          <span>Logged in as: <strong id="session-username">-</strong></span>
+        </div>
+        <div class="session-timer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Token expires in: <strong id="token-timer">59m 59s</strong></span>
+        </div>
+      </div>
+      <div class="session-actions">
+        <button id="btn-copy-token" class="btn btn-sm btn-secondary" title="Copy JWT Token">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          Copy Token
+        </button>
+        <button id="btn-logout" class="btn btn-sm btn-outline-danger">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+          Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="nav-tab active" data-tab="tab-auth" role="tab" id="tab-btn-auth">
+        <span class="tab-icon">🔑</span>
+        <span>Register & Login</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-profile" role="tab" id="tab-btn-profile">
+        <span class="tab-icon">🛡️</span>
+        <span>Protected Profile</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-tester" role="tab" id="tab-btn-tester">
+        <span class="tab-icon">🧪</span>
+        <span>Automated Edge-Case Tester</span>
+        <span class="badge badge-sky-sm">12 Tests</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-docs" role="tab" id="tab-btn-docs">
+        <span class="tab-icon">📖</span>
+        <span>API Specification</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: REGISTER & LOGIN -->
+    <section id="tab-auth" class="tab-panel active">
+      <div class="grid-2">
+        <!-- Register Card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-icon sky">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+            </div>
+            <div>
+              <span class="endpoint-pill method-post">POST /register</span>
+              <h2 class="card-title">User Registration</h2>
+              <p class="card-desc">Password must be at least 6 characters</p>
+            </div>
+          </div>
+
+          <form id="form-register" class="auth-form" novalidate>
+            <div class="form-group">
+              <label for="reg-username">Username <span class="required">*</span></label>
+              <div class="input-wrap">
+                <input type="text" id="reg-username" placeholder="e.g. aaryan" autocomplete="username" required />
+              </div>
+              <span class="input-hint">Cannot be empty or whitespace</span>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-password">Password <span class="required">*</span></label>
+              <div class="input-wrap">
+                <input type="password" id="reg-password" placeholder="At least 6 characters" autocomplete="new-password" required />
+                <button type="button" class="btn-toggle-pw" data-target="reg-password" title="Show password">👁️</button>
+              </div>
+              <div class="password-meter">
+                <div class="meter-bar" id="reg-pw-meter"></div>
+              </div>
+              <span class="input-hint" id="reg-pw-hint">Min 6 characters required</span>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="btn-submit-register">
+                <span class="btn-text">Register Account</span>
+                <span class="btn-spinner hidden"></span>
+              </button>
+              <button type="button" class="btn btn-ghost" id="btn-fill-reg-demo">
+                Fill Demo Data
+              </button>
+            </div>
+          </form>
+
+          <div class="response-box" id="reg-response-box">
+            <div class="response-header">
+              <span class="response-title">HTTP Response</span>
+              <span class="status-tag" id="reg-status-tag">Idle</span>
+            </div>
+            <pre class="response-code"><code id="reg-response-json">{ "waiting": "Submit form to test /register" }</code></pre>
+          </div>
+        </div>
+
+        <!-- Login Card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-icon cream">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+            </div>
+            <div>
+              <span class="endpoint-pill method-post">POST /login</span>
+              <h2 class="card-title">User Login</h2>
+              <p class="card-desc">Returns a JWT token with 1-hour expiration</p>
+            </div>
+          </div>
+
+          <form id="form-login" class="auth-form" novalidate>
+            <div class="form-group">
+              <label for="login-username">Username <span class="required">*</span></label>
+              <div class="input-wrap">
+                <input type="text" id="login-username" placeholder="Registered username" autocomplete="username" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="login-password">Password <span class="required">*</span></label>
+              <div class="input-wrap">
+                <input type="password" id="login-password" placeholder="Account password" autocomplete="current-password" required />
+                <button type="button" class="btn-toggle-pw" data-target="login-password" title="Show password">👁️</button>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="btn-submit-login">
+                <span class="btn-text">Log In & Receive Token</span>
+                <span class="btn-spinner hidden"></span>
+              </button>
+              <button type="button" class="btn btn-ghost" id="btn-fill-login-demo">
+                Fill Last Registered
+              </button>
+            </div>
+          </form>
+
+          <div class="response-box" id="login-response-box">
+            <div class="response-header">
+              <span class="response-title">HTTP Response</span>
+              <span class="status-tag" id="login-status-tag">Idle</span>
+            </div>
+            <pre class="response-code"><code id="login-response-json">{ "waiting": "Submit credentials to test /login" }</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: PROTECTED PROFILE -->
+    <section id="tab-profile" class="tab-panel">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header-icon sky">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <span class="endpoint-pill method-get">GET /profile</span>
+            <h2 class="card-title">Protected Profile Endpoint</h2>
+            <p class="card-desc">Requires <code>Authorization: Bearer &lt;token&gt;</code> header</p>
+          </div>
+        </div>
+
+        <div class="profile-layout">
+          <!-- Token Control Panel -->
+          <div class="token-control-col">
+            <div class="form-group">
+              <label for="token-input">Current Authorization Bearer Token:</label>
+              <textarea id="token-input" class="token-textarea" placeholder="Paste a JWT token here or log in to automatically populate this field..."></textarea>
+            </div>
+
+            <div class="profile-test-buttons">
+              <button id="btn-fetch-profile-valid" class="btn btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Send with Current Token
+              </button>
+              <button id="btn-fetch-profile-none" class="btn btn-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" x2="19.07" y1="4.93" y2="19.07"/></svg>
+                Send Without Token (401 Test)
+              </button>
+              <button id="btn-fetch-profile-fake" class="btn btn-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+                Send Tampered Token (401 Test)
+              </button>
+            </div>
+
+            <!-- Decoded Token Details -->
+            <div class="decoded-card">
+              <div class="decoded-title">
+                <span>Decoded Token Payload</span>
+                <span class="badge badge-sky-sm" id="token-validity-badge">No Token</span>
+              </div>
+              <div id="decoded-token-view" class="decoded-body">
+                <p class="empty-state">Log in or paste a valid JWT above to inspect payload fields.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Response Display -->
+          <div class="profile-response-col">
+            <div class="response-box h-full">
+              <div class="response-header">
+                <div>
+                  <span class="response-title">HTTP Response</span>
+                  <span class="response-method">GET /profile</span>
+                </div>
+                <span class="status-tag" id="profile-status-tag">Idle</span>
+              </div>
+              <div class="response-meta-row">
+                <span>Header Sent:</span>
+                <code id="profile-header-sent">None</code>
+              </div>
+              <pre class="response-code"><code id="profile-response-json">{ "waiting": "Click 'Send with Current Token' to request profile" }</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: AUTOMATED TESTER -->
+    <section id="tab-tester" class="tab-panel">
+      <div class="card">
+        <div class="card-header space-between">
+          <div class="flex-row items-center gap-3">
+            <div class="card-header-icon cream">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2v6h6"/><path d="M4 15V4a2 2 0 0 1 2-2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1"/><path d="m9 15 2 2 4-4"/></svg>
+            </div>
+            <div>
+              <h2 class="card-title">Comprehensive Edge-Case Test Runner</h2>
+              <p class="card-desc">Tests all 12 edge cases & exact status codes defined in Practical B1</p>
+            </div>
+          </div>
+          <button id="btn-run-all-tests" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Run All 12 Automated Tests
+          </button>
+        </div>
+
+        <div class="test-progress-bar">
+          <div class="test-progress-fill" id="test-progress" style="width: 0%"></div>
+        </div>
+        <div class="test-stats-row">
+          <span id="test-stats-text">Click "Run All 12 Automated Tests" to execute verification.</span>
+          <span id="test-stats-counts" class="hidden">Passed: <strong id="passed-count" class="text-green">0</strong> / 12</span>
+        </div>
+
+        <div class="tests-grid" id="tests-container">
+          <!-- 12 Test Cards injected by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: API SPECIFICATION -->
+    <section id="tab-docs" class="tab-panel">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header-icon sky">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+          </div>
+          <div>
+            <h2 class="card-title">Practical B1 Specification & cURL Reference</h2>
+            <p class="card-desc">Strict compliance matrix for academic submission</p>
+          </div>
+        </div>
+
+        <div class="specs-table-wrap">
+          <table class="specs-table">
+            <thead>
+              <tr>
+                <th>Endpoint</th>
+                <th>Method</th>
+                <th>Headers / Body</th>
+                <th>Scenario</th>
+                <th>Status Code</th>
+                <th>Expected Response</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>/register</code></td>
+                <td><span class="endpoint-pill method-post">POST</span></td>
+                <td><code>{ "username": "", "password": "123" }</code></td>
+                <td>Missing / empty username OR password &lt; 6 chars</td>
+                <td><span class="status-badge status-400">400</span></td>
+                <td><code>{ "error": "Invalid input" }</code></td>
+              </tr>
+              <tr>
+                <td><code>/register</code></td>
+                <td><span class="endpoint-pill method-post">POST</span></td>
+                <td><code>{ "username": "alice", "password": "secret123" }</code></td>
+                <td>Username already taken</td>
+                <td><span class="status-badge status-409">409</span></td>
+                <td><code>{ "error": "Username already exists" }</code></td>
+              </tr>
+              <tr>
+                <td><code>/register</code></td>
+                <td><span class="endpoint-pill method-post">POST</span></td>
+                <td><code>{ "username": "alice", "password": "secret123" }</code></td>
+                <td>Successful registration</td>
+                <td><span class="status-badge status-201">201</span></td>
+                <td><code>{ "message": "User registered" }</code></td>
+              </tr>
+              <tr>
+                <td><code>/login</code></td>
+                <td><span class="endpoint-pill method-post">POST</span></td>
+                <td><code>{ "username": "alice", "password": "wrong" }</code></td>
+                <td>Unknown user OR incorrect password</td>
+                <td><span class="status-badge status-401">401</span></td>
+                <td><code>{ "error": "Invalid credentials" }</code></td>
+              </tr>
+              <tr>
+                <td><code>/login</code></td>
+                <td><span class="endpoint-pill method-post">POST</span></td>
+                <td><code>{ "username": "alice", "password": "secret123" }</code></td>
+                <td>Successful authentication (JWT 1h)</td>
+                <td><span class="status-badge status-200">200</span></td>
+                <td><code>{ "token": "&lt;jwt&gt;" }</code></td>
+              </tr>
+              <tr>
+                <td><code>/profile</code></td>
+                <td><span class="endpoint-pill method-get">GET</span></td>
+                <td>Missing header / Malformed / Expired / Invalid signature</td>
+                <td>Unauthorized access attempt</td>
+                <td><span class="status-badge status-401">401</span></td>
+                <td><code>{ "error": "Unauthorized" }</code></td>
+              </tr>
+              <tr>
+                <td><code>/profile</code></td>
+                <td><span class="endpoint-pill method-get">GET</span></td>
+                <td><code>Authorization: Bearer &lt;token&gt;</code></td>
+                <td>Valid token verified</td>
+                <td><span class="status-badge status-200">200</span></td>
+                <td><code>{ "username": "&lt;username&gt;" }</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="curl-examples">
+          <h3 class="section-title">Terminal / cURL Command Reference</h3>
+          
+          <div class="curl-box">
+            <div class="curl-box-header">
+              <span>1. Register a new user</span>
+              <button class="btn btn-xs btn-ghost btn-copy-cmd" data-cmd="curl -X POST http://localhost:3000/register -H &quot;Content-Type: application/json&quot; -d &quot;{\&quot;username\&quot;:\&quot;aaryan\&quot;,\&quot;password\&quot;:\&quot;mypassword123\&quot;}&quot;">Copy</button>
+            </div>
+            <pre><code>curl -X POST http://localhost:3000/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"aaryan","password":"mypassword123"}'</code></pre>
+          </div>
+
+          <div class="curl-box">
+            <div class="curl-box-header">
+              <span>2. Login to retrieve JWT</span>
+              <button class="btn btn-xs btn-ghost btn-copy-cmd" data-cmd="curl -X POST http://localhost:3000/login -H &quot;Content-Type: application/json&quot; -d &quot;{\&quot;username\&quot;:\&quot;aaryan\&quot;,\&quot;password\&quot;:\&quot;mypassword123\&quot;}&quot;">Copy</button>
+            </div>
+            <pre><code>curl -X POST http://localhost:3000/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"aaryan","password":"mypassword123"}'</code></pre>
+          </div>
+
+          <div class="curl-box">
+            <div class="curl-box-header">
+              <span>3. Access Protected Route with Bearer Token</span>
+              <button class="btn btn-xs btn-ghost btn-copy-cmd" data-cmd="curl http://localhost:3000/profile -H &quot;Authorization: Bearer &lt;YOUR_TOKEN&gt;&quot;">Copy</button>
+            </div>
+            <pre><code>curl http://localhost:3000/profile \
+  -H "Authorization: Bearer &lt;YOUR_TOKEN&gt;"</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <span>Practical B1: JWT Authentication API (Node.js & Express) • Full Stack Practical</span>
+        <span>Student: <strong>Aaryan Verma</strong> • Folder: <code>TASK 1</code></span>
+      </div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+  <script src="app.js"></script>
+</body>
+</html>

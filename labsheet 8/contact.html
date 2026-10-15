@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us | Lab Sheet 8{% endblock %}
+
+{% block content %}
+    <section class="page-panel form-panel">
+        <div class="section-heading">
+            <span class="eyebrow">Get in touch</span>
+            <h2>Contact Us</h2>
+        </div>
+
+        <form method="post" class="contact-form">
+            {% csrf_token %}
+
+            <div class="field-group">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" value="{{ name|default:'' }}" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="field-group">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" value="{{ email|default:'' }}" placeholder="Enter your email address" required>
+            </div>
+
+            <div class="field-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Write your feedback here" required>{{ message|default:'' }}</textarea>
+            </div>
+
+            <button type="submit" class="primary-btn submit-btn">Send Feedback</button>
+        </form>
+    </section>
+{% endblock %}

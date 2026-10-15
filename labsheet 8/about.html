@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us | Lab Sheet 8{% endblock %}
+
+{% block content %}
+    <section class="page-panel">
+        <div class="section-heading">
+            <span class="eyebrow">About the project</span>
+            <h2>About Us</h2>
+        </div>
+
+        <p>
+            This lab focuses on creating a polished, maintainable UI using Django template inheritance.
+            The master layout defines the shared navigation and page shell while each specialized view
+            overrides only the content block needed for that screen.
+        </p>
+
+        <div class="info-grid">
+            <article class="info-card">
+                <h3>Shared Layout</h3>
+                <p>Navigation, theme, and layout structure are centralized in one base template.</p>
+            </article>
+            <article class="info-card">
+                <h3>Consistent Branding</h3>
+                <p>Every view inherits the same visual identity and professional presentation.</p>
+            </article>
+            <article class="info-card">
+                <h3>Scalable Design</h3>
+                <p>Additional pages can be added without duplicating the application shell.</p>
+            </article>
+        </div>
+    </section>
+{% endblock %}

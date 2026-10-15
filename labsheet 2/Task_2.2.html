@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labsheet 2 | Task 1 - Flexbox Photo Grid with Descriptions</title>
+    <style>
+        /* Base page styling */
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* 1. Flexbox Grid Container */
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: center;
+        }
+
+        /* 2. Photo Item Wrappers (Cards) */
+        .photo-card {
+            flex: 1 1 300px;
+            max-width: 350px;
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.4s ease, transform 0.4s ease;
+        }
+
+        /* 3. Image Wrapper (to contain the zoom effect) */
+        .img-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden; /* Keeps the zooming image inside this box */
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        /* 4. Description Container */
+        .photo-desc {
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* Pushes the card height to match if text lengths vary */
+        }
+
+        .photo-desc h3 {
+            margin: 0 0 0.5rem 0;
+            color: #2d3748;
+            font-size: 1.15rem;
+        }
+
+        .photo-desc p {
+            margin: 0;
+            color: #718096;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* 5. Hovering Animations */
+        /* Zoom the image */
+        .photo-card:hover .img-wrapper img {
+            transform: scale(1.1); 
+        }
+
+        /* Lift the entire card and increase shadow */
+        .photo-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .photo-card { flex-basis: 100%; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Responsive Flexbox Photo Grid</h1>
+
+    <div class="photo-grid">
+        
+        <div class="photo-card">
+            <div class="img-wrapper">
+                <img src="https://picsum.photos/id/1011/600/400" alt="Mountain landscape">
+            </div>
+            <div class="photo-desc">
+                <h3>Alpine Peaks</h3>
+                <p>A breathtaking view of jagged mountain peaks cutting through the dense cloud cover.</p>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <div class="img-wrapper">
+                <img src="https://picsum.photos/id/1015/600/400" alt="River valley">
+            </div>
+            <div class="photo-desc">
+                <h3>River Valley</h3>
+                <p>A tranquil river winding its way through a steep, heavily forested gorge.</p>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <div class="img-wrapper">
+                <img src="https://picsum.photos/id/1018/600/400" alt="Forest trail">
+            </div>
+            <div class="photo-desc">
+                <h3>The Quiet Trail</h3>
+                <p>Sunlight filtering through the canopy of a quiet, undisturbed pine forest.</p>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <div class="img-wrapper">
+                <img src="https://picsum.photos/id/1025/600/400" alt="Pug wrapped in a blanket">
+            </div>
+            <div class="photo-desc">
+                <h3>Cozy Companion</h3>
+                <p>A small pug wrapped snugly in a thick winter blanket, staying warm indoors.</p>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <div class="img-wrapper">
+                <img src="https://picsum.photos/id/1035/600/400" alt="Waterfall">
+            </div>
+            <div class="photo-desc">
+                <h3>Hidden Falls</h3>
+                <p>A powerful cascade of water tumbling down a rocky cliffside into a clear pool.</p>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <div class="img-wrapper">
+                <img src="https://picsum.photos/id/1040/600/400" alt="Castle structure">
+            </div>
+            <div class="photo-desc">
+                <h3>Historic Keep</h3>
+                <p>The ancient stone architecture of a hilltop castle overlooking the countryside.</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

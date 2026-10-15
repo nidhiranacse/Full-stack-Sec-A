@@ -1,0 +1,16 @@
+{
+  "name": "student-record-management",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack student record management lab application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  }
+}

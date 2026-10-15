@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labsheet 2 | Task 2 - Theme Toggler</title>
+    <style>
+        /* 1. Define Base CSS Variables (Light Mode Defaults) */
+        :root {
+            --bg-color: #f4f7f6;
+            --text-color: #2d3748;
+            --accent-color: #3182ce;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --btn-text: #ffffff;
+        }
+
+        /* 2. Define Custom Styling Overrides (Dark Mode) */
+        [data-theme="dark"] {
+            --bg-color: #1a202c;
+            --text-color: #f7fafc;
+            --accent-color: #63b3ed;
+            --card-bg: #2d3748;
+            --border-color: #4a5568;
+            --btn-text: #1a202c;
+        }
+
+        /* Smooth transition for theme switching */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        /* Clean Landing Layout */
+        .landing-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 2.2rem;
+        }
+
+        p {
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        /* Interactive Toggler Button */
+        button.theme-toggle {
+            background-color: var(--accent-color);
+            color: var(--btn-text);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button.theme-toggle:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        button.theme-toggle:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="landing-container">
+        <h1>Dynamic Theme Layout</h1>
+        <p>This landing page implements custom styling overrides via CSS variables. Click the button below to trigger the vanilla JavaScript toggler method.</p>
+        
+        <button class="theme-toggle" id="themeToggleBtn">Enable Dark Mode</button>
+    </main>
+
+    <script>
+        // 3. Interactive Toggler Method inside Vanilla JavaScript
+        const themeBtn = document.getElementById('themeToggleBtn');
+        const rootElement = document.documentElement;
+
+        themeBtn.addEventListener('click', () => {
+            // Check the current theme attribute on the HTML root tag
+            const currentTheme = rootElement.getAttribute('data-theme');
+            
+            // Toggle logic
+            if (currentTheme === 'dark') {
+                rootElement.removeAttribute('data-theme');
+                themeBtn.textContent = 'Enable Dark Mode';
+            } else {
+                rootElement.setAttribute('data-theme', 'dark');
+                themeBtn.textContent = 'Enable Light Mode';
+            }
+        });
+    </script>
+</body>
+</html>

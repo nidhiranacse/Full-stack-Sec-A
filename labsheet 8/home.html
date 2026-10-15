@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | Lab Sheet 8{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="badge">Template Inheritance</div>
+        <h1>Welcome to the Master Template</h1>
+        <p>
+            This page demonstrates a clean multi-page layout built with a shared master template,
+            consistent navigation, and reusable styling across the application.
+        </p>
+        <div class="hero-actions">
+            <a href="{% url 'mainapp:about' %}" class="primary-btn">Learn more</a>
+            <a href="{% url 'mainapp:contact' %}" class="secondary-btn">Contact us</a>
+        </div>
+    </section>
+{% endblock %}

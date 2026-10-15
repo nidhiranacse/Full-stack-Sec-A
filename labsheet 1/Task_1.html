@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Resume of Aaryan Verma - Computer Science Engineer">
+    <title>Aaryan Verma | Resume</title>
+    <style>
+        :root {
+            --bg-gradient-start: #e0eafc;
+            --bg-gradient-end: #cfdef3;
+            --text-color: #2d3748;
+            --text-muted: #4a5568;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --accent-color: #3182ce;
+            --accent-hover: #2b6cb0;
+            --border-color: #e2e8f0;
+        }
+
+        [data-theme="dark"] {
+            --bg-gradient-start: #1a202c;
+            --bg-gradient-end: #2d3748;
+            --text-color: #f7fafc;
+            --text-muted: #e2e8f0;
+            --card-bg: rgba(26, 32, 44, 0.95);
+            --accent-color: #63b3ed;
+            --accent-hover: #4299e1;
+            --border-color: #4a5568;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            padding: 1rem 2rem 0;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.1s ease, background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Header */
+        header {
+            padding: 2.5rem 3rem 2rem;
+            border-bottom: 2px solid var(--border-color);
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 3rem;
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .entry {
+            margin-bottom: 1.5rem;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .entry-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .entry-subtitle {
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        ul {
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skills-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .skills-list li {
+            background: var(--border-color);
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 0.2rem;
+            color: var(--text-color);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                color: black;
+            }
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+            }
+            .controls {
+                display: none;
+            }
+            header, main {
+                padding: 1.5rem;
+            }
+            [data-theme="dark"] {
+                color: black;
+            }
+            h1, h2, a { color: black !important; }
+        }
+
+        @media (max-width: 600px) {
+            header, main {
+                padding: 1.5rem;
+            }
+            .entry-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="controls">
+            <button id="themeToggle" aria-label="Toggle Dark Mode">🌙 Dark Mode</button>
+            <button onclick="window.print()" aria-label="Print Resume">🖨️ Print / PDF</button>
+        </div>
+
+        <header>
+            <h1>Aaryan Verma</h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+                Aspiring Computer Science Engineer specializing in full-stack software engineering, machine learning, and data science. Passionate about building impactful applications from frontend utilities to complex predictive analytics.
+            </p>
+            <address class="contact-info">
+                <span>📍 Muzaffarnagar, UP, India</span>
+                <span>📧 <a href="mailto:aaryanudyalak@gmail.com">aaryanudyalak@gmail.com</a></span>
+                <span>📞 <a href="tel:+919105577999">9105577999</a></span>
+            </address>
+        </header>
+
+        <main>
+            <section id="education" aria-labelledby="education-heading">
+                <h2 id="education-heading">Education</h2>
+                <article class="entry">
+                    <div class="entry-header">
+                        <h3 class="entry-title">B.Tech in Computer Science and Engineering</h3>
+                        <span class="entry-subtitle">COER University (College of Engineering Roorkee)</span>
+                    </div>
+                </article>
+                <article class="entry">
+                    <div class="entry-header">
+                        <h3 class="entry-title">Secondary & Senior Secondary Education</h3>
+                        <span class="entry-subtitle">Lala Jagdish Prasad Saraswati Vidya Mandir Inter College (UP Board)</span>
+                    </div>
+                </article>
+            </section>
+
+            <section id="experience" aria-labelledby="experience-heading">
+                <h2 id="experience-heading">Experience</h2>
+                <article class="entry">
+                    <div class="entry-header">
+                        <h3 class="entry-title">Web Development Intern</h3>
+                        <span class="entry-subtitle">InternPe | 2025</span>
+                    </div>
+                    <ul>
+                        <li>Developed and deployed basic frontend utility applications to improve user experience.</li>
+                        <li>Gained hands-on experience in responsive design and web architecture.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <section id="projects" aria-labelledby="projects-heading">
+                <h2 id="projects-heading">Technical Projects</h2>
+                
+                <article class="entry">
+                    <div class="entry-header">
+                        <h3 class="entry-title">The Neuron's Eye</h3>
+                    </div>
+                    <ul>
+                        <li>Developed a full-stack brain tumor detection web application utilizing Convolutional Neural Networks (CNNs) for medical image classification.</li>
+                    </ul>
+                </article>
+
+                <article class="entry">
+                    <div class="entry-header">
+                        <h3 class="entry-title">Explainable Fake Review Detection System</h3>
+                    </div>
+                    <ul>
+                        <li>Designed a machine learning architecture integrating NLP libraries and classifiers to identify and explain fraudulent online reviews.</li>
+                    </ul>
+                </article>
+
+                <article class="entry">
+                    <div class="entry-header">
+                        <h3 class="entry-title">Saathi (Emergency & Heritage Web App)</h3>
+                    </div>
+                    <ul>
+                        <li>Engineered a platform featuring heritage site exploration maps and an emergency SOS location sharing system processing real-time backend location data.</li>
+                    </ul>
+                </article>
+
+                <article class="entry">
+                    <div class="entry-header">
+                        <h3 class="entry-title">Image Captioning Tool</h3>
+                    </div>
+                    <ul>
+                        <li>Created an analytical tool utilizing Python, HTML, CSS, and JavaScript to process and generate descriptive captions for visual content.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <section id="certifications" aria-labelledby="certifications-heading">
+                <h2 id="certifications-heading">Certifications & Bootcamps</h2>
+                <ul>
+                    <li><strong>IIT Mandi Practical Bootcamp (2025):</strong> Intensive training focused on drone programming and operations.</li>
+                    <li><strong>Hackathon 6.0 (2025):</strong> Active participant in competitive software development hackathon.</li>
+                </ul>
+            </section>
+
+            <section id="skills" aria-labelledby="skills-heading">
+                <h2 id="skills-heading">Skills & Interests</h2>
+                <div class="skills-grid">
+                    <div>
+                        <h3 class="entry-title" style="font-size: 1rem; margin-bottom: 0.5rem;">Technical Domains</h3>
+                        <ul class="skills-list">
+                            <li>Full-Stack Development</li>
+                            <li>Machine Learning</li>
+                            <li>Data Science</li>
+                            <li>Python</li>
+                            <li>JavaScript / HTML / CSS</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="entry-title" style="font-size: 1rem; margin-bottom: 0.5rem;">Hobbies</h3>
+                        <ul class="skills-list">
+                            <li>Playing the Flute</li>
+                            <li>Sketching</li>
+                            <li>Watching Anime</li>
+                            <li>Listening to Music</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> Aaryan Verma. Built with HTML, CSS, and JavaScript.</p>
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript for Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeToggle.innerHTML = '🌙 Dark Mode';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '☀️ Light Mode';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaryan Verma | Portfolio Catalog</title>
+    <style>
+        :root {
+            --bg-gradient-start: #e0eafc;
+            --bg-gradient-end: #cfdef3;
+            --text-color: #2d3748;
+            --text-muted: #4a5568;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --item-bg: rgba(255, 255, 255, 0.6);
+            --accent-color: #3182ce;
+            --accent-hover: #2b6cb0;
+            --border-color: #e2e8f0;
+            --badge-bg: #ebf8ff;
+            --badge-text: #2b6cb0;
+        }
+
+        [data-theme="dark"] {
+            --bg-gradient-start: #1a202c;
+            --bg-gradient-end: #2d3748;
+            --text-color: #f7fafc;
+            --text-muted: #a0aec0;
+            --card-bg: rgba(26, 32, 44, 0.95);
+            --item-bg: rgba(45, 55, 72, 0.7);
+            --accent-color: #63b3ed;
+            --accent-hover: #4299e1;
+            --border-color: #4a5568;
+            --badge-bg: #2a4365;
+            --badge-text: #90cdf4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: flex-end;
+            padding: 1rem 2rem 0;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 3rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .contact-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Main Content & Definition Lists */
+        main {
+            padding: 2rem 3rem;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 24px;
+            background-color: var(--accent-color);
+            border-radius: 4px;
+        }
+
+        /* Definition List Grid */
+        .catalog {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .catalog-item {
+            background: var(--item-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .catalog-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        /* DT (Terms) */
+        dt {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* DD (Descriptions) */
+        dd {
+            margin-left: 0;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+        }
+
+        dd strong {
+            color: var(--text-color);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .metadata-badge {
+            display: inline-block;
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-top: 0.3rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            header, main { padding: 1.5rem; }
+            .catalog { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="controls">
+            <button id="themeToggle" aria-label="Toggle Dark Mode">🌙 Dark Mode</button>
+        </div>
+
+        <header>
+            <h1>Aaryan Verma</h1>
+            <p>Computer Science Engineer | Itemized Project Catalog</p>
+            <div class="contact-links">
+                <a href="mailto:aaryanudyalak@gmail.com">aaryanudyalak@gmail.com</a>
+                <span>|</span>
+                <a href="tel:+919105577999">+91 9105577999</a>
+            </div>
+        </header>
+
+        <main>
+            <section aria-labelledby="software-catalog">
+                <h2 id="software-catalog">Software Engineering Projects</h2>
+                
+                <dl class="catalog">
+                    <!-- Catalog Item 1 -->
+                    <div class="catalog-item">
+                        <dt>The Neuron's Eye</dt>
+                        <dd>
+                            <strong>Classification</strong>
+                            <span>Deep Learning / Medical Imaging</span>
+                        </dd>
+                        <dd>
+                            <strong>Architecture & Tools</strong>
+                            <div>
+                                <span class="metadata-badge">CNNs</span>
+                                <span class="metadata-badge">Python</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <strong>System Description</strong>
+                            <span>A full-stack web application implementing convolutional neural networks for accurate brain tumor classification and detection.</span>
+                        </dd>
+                    </div>
+
+                    <!-- Catalog Item 2 -->
+                    <div class="catalog-item">
+                        <dt>Saathi</dt>
+                        <dd>
+                            <strong>Classification</strong>
+                            <span>Geolocation / Utility App</span>
+                        </dd>
+                        <dd>
+                            <strong>Architecture & Tools</strong>
+                            <div>
+                                <span class="metadata-badge">Backend APIs</span>
+                                <span class="metadata-badge">Location Services</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <strong>System Description</strong>
+                            <span>A comprehensive platform combining heritage site exploration maps with real-time emergency SOS location processing.</span>
+                        </dd>
+                    </div>
+
+                    <!-- Catalog Item 3 -->
+                    <div class="catalog-item">
+                        <dt>Explainable Fake Review Detection System</dt>
+                        <dd>
+                            <strong>Classification</strong>
+                            <span>Natural Language Processing</span>
+                        </dd>
+                        <dd>
+                            <strong>Architecture & Tools</strong>
+                            <div>
+                                <span class="metadata-badge">NLP Libraries</span>
+                                <span class="metadata-badge">ML Classifiers</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <strong>System Description</strong>
+                            <span>An analytical machine learning pipeline designed to identify fraudulent online reviews and provide transparent reasoning for its classifications.</span>
+                        </dd>
+                    </div>
+
+                    <!-- Catalog Item 4 -->
+                    <div class="catalog-item">
+                        <dt>Image Captioning System</dt>
+                        <dd>
+                            <strong>Classification</strong>
+                            <span>Computer Vision</span>
+                        </dd>
+                        <dd>
+                            <strong>Architecture & Tools</strong>
+                            <div>
+                                <span class="metadata-badge">Python</span>
+                                <span class="metadata-badge">HTML/CSS/JS</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <strong>System Description</strong>
+                            <span>A tool that processes visual content and automatically generates descriptive captions through an integrated web interface.</span>
+                        </dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section aria-labelledby="experience-catalog">
+                <h2 id="experience-catalog">Experience & Training</h2>
+                
+                <dl class="catalog">
+                    <div class="catalog-item">
+                        <dt>InternPe Frontend Development</dt>
+                        <dd>
+                            <strong>Role Type</strong>
+                            <span>Web Development Internship (2025)</span>
+                        </dd>
+                        <dd>
+                            <strong>Key Deliverables</strong>
+                            <span>Built and deployed basic frontend utility applications, focusing on responsive architectures and clean UI.</span>
+                        </dd>
+                    </div>
+
+                    <div class="catalog-item">
+                        <dt>IIT Mandi Bootcamp</dt>
+                        <dd>
+                            <strong>Role Type</strong>
+                            <span>Practical Training (2025)</span>
+                        </dd>
+                        <dd>
+                            <strong>Key Deliverables</strong>
+                            <span>Intensive training on drone programming, operational mechanisms, and automated flight paths.</span>
+                        </dd>
+                    </div>
+                </dl>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> Catalog UI System. Semantic DL/DT/DD Implementation.</p>
+        </footer>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeToggle.innerHTML = '🌙 Dark Mode';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '☀️ Light Mode';
+            }
+        });
+    </script>
+</body>
+</html>
