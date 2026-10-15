@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Lab Sheet 7</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #D2691E;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #FF7F50;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .container {
+            width: 85%;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .alert {
+            background-color: #D2691E;
+            color: #D2691E;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .search-box {
+            margin: 20px 0;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+        }
+
+        button,
+        .sort-button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #D2691E;
+        }
+
+        .no-result {
+            color: #a00000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Lab Sheet 7</h1>
+    <p>Django Lists, Sorting and Search</p>
+</header>
+
+<div class="container">
+
+    <!-- TASK 7.1 -->
+    <h2>Task 7.1: Fruits List</h2>
+
+    {% if fruits %}
+
+        <ul>
+            {% for fruit in fruits %}
+                <li>{{ fruit }}</li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+
+        <div class="alert">
+            No fruits are available.
+        </div>
+
+    {% endif %}
+
+
+    <!-- TASK 8.2 -->
+    <h2>Task 8.2: Selected Event Students</h2>
+
+    <a href="?sort=name" class="sort-button">
+        Sort by Student Name
+    </a>
+
+
+    <!-- TASK 8.3 -->
+    <h2>Task 8.3: Search Students</h2>
+
+    <form method="GET" class="search-box">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search student by name"
+            value="{{ search_query }}"
+        >
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+
+    {% if students %}
+
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>Course</th>
+                <th>Selected Event</th>
+            </tr>
+
+            {% for student in students %}
+
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.course }}</td>
+                <td>{{ student.event }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <p class="no-result">
+            No students found.
+        </p>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

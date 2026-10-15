@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+About Us - Student Portal
+{% endblock %}
+
+{% block content %}
+
+<h2>About Us</h2>
+
+<p> The Student Portal is a web-based application developed to demonstrate the use of Flask, template inheritance, and modular user interface development. </p>
+
+<h3>Our Mission</h3>
+
+<p> Our mission is to create a simple, efficient, and accessible platform that makes it easier for students to interact with the application and access useful information. </p>
+
+<h3>Technology Used</h3>
+
+<ul> <li><strong>Python</strong> – Application programming</li> <li><strong>Flask</strong> – Web application framework</li> <li><strong>HTML</strong> – Web page structure</li> <li><strong>CSS</strong> – Styling and layout</li> <li><strong>Jinja2</strong> – Template inheritance and dynamic content</li> </ul>
+
+<h3>Template Inheritance</h3>
+
+<p> The application uses a master template called <strong>base.html</strong>. Common elements such as the header, navigation menu, notification area, and footer are defined in the master template. Individual pages inherit this structure and provide their own content. </p>
+
+<p> This approach makes the application easier to maintain, reduces repetition, and provides a consistent user interface across all pages. </p>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{
+    "Python Main": {
+        "prefix": "main",
+        "body": [
+            "if __name__ == \"__main__\":",
+            "    ${1:main}()"
+        ],
+        "description": "Python main function"
+    },
+
+    "Print Statement": {
+        "prefix": "prt",
+        "body": [
+            "print(${1:message})"
+        ],
+        "description": "Python print statement"
+    },
+
+    "Function": {
+        "prefix": "defn",
+        "body": [
+            "def ${1:function_name}(${2:parameters}):",
+            "    \"\"\"${3:Function description}.\"\"\"",
+            "    ${4:pass}"
+        ],
+        "description": "Create a Python function"
+    },
+
+    "For Loop": {
+        "prefix": "forloop",
+        "body": [
+            "for ${1:item} in ${2:items}:",
+            "    ${3:pass}"
+        ],
+        "description": "Create a Python for loop"
+    }
+}

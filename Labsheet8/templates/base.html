@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        Student Portal
+        {% endblock %}
+    </title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #333;
+        }
+        header {
+            background: #222;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background: #333;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+        }
+
+        nav a:hover {
+            background: #555;
+        }
+
+        /* Active navigation marker */
+        nav a.active {
+            background: #007bff;
+            font-weight: bold;
+            border-bottom: 3px solid white;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .notification {
+            width: 80%;
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #222;
+            color: white;
+            text-align: center;
+        }
+    </style>
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <header>
+        <h1>Student Portal</h1>
+        <p>Template Inheritance & Modular UI</p>
+    </header>
+    <nav>
+        <a href="{{ url_for('home') }}"
+           class="{% if active_page == 'home' %}active{% endif %}">
+            Home
+        </a>
+
+        <a href="{{ url_for('about') }}"
+           class="{% if active_page == 'about' %}active{% endif %}">
+            About Us
+        </a>
+
+        <a href="{{ url_for('contact') }}"
+           class="{% if active_page == 'contact' %}active{% endif %}">
+            Contact Us
+        </a>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="notification {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+    <footer>
+        <p>© 2026 Student Portal | Lab Sheet 08</p>
+    </footer>
+
+</body>
+</html>

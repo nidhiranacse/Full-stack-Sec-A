@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Interactive website using HTML, CSS and JavaScript">
+
+    <title>Interactive Web Experience</title>
+
+
+    <style>
+
+        /* =========================
+           CSS VARIABLES
+        ========================== */
+
+        :root {
+            --background: #f4f7ff;
+            --text: #222;
+            --card: #ffffff;
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --nav: #111827;
+            --danger: #ef4444;
+            --shadow: rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* Dark Mode Variables */
+
+        body.dark {
+            --background: #111827;
+            --text: #f3f4f6;
+            --card: #1f2937;
+            --primary: #818cf8;
+            --secondary: #a78bfa;
+            --nav: #030712;
+            --shadow: rgba(0, 0, 0, 0.4);
+        }
+
+
+        /* =========================
+           GENERAL STYLING
+        ========================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            transition: 0.3s;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            background: linear-gradient(
+                135deg,
+                #4f46e5,
+                #9333ea
+            );
+
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+
+        header h1 {
+            font-size: 42px;
+            margin: 0 0 10px;
+        }
+
+
+        header p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================== */
+
+        nav {
+            background: var(--nav);
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 0;
+            margin: 0;
+        }
+
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            background: #374151;
+            padding: 10px 18px;
+            border-radius: 20px;
+            display: block;
+            transition: 0.3s;
+        }
+
+
+        nav a:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           DARK MODE BUTTON
+        ========================== */
+
+        .theme-button {
+            border: none;
+            padding: 11px 20px;
+            border-radius: 25px;
+            background: white;
+            color: #4f46e5;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+
+        .theme-button:hover {
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+        ========================== */
+
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+
+        section {
+            background: var(--card);
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+
+        section h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-top: 0;
+        }
+
+
+        /* =========================
+           PHOTO GRID
+        ========================== */
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+
+        .photo-card {
+            flex: 1 1 280px;
+            max-width: 320px;
+            overflow: hidden;
+            border-radius: 15px;
+            background: var(--background);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+
+        .photo-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+
+        .photo-card:hover img {
+            transform: scale(1.1);
+        }
+
+
+        .photo-card p {
+            text-align: center;
+            padding: 12px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+
+        /* =========================
+           TODO APPLICATION
+        ========================== */
+
+        .todo-container {
+            max-width: 650px;
+            margin: auto;
+        }
+
+
+        .todo-input {
+            display: flex;
+            gap: 10px;
+        }
+
+
+        #taskInput {
+            flex: 1;
+            padding: 13px;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+
+        #taskInput:focus {
+            border-color: var(--primary);
+        }
+
+
+        #addTask {
+            border: none;
+            background: var(--primary);
+            color: white;
+            padding: 13px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+
+        #addTask:hover {
+            background: var(--secondary);
+        }
+
+
+        #error {
+            color: var(--danger);
+            min-height: 22px;
+            margin: 10px 0;
+        }
+
+
+        #taskList {
+            list-style: none;
+            padding: 0;
+        }
+
+
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            background: var(--background);
+            padding: 13px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+
+        .task-text {
+            flex: 1;
+            cursor: pointer;
+        }
+
+
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+
+        .delete {
+            border: none;
+            background: var(--danger);
+            color: white;
+            padding: 7px 12px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+
+        .delete:hover {
+            background: #b91c1c;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: var(--nav);
+            color: white;
+        }
+
+
+        /* =========================
+           MOBILE RESPONSIVENESS
+        ========================== */
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 32px;
+            }
+
+
+            .todo-input {
+                flex-direction: column;
+            }
+
+
+            #addTask {
+                width: 100%;
+            }
+
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+
+            nav a {
+                width: 180px;
+                text-align: center;
+            }
+
+
+            section {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header>
+
+        <h1>Interactive Web Experience</h1>
+
+        <p>
+            HTML • CSS • JavaScript
+        </p>
+
+        <button
+            class="theme-button"
+            id="themeButton">
+
+            🌙 Dark Mode
+
+        </button>
+
+    </header>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <nav aria-label="Main navigation">
+
+        <ul>
+
+            <li>
+                <a href="#home">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="#gallery">
+                    Photo Gallery
+                </a>
+            </li>
+
+            <li>
+                <a href="#todo">
+                    Todo App
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <main>
+
+
+        <!-- =========================
+             HOME
+        ========================== -->
+
+        <section id="home">
+
+            <h2>Welcome 👋</h2>
+
+            <p style="text-align:center;">
+
+                Welcome to my interactive website.
+                This project demonstrates modern HTML,
+                CSS styling, Flexbox and JavaScript
+                interactivity.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================
+             PHOTO GALLERY
+        ========================== -->
+
+        <section id="gallery">
+
+            <h2>📸 My Photo Gallery</h2>
+
+            <p style="text-align:center;">
+
+                A responsive photo grid created using
+                CSS Flexbox.
+
+            </p>
+
+
+            <div class="gallery">
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1015/600/400"
+                        alt="Mountain landscape">
+
+                    <p>Mountain</p>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1016/600/400"
+                        alt="Nature landscape">
+
+                    <p>Nature</p>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1025/600/400"
+                        alt="Dog">
+
+                    <p>Animals</p>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1035/600/400"
+                        alt="River">
+
+                    <p>River</p>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1043/600/400"
+                        alt="Forest">
+
+                    <p>Forest</p>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1069/600/400"
+                        alt="Landscape">
+
+                    <p>Landscape</p>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             TODO APPLICATION
+        ========================== -->
+
+        <section id="todo">
+
+            <h2>✅ My Todo Application</h2>
+
+            <p style="text-align:center;">
+
+                Add, complete and delete your tasks.
+
+            </p>
+
+
+            <div class="todo-container">
+
+
+                <div class="todo-input">
+
+                    <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="Enter a task..."
+                        aria-label="Enter a task">
+
+                    <button id="addTask">
+                        Add Task
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="error"
+                    role="alert">
+                </p>
+
+
+                <ul id="taskList"></ul>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 Interactive Web Experience
+        </p>
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+
+        /* =========================
+           DARK MODE
+        ========================== */
+
+        const themeButton =
+            document.getElementById("themeButton");
+
+
+        themeButton.addEventListener(
+            "click",
+            function () {
+
+                document.body.classList.toggle("dark");
+
+
+                if (
+                    document.body.classList.contains("dark")
+                ) {
+
+                    themeButton.textContent =
+                        "☀️ Light Mode";
+
+                } else {
+
+                    themeButton.textContent =
+                        "🌙 Dark Mode";
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================
+           TODO APPLICATION
+        ========================== */
+
+        const taskInput =
+            document.getElementById("taskInput");
+
+        const addTask =
+            document.getElementById("addTask");
+
+        const taskList =
+            document.getElementById("taskList");
+
+        const error =
+            document.getElementById("error");
+
+
+
+        /* Add task when button is clicked */
+
+        addTask.addEventListener(
+            "click",
+            addNewTask
+        );
+
+
+
+        /* Add task when Enter is pressed */
+
+        taskInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    addNewTask();
+
+                }
+
+            }
+        );
+
+
+
+        function addNewTask() {
+
+
+            /* Get input */
+
+            const taskText =
+                taskInput.value.trim();
+
+
+            /* Validation */
+
+            if (taskText === "") {
+
+                error.textContent =
+                    "⚠️ Please enter a task.";
+
+                taskInput.focus();
+
+                return;
+            }
+
+
+            /* Remove error */
+
+            error.textContent = "";
+
+
+            /* Create list item */
+
+            const listItem =
+                document.createElement("li");
+
+            listItem.className = "task";
+
+
+            /* Create task text */
+
+            const text =
+                document.createElement("span");
+
+            text.className = "task-text";
+
+            text.textContent = taskText;
+
+
+            /* Complete task */
+
+            text.addEventListener(
+                "click",
+                function () {
+
+                    text.classList.toggle(
+                        "completed"
+                    );
+
+                }
+            );
+
+
+            /* Create delete button */
+
+            const deleteButton =
+                document.createElement("button");
+
+            deleteButton.textContent =
+                "Delete";
+
+            deleteButton.className =
+                "delete";
+
+
+            /* Delete task */
+
+            deleteButton.addEventListener(
+                "click",
+                function () {
+
+                    listItem.remove();
+
+                }
+            );
+
+
+            /* Add elements */
+
+            listItem.appendChild(text);
+
+            listItem.appendChild(deleteButton);
+
+            taskList.appendChild(listItem);
+
+
+            /* Clear input */
+
+            taskInput.value = "";
+
+            taskInput.focus();
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
