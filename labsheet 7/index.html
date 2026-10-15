@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruit & Event Students</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+        }
+
+        .alert {
+            background: #ffe0e0;
+            padding: 12px;
+            color: #b00000;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #eee;
+        }
+
+        input, select, button {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Fruits & Selected Event Students</h1>
+
+
+<!-- TASK 8.3 : SEARCH -->
+<div class="box">
+
+    <h2>Search Records</h2>
+
+    <form method="GET">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search student or fruit..."
+            value="{{ search }}"
+        >
+
+        <button type="submit">
+            Search
+        </button>
+
+        <a href="/">
+            Clear
+        </a>
+
+    </form>
+
+</div>
+
+
+<!-- TASK 7.1 : FRUIT ARRAY -->
+
+<div class="box">
+
+    <h2>Fruits</h2>
+
+    {% if fruits %}
+
+        <table>
+
+            <tr>
+                <th>Fruit Name</th>
+                <th>Quantity</th>
+            </tr>
+
+            {% for fruit in fruits %}
+
+            <tr>
+                <td>{{ fruit.name }}</td>
+                <td>{{ fruit.quantity }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <div class="alert">
+            No fruits available.
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- TASK 8.2 : SORTING -->
+
+<div class="box">
+
+    <h2>Selected Event Students</h2>
+
+    <form method="GET">
+
+        <input
+            type="hidden"
+            name="search"
+            value="{{ search }}"
+        >
+
+        <label>Sort by:</label>
+
+        <select name="sort">
+
+            <option value="name"
+                {% if sort == "name" %}selected{% endif %}>
+                Student Name
+            </option>
+
+            <option value="roll"
+                {% if sort == "roll" %}selected{% endif %}>
+                Roll Number
+            </option>
+
+            <option value="event"
+                {% if sort == "event" %}selected{% endif %}>
+                Event
+            </option>
+
+        </select>
+
+        <button type="submit">
+            Sort
+        </button>
+
+    </form>
+
+
+    {% if students %}
+
+        <table>
+
+            <tr>
+                <th>Roll No</th>
+                <th>Student Name</th>
+                <th>Event</th>
+            </tr>
+
+            {% for student in students %}
+
+            <tr>
+                <td>{{ student.roll_no }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.event }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <div class="alert">
+            No students found.
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

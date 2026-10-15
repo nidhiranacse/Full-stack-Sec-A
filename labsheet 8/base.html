@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>
+        {% block title %}My Website{% endblock %}
+    </title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        nav {
+            background: #222;
+            padding: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        nav a.active {
+            background: #007bff;
+            font-weight: bold;
+        }
+
+        .message {
+            width: 80%;
+            margin: 20px auto;
+            padding: 12px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 5px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+        }
+
+        textarea {
+            height: 120px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+
+    <a href="{% url 'home' %}"
+       class="{% if active_page == 'home' %}active{% endif %}">
+        Home
+    </a>
+
+    <a href="{% url 'about' %}"
+       class="{% if active_page == 'about' %}active{% endif %}">
+        About Us
+    </a>
+
+    <a href="{% url 'contact' %}"
+       class="{% if active_page == 'contact' %}active{% endif %}">
+        Contact Us
+    </a>
+
+</nav>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="message">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="container">
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+</body>
+</html>
