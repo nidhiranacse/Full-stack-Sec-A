@@ -1,0 +1,1136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Lab Sheet 02 - Dynamic Interface Styling and Scripting Interactivity">
+
+    <title>Lab Sheet 02 | Interactive Web Application</title>
+
+    <style>
+        
+
+        :root {
+            --bg-color: #f4f7fb;
+            --card-color: #ffffff;
+            --text-color: #172033;
+            --secondary-text: #667085;
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --border-color: #e4e7ec;
+            --nav-color: rgba(255, 255, 255, 0.85);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --danger: #ef4444;
+            --success: #16a34a;
+        }
+
+        /* Dark Mode Variables */
+
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-color: #1e293b;
+            --text-color: #f8fafc;
+            --secondary-text: #94a3b8;
+            --primary-color: #818cf8;
+            --primary-hover: #6366f1;
+            --border-color: #334155;
+            --nav-color: rgba(15, 23, 42, 0.9);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+       
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: var(--nav-color);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: auto;
+
+            padding: 15px 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        #themeToggle {
+            border: none;
+            background: var(--primary-color);
+            color: white;
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+            cursor: pointer;
+
+            font-size: 18px;
+
+            transition: 0.3s;
+        }
+
+        #themeToggle:hover {
+            transform: rotate(20deg) scale(1.05);
+            background: var(--primary-hover);
+        }
+
+
+        .hero {
+            min-height: 85vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 60px 20px;
+
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(99, 102, 241, 0.18),
+                    transparent 35%
+                );
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 7px 15px;
+
+            border-radius: 30px;
+
+            background: rgba(99, 102, 241, 0.12);
+
+            color: var(--primary-color);
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 7vw, 72px);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+
+            color: var(--secondary-text);
+
+            font-size: 18px;
+        }
+
+        .hero-buttons {
+            margin-top: 30px;
+
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+
+            padding: 12px 22px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            border: none;
+
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--card-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+    
+
+        .section {
+            max-width: 1200px;
+            margin: auto;
+
+            padding: 80px 25px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .section-heading p {
+            color: var(--secondary-text);
+        }
+
+
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .photo-card {
+            flex: 1 1 calc(33.333% - 20px);
+
+            min-width: 250px;
+
+            overflow: hidden;
+
+            border-radius: 15px;
+
+            background: var(--card-color);
+
+            box-shadow: var(--shadow);
+
+            position: relative;
+
+            transition: transform 0.4s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 260px;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition:
+                transform 0.6s ease,
+                filter 0.6s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.08);
+            filter: brightness(0.75);
+        }
+
+        .photo-info {
+            padding: 18px;
+        }
+
+        .photo-info h3 {
+            margin-bottom: 5px;
+        }
+
+        .photo-info p {
+            color: var(--secondary-text);
+        }
+
+
+        .todo-container {
+            max-width: 750px;
+
+            margin: auto;
+
+            background: var(--card-color);
+
+            border: 1px solid var(--border-color);
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .todo-input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        #todoInput {
+            flex: 1;
+
+            padding: 14px 16px;
+
+            border-radius: 8px;
+
+            border: 1px solid var(--border-color);
+
+            outline: none;
+
+            background: var(--bg-color);
+
+            color: var(--text-color);
+
+            font-size: 16px;
+        }
+
+        #todoInput:focus {
+            border-color: var(--primary-color);
+        }
+
+        #addTodo {
+            padding: 0 22px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: var(--primary-color);
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        #addTodo:hover {
+            background: var(--primary-hover);
+        }
+
+        /* Validation error */
+
+        #errorMessage {
+            display: none;
+
+            color: var(--danger);
+
+            margin-top: 10px;
+
+            font-size: 14px;
+        }
+
+        /* Todo list */
+
+        #todoList {
+            list-style: none;
+
+            margin-top: 25px;
+        }
+
+        .todo-item {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 14px;
+
+            margin-bottom: 10px;
+
+            border: 1px solid var(--border-color);
+
+            border-radius: 10px;
+
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .todo-text {
+            flex: 1;
+
+            cursor: pointer;
+        }
+
+        .todo-item.completed .todo-text {
+            text-decoration: line-through;
+
+            color: var(--secondary-text);
+        }
+
+        .todo-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .complete-btn,
+        .delete-btn {
+            border: none;
+
+            padding: 8px 12px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            color: white;
+        }
+
+        .complete-btn {
+            background: var(--success);
+        }
+
+        .delete-btn {
+            background: var(--danger);
+        }
+
+        .todo-stats {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-top: 20px;
+
+            color: var(--secondary-text);
+
+            font-size: 14px;
+        }
+
+
+        footer {
+            padding: 30px 20px;
+
+            text-align: center;
+
+            background: var(--card-color);
+
+            border-top: 1px solid var(--border-color);
+
+            color: var(--secondary-text);
+        }
+
+        @media (max-width: 768px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: 75vh;
+            }
+
+            .section {
+                padding: 60px 18px;
+            }
+
+            .photo-card {
+                flex: 1 1 calc(50% - 20px);
+            }
+
+            .todo-input-area {
+                flex-direction: column;
+            }
+
+            #addTodo {
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .photo-card {
+                flex: 1 1 100%;
+            }
+
+            .photo-card img {
+                height: 230px;
+            }
+
+            .todo-container {
+                padding: 20px;
+            }
+
+            .todo-item {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .todo-actions {
+                width: 100%;
+            }
+
+            .complete-btn,
+            .delete-btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <header>
+        <nav>
+
+            <a href="#home" class="logo">
+                WebLab<span>.</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#todo">Todo App</a></li>
+            </ul>
+
+            <button
+                id="themeToggle"
+                aria-label="Toggle dark mode"
+                title="Toggle dark mode">
+                🌙
+            </button>
+
+        </nav>
+    </header>
+
+
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="hero-content">
+
+                <span class="badge">
+                    LAB SHEET 02
+                </span>
+
+                <h1>
+                    Dynamic Web
+                    <span>Experience</span>
+                </h1>
+
+                <p>
+                    A practical demonstration of modern CSS styling,
+                    JavaScript interaction, responsive layouts and
+                    client-side DOM manipulation.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="#gallery"
+                        class="btn btn-primary">
+                        Explore Gallery
+                    </a>
+
+                    <a
+                        href="#todo"
+                        class="btn btn-secondary">
+                        Try Todo App
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="section" id="gallery">
+
+            <div class="section-heading">
+
+                <h2>Responsive Photo Gallery</h2>
+
+                <p>
+                    Flexbox-based responsive grid with hover animations.
+                </p>
+
+            </div>
+
+            <div class="photo-grid">
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+                        alt="Computer motherboard">
+
+                    <div class="photo-info">
+                        <h3>Technology</h3>
+                        <p>Modern computing and digital innovation.</p>
+                    </div>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
+                        alt="Laptop displaying code">
+
+                    <div class="photo-info">
+                        <h3>Programming</h3>
+                        <p>Building applications using modern technologies.</p>
+                    </div>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
+                        alt="Programming code on computer">
+
+                    <div class="photo-info">
+                        <h3>Development</h3>
+                        <p>Writing clean and efficient source code.</p>
+                    </div>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+                        alt="Data analytics dashboard">
+
+                    <div class="photo-info">
+                        <h3>Data Analytics</h3>
+                        <p>Understanding data through visualization.</p>
+                    </div>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=800&q=80"
+                        alt="React development">
+
+                    <div class="photo-info">
+                        <h3>React</h3>
+                        <p>Creating interactive modern interfaces.</p>
+                    </div>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80"
+                        alt="Developer working on laptop">
+
+                    <div class="photo-info">
+                        <h3>Web Development</h3>
+                        <p>Designing responsive and user-friendly websites.</p>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="section" id="todo">
+
+            <div class="section-heading">
+
+                <h2>Smart Todo Application</h2>
+
+                <p>
+                    Add, complete and delete tasks using JavaScript DOM manipulation.
+                </p>
+
+            </div>
+
+
+            <div class="todo-container">
+
+                <div class="todo-input-area">
+
+                    <input
+                        type="text"
+                        id="todoInput"
+                        placeholder="Enter a new task..."
+                        maxlength="100"
+                        aria-label="New todo task">
+
+                    <button id="addTodo">
+                        Add Task
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="errorMessage"
+                    role="alert">
+                    Please enter a task before adding it.
+                </p>
+
+
+                <ul id="todoList">
+                    <!-- Tasks are added dynamically using JavaScript -->
+                </ul>
+
+
+                <div class="todo-stats">
+
+                    <span>
+                        Total:
+                        <strong id="totalTasks">0</strong>
+                    </span>
+
+                    <span>
+                        Completed:
+                        <strong id="completedTasks">0</strong>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            LAB SHEET 02 | Dynamic Interface Styling & Scripting
+        </p>
+
+        <p>
+            Built using HTML5, CSS3 and Vanilla JavaScript.
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        /* =====================================================
+           TASK 2.1 - DARK MODE TOGGLE
+        ====================================================== */
+
+        const themeToggle =
+            document.getElementById("themeToggle");
+
+        themeToggle.addEventListener("click", function () {
+
+            document.body.classList.toggle("dark-mode");
+
+            if (document.body.classList.contains("dark-mode")) {
+
+                themeToggle.textContent = "☀️";
+
+                themeToggle.setAttribute(
+                    "aria-label",
+                    "Switch to light mode"
+                );
+
+                localStorage.setItem("theme", "dark");
+
+            } else {
+
+                themeToggle.textContent = "🌙";
+
+                themeToggle.setAttribute(
+                    "aria-label",
+                    "Switch to dark mode"
+                );
+
+                localStorage.setItem("theme", "light");
+            }
+
+        });
+
+
+        /* =====================================================
+           REMEMBER USER THEME
+        ====================================================== */
+
+        const savedTheme =
+            localStorage.getItem("theme");
+
+        if (savedTheme === "dark") {
+
+            document.body.classList.add("dark-mode");
+
+            themeToggle.textContent = "☀️";
+
+        }
+
+
+        /* =====================================================
+           TASK 2.3 - TODO APPLICATION
+        ====================================================== */
+
+        const todoInput =
+            document.getElementById("todoInput");
+
+        const addTodo =
+            document.getElementById("addTodo");
+
+        const todoList =
+            document.getElementById("todoList");
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+        const totalTasks =
+            document.getElementById("totalTasks");
+
+        const completedTasks =
+            document.getElementById("completedTasks");
+
+
+        /* =====================================================
+           ADD TODO FUNCTION
+        ====================================================== */
+
+        function addTask() {
+
+            const taskText =
+                todoInput.value.trim();
+
+
+            /* Validation */
+
+            if (taskText === "") {
+
+                errorMessage.style.display = "block";
+
+                todoInput.focus();
+
+                return;
+            }
+
+
+            errorMessage.style.display = "none";
+
+
+            /* Create List Item */
+
+            const listItem =
+                document.createElement("li");
+
+            listItem.className = "todo-item";
+
+
+            /* Create Task Text */
+
+            const taskSpan =
+                document.createElement("span");
+
+            taskSpan.className = "todo-text";
+
+            taskSpan.textContent = taskText;
+
+
+            /* Create Action Container */
+
+            const actions =
+                document.createElement("div");
+
+            actions.className = "todo-actions";
+
+
+            /* Complete Button */
+
+            const completeButton =
+                document.createElement("button");
+
+            completeButton.className =
+                "complete-btn";
+
+            completeButton.textContent =
+                "Complete";
+
+
+            /* Delete Button */
+
+            const deleteButton =
+                document.createElement("button");
+
+            deleteButton.className =
+                "delete-btn";
+
+            deleteButton.textContent =
+                "Delete";
+
+
+            /* =================================================
+               COMPLETE TASK
+            ================================================== */
+
+            completeButton.addEventListener(
+                "click",
+                function () {
+
+                    listItem.classList.toggle(
+                        "completed"
+                    );
+
+                    if (
+                        listItem.classList.contains(
+                            "completed"
+                        )
+                    ) {
+
+                        completeButton.textContent =
+                            "Undo";
+
+                    } else {
+
+                        completeButton.textContent =
+                            "Complete";
+                    }
+
+                    updateStats();
+                }
+            );
+
+
+            /* =================================================
+               DELETE TASK
+            ================================================== */
+
+            deleteButton.addEventListener(
+                "click",
+                function () {
+
+                    listItem.remove();
+
+                    updateStats();
+                }
+            );
+
+
+            /* =================================================
+               CLICK TEXT TO COMPLETE
+            ================================================== */
+
+            taskSpan.addEventListener(
+                "click",
+                function () {
+
+                    listItem.classList.toggle(
+                        "completed"
+                    );
+
+                    updateStats();
+                }
+            );
+
+
+            /* Add buttons to actions */
+
+            actions.appendChild(completeButton);
+
+            actions.appendChild(deleteButton);
+
+
+            /* Add elements to list item */
+
+            listItem.appendChild(taskSpan);
+
+            listItem.appendChild(actions);
+
+
+            /* Add list item to Todo List */
+
+            todoList.appendChild(listItem);
+
+
+            /* Clear input */
+
+            todoInput.value = "";
+
+            todoInput.focus();
+
+
+            /* Update statistics */
+
+            updateStats();
+
+        }
+
+
+        /* =====================================================
+           UPDATE TODO STATISTICS
+        ====================================================== */
+
+        function updateStats() {
+
+            const tasks =
+                document.querySelectorAll(".todo-item");
+
+            const completed =
+                document.querySelectorAll(
+                    ".todo-item.completed"
+                );
+
+            totalTasks.textContent =
+                tasks.length;
+
+            completedTasks.textContent =
+                completed.length;
+        }
+
+
+        /* =====================================================
+           BUTTON EVENT
+        ====================================================== */
+
+        addTodo.addEventListener(
+            "click",
+            addTask
+        );
+
+
+        /* =====================================================
+           ENTER KEY SUPPORT
+        ====================================================== */
+
+        todoInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    addTask();
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           HIDE ERROR WHILE TYPING
+        ====================================================== */
+
+        todoInput.addEventListener(
+            "input",
+            function () {
+
+                if (todoInput.value.trim() !== "") {
+
+                    errorMessage.style.display =
+                        "none";
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
