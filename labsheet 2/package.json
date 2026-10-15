@@ -1,0 +1,8 @@
+{
+  "name": "student-records-api",
+  "version": "1.0.0",
+  "description": "Full Stack Development Lab Practical A1",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "express": "^4.21.2" }
+}
