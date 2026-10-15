@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f463a">
+    <title>Student Registry | Campus Records</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/" aria-label="Student Registry home">
+          <span class="brand-mark">SR</span>
+          <span class="brand-copy"><strong>Northfield</strong><small>STUDENT SERVICES</small></span>
+        </a>
+
+        <div class="nav-label">WORKSPACE</div>
+        <nav class="side-nav" aria-label="Main navigation">
+          <a class="nav-link active" href="#directory"><span class="nav-index">01</span>Student records</a>
+          <a class="nav-link" href="#api-guide"><span class="nav-index">02</span>API reference</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="sidebar-rule"></div>
+          <p class="sidebar-caption">PRACTICAL A1</p>
+          <p class="sidebar-title">Student Records<br>REST API</p>
+          <div class="service-state"><span class="status-dot"></span><span id="connection-state">Connecting to API</span></div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="page-header">
+          <div class="breadcrumb"><span>Student services</span><span class="breadcrumb-divider">/</span><strong>Records</strong></div>
+          <div class="header-actions">
+            <span class="header-date" id="today-label"></span>
+            <a class="primary-button" href="#student-form"><span class="plus-mark" aria-hidden="true">+</span> Add student</a>
+          </div>
+        </header>
+
+        <section class="intro" aria-labelledby="page-title">
+          <div>
+            <p class="eyebrow">CAMPUS DIRECTORY <span class="eyebrow-line"></span></p>
+            <h1 id="page-title">Student records<span class="title-period">.</span></h1>
+            <p class="intro-copy">A clear view of the people who make up your campus.</p>
+          </div>
+          <div class="intro-stamp" aria-hidden="true"><span>SR</span><small>RECORDS<br>OFFICE</small></div>
+        </section>
+
+        <section class="metrics" aria-label="Student record summary">
+          <div class="metric metric-primary">
+            <span class="metric-label">TOTAL STUDENTS</span>
+            <strong id="total-count">--</strong>
+            <span class="metric-note">In the directory</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">AVERAGE AGE</span>
+            <strong id="average-age">--</strong>
+            <span class="metric-note">Across all records</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">CURRENT VIEW</span>
+            <strong id="shown-count">--</strong>
+            <span class="metric-note">Matching students</span>
+          </div>
+          <div class="metric metric-note-block">
+            <span class="metric-label">DATA STORAGE</span>
+            <strong>In memory</strong>
+            <span class="metric-note">Records reset on restart</span>
+          </div>
+        </section>
+
+        <section class="workspace" id="directory" aria-label="Manage student records">
+          <div class="directory-panel">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">DIRECTORY</p>
+                <h2>All students</h2>
+              </div>
+              <button class="text-button" id="refresh-button" type="button">Refresh records <span aria-hidden="true">&#8635;</span></button>
+            </div>
+
+            <div class="filters">
+              <label class="search-field">
+                <span class="field-label">Search</span>
+                <input id="search-input" type="search" placeholder="Name or email" autocomplete="off">
+              </label>
+              <label class="age-filter">
+                <span class="field-label">Minimum age</span>
+                <input id="min-age-input" type="number" min="1" step="1" placeholder="Any age">
+              </label>
+              <span class="result-count" id="result-count">Loading records</span>
+            </div>
+
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr><th scope="col">STUDENT</th><th scope="col">EMAIL ADDRESS</th><th scope="col">AGE</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr>
+                </thead>
+                <tbody id="student-rows"></tbody>
+              </table>
+              <div class="empty-state" id="empty-state" hidden>
+                <span class="empty-mark" aria-hidden="true">+</span>
+                <h3 id="empty-title">No student records yet</h3>
+                <p id="empty-copy">Add a student to start building the campus directory.</p>
+                <a class="text-button empty-link" href="#student-form">Add the first student</a>
+              </div>
+            </div>
+          </div>
+
+          <aside class="form-panel" id="student-form">
+            <div class="form-heading">
+              <p class="section-kicker">NEW RECORD</p>
+              <h2>Add a student</h2>
+              <p>Enter the student's details to create a record.</p>
+            </div>
+            <form id="create-form" novalidate>
+              <label class="form-field">
+                <span>Full name</span>
+                <input name="name" type="text" placeholder="e.g. Jordan Lee" maxlength="100" required>
+              </label>
+              <label class="form-field">
+                <span>Email address</span>
+                <input name="email" type="email" placeholder="name@college.edu" maxlength="254" required>
+              </label>
+              <label class="form-field">
+                <span>Age</span>
+                <input name="age" type="number" min="1" step="1" placeholder="e.g. 20" required>
+              </label>
+              <p class="form-error" id="form-error" role="alert" hidden></p>
+              <button class="submit-button" type="submit">Create student record <span aria-hidden="true">&#8594;</span></button>
+              <p class="form-footnote"><span class="footnote-mark">i</span> Student IDs are assigned automatically and never reused.</p>
+            </form>
+          </aside>
+        </section>
+
+        <section class="api-section" id="api-guide" aria-labelledby="api-title">
+          <div class="api-heading">
+            <div>
+              <p class="section-kicker">PRACTICAL A1</p>
+              <h2 id="api-title">REST API reference</h2>
+            </div>
+            <p>Express · JSON · In-memory storage</p>
+          </div>
+          <div class="endpoint-list">
+            <div class="endpoint-row"><span class="method method-post">POST</span><code>/students</code><span>Create a student record</span></div>
+            <div class="endpoint-row"><span class="method method-get">GET</span><code>/students</code><span>List students; optional <code>?minAge=n</code></span></div>
+            <div class="endpoint-row"><span class="method method-get">GET</span><code>/students/:id</code><span>Fetch one student by ID</span></div>
+            <div class="endpoint-row"><span class="method method-delete">DELETE</span><code>/students/:id</code><span>Delete a student record</span></div>
+          </div>
+        </section>
+
+        <footer class="page-footer"><span>NORTHFIELD COLLEGE <span class="footer-separator">/</span> STUDENT SERVICES</span><span>STUDENT RECORDS API <span class="footer-separator">·</span> Aditi Rajput</span></footer>
+      </main>
+    </div>
+
+    <dialog class="student-dialog" id="student-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-top"><span class="section-kicker">STUDENT PROFILE</span><button class="dialog-close" type="button" aria-label="Close dialog">&#215;</button></div>
+      <div id="student-detail"></div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

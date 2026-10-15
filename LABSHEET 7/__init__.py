@@ -1,0 +1,1 @@
+"""Data models and views for the collection browser."""
