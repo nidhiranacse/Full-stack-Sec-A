@@ -1,0 +1,244 @@
+================================================================================
+                     FULL STACK ARCHITECTURAL PLANNING
+                           ASSIGNMENT REPORT
+================================================================================
+
+[ STUDENT INFORMATION ]
+--------------------------------------------------------------------------------
+Name       : Pragya
+Section    : A
+CU ID      : CU24250119
+Subject    : Full Stack
+--------------------------------------------------------------------------------
+
+
+================================================================================
+TASK 1: E-COMMERCE SYSTEM ARCHITECTURAL LAYOUT PLAN
+================================================================================
+
++------------------------------------------------------------------------------+
+|                              SYSTEM ARCHITECTURE                             |
++------------------------------------------------------------------------------+
+
+  [ Client Layer ]          React.js + Tailwind CSS (Vercel Edge CDN)
+         |
+         v
+  [ API Gateway ]           NGINX / AWS ALB (SSL Termination, Rate Limiting)
+         |
+         v
+  [ Application Tier ]      Node.js / Express.js REST API (AWS ECS / Docker)
+         |
+         +--------------------------+
+         |                          |
+         v                          v
+  [ Caching Layer ]          [ Persistence Layer ]     [ External APIs ]
+    Redis (Session/Catalog)    PostgreSQL (AWS RDS)       Stripe, SendGrid
+
+--------------------------------------------------------------------------------
+Component Details:
+--------------------------------------------------------------------------------
+* Client Layer (UI/UX): React.js + Tailwind CSS hosted on Vercel Edge CDN[cite: 1].
+  Manages UI state, client routing, and user interactions[cite: 1].
+* API Gateway / Load Balancer: NGINX or AWS ALB[cite: 1]. Handles routing, SSL
+  termination, and rate limiting[cite: 1].
+* Application Tier: Node.js / Express.js REST API running in Docker containers
+  on AWS ECS[cite: 1]. Executes core business logic, user authentication, and
+  checkout flows[cite: 1].
+* Caching Layer: Redis cluster[cite: 1]. Caches frequent DB queries, active user
+  sessions, and product catalog data[cite: 1].
+* Persistence Layer: Managed PostgreSQL on AWS RDS[cite: 1]. Guarantees ACID 
+  compliance and relational data integrity for orders and inventory[cite: 1].
+* External Integrations: Stripe API for payment processing and SendGrid for
+  transactional notifications[cite: 1].
+
+
+================================================================================
+TASK 2: OUTDATED PROFILE DATA BUG ROOT CAUSE ANALYSIS
+================================================================================
+
++------------------------------------------------------------------------------+
+|                          DIAGNOSTIC ISOLATION TREE                           |
++------------------------------------------------------------------------------+
+
+                          [ Outdated Profile Bug ]
+                                     |
+    +--------------------------------+--------------------------------+
+    |                                |                                |
+    v                                v                                v
+[ Client Tier ]              [ Server Tier ]                  [ Database Tier ]
+- Browser HTTP Cache         - Missing Cache Invalidation     - Replication Lag
+- Stale Redux/SWR State      - Aggressive Cache Headers       - Unsync Read Replica
+                             * PRIMARY SUSPECT *
+
+--------------------------------------------------------------------------------
+Diagnostic Breakdown:
+--------------------------------------------------------------------------------
+* Client Tier Cause: Browser HTTP caching or state management libraries (e.g.,
+  Redux, Zustand) serving stale client-side data without issuing a fresh GET
+  request[cite: 1].
+* Server Tier Cause (Primary Suspect): Missing cache-invalidation logic, or
+  improper `Cache-Control` headers serving cached responses instead of fetching
+  fresh DB records[cite: 1].
+* Database Tier Cause: Read-replica synchronization lag, where the write primary
+  updated successfully but the read-replica handling the read query is behind[cite: 1].
+
+
+================================================================================
+TASK 3: CONCURRENT DEVELOPMENT PLAN FOR MINIMIZING FRICTION
+================================================================================
+
++------------------------------------------------------------------------------+
+|                          CONCURRENT WORKFLOW MODEL                           |
++------------------------------------------------------------------------------+
+
+               +------------------------------------------------+
+               |  Phase 1: API-First Contract (OpenAPI/Swagger) |
+               +-----------------------+------------------------+
+                                       |
+                   +-------------------+-------------------+
+                   |                                       |
+                   v                                       v
+      [ Frontend Workstream ]                 [ Backend Workstream ]
+      - Build UI against Mock Server          - Implement Business Logic
+      - Shared TypeScript Interfaces          - DB Schema & API Routes
+                   |                                       |
+                   +-------------------+-------------------+
+                                       |
+                                       v
+               +------------------------------------------------+
+               |   Phase 2: Integration & Contract Testing     |
+               +------------------------------------------------+
+
+--------------------------------------------------------------------------------
+Core Strategies:
+--------------------------------------------------------------------------------
+* API-First Design Contract: Define REST/GraphQL specifications early using
+  OpenAPI (Swagger) before writing implementation code[cite: 1].
+* Mock Servers: Backend engineers supply mock endpoints via Postman or MSW
+  (Mock Service Worker), allowing frontend teams to build UI in parallel[cite: 1].
+* Shared Type Definitions: Maintain a monorepo (e.g., Turborepo) with shared
+  TypeScript interfaces to enforce compile-time data contract safety[cite: 1].
+
+
+================================================================================
+TASK 4: PERFORMANCE RISKS OF DYNAMIC UI FETCHING FROM DATABASE
+================================================================================
+
+* Database Connection Bottleneck: Executing DB queries for UI layouts on every
+  single click rapidly exhausts the connection pool under concurrent traffic[cite: 1].
+* Excessive Latency: Query execution time plus network round-trips adds heavy
+  overhead before the client can begin rendering[cite: 1].
+* Core Web Vitals & SEO Degradation: Prevents static optimization (SSG/CDN),
+  causing severely poor Time to First Byte (TTFB) and First Contentful Paint (FCP)[cite: 1].
+
+
+================================================================================
+TASK 5: PRODUCTION DEPLOYMENT READINESS CHECKLIST
+================================================================================
+
+[ ] 1. ENVIRONMENT & SECURITY
+       - Migrate local `.env` values to Cloud Secrets Manager[cite: 1].
+       - Restrict CORS origin rules (disable wildcard `*`)[cite: 1].
+
+[ ] 2. DATABASE & MIGRATIONS
+       - Execute automated migration scripts (Prisma/Liquibase)[cite: 1].
+       - Configure automated point-in-time database backups[cite: 1].
+
+[ ] 3. ASSET OPTIMIZATION
+       - Minify JS/CSS assets and enable Gzip/Brotli compression[cite: 1].
+       - Offload static assets to a global Content Delivery Network (CDN)[cite: 1].
+
+[ ] 4. OBSERVABILITY & MONITORING
+       - Integrate Application Performance Monitoring (Sentry, Datadog)[cite: 1].
+       - Configure health-check endpoints and automated uptime alerts[cite: 1].
+
+
+================================================================================
+TASK 6: DECOUPLING FRONT-END PRESENTATION FROM BACK-END LOGIC
+================================================================================
+
+Decoupling front-end presentation from back-end logic enforces a clean separation
+of concerns[cite: 1]. When the user interface communicates with backend services purely
+through versioned API endpoints, teams can refactor UI frameworks, update design
+systems, or optimize backend algorithms independently[cite: 1].
+
+This decoupled architecture prevents cascading failures across tiers, enables
+independent horizontal scaling of components, and allows a single unified API to
+serve multiple client platforms simultaneously (e.g., Web, iOS, Android)[cite: 1].
+
+
+================================================================================
+TASK 7: SYSTEM IMPACT OF API SERVER OUTAGES
+================================================================================
+
++------------------------------------------------------------------------------+
+|                            OUTAGE IMPACT MATRIX                              |
++------------------------------------------------------------------------------+
+
+  Component         Status          User Impact
+  ---------------   ------------    -------------------------------------------
+  Front-End (CDN)   ONLINE [OK]     Static UI, assets, and layout render fine.
+  API Server        OFFLINE [FAIL]  Requests fail (502/504 Gateway errors).
+  Database          ONLINE [OK]     Healthy, but unreachable by users.
+
+--------------------------------------------------------------------------------
+Detailed Breakdown:
+--------------------------------------------------------------------------------
+* Static UI Availability: The client application remains visible because static
+  HTML/CSS/JS assets are served directly from the CDN[cite: 1].
+* Operational Failure: Dynamic features requiring network traffic (authentication,
+  data fetching, form submissions) fail with HTTP 502/504 errors[cite: 1].
+* Database Isolation: The database layer remains intact, but isolated from end
+  users due to the missing middleware application layer[cite: 1].
+
+
+================================================================================
+TASK 8: TRACKING DATABASE STATE CHANGES IN VERSION CONTROL
+================================================================================
+
+* POSITION: FOR tracking database schema migrations in git repositories[cite: 1].
+
+* KEY ADVANTAGES:
+  - Deterministic Environments: Guarantees exact schema parity across local,
+    staging, and production databases[cite: 1].
+  - Version Alignment: Enables developers to roll back database structures in
+    sync with code commits[cite: 1].
+  - Automated CI/CD Pipelines: Removes manual SQL deployment scripts and
+    reduces human error[cite: 1].
+
+
+================================================================================
+TASK 9: OPTIMAL LIFECYCLE PHASE FOR AUTOMATED TESTING
+================================================================================
+
+Automated test suites yield the highest ROI during the CONTINUOUS INTEGRATION (CI)
+/ PULL REQUEST PHASE[cite: 1].
+
+Running automated unit, integration, and contract tests before code merges blocks
+regressions, prevents broken builds from reaching main branches, and keeps feedback
+loops short and inexpensive for developers[cite: 1].
+
+
+================================================================================
+TASK 10: PAYLOAD OPTIMIZATION STRATEGY FOR SLOW API RESPONSES
+================================================================================
+
++------------------------------------------------------------------------------+
+|                            OPTIMIZATION ROADMAP                              |
++------------------------------------------------------------------------------+
+
+  Technique              Strategy                          Expected Impact
+  --------------------   -------------------------------   --------------------
+  Gzip/Brotli            Enable backend compression        70-80% size reduction
+                         middleware[cite: 1].
+
+  Response Pagination    Implement cursor/limit-offset     Prevents large data 
+                         pagination[cite: 1].             transfers[cite: 1].
+
+  Sparse Fields          Filter payload properties         Eliminates unused
+                         or use GraphQL[cite: 1].          data[cite: 1].
+
+  Client-Side Caching    Use HTTP ETags & React Query      Eliminates redundant
+                         (SWR)[cite: 1].                  network calls[cite: 1].
+
+================================================================================
