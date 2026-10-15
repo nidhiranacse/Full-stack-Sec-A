@@ -1,0 +1,21 @@
+{
+  "name": "practical-a1-student-records-rest-api",
+  "version": "1.0.0",
+  "description": "SET A - Practical A1: Student Records REST API (Node.js and Express)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test tests/api.test.js"
+  },
+  "keywords": [
+    "express",
+    "rest-api",
+    "student-records",
+    "nodejs"
+  ],
+  "author": "Payal Bisht",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

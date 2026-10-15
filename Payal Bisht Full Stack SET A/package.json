@@ -1,0 +1,23 @@
+{
+  "name": "payal-bisht-full-stack-set-a",
+  "version": "1.0.0",
+  "description": "Full Stack Development Lab Manual - Practical Test (Set A) Solutions by Payal Bisht",
+  "scripts": {
+    "test:a1": "npm test --prefix \"Practical A1 - Student Records REST API\"",
+    "test:a2": "npm test --prefix \"Practical A2 - Feedback Form with Validation\"",
+    "test": "npm run test:a1 && npm run test:a2",
+    "start:a1": "npm start --prefix \"Practical A1 - Student Records REST API\"",
+    "dev:a2": "npm run dev --prefix \"Practical A2 - Feedback Form with Validation\""
+  },
+  "keywords": [
+    "fullstack",
+    "express",
+    "react",
+    "rest-api",
+    "validation",
+    "set-a",
+    "payal-bisht"
+  ],
+  "author": "Payal Bisht",
+  "license": "ISC"
+}
