@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+Contact Us
+{% endblock %}
+{% block content %}
+<h1>Contact Us</h1>
+<p>Send us your feedback.</p>
+<form method="POST">
+    {% csrf_token %}
+    <label>Name</label>
+    <input type="text" name="name" required>
+    <label>Email</label>
+    <input type="email" name="email" required>
+    <label>Feedback</label>
+    <textarea name="feedback" maxlength="1000" required></textarea>
+    <button type="submit">
+        Submit Feedback
+    </button>
+</form>
+{% endblock %}
