@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"content="width=device-width, initial-scale=1.0">
+    <meta name="description"content="Priyashi's resume, navigation menu and product catalog">
+
+    <title>Priyashi - Resume & Product Catalog</title>
+
+  <style>
+    /* Page background */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        line-height: 1.6;
+        color: #222;
+        background: linear-gradient(135deg, #dbeafe, #fce7f3);
+    }
+
+    /* Header */
+    header {
+        background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 40px;
+    }
+
+    header p {
+        font-size: 18px;
+    }
+
+    address {
+        font-style: normal;
+    }
+
+    address a {
+        color: #fde68a;
+    }
+
+
+    /* Navigation bar */
+    nav {
+        background-color: #111827;
+        padding: 15px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    nav > ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav li {
+        position: relative;
+    }
+
+    nav a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        background-color: #374151;
+        padding: 10px 16px;
+        border-radius: 20px;
+        transition: 0.3s;
+    }
+
+    nav a:hover {
+        background-color: #8b5cf6;
+        transform: translateY(-2px);
+    }
+
+
+    /* Dropdown menu */
+    nav ul ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #1f2937;
+        min-width: 190px;
+        padding: 8px;
+        border-radius: 10px;
+    }
+
+    nav li:hover > ul {
+        display: block;
+    }
+
+    nav ul ul li {
+        width: 100%;
+    }
+
+    nav ul ul a {
+        border-radius: 6px;
+    }
+
+    nav ul ul ul {
+        left: 100%;
+        top: 0;
+    }
+
+
+    /* Main area */
+    main {
+        max-width: 1000px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+
+    /* Section cards */
+    section {
+        padding: 25px;
+        margin-bottom: 25px;
+        border-radius: 15px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        border-left: 6px solid #6366f1;
+    }
+
+    section:hover {
+        transform: translateY(-3px);
+        transition: 0.3s;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    }
+
+
+    /* Section headings */
+    h2 {
+        color: #4338ca;
+        margin-top: 0;
+        border-bottom: 2px solid #c7d2fe;
+        padding-bottom: 8px;
+    }
+
+    h3 {
+        color: #6d28d9;
+    }
+
+
+    /* Different colors for sections */
+    #objective {
+        color: #0369a1;
+    }
+
+    #education {
+        color: #15803d;
+    }
+
+    #skills {
+        color: #c2410c;
+    }
+
+    #projects {
+        color: #7e22ce;
+    }
+
+    #internship {
+        color: #be123c;
+    }
+
+    #catalog {
+        color: #0369a1;
+    }
+
+
+    /* Skills */
+    .skills li {
+        margin-bottom: 8px;
+    }
+
+
+    /* Catalog */
+    dt {
+        background: linear-gradient(135deg, #4338ca, #7c3aed);
+        color: white;
+        padding: 12px;
+        margin-top: 15px;
+        border-radius: 8px;
+        font-size: 18px;
+    }
+
+    dd {
+        background-color: #eef2ff;
+        padding: 15px;
+        margin: 0;
+        border-left: 4px solid #6366f1;
+        border-radius: 0 0 8px 8px;
+    }
+
+
+    /* Footer */
+    footer {
+        background-color: #111827;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 30px;
+    }
+</style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Priyashi</h1>
+
+        <p>Computer Science Engineering Student</p>
+
+        <address>
+            Email:
+            <a href="mailto:priyashi@gmail.com">
+                priyashi@gmail.com
+            </a>
+            <br>
+
+            Phone:
+            <a href="tel:+917015698232">
+                +91 7015698232
+            </a>
+            <br>
+
+            Roorkee, India
+        </address>
+    </header>
+
+
+    <!-- Navigation Menu -->
+    <nav aria-label="Main navigation">
+        <ul>
+            <li>
+                <a href="#objective">Objective</a>
+            </li>
+
+            <li>
+                <a href="#education">Education</a>
+            </li>
+
+            <li>
+                <a href="#skills">Skills</a>
+            </li>
+
+            <li>
+                <a href="#projects">Projects</a>
+            </li>
+
+            <li>
+                <a href="#internship">Internship</a>
+            </li>
+
+            <li>
+                <a href="#catalog">AI/ML Catalog</a>
+
+    <ul>
+        <li>
+            <a href="#python">Python</a>
+        </li>
+
+        <li>
+            <a href="#numpy">NumPy</a>
+        </li>
+
+        <li>
+            <a href="#pandas">Pandas</a>
+        </li>
+
+        <li>
+            <a href="#sklearn">Scikit-learn</a>
+        </li>
+    </ul>
+</li>
+            </li>
+
+            <li>
+                <a href="https://www.google.com/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    External Resource
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <main>
+
+        <!-- Objective -->
+        <section aria-labelledby="objective">
+            <h2 id="objective">Objective</h2>
+
+            <p>
+                Enthusiastic learner in Machine Learning and Artificial
+                Intelligence, aiming to build innovative data-driven
+                solutions and contribute to innovative projects.
+            </p>
+        </section>
+
+
+        <!-- Education -->
+        <section aria-labelledby="education">
+            <h2 id="education">Education</h2>
+
+            <article>
+                <h3>COER University, Roorkee</h3>
+                <p>B.Tech in Computer Science Engineering</p>
+                <p>2024 - 2028</p>
+
+                <h3>Army Public School No. 2, Roorkee</h3>
+                <p>Class XII — CBSE — PCM</p>
+                <p>2023 - 2024</p>
+
+                <h3>Army Public School No. 2, Roorkee</h3>
+                <p>Class X — CBSE</p>
+                <p>2021 - 2022</p>
+            </article>
+        </section>
+
+
+        <!-- Skills -->
+        <section aria-labelledby="skills">
+            <h2 id="skills">Skills</h2>
+
+            <ul class="skills">
+                <li>
+                    <strong>Languages:</strong>
+                    Python, C++, MySQL
+                </li>
+
+                <li>
+                    <strong>Technologies:</strong>
+                    Jupyter Notebook, NumPy, Pandas,
+                    Data Visualization, Machine Learning, GitHub
+                </li>
+
+                <li>
+                    <strong>Core Concepts:</strong>
+                    Data Preprocessing, Model Evaluation,
+                    Clustering, Data Structures and Algorithms
+                </li>
+
+                <li>
+                    <strong>Soft Skills:</strong>
+                    Problem Solving, Communication, Critical Thinking
+                </li>
+            </ul>
+        </section>
+
+
+        <!-- Projects -->
+        <section aria-labelledby="projects">
+            <h2 id="projects">Projects</h2>
+
+            <article>
+                <h3>AI-Based Financial Fraud Detection using GNN</h3>
+
+                <ul>
+                    <li>
+                        Developed a fraud detection model using Graph
+                        Neural Networks to identify suspicious transactions.
+                    </li>
+
+                    <li>
+                        Modeled financial data as graphs to capture
+                        relationships and detect hidden fraud patterns.
+                    </li>
+
+                    <li>
+                        Applied data preprocessing and evaluated performance
+                        using accuracy, precision, and recall.
+                    </li>
+                </ul>
+
+                <h3>Customer Segmentation using Clustering</h3>
+
+                <ul>
+                    <li>
+                        Applied K-Means clustering to segment customers
+                        based on behavior.
+                    </li>
+
+                    <li>
+                        Performed data preprocessing and feature selection.
+                        Visualized insights for targeted marketing strategies.
+                    </li>
+                </ul>
+            </article>
+        </section>
+
+
+        <!-- Internship -->
+        <section aria-labelledby="internship">
+            <h2 id="internship">Internship</h2>
+
+            <article>
+                <h3>Codec Technologies – AI/ML Intern</h3>
+
+                <ul>
+                    <li>
+                        Worked with real-world datasets to understand
+                        ML workflows.
+                    </li>
+
+                    <li>
+                        Gained hands-on experience in AI/ML implementation.
+                    </li>
+                </ul>
+            </article>
+        </section>
+
+
+        <!-- AI/ML Catalog -->
+<section aria-labelledby="catalog">
+    <h2 id="catalog">AI & Machine Learning Catalog</h2>
+
+    <p>
+        Explore popular tools and technologies used in
+        Artificial Intelligence and Machine Learning.
+    </p>
+
+    <dl>
+
+        <!-- Python -->
+        <dt id="python">
+            <strong>Python</strong>
+        </dt>
+
+        <dd>
+            <strong>Category:</strong>
+            Programming Language
+            <br>
+
+            <strong>Type:</strong>
+            Open Source
+            <br>
+
+            <strong>Used For:</strong>
+            Machine Learning, Data Science and AI
+            <br>
+
+            <strong>Description:</strong>
+            A popular programming language widely used for
+            data analysis, machine learning and artificial
+            intelligence applications.
+        </dd>
+
+
+        <!-- NumPy -->
+        <dt id="numpy">
+            <strong>NumPy</strong>
+        </dt>
+
+        <dd>
+            <strong>Category:</strong>
+            Python Library
+            <br>
+
+            <strong>Type:</strong>
+            Open Source
+            <br>
+
+            <strong>Used For:</strong>
+            Numerical Computing
+            <br>
+
+            <strong>Description:</strong>
+            A Python library that provides powerful tools
+            for numerical calculations and array operations.
+        </dd>
+
+
+        <!-- Pandas -->
+        <dt id="pandas">
+            <strong>Pandas</strong>
+        </dt>
+
+        <dd>
+            <strong>Category:</strong>
+            Data Science Library
+            <br>
+
+            <strong>Type:</strong>
+            Open Source
+            <br>
+
+            <strong>Used For:</strong>
+            Data Analysis and Preprocessing
+            <br>
+
+            <strong>Description:</strong>
+            A Python library used for data manipulation,
+            cleaning, analysis and preprocessing.
+        </dd>
+
+
+        <!-- Scikit-learn -->
+        <dt id="sklearn">
+            <strong>Scikit-learn</strong>
+        </dt>
+
+        <dd>
+            <strong>Category:</strong>
+            Machine Learning Library
+            <br>
+
+            <strong>Type:</strong>
+            Open Source
+            <br>
+
+            <strong>Used For:</strong>
+            Classification, Regression and Clustering
+            <br>
+
+            <strong>Description:</strong>
+            A machine learning library that provides
+            algorithms and tools for building and evaluating
+            machine learning models.
+        </dd>
+
+    </dl>
+</section>
+    <footer>
+        <p>
+            &copy; 2026 Priyashi. All rights reserved.
+        </p>
+    </footer>
+
+</body>
+</html>
