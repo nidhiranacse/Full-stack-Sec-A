@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Contact Us - My Django Website
+{% endblock %}
+
+{% block content %}
+
+<section class="contact-section">
+
+    <div class="contact-info">
+        <h2>Contact Us</h2>
+
+        <p>
+            Have a question or feedback? Send us a message.
+        </p>
+
+        <p>
+            We value your feedback and will review your message.
+        </p>
+    </div>
+
+
+    <form method="POST" class="contact-form">
+
+        {% csrf_token %}
+
+        <label for="name">Name</label>
+        <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your name"
+            required
+        >
+
+
+        <label for="email">Email</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+        >
+
+
+        <label for="message">Feedback</label>
+        <textarea
+            id="message"
+            name="message"
+            rows="6"
+            placeholder="Enter your feedback"
+            required
+        ></textarea>
+
+
+        <button type="submit">
+            Send Feedback
+        </button>
+
+    </form>
+
+</section>
+
+{% endblock %}
