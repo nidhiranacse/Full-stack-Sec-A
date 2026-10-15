@@ -1,0 +1,153 @@
+/* Google Web Fonts Integration */
+@import url('https://googleapis.com');
+
+:root {
+  --bg-dark: #030712;
+  --card-bg: rgba(255, 255, 255, 0.02);
+  --border-color: rgba(255, 255, 255, 0.06);
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --accent-neon: #6366f1;
+  --accent-glow: rgba(99, 102, 241, 0.15);
+  --success-color: #34d399;
+  
+  --font-stack: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --shadow-premium: 0 30px 60px -15px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Base Body setup (Optional reference context) */
+body {
+  background-color: var(--bg-dark);
+  font-family: var(--font-stack);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* Card Grid/Group Architecture */
+.card-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Main Modern Card Core Layer */
+.modern-card {
+  position: relative;
+  background-color: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-premium);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Premium Tech Badge Layout */
+.card-badge {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-neon);
+  background: rgba(99, 102, 241, 0.08);
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Crisp Title Styling */
+.card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  line-height: 1.25;
+}
+
+/* Balanced Body Typography */
+.card-body {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex-grow: 1; /* Aligns footer automatically at the bottom */
+}
+
+/* Futuristic Price Frame Tag */
+.card-footer-price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--success-color);
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-footer-price::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--success-color);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--success-color);
+}
+
+/* Immersive Interactive Hover Mechanics */
+.modern-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255,255,255,0.03), transparent 40%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.modern-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.9), 0 0 30px var(--accent-glow);
+}
+
+.modern-card:hover .card-badge {
+  background: var(--accent-neon);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+
+/* Fluid Layout Responsive Matrix */
+@media (max-width: 600px) {
+  .card-group {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .modern-card {
+    padding: 24px;
+    border-radius: 20px;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+  }
+}
