@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #101827;
+            color: #f1f5f9;
+        }
+
+        header {
+            background: #172554;
+            padding: 24px;
+            text-align: center;
+        }
+
+        header h1 { margin: 0 0 8px; }
+        header p { margin: 0; color: #bfdbfe; }
+
+        main {
+            max-width: 1000px;
+            margin: 28px auto;
+            padding: 0 18px;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+        }
+
+        h2 { margin-top: 0; }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        input, button {
+            padding: 12px;
+            border-radius: 7px;
+            border: 1px solid #475569;
+            font-size: 15px;
+        }
+
+        input {
+            width: 100%;
+            background: #0f172a;
+            color: white;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover { opacity: 0.85; }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .danger { background: #dc2626; }
+        .secondary { background: #475569; }
+
+        #message {
+            margin-top: 14px;
+            font-weight: bold;
+            overflow-wrap: anywhere;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .stat {
+            background: #1e293b;
+            padding: 18px;
+            border-radius: 10px;
+            flex: 1;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 26px;
+            color: #60a5fa;
+            margin-top: 8px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .filters input { max-width: 230px; }
+
+        .table-wrap { overflow-x: auto; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 520px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 13px;
+            border-bottom: 1px solid #334155;
+        }
+
+        th { color: #93c5fd; }
+
+        .empty {
+            text-align: center;
+            color: #94a3b8;
+            padding: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .stats { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Student Management System</h1>
+    <p>Student Records REST API | Node.js + Express</p>
+</header>
+
+<main>
+    <div class="stats">
+        <div class="stat">
+            Total Students
+            <strong id="total">0</strong>
+        </div>
+        <div class="stat">
+            API Status
+            <strong id="apiStatus">Checking...</strong>
+        </div>
+    </div>
+
+    <section class="card">
+        <h2>Add New Student</h2>
+
+        <form id="studentForm">
+            <div class="form-grid">
+                <input id="name" placeholder="Student name"
+                       required>
+                <input id="email" type="email"
+                       placeholder="Email address" required>
+                <input id="age" type="number"
+                       placeholder="Age" min="1" step="1" required>
+            </div>
+
+            <div class="actions">
+                <button type="submit">Add Student</button>
+                <button type="reset" class="secondary">Clear Form</button>
+            </div>
+        </form>
+
+        <p id="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="card">
+        <h2>Student Records</h2>
+
+        <div class="filters">
+            <input id="minAge" type="number" min="0"
+                   placeholder="Filter by minimum age">
+            <button id="filterBtn" type="button">Filter</button>
+            <button id="showAllBtn" type="button"
+                    class="secondary">Show All</button>
+            <input id="searchId" type="number" min="1"
+                   placeholder="Search student by ID">
+            <button id="searchBtn" type="button">Search ID</button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="studentList">
+                    <tr>
+                        <td colspan="5" class="empty">
+                            Loading students...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<script>
+    const API = "/students";
+
+    const form = document.getElementById("studentForm");
+    const message = document.getElementById("message");
+    const studentList = document.getElementById("studentList");
+    const total = document.getElementById("total");
+    const apiStatus = document.getElementById("apiStatus");
+
+    let allStudents = [];
+
+    function showMessage(text, success = true) {
+        message.textContent = text;
+        message.style.color = success ? "#4ade80" : "#f87171";
+    }
+
+    async function request(url, options = {}) {
+        const response = await fetch(url, options);
+
+        if (response.status === 204) {
+            return null;
+        }
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Request failed");
+        }
+
+        return data;
+    }
+
+    async function loadStudents(url = API) {
+        try {
+            const data = await request(url);
+            apiStatus.textContent = "Online";
+            apiStatus.style.color = "#4ade80";
+
+            renderStudents(data);
+        } catch (error) {
+            apiStatus.textContent = "Offline";
+            apiStatus.style.color = "#f87171";
+            showMessage(
+                "Could not connect to the API: " + error.message,
+                false
+            );
+        }
+    }
+
+    function renderStudents(students) {
+        studentList.replaceChildren();
+        total.textContent = allStudents.length;
+
+        if (students.length === 0) {
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+            cell.colSpan = 5;
+            cell.className = "empty";
+            cell.textContent = "No students found.";
+            row.appendChild(cell);
+            studentList.appendChild(row);
+            return;
+        }
+
+        students.forEach(student => {
+            const row = document.createElement("tr");
+
+            [student.id, student.name, student.email, student.age]
+                .forEach(value => {
+                    const cell = document.createElement("td");
+                    cell.textContent = value;
+                    row.appendChild(cell);
+                });
+
+            const actionCell = document.createElement("td");
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "Delete";
+            deleteBtn.className = "danger";
+
+            deleteBtn.addEventListener("click", () => {
+                deleteStudent(student.id);
+            });
+
+            actionCell.appendChild(deleteBtn);
+            row.appendChild(actionCell);
+            studentList.appendChild(row);
+        });
+    }
+
+    async function refreshStudents() {
+        try {
+            allStudents = await request(API);
+            apiStatus.textContent = "Online";
+            apiStatus.style.color = "#4ade80";
+            renderStudents(allStudents);
+        } catch (error) {
+            apiStatus.textContent = "Offline";
+            apiStatus.style.color = "#f87171";
+            showMessage(error.message, false);
+        }
+    }
+
+    form.addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const student = {
+            name: document.getElementById("name").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            age: Number(document.getElementById("age").value)
+        };
+
+        try {
+            const created = await request(API, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(student)
+            });
+
+            showMessage("Student added successfully! ID: " + created.id);
+            form.reset();
+            await refreshStudents();
+        } catch (error) {
+            showMessage(error.message, false);
+        }
+    });
+
+    async function deleteStudent(id) {
+        if (!confirm("Delete this student?")) return;
+
+        try {
+            await request(`${API}/${id}`, { method: "DELETE" });
+            showMessage("Student deleted successfully.");
+            await refreshStudents();
+        } catch (error) {
+            showMessage(error.message, false);
+        }
+    }
+
+    document.getElementById("filterBtn").addEventListener("click", async () => {
+        const ageInput = document.getElementById("minAge").value;
+
+        if (ageInput.trim() === "" ||
+            !Number.isFinite(Number(ageInput)) ||
+            Number(ageInput) < 0) {
+            showMessage("Enter a valid minimum age.", false);
+            return;
+        }
+
+        await loadStudents(`${API}?minAge=${encodeURIComponent(ageInput)}`);
+    });
+
+    document.getElementById("showAllBtn").addEventListener("click", async () => {
+        document.getElementById("minAge").value = "";
+        document.getElementById("searchId").value = "";
+        await refreshStudents();
+    });
+
+    document.getElementById("searchBtn").addEventListener("click", async () => {
+        const id = document.getElementById("searchId").value;
+
+        if (!id || !Number.isInteger(Number(id)) || Number(id) < 1) {
+            showMessage("Enter a valid student ID.", false);
+            return;
+        }
+
+        try {
+            const student = await request(`${API}/${id}`);
+            renderStudents([student]);
+            showMessage("Student found.");
+        } catch (error) {
+            renderStudents([]);
+            showMessage(error.message, false);
+        }
+    });
+
+    refreshStudents();
+</script>
+
+</body>
+</html>
