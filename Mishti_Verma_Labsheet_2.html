@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mishti - B.Tech Interactive Website</title>
+
+    <style>
+
+        /*
+           GLOBAL CSS VARIABLES
+           TASK 2.1 - DARK MODE
+           */
+
+        :root {
+            --bg-color: #f5f7fb;
+            --text-color: #222;
+            --card-color: #ffffff;
+            --primary-color: #4f46e5;
+            --secondary-color: #e0e7ff;
+            --border-color: #ddd;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #111827;
+            --text-color: #f9fafb;
+            --card-color: #1f2937;
+            --primary-color: #818cf8;
+            --secondary-color: #374151;
+            --border-color: #4b5563;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: 0.3s;
+        }
+
+
+        /*
+           HEADER
+           */
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header p {
+            margin-bottom: 15px;
+        }
+
+
+        /*
+           NAVIGATION
+           */
+
+        nav {
+            background-color: #111827;
+            text-align: center;
+            padding: 12px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            color: #818cf8;
+        }
+
+
+        /*
+           DARK MODE BUTTON
+           */
+
+        #themeButton {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            background-color: white;
+            color: #111827;
+            font-weight: bold;
+        }
+
+        #themeButton:hover {
+            background-color: #e5e7eb;
+        }
+
+
+        /*
+           MAIN CONTAINER
+           */
+
+        main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        section {
+            background-color: var(--card-color);
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+        }
+
+
+        /*
+           TASK 2.1 - LANDING PAGE
+           */
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h2 {
+            font-size: 45px;
+            border: none;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin-top: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .hero-button:hover {
+            opacity: 0.8;
+        }
+
+
+        /*
+           TASK 2.2 - PHOTO GRID
+           */
+
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .photo-card {
+            flex: 1 1 250px;
+            overflow: hidden;
+            border-radius: 12px;
+            background-color: var(--secondary-color);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+
+            transition: transform 0.5s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .photo-card h3,
+        .photo-card p {
+            padding: 0 15px;
+        }
+
+
+        /*
+           TASK 2.3 - TODO APPLICATION
+           */
+
+        .todo-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        #todoInput {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        #addButton {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        #addButton:hover {
+            opacity: 0.8;
+        }
+
+        #errorMessage {
+            color: #ef4444;
+            min-height: 25px;
+        }
+
+        #todoList {
+            list-style: none;
+            padding: 0;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 12px;
+            margin-top: 10px;
+
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+        }
+
+        .todo-text {
+            flex: 1;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .delete-button {
+            border: none;
+            background-color: #ef4444;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #dc2626;
+        }
+
+
+        /*
+           FOOTER
+           */
+
+        footer {
+            background-color: #111827;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+
+        /*
+           RESPONSIVE DESIGN
+           */
+
+        @media (max-width: 600px) {
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .todo-form {
+                flex-direction: column;
+            }
+
+            #addButton {
+                width: 100%;
+            }
+
+            .photo-card {
+                flex-basis: 100%;
+            }
+
+            nav a {
+                display: block;
+                margin: 10px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!--
+         HEADER
+         -->
+
+    <header>
+
+        <h1>Mishti</h1>
+
+        <p>
+            B.Tech Student | Web Developer | Programmer
+        </p>
+
+        <!-- TASK 2.1 DARK MODE BUTTON -->
+
+        <button
+            id="themeButton"
+            type="button">
+
+            🌙 Dark Mode
+
+        </button>
+
+    </header>
+
+
+    <!--
+         NAVIGATION
+         -->
+
+    <nav>
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#gallery">
+            Gallery
+        </a>
+
+        <a href="#todo">
+            Todo App
+        </a>
+
+    </nav>
+
+
+    <main>
+
+        <!--
+             TASK 2.1
+             DARK MODE LANDING PAGE
+             -->
+
+        <section
+            id="home"
+            class="hero">
+
+            <p>
+                WELCOME TO MY WEBSITE
+            </p>
+
+            <h2>
+                Hello, I am Mishti
+            </h2>
+
+            <p>
+                I am a B.Tech student interested in
+                web development, programming and
+                modern technologies.
+            </p>
+
+            <a
+                href="#gallery"
+                class="hero-button">
+
+                Explore My Website
+
+            </a>
+
+        </section>
+
+
+        <!--
+             TASK 2.2
+             RESPONSIVE PHOTO GRID
+             -->
+
+        <section id="gallery">
+
+            <h2>
+                Photo Gallery
+            </h2>
+
+            <p>
+                This responsive gallery uses CSS Flexbox
+                and hover animations.
+            </p>
+
+
+            <div class="photo-grid">
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1015/600/400"
+                        alt="Mountain landscape">
+
+                    <h3>
+                        Mountains
+                    </h3>
+
+                    <p>
+                        Beautiful mountain scenery.
+                    </p>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1016/600/400"
+                        alt="Forest landscape">
+
+                    <h3>
+                        Forest
+                    </h3>
+
+                    <p>
+                        A peaceful forest view.
+                    </p>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1018/600/400"
+                        alt="Natural landscape">
+
+                    <h3>
+                        Nature
+                    </h3>
+
+                    <p>
+                        A beautiful natural landscape.
+                    </p>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1025/600/400"
+                        alt="Dog">
+
+                    <h3>
+                        Companion
+                    </h3>
+
+                    <p>
+                        A friendly dog.
+                    </p>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1035/600/400"
+                        alt="Waterfall">
+
+                    <h3>
+                        Waterfall
+                    </h3>
+
+                    <p>
+                        Beautiful flowing water.
+                    </p>
+
+                </article>
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1043/600/400"
+                        alt="Ocean">
+
+                    <h3>
+                        Ocean
+                    </h3>
+
+                    <p>
+                        A peaceful ocean view.
+                    </p>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+        <!--
+             TASK 2.3
+             TODO APPLICATION
+             -->
+
+        <section id="todo">
+
+            <h2>
+                My Todo List
+            </h2>
+
+            <p>
+                Add your tasks below.
+            </p>
+
+
+            <form
+                id="todoForm"
+                class="todo-form">
+
+                <input
+                    type="text"
+                    id="todoInput"
+                    placeholder="Enter your task"
+                    autocomplete="off">
+
+                <button
+                    type="submit"
+                    id="addButton">
+
+                    Add Task
+
+                </button>
+
+            </form>
+
+
+            <!-- ERROR MESSAGE -->
+
+            <p
+                id="errorMessage"
+                role="alert">
+            </p>
+
+
+            <!-- TODO LIST -->
+
+            <ul id="todoList">
+
+                <li id="emptyMessage">
+                    No tasks added yet.
+                </li>
+
+            </ul>
+
+        </section>
+
+    </main>
+
+
+    <!--
+         FOOTER
+         -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 Mishti | B.Tech Student
+        </p>
+
+    </footer>
+
+
+    <!-- 
+         JAVASCRIPT
+          -->
+
+    <script>
+
+        /* 
+           TASK 2.1
+           DARK MODE TOGGLE
+            */
+
+        const themeButton =
+            document.getElementById("themeButton");
+
+        themeButton.addEventListener("click", function () {
+
+            const currentTheme =
+                document.documentElement.getAttribute(
+                    "data-theme"
+                );
+
+            if (currentTheme === "dark") {
+
+                document.documentElement.removeAttribute(
+                    "data-theme"
+                );
+
+                themeButton.textContent =
+                    "🌙 Dark Mode";
+
+            } else {
+
+                document.documentElement.setAttribute(
+                    "data-theme",
+                    "dark"
+                );
+
+                themeButton.textContent =
+                    "☀️ Light Mode";
+            }
+
+        });
+
+
+        /* 
+           TASK 2.3
+           TODO APPLICATION
+            */
+
+        const todoForm =
+            document.getElementById("todoForm");
+
+        const todoInput =
+            document.getElementById("todoInput");
+
+        const todoList =
+            document.getElementById("todoList");
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+        const emptyMessage =
+            document.getElementById("emptyMessage");
+
+
+        todoForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                /* Get input */
+
+                const task =
+                    todoInput.value.trim();
+
+
+                /*
+                   VALIDATION
+                 */
+
+                if (task === "") {
+
+                    errorMessage.textContent =
+                        "Please enter a task.";
+
+                    todoInput.focus();
+
+                    return;
+                }
+
+
+                if (task.length < 3) {
+
+                    errorMessage.textContent =
+                        "Task must contain at least 3 characters.";
+
+                    todoInput.focus();
+
+                    return;
+                }
+
+
+                /* Clear error */
+
+                errorMessage.textContent = "";
+
+
+                /* Remove empty message */
+
+                if (emptyMessage) {
+
+                    emptyMessage.remove();
+
+                }
+
+
+                /*
+                   CREATE TODO ITEM
+                 */
+
+                const listItem =
+                    document.createElement("li");
+
+                listItem.className =
+                    "todo-item";
+
+
+                /* Checkbox */
+
+                const checkbox =
+                    document.createElement("input");
+
+                checkbox.type =
+                    "checkbox";
+
+
+                /* Task text */
+
+                const taskText =
+                    document.createElement("span");
+
+                taskText.className =
+                    "todo-text";
+
+                taskText.textContent =
+                    task;
+
+
+                /* Delete button */
+
+                const deleteButton =
+                    document.createElement("button");
+
+                deleteButton.textContent =
+                    "Delete";
+
+                deleteButton.className =
+                    "delete-button";
+
+                deleteButton.type =
+                    "button";
+
+
+                /*
+                   COMPLETE TASK
+                 */
+
+                checkbox.addEventListener(
+                    "change",
+                    function () {
+
+                        taskText.classList.toggle(
+                            "completed",
+                            checkbox.checked
+                        );
+
+                    }
+                );
+
+
+                /*
+                   DELETE TASK
+                 */
+
+                deleteButton.addEventListener(
+                    "click",
+                    function () {
+
+                        listItem.remove();
+
+
+                        /* Show empty message */
+
+                        if (todoList.children.length === 0) {
+
+                            const message =
+                                document.createElement("li");
+
+                            message.id =
+                                "emptyMessage";
+
+                            message.textContent =
+                                "No tasks added yet.";
+
+                            todoList.appendChild(
+                                message
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                /*
+                   APPEND ELEMENTS
+                 */
+
+                listItem.appendChild(
+                    checkbox
+                );
+
+                listItem.appendChild(
+                    taskText
+                );
+
+                listItem.appendChild(
+                    deleteButton
+                );
+
+
+                todoList.appendChild(
+                    listItem
+                );
+
+
+                /* Clear input */
+
+                todoInput.value = "";
+
+                todoInput.focus();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
