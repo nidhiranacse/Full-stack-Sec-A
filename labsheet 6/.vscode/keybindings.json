@@ -1,0 +1,11 @@
+[
+    {
+        "key": "ctrl+alt+f",
+        "command": "editor.action.formatDocument",
+        "when": "editorTextFocus && editorLangId == python"
+    },
+    {
+        "key": "ctrl+alt+s",
+        "command": "workbench.action.files.save"
+    }
+]

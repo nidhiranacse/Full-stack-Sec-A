@@ -1,0 +1,248 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+
+  background: linear-gradient(
+    135deg,
+    #ffd6e7,
+    #ffeaf2,
+    #ffc1d9
+  );
+}
+
+.todo-container {
+  width: 100%;
+  max-width: 650px;
+  min-height: 550px;
+  padding: 35px;
+
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px solid #f7b6ce;
+  border-radius: 25px;
+
+  box-shadow: 0 15px 40px rgba(190, 70, 120, 0.18);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.rabbit {
+  font-size: 55px;
+  margin-bottom: 5px;
+}
+
+.header h1 {
+  color: #c44776;
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.header p {
+  color: #9b6679;
+  font-size: 15px;
+}
+
+/* Add Task */
+
+.add-task-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.add-task-form input {
+  flex: 1;
+  padding: 14px 16px;
+
+  border: 2px solid #f2b4cb;
+  border-radius: 12px;
+
+  outline: none;
+  font-size: 15px;
+  color: #66384a;
+  background: #fff8fb;
+}
+
+.add-task-form input:focus {
+  border-color: #d95d8b;
+  box-shadow: 0 0 0 3px rgba(217, 93, 139, 0.12);
+}
+
+.add-task-form button {
+  padding: 14px 20px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #d95d8b;
+  color: white;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.add-task-form button:hover {
+  background: #c74776;
+  transform: translateY(-1px);
+}
+
+/* Task List */
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Task Item */
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 15px 17px;
+
+  background: #fff4f8;
+  border: 1px solid #f4c1d4;
+  border-radius: 13px;
+
+  transition: 0.2s;
+}
+
+.task-item:hover {
+  background: #ffeaf2;
+  transform: translateX(2px);
+}
+
+.task-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.task-content input {
+  width: 18px;
+  height: 18px;
+  accent-color: #d95d8b;
+  cursor: pointer;
+}
+
+.task-content span {
+  color: #633b4c;
+  font-size: 15px;
+}
+
+/* Completed task */
+
+.task-item.completed .task-content span {
+  text-decoration: line-through;
+  color: #b58c9c;
+}
+
+/* Delete */
+
+.delete-btn {
+  border: none;
+  background: transparent;
+
+  font-size: 17px;
+  cursor: pointer;
+
+  padding: 5px;
+  border-radius: 8px;
+
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #ffd6e5;
+}
+
+/* Empty state */
+
+.empty-message {
+  text-align: center;
+  padding: 45px 20px;
+
+  border: 2px dashed #efb3c9;
+  border-radius: 15px;
+
+  background: #fff8fb;
+}
+
+.empty-icon {
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+.empty-message p {
+  color: #c44776;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.empty-message span {
+  display: block;
+  color: #a57989;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* Footer */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 25px;
+  padding-top: 15px;
+
+  border-top: 1px solid #f1c7d6;
+
+  color: #a47788;
+  font-size: 13px;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+  .app {
+    padding: 15px;
+  }
+
+  .todo-container {
+    padding: 25px 20px;
+  }
+
+  .add-task-form {
+    flex-direction: column;
+  }
+
+  .add-task-form button {
+    width: 100%;
+  }
+
+  .header h1 {
+    font-size: 26px;
+  }
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruits Collection</title>
+</head>
+<body>
+    <h1>Fruits Collection</h1>
+
+    {% if fruits %}
+        <ul>
+            {% for fruit in fruits %}
+                <li>{{ fruit }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p role="alert">No fruits are available.</p>
+    {% endif %}
+
+    <p><a href="{% url 'students' %}">View Selected Event Students</a></p>
+</body>
+</html>

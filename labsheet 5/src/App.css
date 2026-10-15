@@ -1,0 +1,252 @@
+* {
+  box-sizing: border-box;
+  }
+
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #f1f5f9;
+color: #1e293b;
+}
+
+.app-container {
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 24px 16px;
+}
+
+.form-card {
+width: 100%;
+max-width: 460px;
+padding: 32px;
+background: white;
+border-radius: 14px;
+box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+margin: 0 0 8px;
+text-align: center;
+}
+
+.subtitle {
+margin-bottom: 24px;
+color: #64748b;
+text-align: center;
+font-size: 14px;
+}
+
+label {
+display: block;
+margin: 18px 0 8px;
+font-size: 14px;
+font-weight: bold;
+}
+
+input {
+width: 100%;
+padding: 12px;
+border: 1px solid #cbd5e1;
+border-radius: 7px;
+outline: none;
+font-size: 14px;
+}
+
+input:focus {
+border-color: #2563eb;
+}
+
+.password-input {
+display: flex;
+gap: 8px;
+}
+
+.password-input input {
+min-width: 0;
+}
+
+.show-btn {
+padding: 10px;
+border: none;
+border-radius: 7px;
+background: #e2e8f0;
+cursor: pointer;
+}
+
+.strength-container {
+margin-top: 12px;
+}
+
+.strength-bar {
+height: 7px;
+background: #e2e8f0;
+border-radius: 10px;
+overflow: hidden;
+}
+
+.strength-fill {
+height: 100%;
+transition: width 0.3s ease;
+}
+
+.strength-1 {
+background: #ef4444;
+}
+
+.strength-2 {
+background: #f97316;
+}
+
+.strength-3 {
+background: #eab308;
+}
+
+.strength-4 {
+background: #22c55e;
+}
+
+.strength-5 {
+background: #15803d;
+}
+
+.strength-container p {
+margin: 8px 0;
+font-size: 12px;
+color: #64748b;
+}
+
+.error {
+margin: 8px 0;
+color: #dc2626;
+font-size: 12px;
+line-height: 1.5;
+}
+
+.primary-btn,
+.secondary-btn {
+padding: 12px 16px;
+border: none;
+border-radius: 7px;
+font-weight: bold;
+cursor: pointer;
+}
+
+.primary-btn {
+background: #2563eb;
+color: white;
+}
+
+.primary-btn:hover {
+background: #1d4ed8;
+}
+
+form > .primary-btn {
+width: 100%;
+margin-top: 22px;
+}
+
+.switch-text {
+margin-top: 22px;
+text-align: center;
+font-size: 14px;
+color: #64748b;
+}
+
+.switch-text button {
+border: none;
+background: none;
+color: #2563eb;
+font-weight: bold;
+cursor: pointer;
+}
+
+.progress-steps {
+display: flex;
+justify-content: center;
+gap: 24px;
+margin: 22px 0;
+}
+
+.step {
+width: 34px;
+height: 34px;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 50%;
+background: #e2e8f0;
+color: #475569;
+font-weight: bold;
+}
+
+.step.active {
+background: #2563eb;
+color: white;
+}
+
+.button-row {
+display: flex;
+gap: 12px;
+margin-top: 24px;
+}
+
+.button-row button {
+flex: 1;
+}
+
+.secondary-btn {
+background: #e2e8f0;
+color: #1e293b;
+}
+
+.review-box {
+padding: 16px;
+background: #f8fafc;
+border-radius: 8px;
+overflow-wrap: anywhere;
+}
+
+.review-box h3 {
+margin-top: 0;
+}
+
+.review-box p {
+font-size: 14px;
+line-height: 1.5;
+}
+
+.success-message {
+margin-top: 20px;
+padding: 16px;
+background: #dcfce7;
+color: #166534;
+border-radius: 8px;
+font-size: 14px;
+overflow-wrap: anywhere;
+}
+
+.success-message .primary-btn {
+width: 100%;
+}
+
+.success-screen {
+text-align: center;
+line-height: 1.6;
+}
+
+.success-screen p {
+margin: 20px 0;
+overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+.form-card {
+padding: 22px 18px;
+}
+
+.progress-steps {
+gap: 18px;
+}
+}

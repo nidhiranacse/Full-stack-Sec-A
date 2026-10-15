@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f6f1ea;
+  color: #332b27;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+button,
+a {
+  font-family: inherit;
+}
+
+a {
+  text-decoration: none;
+}
