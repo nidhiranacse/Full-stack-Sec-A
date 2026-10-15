@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Students</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+
+        a {
+            margin-right: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Student Records</h1>
+
+<h3>Sort Students By:</h3>
+
+<a href="?sort=name">Name</a>
+<a href="?sort=age">Age</a>
+<a href="?sort=course">Course</a>
+
+<br><br>
+
+<table>
+
+    <tr>
+        <th>S.No.</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Course</th>
+    </tr>
+
+    {% for student in students %}
+
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{ student.course }}</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</body>
+</html>
+

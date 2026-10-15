@@ -1,0 +1,333 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Django Web Application</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #222;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #00bcd4;
+        }
+
+        .container {
+            width: 85%;
+            margin: 40px auto;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .intro h1 {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .box {
+            background-color: white;
+            padding: 30px;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .box h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .box h3 {
+            margin: 15px 0;
+        }
+
+        ul {
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+            font-size: 17px;
+        }
+
+        .sort-links {
+            margin-bottom: 20px;
+        }
+
+        .sort-links a {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 8px 15px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .sort-links a:hover {
+            background-color: #555;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            border: 1px solid #333;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 60%;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Django Web Application</h1>
+        <p>Welcome to My Home Page</p>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="#fruits">Fruits</a>
+        <a href="#students">Students</a>
+        <a href="#search">Search</a>
+    </nav>
+
+
+    <div class="container">
+
+        <!-- HOME -->
+        <div class="intro">
+            <h1>Welcome to Django</h1>
+
+            <p>
+                This is the home page of my Django web application.
+            </p>
+
+            <p class="success">
+                Django template has been successfully connected with the view.
+            </p>
+        </div>
+
+
+        <!-- TASK 1 : FRUITS -->
+        <div class="box" id="fruits">
+
+            <h2>Task 1: Fruit Collection</h2>
+
+            {% if fruits %}
+
+                <h3>Available Fruits</h3>
+
+                <ul>
+                    {% for fruit in fruits %}
+                        <li>{{ fruit }}</li>
+                    {% endfor %}
+                </ul>
+
+            {% else %}
+
+                <script>
+                    alert("No fruits are available!");
+                </script>
+
+                <p>No fruits found.</p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- TASK 2 : STUDENT RECORDS -->
+        <div class="box" id="students">
+
+            <h2>Task 2: Student Records</h2>
+
+            <h3>Sort Students By:</h3>
+
+            <div class="sort-links">
+                <a href="?sort=name#students">Name</a>
+                <a href="?sort=age#students">Age</a>
+                <a href="?sort=course#students">Course</a>
+            </div>
+
+            <table>
+
+                <tr>
+                    <th>S.No.</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Course</th>
+                </tr>
+
+                {% for student in students %}
+
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.age }}</td>
+                    <td>{{ student.course }}</td>
+                </tr>
+
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+
+        <!-- TASK 3 : STUDENT SEARCH -->
+        <div class="box" id="search">
+
+            <h2>Task 3: Search Students</h2>
+
+            <form method="GET">
+
+                <input
+                    type="text"
+                    name="q"
+                    placeholder="Enter student name"
+                    value="{{ search }}"
+                >
+
+                <button type="submit">Search</button>
+
+            </form>
+
+
+            {% if search %}
+
+                <h3>Search Result For: {{ search }}</h3>
+
+            {% endif %}
+
+
+            {% if search_students %}
+
+                <table>
+
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Course</th>
+                    </tr>
+
+                    {% for student in search_students %}
+
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.age }}</td>
+                        <td>{{ student.course }}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+
+            {% elif search %}
+
+                <p>No student found.</p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <footer>
+        <p>&copy; 2026 Django Web Application. All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+</html>
+```

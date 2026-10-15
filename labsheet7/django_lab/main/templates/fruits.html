@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruits</title>
+</head>
+
+<body>
+
+<h1>Fruit Collection</h1>
+
+{% if fruits %}
+
+    <h2>Available Fruits</h2>
+
+    <ul>
+        {% for fruit in fruits %}
+            <li>{{ fruit }}</li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+
+    <script>
+        alert("No fruits are available!");
+    </script>
+
+    <p>No fruits found.</p>
+
+{% endif %}
+
+</body>
+</html>

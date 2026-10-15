@@ -1,0 +1,360 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #202944;
+  background: #f3f5ff;
+  font-synthesis: none;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top left, #e4e8ff 0, transparent 40%),
+    linear-gradient(135deg, #f6f7ff, #eef2ff);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.page {
+  width: min(100% - 32px, 760px);
+  margin: 0 auto;
+  padding: 38px 0 25px;
+}
+
+/* Header */
+
+.top-header {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-bottom: 27px;
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #6878f5, #4739b8);
+  color: white;
+  font-size: 23px;
+  font-weight: 800;
+  box-shadow: 0 10px 24px #5049c13d;
+}
+
+.eyebrow {
+  margin: 0 0 7px;
+  color: #5966d6;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.top-header h1 {
+  margin: 0;
+  color: #202944;
+  font-size: clamp(23px, 4vw, 32px);
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  margin: 7px 0 0;
+  color: #77819a;
+  font-size: 14px;
+}
+
+/* Student details */
+
+.student-card,
+.form-card {
+  border: 1px solid #e8eaf6;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 35px #28355b0c;
+}
+
+.student-card {
+  padding: 25px;
+  margin-bottom: 23px;
+}
+
+.student-heading,
+.form-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 23px;
+}
+
+.avatar,
+.form-icon {
+  display: grid;
+  place-items: center;
+  width: 47px;
+  height: 47px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: #edf0ff;
+  color: #4c56c7;
+  font-weight: 800;
+}
+
+.avatar {
+  font-size: 15px;
+}
+
+.form-icon {
+  font-size: 25px;
+}
+
+.student-heading h2,
+.form-heading h2 {
+  margin: 0;
+  color: #242d49;
+  font-size: 19px;
+}
+
+.student-heading p,
+.form-heading p {
+  margin: 6px 0 0;
+  color: #8790a7;
+  font-size: 13px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 19px 15px;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.detail span {
+  color: #8790a7;
+  font-size: 12px;
+}
+
+.detail strong {
+  overflow-wrap: anywhere;
+  color: #29334f;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+/* Feedback form */
+
+.form-card {
+  padding: 30px;
+}
+
+.form-heading {
+  margin-bottom: 25px;
+}
+
+.form-notice {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 13px 15px;
+  margin-bottom: 25px;
+  border: 1px solid #e2e7ff;
+  border-radius: 12px;
+  background: #f5f6ff;
+  color: #5d668d;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.form-notice span {
+  color: #505ed0;
+  font-size: 16px;
+}
+
+.field {
+  margin-bottom: 22px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 9px;
+  color: #343d58;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.field label span {
+  color: #e14c65;
+}
+
+.field input,
+.field select,
+.field textarea {
+  display: block;
+  width: 100%;
+  border: 1px solid #dfe3f0;
+  border-radius: 11px;
+  outline: none;
+  background: #fcfcff;
+  color: #29334f;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.field input,
+.field select {
+  height: 49px;
+  padding: 0 14px;
+}
+
+.field textarea {
+  min-height: 120px;
+  padding: 14px;
+  resize: vertical;
+  line-height: 1.65;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #a2a9bc;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #6878ec;
+  background: #fff;
+  box-shadow: 0 0 0 4px #6878ec19;
+}
+
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"] {
+  border-color: #e14c65;
+}
+
+.error {
+  margin: 8px 0 0;
+  color: #cf3851;
+  font-size: 12px;
+}
+
+.comment-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  color: #8c95aa;
+  font-size: 11px;
+}
+
+/* Submit button */
+
+.submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 51px;
+  margin-top: 7px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(100deg, #5b68e8, #5143c2);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 18px #5143c226;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 11px 24px #5143c23b;
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+.submit-button:focus-visible {
+  outline: 3px solid #9ca8f0;
+  outline-offset: 3px;
+}
+
+.submit-button span {
+  font-size: 20px;
+}
+
+/* Success message */
+
+.success-message {
+  padding: 15px 16px;
+  margin-top: 18px;
+  border: 1px solid #c6ead4;
+  border-radius: 12px;
+  background: #effbf3;
+  color: #237446;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Footer */
+
+footer {
+  padding: 25px 0 5px;
+  color: #8c95aa;
+  text-align: center;
+  font-size: 11px;
+}
+
+/* Mobile responsive */
+
+@media (max-width: 560px) {
+  .page {
+    width: calc(100% - 22px);
+    padding-top: 24px;
+  }
+
+  .student-card,
+  .form-card {
+    padding: 19px;
+    border-radius: 16px;
+  }
+
+  .details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .top-header {
+    gap: 12px;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+  }
+
+  .form-heading h2 {
+    font-size: 17px;
+  }
+}

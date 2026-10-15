@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+    <h1>CampusConnect Admin</h1>
+
+    <button onclick="logout()">
+        Logout
+    </button>
+
+</header>
+
+
+<main>
+
+    <h2>Analytics</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Events</h3>
+            <p id="totalEvents">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Registrations</h3>
+            <p id="totalRegistrations">0</p>
+        </div>
+
+    </div>
+
+
+    <h2>Create Event</h2>
+
+    <input id="eventName"
+        placeholder="Event Name">
+
+    <input id="eventDate"
+        type="datetime-local">
+
+    <input id="eventCategory"
+        placeholder="Category">
+
+    <input id="eventVenue"
+        placeholder="Venue">
+
+    <input id="eventSeats"
+        type="number"
+        placeholder="Seats">
+
+    <textarea
+        id="eventDescription"
+        placeholder="Description">
+    </textarea>
+
+    <button onclick="createEvent()">
+        Create Event
+    </button>
+
+
+    <h2>Upload Resource</h2>
+
+    <input id="resourceTitle"
+        placeholder="Resource Title">
+
+    <input id="subject"
+        placeholder="Subject">
+
+    <input id="semester"
+        placeholder="Semester">
+
+    <input
+        id="resourceFile"
+        type="file"
+        accept=".pdf,.docx"
+    >
+
+    <button onclick="uploadResource()">
+        Upload
+    </button>
+
+</main>
+
+
+<script src="script.js"></script>
+
+<script>
+    loadAnalytics();
+</script>
+
+</body>
+
+</html>
