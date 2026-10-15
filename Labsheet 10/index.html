@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CampusConnect Notifications</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        li {
+            list-style: none;
+            margin: 10px;
+        }
+
+        #status {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>CampusConnect</h1>
+
+    <h2>Real-Time Notifications</h2>
+
+    <p id="status">Connecting...</p>
+
+    <input id="message" type="text" placeholder="Enter notification">
+
+    <button onclick="sendNotification()">
+        Send Notification
+    </button>
+
+    <h3>Notifications</h3>
+
+    <ul id="notifications"></ul>
+
+    <!-- Socket.io Client -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+
+        const status = document.getElementById("status");
+        const notifications =
+            document.getElementById("notifications");
+
+        // Connect to backend
+        const socket = io("http://localhost:3000");
+
+        // Successful connection
+        socket.on("connect", () => {
+
+            console.log("Socket connected:", socket.id);
+
+            status.innerText = "Connected to server ✅";
+        });
+
+        // Connection error
+        socket.on("connect_error", (error) => {
+
+            console.log("Socket connection error:", error);
+
+            status.innerText = "Connection failed ❌";
+        });
+
+        // Receive notification
+        socket.on("notification", (data) => {
+
+            console.log("Notification received:", data);
+
+            const li = document.createElement("li");
+
+            li.innerText = "🔔 " + data.message;
+
+            notifications.appendChild(li);
+        });
+
+        // Send notification
+        function sendNotification() {
+
+            const input =
+                document.getElementById("message");
+
+            const message = input.value.trim();
+
+            if (!message) {
+                alert("Enter a notification first");
+                return;
+            }
+
+            socket.emit("sendNotification", {
+                message: message
+            });
+
+            input.value = "";
+        }
+
+    </script>
+
+</body>
+
+</html>

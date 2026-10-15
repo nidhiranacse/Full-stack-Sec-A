@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Dynamic Interface Styling and Scripting Interactivity">
+
+    <title>NovaSpace | Interactive Web Lab</title>
+
+
+    <style>
+
+        /* =====================================================
+           CSS VARIABLES
+           TASK 2.1
+           ===================================================== */
+
+        :root {
+
+            --background: #f5f7fb;
+            --surface: #ffffff;
+            --text: #172033;
+            --secondary-text: #667085;
+            --primary: #5b5cf0;
+            --primary-hover: #4546d8;
+            --border: #dde2eb;
+            --soft: #eef0f7;
+            --danger: #e04444;
+
+            --shadow:
+                0 15px 40px rgba(20, 25, 45, 0.10);
+
+            --radius: 20px;
+
+        }
+
+
+        /* DARK MODE */
+
+        body.dark {
+
+            --background: #090d18;
+            --surface: #121827;
+            --text: #f5f7ff;
+            --secondary-text: #a4aec2;
+            --primary: #8586ff;
+            --primary-hover: #9b9cff;
+            --border: #293247;
+            --soft: #1a2132;
+            --danger: #ff6b6b;
+
+            --shadow:
+                0 15px 45px rgba(0, 0, 0, 0.40);
+
+        }
+
+
+        /* =====================================================
+           BASIC RESET
+           ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: var(--background);
+
+            color: var(--text);
+
+            line-height: 1.6;
+
+            transition:
+                background 0.3s ease,
+                color 0.3s ease;
+
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+           ===================================================== */
+
+        header {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 18px 7%;
+
+            background: var(--surface);
+
+            border-bottom:
+                1px solid var(--border);
+
+        }
+
+
+        .logo {
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            color: var(--primary);
+
+        }
+
+
+        nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 22px;
+
+        }
+
+
+        nav a {
+
+            color: var(--secondary-text);
+
+            font-size: 14px;
+
+            transition: 0.3s;
+
+        }
+
+
+        nav a:hover {
+
+            color: var(--primary);
+
+        }
+
+
+        #themeButton {
+
+            border: 1px solid var(--border);
+
+            background: var(--soft);
+
+            color: var(--text);
+
+            padding: 9px 16px;
+
+            border-radius: 25px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        #themeButton:hover {
+
+            background: var(--primary);
+
+            color: white;
+
+        }
+
+
+        /* =====================================================
+           TASK 2.1
+           DARK MODE LANDING PAGE
+           ===================================================== */
+
+        .hero {
+
+            min-height: 650px;
+
+            padding: 90px 8%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 50px;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(91, 92, 240, 0.20),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(139, 92, 246, 0.18),
+                    transparent 30%
+                );
+
+        }
+
+
+        .hero-content {
+
+            max-width: 700px;
+
+        }
+
+
+        .tag {
+
+            display: inline-block;
+
+            color: var(--primary);
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .hero h1 {
+
+            font-size:
+                clamp(48px, 8vw, 88px);
+
+            line-height: 0.95;
+
+            letter-spacing: -4px;
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .hero h1 span {
+
+            color: var(--primary);
+
+        }
+
+
+        .hero p {
+
+            color: var(--secondary-text);
+
+            font-size: 18px;
+
+            max-width: 650px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .hero-buttons {
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .hero-buttons a {
+
+            padding: 13px 22px;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+        }
+
+
+        .primary {
+
+            background: var(--primary);
+
+            color: white;
+
+        }
+
+
+        .secondary {
+
+            background: var(--surface);
+
+            border:
+                1px solid var(--border);
+
+        }
+
+
+        .hero-buttons a:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow: var(--shadow);
+
+        }
+
+
+        /* Decorative card */
+
+        .hero-card {
+
+            width: 260px;
+
+            padding: 35px;
+
+            border-radius: 25px;
+
+            background: var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            box-shadow: var(--shadow);
+
+            transform: rotate(4deg);
+
+            transition: 0.4s;
+
+        }
+
+
+        .hero-card:hover {
+
+            transform:
+                rotate(0deg)
+                translateY(-10px);
+
+        }
+
+
+        .hero-card small {
+
+            color: var(--secondary-text);
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .hero-card h2 {
+
+            font-size: 70px;
+
+            color: var(--primary);
+
+            margin: 10px 0;
+
+        }
+
+
+        /* =====================================================
+           COMMON SECTION
+           ===================================================== */
+
+        section {
+
+            padding: 90px 8%;
+
+        }
+
+
+        .heading {
+
+            max-width: 650px;
+
+            margin-bottom: 40px;
+
+        }
+
+
+        .heading h2 {
+
+            font-size: 45px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .heading p {
+
+            color: var(--secondary-text);
+
+        }
+
+
+        /* =====================================================
+           TASK 2.2
+           RESPONSIVE PHOTO GRID
+           FLEXBOX
+           ===================================================== */
+
+        .photo-grid {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+
+            gap: 22px;
+
+        }
+
+
+        .photo-card {
+
+            position: relative;
+
+            flex:
+                1 1 300px;
+
+            max-width: 370px;
+
+            height: 310px;
+
+            overflow: hidden;
+
+            border-radius: var(--radius);
+
+            background: var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            box-shadow: var(--shadow);
+
+            transition:
+                transform 0.4s ease;
+
+        }
+
+
+        /* Hover transform */
+
+        .photo-card:hover {
+
+            transform:
+                translateY(-10px)
+                scale(1.02);
+
+        }
+
+
+        .photo-card img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition:
+                transform 0.5s ease;
+
+        }
+
+
+        .photo-card:hover img {
+
+            transform: scale(1.12);
+
+        }
+
+
+        .photo-overlay {
+
+            position: absolute;
+
+            bottom: 0;
+
+            left: 0;
+
+            right: 0;
+
+            padding: 25px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(0, 0, 0, 0.85)
+                );
+
+        }
+
+
+        .photo-overlay span {
+
+            font-size: 12px;
+
+            opacity: 0.8;
+
+        }
+
+
+        .photo-overlay h3 {
+
+            font-size: 22px;
+
+        }
+
+
+        /* =====================================================
+           TASK 2.3
+           TODO APPLICATION
+           ===================================================== */
+
+        #todo-section {
+
+            background: var(--soft);
+
+        }
+
+
+        .todo-box {
+
+            max-width: 800px;
+
+            margin: auto;
+
+            padding: 35px;
+
+            background: var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 25px;
+
+            box-shadow: var(--shadow);
+
+        }
+
+
+        .todo-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .todo-top h3 {
+
+            font-size: 30px;
+
+        }
+
+
+        #taskCount {
+
+            padding: 8px 14px;
+
+            border-radius: 20px;
+
+            background: var(--soft);
+
+            color: var(--primary);
+
+            font-weight: bold;
+
+        }
+
+
+        /* Input area */
+
+        .input-area {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        #todoInput {
+
+            flex: 1;
+
+            padding: 14px 16px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background: var(--soft);
+
+            color: var(--text);
+
+            outline: none;
+
+        }
+
+
+        #todoInput:focus {
+
+            border-color: var(--primary);
+
+        }
+
+
+        #addTask {
+
+            padding: 0 22px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: var(--primary);
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        #addTask:hover {
+
+            background: var(--primary-hover);
+
+            transform: translateY(-2px);
+
+        }
+
+
+        /* Validation error */
+
+        #error {
+
+            min-height: 22px;
+
+            color: var(--danger);
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        /* Todo list */
+
+        #todoList {
+
+            list-style: none;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+        }
+
+
+        .todo-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 14px;
+
+            background: var(--soft);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            animation: appear 0.25s ease;
+
+        }
+
+
+        @keyframes appear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(-8px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        .todo-item input {
+
+            width: 18px;
+
+            height: 18px;
+
+            accent-color: var(--primary);
+
+            cursor: pointer;
+
+        }
+
+
+        .todo-text {
+
+            flex: 1;
+
+            word-break: break-word;
+
+        }
+
+
+        .completed {
+
+            text-decoration: line-through;
+
+            color: var(--secondary-text);
+
+        }
+
+
+        .delete {
+
+            border: none;
+
+            background: transparent;
+
+            color: var(--danger);
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+        #emptyMessage {
+
+            text-align: center;
+
+            padding: 30px;
+
+            color: var(--secondary-text);
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        footer {
+
+            text-align: center;
+
+            padding: 35px;
+
+            border-top:
+                1px solid var(--border);
+
+            color: var(--secondary-text);
+
+            font-size: 13px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE DESIGN
+           ===================================================== */
+
+        @media (max-width: 800px) {
+
+            header {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+
+            nav {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+            }
+
+
+            .hero {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+
+            .hero-card {
+
+                align-self: center;
+
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            section {
+
+                padding: 65px 5%;
+
+            }
+
+
+            .hero {
+
+                padding: 65px 5%;
+
+            }
+
+
+            .hero h1 {
+
+                font-size: 52px;
+
+            }
+
+
+            .input-area {
+
+                flex-direction: column;
+
+            }
+
+
+            #addTask {
+
+                padding: 13px;
+
+            }
+
+
+            .todo-top {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 12px;
+
+            }
+
+
+            .photo-card {
+
+                flex-basis: 100%;
+
+                max-width: none;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header>
+
+        <div class="logo">
+            NovaSpace
+        </div>
+
+
+        <nav>
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#gallery">
+                Gallery
+            </a>
+
+            <a href="#todo-section">
+                Todo
+            </a>
+
+
+            <!-- JavaScript Theme Toggler -->
+
+            <button id="themeButton">
+                Dark Mode
+            </button>
+
+        </nav>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- =================================================
+             TASK 2.1
+             DARK MODE LANDING PAGE
+             ================================================= -->
+
+        <section class="hero" id="home">
+
+
+            <div class="hero-content">
+
+                <span class="tag">
+                    LAB SHEET 02
+                </span>
+
+
+                <h1>
+
+                    Design.
+                    <span>Interact.</span>
+                    Create.
+
+                </h1>
+
+
+                <p>
+
+                    Welcome to an interactive web experience
+                    created using modern CSS styling and
+                    vanilla JavaScript. Explore the gallery
+                    and organize your daily tasks in one place.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a href="#gallery"
+                       class="primary">
+
+                        Explore Gallery
+
+                    </a>
+
+
+                    <a href="#todo-section"
+                       class="secondary">
+
+                        Manage Tasks
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-card">
+
+                <small>
+                    ACTIVE MODULES
+                </small>
+
+                <h2>
+                    03
+                </h2>
+
+                <p>
+                    Interactive Web Components
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             TASK 2.2
+             PHOTO GRID
+             ================================================= -->
+
+        <section id="gallery">
+
+
+            <div class="heading">
+
+                <p>
+                    TASK 2.2
+                </p>
+
+                <h2>
+                    Visual Gallery
+                </h2>
+
+                <p>
+                    Responsive photo cards created using
+                    CSS Flexbox with hover transform effects.
+                </p>
+
+            </div>
+
+
+            <div class="photo-grid">
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80"
+                        alt="Ocean landscape">
+
+                    <div class="photo-overlay">
+
+                        <span>
+                            COLLECTION 01
+                        </span>
+
+                        <h3>
+                            Ocean Horizon
+                        </h3>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80"
+                        alt="Mountain landscape">
+
+                    <div class="photo-overlay">
+
+                        <span>
+                            COLLECTION 02
+                        </span>
+
+                        <h3>
+                            Open Mountains
+                        </h3>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80"
+                        alt="Green valley">
+
+                    <div class="photo-overlay">
+
+                        <span>
+                            COLLECTION 03
+                        </span>
+
+                        <h3>
+                            Hidden Valley
+                        </h3>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80"
+                        alt="Forest">
+
+                    <div class="photo-overlay">
+
+                        <span>
+                            COLLECTION 04
+                        </span>
+
+                        <h3>
+                            Forest Path
+                        </h3>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=80"
+                        alt="Sunrise">
+
+                    <div class="photo-overlay">
+
+                        <span>
+                            COLLECTION 05
+                        </span>
+
+                        <h3>
+                            Morning Glow
+                        </h3>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="photo-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80"
+                        alt="Snow mountains">
+
+                    <div class="photo-overlay">
+
+                        <span>
+                            COLLECTION 06
+                        </span>
+
+                        <h3>
+                            Silent Peaks
+                        </h3>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             TASK 2.3
+             TODO APPLICATION
+             ================================================= -->
+
+        <section id="todo-section">
+
+
+            <div class="heading">
+
+                <p>
+                    TASK 2.3
+                </p>
+
+                <h2>
+                    Daily Task Manager
+                </h2>
+
+                <p>
+                    Add, complete and delete your tasks
+                    dynamically using JavaScript.
+                </p>
+
+            </div>
+
+
+            <div class="todo-box">
+
+
+                <div class="todo-top">
+
+                    <h3>
+                        My Tasks
+                    </h3>
+
+
+                    <span id="taskCount">
+                        0 Tasks
+                    </span>
+
+                </div>
+
+
+                <!-- Validation Error -->
+
+                <div id="error"
+                     aria-live="polite">
+                </div>
+
+
+                <!-- Todo Input -->
+
+                <div class="input-area">
+
+                    <input
+                        type="text"
+                        id="todoInput"
+                        placeholder="Enter a new task..."
+                        maxlength="100"
+                        aria-label="Enter task">
+
+
+                    <button id="addTask">
+                        Add Task
+                    </button>
+
+                </div>
+
+
+                <!-- Dynamically Generated Tasks -->
+
+                <ul id="todoList">
+                </ul>
+
+
+                <div id="emptyMessage">
+
+                    <p>
+                        No tasks added yet.
+                    </p>
+
+                    <p>
+                        Start by adding your first task.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer>
+
+        <p>
+            NovaSpace | Dynamic Interface Lab
+        </p>
+
+        <p>
+            HTML • CSS • JavaScript
+        </p>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           TASK 2.1
+           DARK MODE TOGGLER
+           ===================================================== */
+
+
+        const themeButton =
+            document.getElementById("themeButton");
+
+
+        themeButton.addEventListener(
+            "click",
+            function () {
+
+
+                document.body.classList.toggle("dark");
+
+
+                if (
+                    document.body.classList.contains("dark")
+                ) {
+
+                    themeButton.textContent =
+                        "Light Mode";
+
+                }
+
+                else {
+
+                    themeButton.textContent =
+                        "Dark Mode";
+
+                }
+
+            }
+        );
+
+
+
+        /* =====================================================
+           TASK 2.3
+           TODO APPLICATION
+           ===================================================== */
+
+
+        const todoInput =
+            document.getElementById("todoInput");
+
+
+        const addTaskButton =
+            document.getElementById("addTask");
+
+
+        const todoList =
+            document.getElementById("todoList");
+
+
+        const error =
+            document.getElementById("error");
+
+
+        const taskCount =
+            document.getElementById("taskCount");
+
+
+        const emptyMessage =
+            document.getElementById("emptyMessage");
+
+
+
+        /* =====================================================
+           UPDATE TASK COUNT
+           ===================================================== */
+
+
+        function updateTaskCount() {
+
+
+            const count =
+                todoList.children.length;
+
+
+            taskCount.textContent =
+                count +
+                (count === 1 ? " Task" : " Tasks");
+
+
+        }
+
+
+
+        /* =====================================================
+           UPDATE EMPTY MESSAGE
+           ===================================================== */
+
+
+        function updateEmptyMessage() {
+
+
+            if (
+                todoList.children.length === 0
+            ) {
+
+                emptyMessage.style.display =
+                    "block";
+
+            }
+
+            else {
+
+                emptyMessage.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           CREATE TASK DYNAMICALLY
+           ===================================================== */
+
+
+        function createTask(taskText) {
+
+
+            /* Create list element */
+
+            const listItem =
+                document.createElement("li");
+
+
+            listItem.className =
+                "todo-item";
+
+
+            /* Create checkbox */
+
+            const checkbox =
+                document.createElement("input");
+
+
+            checkbox.type =
+                "checkbox";
+
+
+            /* Create text */
+
+            const text =
+                document.createElement("span");
+
+
+            text.className =
+                "todo-text";
+
+
+            text.textContent =
+                taskText;
+
+
+            /* Create delete button */
+
+            const deleteButton =
+                document.createElement("button");
+
+
+            deleteButton.className =
+                "delete";
+
+
+            deleteButton.textContent =
+                "Delete";
+
+
+
+            /* =================================================
+               COMPLETE TASK
+               ================================================= */
+
+
+            checkbox.addEventListener(
+                "change",
+                function () {
+
+
+                    text.classList.toggle(
+                        "completed",
+                        checkbox.checked
+                    );
+
+
+                }
+            );
+
+
+
+            /* =================================================
+               DELETE TASK
+               ================================================= */
+
+
+            deleteButton.addEventListener(
+                "click",
+                function () {
+
+
+                    listItem.remove();
+
+
+                    updateTaskCount();
+
+                    updateEmptyMessage();
+
+
+                }
+            );
+
+
+
+            /* =================================================
+               RUNTIME ELEMENT APPENDING
+               ================================================= */
+
+
+            listItem.appendChild(
+                checkbox
+            );
+
+
+            listItem.appendChild(
+                text
+            );
+
+
+            listItem.appendChild(
+                deleteButton
+            );
+
+
+            todoList.appendChild(
+                listItem
+            );
+
+
+            updateTaskCount();
+
+            updateEmptyMessage();
+
+        }
+
+
+
+        /* =====================================================
+           VALIDATION + ADD TASK
+           ===================================================== */
+
+
+        addTaskButton.addEventListener(
+            "click",
+            function () {
+
+
+                const task =
+                    todoInput.value.trim();
+
+
+                /* Empty validation */
+
+                if (task === "") {
+
+
+                    error.textContent =
+                        "Please enter a task before adding it.";
+
+
+                    todoInput.focus();
+
+
+                    return;
+
+                }
+
+
+
+                /* Minimum character validation */
+
+                if (task.length < 3) {
+
+
+                    error.textContent =
+                        "Task must contain at least 3 characters.";
+
+
+                    todoInput.focus();
+
+
+                    return;
+
+                }
+
+
+
+                /* Clear error */
+
+                error.textContent =
+                    "";
+
+
+                /* Add task dynamically */
+
+                createTask(task);
+
+
+                /* Clear input */
+
+                todoInput.value =
+                    "";
+
+
+                todoInput.focus();
+
+            }
+        );
+
+
+
+        /* =====================================================
+           ENTER KEY SUPPORT
+           ===================================================== */
+
+
+        todoInput.addEventListener(
+            "keydown",
+            function (event) {
+
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    addTaskButton.click();
+
+                }
+
+            }
+        );
+
+
+
+        /* Initial state */
+
+        updateTaskCount();
+
+        updateEmptyMessage();
+
+
+    </script>
+
+
+</body>
+
+</html>
