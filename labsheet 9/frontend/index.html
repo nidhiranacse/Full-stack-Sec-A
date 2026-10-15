@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Student Record Management
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <h1>
+            Student Record Management
+        </h1>
+
+
+        <form id="studentForm">
+
+            <input
+                type="hidden"
+                id="studentId"
+            >
+
+
+            <label for="name">
+                Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter student name"
+                required
+            >
+
+
+            <label for="rollNo">
+                Roll No.
+            </label>
+
+            <input
+                type="text"
+                id="rollNo"
+                placeholder="Enter roll number"
+                required
+            >
+
+
+            <label for="course">
+                Course
+            </label>
+
+            <input
+                type="text"
+                id="course"
+                placeholder="Enter course"
+                required
+            >
+
+
+            <label for="marks">
+                Marks
+            </label>
+
+            <input
+                type="number"
+                id="marks"
+                placeholder="Enter marks"
+                min="0"
+                max="100"
+                required
+            >
+
+
+            <button
+                type="submit"
+            >
+                Save Student
+            </button>
+
+        </form>
+
+
+        <h2>
+            Student Records
+        </h2>
+
+
+        <div class="table-container">
+
+            <table id="studentTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+
+                        <th>Roll No.</th>
+
+                        <th>Course</th>
+
+                        <th>Marks</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

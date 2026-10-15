@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Todo Application</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
+            padding: 50px 20px;
+        }
+
+        .todo-box {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        #taskInput {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccd3df;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 12px 16px;
+            border: 0;
+            border-radius: 8px;
+            background: #4f46e5;
+            color: white;
+            cursor: pointer;
+        }
+
+        #error {
+            color: #dc2626;
+            min-height: 22px;
+            margin-top: 8px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            margin-top: 10px;
+            background: #f5f7fb;
+            border-radius: 8px;
+        }
+
+        .delete {
+            background: #dc2626;
+            padding: 7px 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="todo-box">
+
+        <h1>Todo Application</h1>
+
+        <div class="input-row">
+
+            <input
+                id="taskInput"
+                type="text"
+                placeholder="Enter a task"
+            >
+
+            <button id="addBtn">Add</button>
+
+        </div>
+
+        <div id="error"></div>
+
+        <ul id="todoList"></ul>
+
+    </div>
+
+    <script>
+        const input = document.getElementById("taskInput");
+        const addBtn = document.getElementById("addBtn");
+        const list = document.getElementById("todoList");
+        const error = document.getElementById("error");
+
+        function addTask() {
+
+            const task = input.value.trim();
+
+            if (task === "") {
+                error.textContent = "Please enter a task.";
+                input.focus();
+                return;
+            }
+
+            error.textContent = "";
+
+            const li = document.createElement("li");
+            const span = document.createElement("span");
+            const deleteBtn = document.createElement("button");
+
+            span.textContent = task;
+
+            deleteBtn.textContent = "Delete";
+            deleteBtn.className = "delete";
+
+            deleteBtn.addEventListener("click", () => {
+                li.remove();
+            });
+
+            li.appendChild(span);
+            li.appendChild(deleteBtn);
+
+            list.appendChild(li);
+
+            input.value = "";
+            input.focus();
+        }
+
+        addBtn.addEventListener("click", addTask);
+
+        input.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                addTask();
+            }
+        });
+    </script>
+
+</body>
+</html>

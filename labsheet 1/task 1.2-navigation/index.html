@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nested Navigation Menu</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        nav {
+            background-color: #2c3e50;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav > ul {
+            display: flex;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #34495e;
+        }
+
+        /* First-level submenu */
+        nav ul ul {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 200px;
+            background-color: #34495e;
+            display: none;
+        }
+
+        /* Display submenu on hover */
+        nav li:hover > ul {
+            display: block;
+        }
+
+        /* Second-level submenu */
+        nav ul ul ul {
+            top: 0;
+            left: 100%;
+        }
+
+        main {
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav aria-label="Main Navigation">
+
+        <ul>
+
+            <li>
+                <a href="https://www.example.com/">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="https://www.example.com/courses">
+                    Courses
+                </a>
+
+                <ul>
+
+                    <li>
+                        <a href="https://www.example.com/courses/html">
+                            HTML
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.example.com/courses/css">
+                            CSS
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.example.com/courses/javascript">
+                            JavaScript
+                        </a>
+
+                        <ul>
+
+                            <li>
+                                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
+                                    JavaScript Basics
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide">
+                                    JavaScript Guide
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="https://www.example.com/resources">
+                    Resources
+                </a>
+
+                <ul>
+
+                    <li>
+                        <a href="https://developer.mozilla.org/">
+                            MDN Web Docs
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.w3.org/">
+                            W3C
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://github.com/">
+                            GitHub
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="https://www.example.com/contact">
+                    Contact
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <main>
+        <h1>Nested Navigation Menu</h1>
+
+        <p>
+            This page demonstrates a nested navigation menu
+            using HTML unordered lists and anchor elements.
+        </p>
+    </main>
+
+</body>
+</html>
