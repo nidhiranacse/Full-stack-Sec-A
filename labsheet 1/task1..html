@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manshi Verma - Semantic HTML Lab</title>
+
+
+    <style>
+
+        /* =====================================================
+           GLOBAL CSS
+        ====================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f3f4f6;
+            color: #222;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ====================================================== */
+
+        body > header {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+
+        body > header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+
+        body > header p {
+            font-size: 18px;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ====================================================== */
+
+        main {
+            width: 92%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+
+        /* =====================================================
+           COMMON SECTION
+        ====================================================== */
+
+        main > section {
+            background-color: white;
+            margin-bottom: 35px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.10);
+        }
+
+
+        main > section > h2 {
+            color: #1d4ed8;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 27px;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 10px;
+        }
+
+
+        main > section > p {
+            text-align: center;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+
+        /* =====================================================
+           RESUME HEADER
+        ====================================================== */
+
+        section section > header {
+            background-color: #eff6ff;
+            border-left: 5px solid #2563eb;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+
+        section section > header h3 {
+            color: #1e40af;
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+
+
+        section section > header p {
+            margin-bottom: 8px;
+        }
+
+
+        /* =====================================================
+           ADDRESS / CONTACT
+        ====================================================== */
+
+        address {
+            font-style: normal;
+            margin-top: 15px;
+        }
+
+
+        address p {
+            margin: 7px 0;
+        }
+
+
+        address a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+
+        address a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           RESUME INNER SECTIONS
+        ====================================================== */
+
+        section section section {
+            margin-top: 25px;
+            padding: 25px;
+            background-color: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+
+        section section section h3 {
+            color: #1d4ed8;
+            font-size: 23px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #bfdbfe;
+            padding-bottom: 8px;
+        }
+
+
+        section section section h4 {
+            color: #374151;
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+
+        section section section p {
+            margin-bottom: 10px;
+        }
+
+
+        /* =====================================================
+           LISTS
+        ====================================================== */
+
+        ul,
+        ol {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+
+
+        li {
+            margin-bottom: 7px;
+        }
+
+
+        li::marker {
+            color: #2563eb;
+        }
+
+
+        /* =====================================================
+           PROJECT CARDS
+        ====================================================== */
+
+        #wearable-project,
+        #customer-project {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+
+        #wearable-project:hover,
+        #customer-project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+        }
+
+
+        /* =====================================================
+           TECHNICAL SKILLS
+        ====================================================== */
+
+        #skills > article {
+            display: inline-block;
+            vertical-align: top;
+            width: 46%;
+            margin: 1.5%;
+            padding: 20px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+
+        #skills > article:hover {
+            transform: translateY(-5px);
+        }
+
+
+        #skills > article h4 {
+            color: #1e40af;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+
+        /* =====================================================
+           CERTIFICATIONS
+        ====================================================== */
+
+        #about ~ section {
+            transition: transform 0.3s;
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ====================================================== */
+
+        nav {
+            background-color: #111827;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+
+        nav > ul {
+            list-style: none;
+            margin: 0;
+        }
+
+
+        nav > ul > li {
+            background-color: #f8fafc;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            padding: 12px 15px;
+            border-left: 4px solid #2563eb;
+        }
+
+
+        nav > ul > li > a {
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+
+        nav > ul > li > a:hover {
+            color: #dc2626;
+        }
+
+
+        nav ul ul {
+            margin-top: 10px;
+            margin-left: 25px;
+            padding-left: 15px;
+            border-left: 2px solid #bfdbfe;
+        }
+
+
+        nav ul ul li {
+            margin-bottom: 6px;
+        }
+
+
+        nav ul ul a {
+            color: #374151;
+            text-decoration: none;
+        }
+
+
+        nav ul ul a:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           CATALOG
+        ====================================================== */
+
+        dl {
+            margin-top: 20px;
+        }
+
+
+        dt {
+            background-color: #2563eb;
+            color: white;
+            padding: 12px 15px;
+            margin-top: 15px;
+            border-radius: 6px 6px 0 0;
+            font-size: 18px;
+        }
+
+
+        dd {
+            background-color: #eff6ff;
+            padding: 15px;
+            margin-left: 0;
+            border: 1px solid #bfdbfe;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+        }
+
+
+        /* =====================================================
+           RESUME FOOTER
+        ====================================================== */
+
+        section section > footer {
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+
+        /* =====================================================
+           FINAL FOOTER
+        ====================================================== */
+
+        body > footer {
+            background-color: #111827;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+
+
+        body > footer p {
+            margin-bottom: 8px;
+        }
+
+
+        body > footer a {
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        body > footer a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE DESIGN
+        ====================================================== */
+
+        @media (max-width: 768px) {
+
+            body > header h1 {
+                font-size: 24px;
+            }
+
+
+            main {
+                width: 95%;
+            }
+
+
+            main > section {
+                padding: 20px;
+            }
+
+
+            section section > header h3 {
+                font-size: 25px;
+            }
+
+
+            #skills > article {
+                width: 100%;
+                margin: 8px 0;
+            }
+
+
+            nav ul ul {
+                margin-left: 10px;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            body > header {
+                padding: 25px 15px;
+            }
+
+
+            body > header h1 {
+                font-size: 20px;
+            }
+
+
+            body > header p {
+                font-size: 15px;
+            }
+
+
+            main > section > h2 {
+                font-size: 22px;
+            }
+
+
+            section section > header {
+                padding: 18px;
+            }
+
+
+            section section > header h3 {
+                font-size: 22px;
+            }
+
+
+            section section section {
+                padding: 18px;
+            }
+
+
+            nav {
+                padding: 15px;
+            }
+
+
+            nav > ul > li {
+                padding: 10px;
+            }
+
+
+            dl dd {
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         LAB SHEET 01
+         CORE WEB STRUCTURES USING SEMANTIC HTML
+    ====================================================== -->
+
+    <header>
+
+        <h1>
+            LAB SHEET 01:
+            CORE WEB STRUCTURES USING SEMANTIC HTML
+        </h1>
+
+        <p>
+            HTML5 Semantic Webpage Implementation
+        </p>
+
+    </header>
+
+
+    <main>
+
+
+        <!-- =====================================================
+             TASK 1.1: STRUCTURED HTML RESUME
+        ====================================================== -->
+
+        <section aria-labelledby="task1-heading">
+
+            <h2 id="task1-heading">
+                Task 1.1: Structured HTML Resume
+            </h2>
+
+
+            <!-- Resume Header -->
+
+            <header>
+
+                <h3>Manshi Verma</h3>
+
+                <p>
+                    <strong>
+                        Computer Science Engineering Student
+                    </strong>
+                </p>
+
+
+                <address>
+
+                    <p>
+                        📍 Location:
+                        Saharanpur, Uttar Pradesh
+                    </p>
+
+                    <p>
+                        📧 Email:
+                        <a href="mailto:vermajii325@gmail.com">
+                            vermajii325@gmail.com
+                        </a>
+                    </p>
+
+                    <p>
+                        📞 Phone:
+                        <a href="tel:+916395700145">
+                            +91 6395700145
+                        </a>
+                    </p>
+
+                    <p>
+                        🔗 LinkedIn:
+                        <a href="https://www.linkedin.com/in/manshi-verma-4a832a322"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            LinkedIn Profile
+                        </a>
+                    </p>
+
+                    <p>
+                        💻 GitHub:
+                        <a href="https://github.com/mansiverma001"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            GitHub Profile
+                        </a>
+                    </p>
+
+                </address>
+
+            </header>
+
+
+            <!-- Career Objective -->
+
+            <section id="about">
+
+                <h3>Career Objective</h3>
+
+                <p>
+                    Aspiring Computer Science Engineering student seeking
+                    opportunities to enhance technical skills and contribute
+                    to real-world projects. Eager to learn, adapt, and grow
+                    in a collaborative environment.
+                </p>
+
+            </section>
+
+
+            <!-- Education -->
+
+            <section id="education">
+
+                <h3>Education Background</h3>
+
+
+                <article>
+
+                    <h4>
+                        Bachelor of Technology -
+                        Computer Science Engineering
+                    </h4>
+
+                    <p>
+                        <strong>COER University</strong>
+                    </p>
+
+                    <ul>
+
+                        <li>
+                            Currently Pursuing B.Tech in Computer Science Engineering
+                        </li>
+
+                        <li>
+                            CGPA:
+                            <strong>8.3 / 10</strong>
+                        </li>
+
+                        <li>
+                            Core Subjects:
+                            DSA, Operating System, DBMS, C++, Python
+                        </li>
+
+                    </ul>
+
+                </article>
+
+
+                <article>
+
+                    <h4>Class 12th</h4>
+
+                    <p>
+                        Radiant Public School, Nanuta
+                    </p>
+
+                    <ul>
+
+                        <li>Passed in 2024</li>
+
+                        <li>Board: CBSE</li>
+
+                        <li>
+                            Percentage:
+                            <strong>75%</strong>
+                        </li>
+
+                    </ul>
+
+                </article>
+
+
+                <article>
+
+                    <h4>Class 10th</h4>
+
+                    <p>
+                        SD National High School, Saharanpur
+                    </p>
+
+                    <ul>
+
+                        <li>Passed in 2022</li>
+
+                        <li>Board: UP Board</li>
+
+                        <li>
+                            Percentage:
+                            <strong>89%</strong>
+                        </li>
+
+                    </ul>
+
+                </article>
+
+            </section>
+
+
+            <!-- Projects -->
+
+            <section id="projects">
+
+                <h3>Projects</h3>
+
+
+                <article id="wearable-project">
+
+                    <h4>
+                        Wearable Sensor Data Analysis for
+                        Personalized Health Monitoring
+                    </h4>
+
+                    <p>
+                        Developed a system to analyze wearable sensor data
+                        such as heart rate, sleep, steps, and other health
+                        parameters for generating useful health insights.
+                    </p>
+
+                    <ul>
+
+                        <li>Data preprocessing and visualization</li>
+
+                        <li>
+                            Python, Pandas, Matplotlib and Seaborn
+                        </li>
+
+                        <li>Linear Regression and Decision Tree</li>
+
+                        <li>Anomaly detection</li>
+
+                        <li>Real-time health monitoring</li>
+
+                    </ul>
+
+                </article>
+
+
+                <article id="customer-project">
+
+                    <h4>
+                        Customer Segmentation Using Clustering
+                    </h4>
+
+                    <p>
+                        Developed a customer segmentation model using
+                        K-Means clustering to group customers based on
+                        purchasing behavior and demographic data.
+                    </p>
+
+                    <ul>
+
+                        <li>Data preprocessing</li>
+
+                        <li>Feature engineering</li>
+
+                        <li>Exploratory Data Analysis</li>
+
+                        <li>K-Means Clustering</li>
+
+                        <li>Elbow Method</li>
+
+                        <li>Matplotlib and Seaborn</li>
+
+                    </ul>
+
+                </article>
+
+            </section>
+
+
+            <!-- Internship -->
+
+            <section id="internship">
+
+                <h3>Internship</h3>
+
+                <article>
+
+                    <h4>
+                        Python Intern - CodSoft
+                    </h4>
+
+                    <p>
+                        <strong>
+                            June 2024 - July 2024
+                        </strong>
+                    </p>
+
+                    <ul>
+
+                        <li>To-Do List Application</li>
+
+                        <li>Calculator</li>
+
+                        <li>Password Generator</li>
+
+                        <li>Rock-Paper-Scissors Game</li>
+
+                        <li>Contact Book</li>
+
+                        <li>Python scripting and debugging</li>
+
+                        <li>
+                            File handling and user input validation
+                        </li>
+
+                    </ul>
+
+                </article>
+
+            </section>
+
+
+            <!-- Technical Skills -->
+
+            <section id="skills">
+
+                <h3>Technical Skills</h3>
+
+
+                <article id="programming">
+
+                    <h4>Programming Languages</h4>
+
+                    <ul>
+
+                        <li>C++</li>
+
+                        <li>Python</li>
+
+                    </ul>
+
+                </article>
+
+
+                <article id="web-development">
+
+                    <h4>Web Development</h4>
+
+                    <ul>
+
+                        <li>HTML</li>
+
+                        <li>CSS</li>
+
+                        <li>JavaScript</li>
+
+                    </ul>
+
+                </article>
+
+
+                <article id="libraries">
+
+                    <h4>Libraries</h4>
+
+                    <ul>
+
+                        <li>Pandas</li>
+
+                        <li>NumPy</li>
+
+                        <li>Matplotlib</li>
+
+                    </ul>
+
+                </article>
+
+
+                <article id="tools">
+
+                    <h4>Tools</h4>
+
+                    <ul>
+
+                        <li>VS Code</li>
+
+                    </ul>
+
+                </article>
+
+            </section>
+
+
+            <!-- Soft Skills -->
+
+            <section>
+
+                <h3>Soft Skills</h3>
+
+                <ul>
+
+                    <li>Problem Solving</li>
+
+                    <li>Leadership</li>
+
+                    <li>Team Management and Collaboration</li>
+
+                    <li>Self Motivated</li>
+
+                </ul>
+
+            </section>
+
+
+            <!-- Certifications -->
+
+            <section>
+
+                <h3>Certifications & Activities</h3>
+
+                <ol>
+
+                    <li>
+                        <strong>
+                            12-Hour Hackathon - Participant
+                        </strong>
+                    </li>
+
+                    <li>
+                        <strong>
+                            Bridging the Gap: From Academics to Industry
+                        </strong>
+                    </li>
+
+                    <li>
+                        <strong>
+                            Introduction to Generative AI Studio -
+                            Google Cloud & Simplilearn
+                        </strong>
+                    </li>
+
+                </ol>
+
+            </section>
+
+
+            <!-- Hobbies -->
+
+            <section>
+
+                <h3>Hobbies</h3>
+
+                <ul>
+
+                    <li>Dancing</li>
+
+                    <li>Playing Badminton</li>
+
+                    <li>
+                        Participating in Hackathons
+                        and Coding Challenges
+                    </li>
+
+                </ul>
+
+            </section>
+
+
+            <footer>
+
+                <p>
+                    <strong>
+                        Resume of Manshi Verma
+                    </strong>
+                </p>
+
+                <p>
+                    Computer Science Engineering Student
+                </p>
+
+            </footer>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             TASK 1.2: NESTED NAVIGATION MENU
+        ====================================================== -->
+
+        <section aria-labelledby="task2-heading">
+
+            <h2 id="task2-heading">
+                Task 1.2: Nested Navigation Menu
+            </h2>
+
+            <p>
+                Nested Navigation Menu Based on Manshi Verma's Resume
+            </p>
+
+
+            <h3>
+                My Portfolio Navigation
+            </h3>
+
+
+            <nav aria-label="Portfolio Navigation">
+
+                <ul>
+
+                    <li>
+                        <a href="#task1-heading">
+                            Home
+                        </a>
+                    </li>
+
+
+                    <li>
+
+                        <a href="#about">
+                            About Me
+                        </a>
+
+                        <ul>
+
+                            <li>
+                                <a href="#education">
+                                    Education
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#skills">
+                                    Skills
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#internship">
+                                    Internship
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="#projects">
+                            Projects
+                        </a>
+
+                        <ul>
+
+                            <li>
+                                <a href="#wearable-project">
+                                    Wearable Sensor Data Analysis
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#customer-project">
+                                    Customer Segmentation Using Clustering
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="#skills">
+                            Technical Skills
+                        </a>
+
+                        <ul>
+
+                            <li>
+                                <a href="#programming">
+                                    Programming Languages
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#web-development">
+                                    Web Development
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#libraries">
+                                    Libraries
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#tools">
+                                    Tools
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="#">
+                            My Profiles
+                        </a>
+
+                        <ul>
+
+                            <li>
+
+                                <a href="https://www.linkedin.com/in/manshi-verma-4a832a322"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+
+                                    LinkedIn
+
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="https://github.com/mansiverma001"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+
+                                    GitHub
+
+                                </a>
+
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="#">
+                            Learning Resources
+                        </a>
+
+                        <ul>
+
+                            <li>
+
+                                <a href="https://www.w3schools.com/html/"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+
+                                    HTML
+
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="https://www.w3schools.com/css/"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+
+                                    CSS
+
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="https://www.w3schools.com/js/"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+
+                                    JavaScript
+
+                                </a>
+
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="#contact">
+                            Contact
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </nav>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             TASK 1.3: ITEMIZED WEB CATALOG
+        ====================================================== -->
+
+        <section aria-labelledby="task3-heading">
+
+            <h2 id="task3-heading">
+                Task 1.3: Itemized Web Catalog
+            </h2>
+
+
+            <h3>
+                Computer Science Technology Catalog
+            </h3>
+
+
+            <dl>
+
+                <dt>
+                    <strong>HTML</strong>
+                </dt>
+
+                <dd>
+                    HTML stands for HyperText Markup Language.
+                    It is used to create and structure webpages.
+                </dd>
+
+
+                <dt>
+                    <strong>CSS</strong>
+                </dt>
+
+                <dd>
+                    CSS stands for Cascading Style Sheets.
+                    It is used to design and style webpages.
+                </dd>
+
+
+                <dt>
+                    <strong>JavaScript</strong>
+                </dt>
+
+                <dd>
+                    JavaScript is a programming language used
+                    to add interactivity and dynamic functionality
+                    to webpages.
+                </dd>
+
+
+                <dt>
+                    <strong>Python</strong>
+                </dt>
+
+                <dd>
+                    Python is a high-level programming language
+                    used for programming, data analysis,
+                    automation and machine learning.
+                </dd>
+
+
+                <dt>
+                    <strong>C++</strong>
+                </dt>
+
+                <dd>
+                    C++ is a general-purpose programming language
+                    used for application development,
+                    system programming and competitive programming.
+                </dd>
+
+
+                <dt>
+                    <strong>Pandas</strong>
+                </dt>
+
+                <dd>
+                    Pandas is a Python library used for
+                    data manipulation and data analysis.
+                </dd>
+
+
+                <dt>
+                    <strong>NumPy</strong>
+                </dt>
+
+                <dd>
+                    NumPy is a Python library used for
+                    numerical computing and array operations.
+                </dd>
+
+
+                <dt>
+                    <strong>Matplotlib</strong>
+                </dt>
+
+                <dd>
+                    Matplotlib is a Python library used
+                    for creating graphs and data visualizations.
+                </dd>
+
+
+                <dt>
+                    <strong>K-Means Clustering</strong>
+                </dt>
+
+                <dd>
+                    K-Means is an unsupervised machine learning
+                    algorithm used to divide data into different
+                    clusters based on similarity.
+                </dd>
+
+
+                <dt>
+                    <strong>VS Code</strong>
+                </dt>
+
+                <dd>
+                    Visual Studio Code is a source-code editor
+                    used for writing and developing programs.
+                </dd>
+
+            </dl>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FINAL FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 Manshi Verma
+        </p>
+
+        <p>
+            B.Tech Computer Science Engineering |
+            COER University
+        </p>
+
+        <p>
+            <a href="mailto:vermajii325@gmail.com">
+                Contact Me
+            </a>
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

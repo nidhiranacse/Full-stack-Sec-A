@@ -1,0 +1,1 @@
+import sys, os, django; print("="*40); print(" SYSTEM RUNTIME & DEPLOYMENT CHECK"); print("="*40); print(f"Python Path    : {sys.executable}"); print(f"Python Version : {sys.version.split()[0]}"); print(f"Django Version : {django.get_version()}"); print(f"Environment Key: {\"FOUND\" if os.getenv(\"SECRET_KEY\") else \"NOT SET (Default)\"}"); print("="*40)

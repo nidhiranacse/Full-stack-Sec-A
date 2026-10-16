@@ -1,0 +1,21 @@
+[
+  {
+    "key": "ctrl+alt+l",
+    "command": "editor.action.formatDocument",
+    "when": "editorTextFocus && editorLangId == python"
+  },
+  {
+    "key": "ctrl+shift+r",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "python manage.py runserver\u000D"
+    }
+  },
+  {
+    "key": "ctrl+shift+m",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "python manage.py makemigrations && python manage.py migrate\u000D"
+    }
+  }
+]

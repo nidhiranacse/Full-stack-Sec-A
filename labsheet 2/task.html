@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manshi Verma | Lab Sheet 02</title>
+
+    <style>
+
+        /* =====================================================
+           CSS VARIABLES
+        ====================================================== */
+
+        :root {
+            --bg-color: #f3f4f6;
+            --text-color: #222222;
+            --primary-color: #2563eb;
+            --secondary-color: #1f2937;
+            --card-color: #ffffff;
+            --border-color: #d1d5db;
+            --success-color: #16a34a;
+            --danger-color: #dc2626;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* =====================================================
+           DARK MODE
+        ====================================================== */
+
+        body.dark-mode {
+            --bg-color: #111827;
+            --text-color: #f9fafb;
+            --primary-color: #60a5fa;
+            --secondary-color: #030712;
+            --card-color: #1f2937;
+            --border-color: #4b5563;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+
+        /* =====================================================
+           GENERAL
+        ====================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ====================================================== */
+
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+
+        header p {
+            font-size: 17px;
+        }
+
+
+        #clock {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #60a5fa;
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ====================================================== */
+
+        nav {
+            background-color: #111827;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: bold;
+        }
+
+
+        nav a:hover {
+            color: #60a5fa;
+        }
+
+
+        /* =====================================================
+           COMMON SECTION
+        ====================================================== */
+
+        section {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+            background-color: var(--card-color);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+        }
+
+
+        /* =====================================================
+           HERO / LANDING
+        ====================================================== */
+
+        .landing-page {
+            min-height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+
+        .landing-content {
+            max-width: 800px;
+        }
+
+
+        .landing-content h3 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+
+        .landing-content p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+
+        .typing-text {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+            min-height: 40px;
+            margin-bottom: 20px;
+        }
+
+
+        .theme-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+
+        .theme-button:hover {
+            transform: scale(1.05);
+        }
+
+
+        #landingMessage {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+
+        /* =====================================================
+           ABOUT ME
+        ====================================================== */
+
+        .about-content {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+
+
+        .profile-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            font-size: 55px;
+            font-weight: bold;
+        }
+
+
+        .about-text {
+            flex: 2;
+        }
+
+
+        .about-text p {
+            margin-bottom: 12px;
+        }
+
+
+        /* =====================================================
+           SKILLS
+        ====================================================== */
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+
+        .skill-card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+        }
+
+
+        .skill-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+
+        .skill-bar {
+            width: 100%;
+            height: 10px;
+            background-color: var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+
+
+        /* =====================================================
+           PHOTO GRID
+        ====================================================== */
+
+        .search-box {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 25px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+        }
+
+
+        .photo-card {
+            width: 300px;
+            background-color: var(--bg-color);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+
+        .photo-card:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow);
+        }
+
+
+        .photo-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            display: block;
+        }
+
+
+        .photo-card h3 {
+            text-align: center;
+            padding: 15px;
+        }
+
+
+        /* =====================================================
+           TODO APPLICATION
+        ====================================================== */
+
+        .todo-container {
+            max-width: 750px;
+            margin: auto;
+        }
+
+
+        .todo-input-area {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+
+        #taskInput {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+
+        #addTaskButton {
+            padding: 12px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+        #errorMessage {
+            color: var(--danger-color);
+            font-weight: bold;
+            min-height: 25px;
+        }
+
+
+        .todo-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+        }
+
+
+        .todo-stats strong {
+            color: var(--primary-color);
+        }
+
+
+        #taskList {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+
+        #taskList li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+
+        #taskList li span {
+            flex: 1;
+        }
+
+
+        #taskList li.completed span {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+
+        .task-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+
+        .complete-button {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 7px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+
+        .delete-button {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 7px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           CONTACT FORM
+        ====================================================== */
+
+        .contact-form {
+            max-width: 700px;
+            margin: auto;
+        }
+
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+
+        .contact-form textarea {
+            height: 140px;
+            resize: vertical;
+        }
+
+
+        .submit-button {
+            width: 100%;
+            padding: 13px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+
+        #contactMessage {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           BACK TO TOP
+        ====================================================== */
+
+        #topButton {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            display: none;
+            z-index: 999;
+        }
+
+
+        #topButton:hover {
+            transform: scale(1.1);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE DESIGN
+        ====================================================== */
+
+        @media (max-width: 800px) {
+
+            .skills-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 23px;
+            }
+
+
+            nav a {
+                display: inline-block;
+                margin: 5px 7px;
+            }
+
+
+            section {
+                width: 94%;
+                padding: 20px;
+            }
+
+
+            .landing-content h3 {
+                font-size: 30px;
+            }
+
+
+            .typing-text {
+                font-size: 19px;
+            }
+
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+
+            .photo-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+
+            .photo-card {
+                width: 100%;
+            }
+
+
+            .todo-input-area {
+                flex-direction: column;
+            }
+
+
+            #addTaskButton {
+                width: 100%;
+            }
+
+
+            #taskList li {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+
+            .task-buttons {
+                justify-content: flex-end;
+            }
+
+
+            .todo-stats {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header>
+
+        <h1>
+            LAB SHEET 02:
+            DYNAMIC INTERFACE STYLING & SCRIPTING INTERACTIVITY
+        </h1>
+
+        <p>
+            HTML5 + CSS3 + JavaScript
+        </p>
+
+        <div id="clock">
+            Loading time...
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <nav>
+
+        <a href="#home">Home</a>
+
+        <a href="#about">About</a>
+
+        <a href="#skills">Skills</a>
+
+        <a href="#task22">Photos</a>
+
+        <a href="#task23">Todo</a>
+
+        <a href="#contact">Contact</a>
+
+    </nav>
+
+
+    <main>
+
+
+        <!-- =====================================================
+             TASK 2.1 - LANDING PAGE
+        ====================================================== -->
+
+        <section id="home">
+
+            <h2>
+                Task 2.1: Dark Mode Landing Layout
+            </h2>
+
+
+            <div class="landing-page">
+
+                <div class="landing-content">
+
+                    <h3>
+                        Welcome to Manshi's Website
+                    </h3>
+
+
+                    <div class="typing-text" id="typingText"></div>
+
+
+                    <p>
+                        Hello! I am Manshi Verma,
+                        a Computer Science Engineering student
+                        at COER University.
+                    </p>
+
+
+                    <p>
+                        I am passionate about programming,
+                        web development, machine learning,
+                        data analysis and learning new technologies.
+                    </p>
+
+
+                    <button
+                        class="theme-button"
+                        id="themeButton">
+
+                        🌙 Dark Mode
+
+                    </button>
+
+
+                    <button
+                        class="theme-button"
+                        id="messageButton">
+
+                        Explore Now
+
+                    </button>
+
+
+                    <p id="landingMessage"></p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             ABOUT ME
+        ====================================================== -->
+
+        <section id="about">
+
+            <h2>
+                About Me
+            </h2>
+
+
+            <div class="about-content">
+
+                <div class="about-image">
+
+                    <div class="profile-circle">
+                        MV
+                    </div>
+
+                </div>
+
+
+                <div class="about-text">
+
+                    <h3>
+                        Hello, I'm Manshi Verma 👋
+                    </h3>
+
+                    <p>
+                        I am a Computer Science Engineering
+                        student at COER University.
+                    </p>
+
+                    <p>
+                        I am interested in web development,
+                        Python, data analysis, machine learning
+                        and modern technologies.
+                    </p>
+
+                    <p>
+                        My goal is to continuously improve my
+                        technical skills and build useful
+                        real-world projects.
+                    </p>
+
+                    <p>
+                        I also enjoy participating in
+                        hackathons, learning new technologies
+                        and working on creative projects.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SKILLS
+        ====================================================== -->
+
+        <section id="skills">
+
+            <h2>
+                My Skills
+            </h2>
+
+
+            <div class="skills-container">
+
+
+                <div class="skill-card">
+
+                    <h3>HTML</h3>
+
+                    <p>90%</p>
+
+                    <div class="skill-bar">
+
+                        <div
+                            class="skill-progress"
+                            style="width: 90%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card">
+
+                    <h3>CSS</h3>
+
+                    <p>85%</p>
+
+                    <div class="skill-bar">
+
+                        <div
+                            class="skill-progress"
+                            style="width: 85%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card">
+
+                    <h3>JavaScript</h3>
+
+                    <p>75%</p>
+
+                    <div class="skill-bar">
+
+                        <div
+                            class="skill-progress"
+                            style="width: 75%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card">
+
+                    <h3>Python</h3>
+
+                    <p>85%</p>
+
+                    <div class="skill-bar">
+
+                        <div
+                            class="skill-progress"
+                            style="width: 85%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card">
+
+                    <h3>SQL</h3>
+
+                    <p>80%</p>
+
+                    <div class="skill-bar">
+
+                        <div
+                            class="skill-progress"
+                            style="width: 80%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card">
+
+                    <h3>Machine Learning</h3>
+
+                    <p>70%</p>
+
+                    <div class="skill-bar">
+
+                        <div
+                            class="skill-progress"
+                            style="width: 70%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             TASK 2.2 - PHOTO GRID
+        ====================================================== -->
+
+        <section id="task22">
+
+            <h2>
+                Task 2.2: Responsive Web Photo Grid
+            </h2>
+
+
+            <input
+                type="text"
+                id="searchInput"
+                class="search-box"
+                placeholder="🔍 Search Nature, Mountain, Travel...">
+
+
+            <div class="photo-grid">
+
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=1"
+                        alt="Nature">
+
+                    <h3>Nature</h3>
+
+                </div>
+
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=2"
+                        alt="Mountain">
+
+                    <h3>Mountain</h3>
+
+                </div>
+
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=3"
+                        alt="Travel">
+
+                    <h3>Travel</h3>
+
+                </div>
+
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=4"
+                        alt="City">
+
+                    <h3>City</h3>
+
+                </div>
+
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=5"
+                        alt="Forest">
+
+                    <h3>Forest</h3>
+
+                </div>
+
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/400/300?random=6"
+                        alt="Landscape">
+
+                    <h3>Landscape</h3>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             TASK 2.3 - TODO APP
+        ====================================================== -->
+
+        <section id="task23">
+
+            <h2>
+                Task 2.3: Interactive Todo Application
+            </h2>
+
+
+            <div class="todo-container">
+
+                <p>
+                    Add your daily tasks and manage them
+                    using the buttons below.
+                </p>
+
+
+                <div class="todo-input-area">
+
+                    <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="Enter your task...">
+
+                    <button id="addTaskButton">
+                        Add Task
+                    </button>
+
+                </div>
+
+
+                <p id="errorMessage"></p>
+
+
+                <div class="todo-stats">
+
+                    <div>
+                        Total:
+                        <strong id="totalTasks">0</strong>
+                    </div>
+
+                    <div>
+                        Completed:
+                        <strong id="completedTasks">0</strong>
+                    </div>
+
+                    <div>
+                        Pending:
+                        <strong id="pendingTasks">0</strong>
+                    </div>
+
+                </div>
+
+
+                <ul id="taskList"></ul>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CONTACT FORM
+        ====================================================== -->
+
+        <section id="contact">
+
+            <h2>
+                Contact Me
+            </h2>
+
+
+            <div class="contact-form">
+
+                <input
+                    type="text"
+                    id="nameInput"
+                    placeholder="Enter your name">
+
+
+                <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="Enter your email">
+
+
+                <textarea
+                    id="messageInput"
+                    placeholder="Write your message...">
+                </textarea>
+
+
+                <button
+                    class="submit-button"
+                    id="submitButton">
+
+                    Send Message
+
+                </button>
+
+
+                <p id="contactMessage"></p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         BACK TO TOP BUTTON
+    ====================================================== -->
+
+    <button id="topButton">
+        ↑
+    </button>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 Manshi Verma
+        </p>
+
+        <p>
+            Computer Science Engineering |
+            COER University
+        </p>
+
+        <p>
+            HTML5 | CSS3 | JavaScript
+        </p>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           DARK MODE
+        ====================================================== */
+
+        const themeButton =
+            document.getElementById("themeButton");
+
+
+        themeButton.addEventListener("click", function () {
+
+            document.body.classList.toggle("dark-mode");
+
+
+            if (
+                document.body.classList.contains("dark-mode")
+            ) {
+
+                themeButton.innerHTML =
+                    "☀️ Light Mode";
+
+            }
+
+            else {
+
+                themeButton.innerHTML =
+                    "🌙 Dark Mode";
+
+            }
+
+        });
+
+
+
+        /* =====================================================
+           EXPLORE BUTTON
+        ====================================================== */
+
+        const messageButton =
+            document.getElementById("messageButton");
+
+
+        messageButton.addEventListener("click", function () {
+
+            document.getElementById("landingMessage")
+                .innerHTML =
+                "Welcome! Thanks for visiting Manshi's website. 😊";
+
+        });
+
+
+
+        /* =====================================================
+           LIVE DIGITAL CLOCK
+        ====================================================== */
+
+        function updateClock() {
+
+            const now = new Date();
+
+            let hours = now.getHours();
+
+            let minutes = now.getMinutes();
+
+            let seconds = now.getSeconds();
+
+            let ampm = hours >= 12 ? "PM" : "AM";
+
+            hours = hours % 12;
+
+            hours = hours ? hours : 12;
+
+            minutes = minutes < 10
+                ? "0" + minutes
+                : minutes;
+
+            seconds = seconds < 10
+                ? "0" + seconds
+                : seconds;
+
+
+            document.getElementById("clock")
+                .innerHTML =
+                "🕐 Current Time: " +
+                hours + ":" +
+                minutes + ":" +
+                seconds + " " +
+                ampm;
+
+        }
+
+
+        updateClock();
+
+        setInterval(updateClock, 1000);
+
+
+
+        /* =====================================================
+           TYPING ANIMATION
+        ====================================================== */
+
+        const typingText =
+            document.getElementById("typingText");
+
+
+        const typingWords = [
+            "CSE Student",
+            "Web Developer",
+            "Python Learner",
+            "Data Analyst Aspirant",
+            "Machine Learning Enthusiast"
+        ];
+
+
+        let wordIndex = 0;
+
+        let characterIndex = 0;
+
+        let deleting = false;
+
+
+        function typeAnimation() {
+
+            const currentWord =
+                typingWords[wordIndex];
+
+
+            if (!deleting) {
+
+                typingText.textContent =
+                    currentWord.substring(
+                        0,
+                        characterIndex + 1
+                    );
+
+                characterIndex++;
+
+
+                if (
+                    characterIndex ===
+                    currentWord.length
+                ) {
+
+                    deleting = true;
+
+                    setTimeout(
+                        typeAnimation,
+                        1200
+                    );
+
+                    return;
+
+                }
+
+            }
+
+            else {
+
+                typingText.textContent =
+                    currentWord.substring(
+                        0,
+                        characterIndex - 1
+                    );
+
+                characterIndex--;
+
+
+                if (characterIndex === 0) {
+
+                    deleting = false;
+
+                    wordIndex++;
+
+                    if (
+                        wordIndex ===
+                        typingWords.length
+                    ) {
+
+                        wordIndex = 0;
+
+                    }
+
+                }
+
+            }
+
+
+            setTimeout(
+                typeAnimation,
+                deleting ? 60 : 100
+            );
+
+        }
+
+
+        typeAnimation();
+
+
+
+        /* =====================================================
+           PHOTO SEARCH
+        ====================================================== */
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+
+        const photoCards =
+            document.querySelectorAll(".photo-card");
+
+
+        searchInput.addEventListener(
+            "input",
+            function () {
+
+                const searchValue =
+                    searchInput.value.toLowerCase();
+
+
+                photoCards.forEach(function (card) {
+
+                    const title =
+                        card.querySelector("h3")
+                            .textContent
+                            .toLowerCase();
+
+
+                    if (
+                        title.includes(searchValue)
+                    ) {
+
+                        card.style.display = "block";
+
+                    }
+
+                    else {
+
+                        card.style.display = "none";
+
+                    }
+
+                });
+
+            }
+        );
+
+
+
+        /* =====================================================
+           TODO APPLICATION
+        ====================================================== */
+
+        const taskInput =
+            document.getElementById("taskInput");
+
+
+        const addTaskButton =
+            document.getElementById("addTaskButton");
+
+
+        const taskList =
+            document.getElementById("taskList");
+
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+
+        const totalTasks =
+            document.getElementById("totalTasks");
+
+
+        const completedTasks =
+            document.getElementById("completedTasks");
+
+
+        const pendingTasks =
+            document.getElementById("pendingTasks");
+
+
+
+        /* =====================================================
+           UPDATE TODO COUNTER
+        ====================================================== */
+
+        function updateTaskCounter() {
+
+            const tasks =
+                taskList.querySelectorAll("li");
+
+
+            const completed =
+                taskList.querySelectorAll(
+                    "li.completed"
+                );
+
+
+            totalTasks.textContent =
+                tasks.length;
+
+
+            completedTasks.textContent =
+                completed.length;
+
+
+            pendingTasks.textContent =
+                tasks.length -
+                completed.length;
+
+        }
+
+
+
+        /* =====================================================
+           SAVE TASKS TO LOCAL STORAGE
+        ====================================================== */
+
+        function saveTasks() {
+
+            const tasks = [];
+
+
+            taskList.querySelectorAll("li")
+                .forEach(function (item) {
+
+                    tasks.push({
+
+                        text:
+                            item.querySelector("span")
+                                .textContent,
+
+                        completed:
+                            item.classList
+                                .contains("completed")
+
+                    });
+
+                });
+
+
+            localStorage.setItem(
+                "manshiTasks",
+                JSON.stringify(tasks)
+            );
+
+        }
+
+
+
+        /* =====================================================
+           CREATE TASK
+        ====================================================== */
+
+        function createTask(
+            taskText,
+            isCompleted = false
+        ) {
+
+            const listItem =
+                document.createElement("li");
+
+
+            const taskSpan =
+                document.createElement("span");
+
+
+            taskSpan.textContent =
+                taskText;
+
+
+            const buttonContainer =
+                document.createElement("div");
+
+
+            buttonContainer.className =
+                "task-buttons";
+
+
+            const completeButton =
+                document.createElement("button");
+
+
+            completeButton.textContent =
+                "Complete";
+
+
+            completeButton.className =
+                "complete-button";
+
+
+            const deleteButton =
+                document.createElement("button");
+
+
+            deleteButton.textContent =
+                "Delete";
+
+
+            deleteButton.className =
+                "delete-button";
+
+
+            if (isCompleted) {
+
+                listItem.classList.add(
+                    "completed"
+                );
+
+            }
+
+
+
+            /* Complete */
+
+            completeButton.addEventListener(
+                "click",
+                function () {
+
+                    listItem.classList.toggle(
+                        "completed"
+                    );
+
+                    saveTasks();
+
+                    updateTaskCounter();
+
+                }
+            );
+
+
+
+            /* Delete */
+
+            deleteButton.addEventListener(
+                "click",
+                function () {
+
+                    listItem.remove();
+
+                    saveTasks();
+
+                    updateTaskCounter();
+
+                }
+            );
+
+
+            buttonContainer.appendChild(
+                completeButton
+            );
+
+
+            buttonContainer.appendChild(
+                deleteButton
+            );
+
+
+            listItem.appendChild(
+                taskSpan
+            );
+
+
+            listItem.appendChild(
+                buttonContainer
+            );
+
+
+            taskList.appendChild(
+                listItem
+            );
+
+        }
+
+
+
+        /* =====================================================
+           ADD TASK
+        ====================================================== */
+
+        function addTask() {
+
+            const taskText =
+                taskInput.value.trim();
+
+
+            if (taskText === "") {
+
+                errorMessage.innerHTML =
+                    "⚠ Please enter a task first.";
+
+                taskInput.focus();
+
+                return;
+
+            }
+
+
+            errorMessage.innerHTML = "";
+
+
+            createTask(taskText);
+
+
+            saveTasks();
+
+            updateTaskCounter();
+
+
+            taskInput.value = "";
+
+            taskInput.focus();
+
+        }
+
+
+
+        addTaskButton.addEventListener(
+            "click",
+            addTask
+        );
+
+
+
+        /* =====================================================
+           ENTER KEY
+        ====================================================== */
+
+        taskInput.addEventListener(
+            "keypress",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    addTask();
+
+                }
+
+            }
+        );
+
+
+
+        /* =====================================================
+           LOAD SAVED TASKS
+        ====================================================== */
+
+        function loadTasks() {
+
+            const savedTasks =
+                localStorage.getItem(
+                    "manshiTasks"
+                );
+
+
+            if (!savedTasks) {
+
+                return;
+
+            }
+
+
+            const tasks =
+                JSON.parse(savedTasks);
+
+
+            tasks.forEach(function (task) {
+
+                createTask(
+                    task.text,
+                    task.completed
+                );
+
+            });
+
+
+            updateTaskCounter();
+
+        }
+
+
+        loadTasks();
+
+
+
+        /* =====================================================
+           CONTACT FORM
+        ====================================================== */
+
+        const submitButton =
+            document.getElementById("submitButton");
+
+
+        submitButton.addEventListener(
+            "click",
+            function () {
+
+                const name =
+                    document.getElementById(
+                        "nameInput"
+                    ).value.trim();
+
+
+                const email =
+                    document.getElementById(
+                        "emailInput"
+                    ).value.trim();
+
+
+                const message =
+                    document.getElementById(
+                        "messageInput"
+                    ).value.trim();
+
+
+                const contactMessage =
+                    document.getElementById(
+                        "contactMessage"
+                    );
+
+
+                if (
+                    name === "" ||
+                    email === "" ||
+                    message === ""
+                ) {
+
+                    contactMessage.style.color =
+                        "red";
+
+                    contactMessage.innerHTML =
+                        "⚠ Please fill all fields.";
+
+                    return;
+
+                }
+
+
+                if (!email.includes("@")) {
+
+                    contactMessage.style.color =
+                        "red";
+
+                    contactMessage.innerHTML =
+                        "⚠ Please enter a valid email.";
+
+                    return;
+
+                }
+
+
+                contactMessage.style.color =
+                    "green";
+
+                contactMessage.innerHTML =
+                    "✅ Thank you, " +
+                    name +
+                    "! Your message has been submitted.";
+
+
+                document.getElementById(
+                    "nameInput"
+                ).value = "";
+
+
+                document.getElementById(
+                    "emailInput"
+                ).value = "";
+
+
+                document.getElementById(
+                    "messageInput"
+                ).value = "";
+
+            }
+        );
+
+
+
+        /* =====================================================
+           BACK TO TOP BUTTON
+        ====================================================== */
+
+        const topButton =
+            document.getElementById("topButton");
+
+
+        window.addEventListener(
+            "scroll",
+            function () {
+
+                if (window.scrollY > 300) {
+
+                    topButton.style.display =
+                        "block";
+
+                }
+
+                else {
+
+                    topButton.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+
+        topButton.addEventListener(
+            "click",
+            function () {
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+
+    </script>
+
+</body>
+
+</html>

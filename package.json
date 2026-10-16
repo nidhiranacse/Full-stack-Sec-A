@@ -1,0 +1,13 @@
+{
+  "name": "problem-4-git-cicd",
+  "version": "1.0.0",
+  "description": "Problem 4 Git and CI/CD Pipeline",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "node test.js"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0"
+  }
+}
