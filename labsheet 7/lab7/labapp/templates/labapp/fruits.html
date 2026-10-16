@@ -1,0 +1,24 @@
+{% extends "labapp/base.html" %}
+{% block title %}Fruits{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Fruits <small>(unordered set)</small></h1>
+
+  <form method="get">
+    <input class="form-control" type="text" name="q" value="{{ q }}" placeholder="Search fruits...">
+    <button type="submit">Search</button>
+    <a href="{% url 'fruits' %}">Reset</a>
+  </form>
+
+  {# Task 7.1: fallback when the collection is empty #}
+  {% if fruits %}
+    <ul>
+      {% for fruit in fruits %}
+        <li>{{ fruit }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="alert alert-warning">No fruits found{% if q %} for "{{ q }}"{% endif %}.</div>
+  {% endif %}
+</div>
+{% endblock %}

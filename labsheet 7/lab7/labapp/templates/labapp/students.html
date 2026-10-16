@@ -1,0 +1,44 @@
+{% extends "labapp/base.html" %}
+{% block title %}Selected Event Students{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Selected Event Students <small>(ordered list)</small></h1>
+
+  {# Task 8.3: search form #}
+  <form method="get">
+    <input class="form-control" type="text" name="q" value="{{ q }}" placeholder="Search by name or department...">
+    <input type="hidden" name="sort" value="{{ sort }}">
+    <input type="hidden" name="order" value="{{ order }}">
+    <button type="submit">Search</button>
+    <a href="{% url 'students' %}">Reset</a>
+  </form>
+
+  {# Task 7.1: empty-collection fallback #}
+  {% if students %}
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          {# Task 8.2: clickable headers for sorting #}
+          <th><a href="?sort=roll&order={% if sort == 'roll' %}{{ next_order }}{% else %}asc{% endif %}&q={{ q }}">Roll</a></th>
+          <th><a href="?sort=name&order={% if sort == 'name' %}{{ next_order }}{% else %}asc{% endif %}&q={{ q }}">Name</a></th>
+          <th><a href="?sort=department&order={% if sort == 'department' %}{{ next_order }}{% else %}asc{% endif %}&q={{ q }}">Department</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in students %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ s.roll }}</td>
+          <td>{{ s.name }}</td>
+          <td>{{ s.department }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p>Sorted by <strong>{{ sort }}</strong> ({{ order }}).</p>
+  {% else %}
+    <div class="alert alert-warning">No students found{% if q %} matching "{{ q }}"{% endif %}.</div>
+  {% endif %}
+</div>
+{% endblock %}

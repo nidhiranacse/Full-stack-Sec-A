@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Record Management</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Record Management System</h1>
+
+    <div class="form-container">
+
+        <h2 id="form-title">Add Student</h2>
+
+        <form id="student-form">
+
+            <input type="hidden" id="student-id">
+
+            <div class="form-group">
+
+                <label for="name">
+                    Student Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter student name"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="rollNo">
+                    Roll No.
+                </label>
+
+                <input
+                    type="text"
+                    id="rollNo"
+                    placeholder="Enter roll number"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="course">
+                    Course
+                </label>
+
+                <input
+                    type="text"
+                    id="course"
+                    placeholder="Enter course"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="marks">
+                    Marks
+                </label>
+
+                <input
+                    type="number"
+                    id="marks"
+                    placeholder="Enter marks"
+                    min="0"
+                    max="100"
+                    required
+                >
+
+            </div>
+
+            <button type="submit" id="submit-btn">
+                Add Student
+            </button>
+
+            <button
+                type="button"
+                id="cancel-btn"
+                class="cancel-btn"
+                onclick="cancelEdit()"
+            >
+                Cancel
+            </button>
+
+        </form>
+
+        <p id="message"></p>
+
+    </div>
+
+    <div class="table-container">
+
+        <h2>Student Records</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Name</th>
+                    <th>Roll No.</th>
+                    <th>Course</th>
+                    <th>Marks</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="student-table-body">
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

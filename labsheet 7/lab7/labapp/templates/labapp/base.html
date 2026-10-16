@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Django Lab{% endblock %}</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f6f8; color: #222; }
+    nav { background: #1f3a5f; padding: 0 20px; display: flex; gap: 4px; }
+    nav a { color: #cfd8e3; text-decoration: none; padding: 14px 18px; display: block; }
+    nav a:hover { background: #2c4f7c; color: #fff; }
+    nav a.active { background: #fff; color: #1f3a5f; font-weight: bold; }   /* Task 8.1 */
+    .container { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+    .card { background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+    .alert { padding: 12px 16px; border-radius: 6px; margin-bottom: 12px; }
+    .alert-success { background: #d4edda; color: #155724; }
+    .alert-error   { background: #f8d7da; color: #721c24; }
+    .alert-warning { background: #fff3cd; color: #856404; }
+    .alert-info    { background: #d1ecf1; color: #0c5460; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+    th a { color: #1f3a5f; text-decoration: none; }
+    .form-control { width: 100%; padding: 8px; box-sizing: border-box; margin: 4px 0 12px; }
+    button { background: #1f3a5f; color: #fff; border: 0; padding: 9px 18px; border-radius: 4px; cursor: pointer; }
+    .errorlist { color: #b00020; margin: 0 0 6px; padding-left: 18px; }
+    footer { text-align: center; color: #777; padding: 20px; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+{% with current=request.resolver_match.url_name %}
+<nav>
+  <a href="{% url 'fruits' %}"   class="{% if current == 'fruits' %}active{% endif %}">Fruits</a>
+  <a href="{% url 'students' %}" class="{% if current == 'students' %}active{% endif %}">Students</a>
+</nav>
+{% endwith %}
+
+<div class="container">
+  {% block content %}{% endblock %}
+</div>
+
+<footer>{% block footer %}&copy; 2026 Django Lab{% endblock %}</footer>
+</body>
+</html>
