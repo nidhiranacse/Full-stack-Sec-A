@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Priyanka Bhandari - Interactive Web Page</title>
+
+    <style>
+
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+
+        /* TASK 2.1: DARK MODE LANDING PAGE */
+       
+        :root {
+            --background-color: #ffffff;
+            --text-color: #222222;
+            --primary-color: #2563eb;
+            --secondary-color: #f3f4f6;
+            --card-color: #ffffff;
+        }
+
+        body.dark-mode {
+            --background-color: #121212;
+            --text-color: #f5f5f5;
+            --primary-color: #60a5fa;
+            --secondary-color: #1f2937;
+            --card-color: #242424;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-button {
+            margin-top: 15px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        .theme-button:hover {
+            opacity: 0.8;
+        }
+
+        .landing {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .landing h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .landing p {
+            max-width: 700px;
+            margin: auto;
+        }
+
+
+        /* TASK 2.2: RESPONSIVE PHOTO GRID USING FLEXBOX */
+
+        .photo-section {
+            padding: 40px 20px;
+            background-color: var(--secondary-color);
+        }
+
+        .photo-section h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .photo-card {
+            width: 220px;
+            background-color: var(--card-color);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+            transition: transform 0.3s ease,
+                        box-shadow 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 7px;
+        }
+
+        .photo-card h3 {
+            margin-top: 10px;
+        }
+
+
+        /* TASK 2.3: INTERACTIVE TODO APPLICATION */
+
+        .todo-section {
+            padding: 40px 20px;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .todo-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .todo-input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        #todoInput {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #addTodoButton {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        #addTodoButton:hover {
+            opacity: 0.85;
+        }
+
+        #errorMessage {
+            color: #dc2626;
+            margin-bottom: 15px;
+            min-height: 24px;
+        }
+
+        #todoList {
+            list-style: none;
+        }
+
+        #todoList li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background-color: var(--secondary-color);
+            border-radius: 5px;
+        }
+
+        #todoList li.completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .todo-actions button {
+            margin-left: 5px;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .complete-button {
+            background-color: #16a34a;
+            color: white;
+        }
+
+        .delete-button {
+            background-color: #dc2626;
+            color: white;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--secondary-color);
+            margin-top: 30px;
+        }
+
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 600px) {
+
+            .landing h2 {
+                font-size: 28px;
+            }
+
+            .photo-card {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .todo-input-container {
+                flex-direction: column;
+            }
+
+            #addTodoButton {
+                width: 100%;
+            }
+
+            #todoList li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- TASK 2.1: DARK-MODE LANDING PAGE -->
+
+    <header>
+
+        <h1>Priyanka Bhandari</h1>
+
+        <p>
+            B.Tech Computer Science and Engineering Student
+        </p>
+
+        <nav aria-label="Main Navigation">
+
+            <a href="#home">Home</a>
+            <a href="#photos">Photos</a>
+            <a href="#todo">Todo</a>
+
+        </nav>
+
+        <button
+            class="theme-button"
+            id="themeToggle"
+            onclick="toggleTheme()">
+
+            Enable Dark Mode
+
+        </button>
+
+    </header>
+
+
+    <main>
+
+
+        <!-- Landing Section -->
+
+        <section
+            class="landing"
+            id="home"
+            aria-labelledby="landing-heading">
+
+            <h2 id="landing-heading">
+                Welcome to My Interactive Website
+            </h2>
+
+            <p>
+                Hello! I am Priyanka Bhandari, currently pursuing
+                Bachelor of Technology in Computer Science and
+                Engineering. This webpage demonstrates CSS styling,
+                responsive design and JavaScript interactivity.
+            </p>
+
+        </section>
+
+
+
+        <!-- TASK 2.2: RESPONSIVE PHOTO GRID USING FLEXBOX -->
+
+        <section
+            class="photo-section"
+            id="photos"
+            aria-labelledby="photo-heading">
+
+            <h2 id="photo-heading">
+                My Photo Gallery
+            </h2>
+
+            <div class="photo-grid">
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/1/400/300"
+                        alt="Laptop and computer workspace">
+
+                    <h3>Programming</h3>
+
+                </div>
+
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/2/400/300"
+                        alt="Computer technology">
+
+                    <h3>Technology</h3>
+
+                </div>
+
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/3/400/300"
+                        alt="Computer workspace">
+
+                    <h3>Web Development</h3>
+
+                </div>
+
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/4/400/300"
+                        alt="Laptop on a desk">
+
+                    <h3>Projects</h3>
+
+                </div>
+
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/5/400/300"
+                        alt="Technology setup">
+
+                    <h3>C++ Programming</h3>
+
+                </div>
+
+
+                <div class="photo-card">
+
+                    <img
+                        src="https://picsum.photos/id/6/400/300"
+                        alt="Computer coding workspace">
+
+                    <h3>Computer Science</h3>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- TASK 2.3: INTERACTIVE TODO APPLICATION -->
+
+        <section
+            class="todo-section"
+            id="todo"
+            aria-labelledby="todo-heading">
+
+            <h2 id="todo-heading">
+                My Todo Application
+            </h2>
+
+            <div class="todo-input-container">
+
+                <input
+                    type="text"
+                    id="todoInput"
+                    placeholder="Enter a task"
+                    aria-label="Enter a new task">
+
+                <button
+                    id="addTodoButton"
+                    onclick="addTodo()">
+
+                    Add Task
+
+                </button>
+
+            </div>
+
+
+            <!-- Validation Error Message -->
+
+            <p
+                id="errorMessage"
+                role="alert">
+            </p>
+
+
+            <!-- Todo Items -->
+
+            <ul id="todoList"></ul>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 Priyanka Bhandari
+        </p>
+
+        <p>
+            B.Tech Computer Science and Engineering
+        </p>
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT FOR TASK 2.1 AND TASK 2.3 -->
+
+    <script>
+
+
+        /* TASK 2.1: DARK MODE TOGGLER */
+
+        function toggleTheme() {
+
+            document.body.classList.toggle("dark-mode");
+
+            const button =
+                document.getElementById("themeToggle");
+
+            if (document.body.classList.contains("dark-mode")) {
+
+                button.textContent = "Disable Dark Mode";
+
+            } else {
+
+                button.textContent = "Enable Dark Mode";
+
+            }
+
+        }
+
+
+
+        /* TASK 2.3: TODO APPLICATION */
+
+        function addTodo() {
+
+            const input =
+                document.getElementById("todoInput");
+
+            const todoText =
+                input.value.trim();
+
+            const errorMessage =
+                document.getElementById("errorMessage");
+
+            const todoList =
+                document.getElementById("todoList");
+
+
+            /* Validation */
+
+            if (todoText === "") {
+
+                errorMessage.textContent =
+                    "Error: Please enter a task before adding.";
+
+                input.focus();
+
+                return;
+            }
+
+
+            /* Clear previous error */
+
+            errorMessage.textContent = "";
+
+
+            /* Create new list item */
+
+            const listItem =
+                document.createElement("li");
+
+
+            /* Create task text */
+
+            const taskText =
+                document.createElement("span");
+
+            taskText.textContent =
+                todoText;
+
+
+            /* Create button container */
+
+            const actionContainer =
+                document.createElement("div");
+
+            actionContainer.className =
+                "todo-actions";
+
+
+            /* Create Complete button */
+
+            const completeButton =
+                document.createElement("button");
+
+            completeButton.textContent =
+                "Complete";
+
+            completeButton.className =
+                "complete-button";
+
+
+            completeButton.onclick =
+                function () {
+
+                    listItem.classList.toggle("completed");
+
+                };
+
+
+            /* Create Delete button */
+
+            const deleteButton =
+                document.createElement("button");
+
+            deleteButton.textContent =
+                "Delete";
+
+            deleteButton.className =
+                "delete-button";
+
+
+            deleteButton.onclick =
+                function () {
+
+                    listItem.remove();
+
+                };
+
+
+            /* Append buttons */
+
+            actionContainer.appendChild(
+                completeButton
+            );
+
+            actionContainer.appendChild(
+                deleteButton
+            );
+
+
+            /* Append elements to list item */
+
+            listItem.appendChild(
+                taskText
+            );
+
+            listItem.appendChild(
+                actionContainer
+            );
+
+
+            /* Append list item to Todo list */
+
+            todoList.appendChild(
+                listItem
+            );
+
+
+            /* Clear input field */
+
+            input.value = "";
+
+            input.focus();
+
+        }
+
+    </script>
+
+</body>
+
+</html>
