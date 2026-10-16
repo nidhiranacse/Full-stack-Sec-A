@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}MyWebsite{% endblock %}
+    </title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7ff;
+            color: #1e293b;
+            transition: 0.3s;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #fde68a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        nav ul li a.active {
+            background: white;
+            color: #4f46e5;
+            font-weight: bold;
+        }
+
+        .dark-btn {
+            border: none;
+            background: white;
+            color: #4f46e5;
+            padding: 10px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            width: auto;
+        }
+
+
+        /* ================= MESSAGE ================= */
+
+        .message {
+            width: 85%;
+            max-width: 900px;
+            margin: 25px auto;
+            padding: 16px 20px;
+            background: #dcfce7;
+            color: #166534;
+            border-left: 5px solid #22c55e;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 85%;
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 480px;
+            padding: 70px 40px;
+            border-radius: 25px;
+            text-align: center;
+            background: linear-gradient(135deg, #4f46e5, #9333ea);
+            color: white;
+            box-shadow: 0 15px 35px rgba(79,70,229,0.25);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            animation: fadeIn 1s ease;
+        }
+
+        .hero .icon {
+            font-size: 65px;
+            margin-bottom: 20px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 700px;
+            color: #ede9fe;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 30px;
+            background: white;
+            color: #4f46e5;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+
+        /* ================= SECTION TITLE ================= */
+
+        .section-title {
+            text-align: center;
+            margin: 70px 0 35px;
+        }
+
+        .section-title h2 {
+            font-size: 35px;
+            color: #4f46e5;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #64748b;
+        }
+
+
+        /* ================= SERVICES ================= */
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 35px 25px;
+            text-align: center;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 35px rgba(79,70,229,0.15);
+        }
+
+        .service-icon {
+            font-size: 45px;
+            margin-bottom: 18px;
+        }
+
+        .service-card h3 {
+            color: #334155;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+
+        /* ================= STATS ================= */
+
+        .stats {
+            margin-top: 60px;
+            padding: 45px 25px;
+            border-radius: 20px;
+            background: linear-gradient(135deg,#4f46e5,#7c3aed);
+
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            text-align: center;
+            color: white;
+        }
+
+        .stat h2 {
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+
+        .stat p {
+            color: #ddd6fe;
+        }
+
+
+        /* ================= TESTIMONIALS ================= */
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 20px;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+            transition: 0.3s;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-7px);
+        }
+
+        .stars {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .testimonial p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+
+        /* ================= ABOUT ================= */
+
+        .about-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.10);
+        }
+
+        .about-image {
+            width: 45%;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            min-height: 450px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-content {
+            width: 55%;
+            padding: 50px;
+        }
+
+        .about-tag {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #ede9fe;
+            color: #5b21b6;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .about-content h1 {
+            font-size: 38px;
+            margin-bottom: 20px;
+        }
+
+        .about-content h1 span {
+            color: #6366f1;
+        }
+
+        .about-content > p {
+            color: #64748b;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .about-features {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .about-features div {
+            flex: 1;
+            padding: 18px;
+            background: #f8fafc;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .about-features strong {
+            font-size: 28px;
+        }
+
+        .about-features p {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #475569;
+        }
+
+
+        /* ================= CONTACT ================= */
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 25px;
+        }
+
+        .contact-info,
+        .form-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .contact-info h2,
+        .form-card h1 {
+            color: #4f46e5;
+            margin-bottom: 15px;
+        }
+
+        .contact-info p {
+            color: #64748b;
+            margin: 18px 0;
+            line-height: 1.6;
+        }
+
+        .form-card > p {
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+        }
+
+        textarea {
+            height: 140px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg,#4f46e5,#7c3aed);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            margin-top: 70px;
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer p {
+            color: #cbd5e1;
+        }
+
+
+        /* ================= ANIMATIONS ================= */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+
+        /* ================= DARK MODE ================= */
+
+        body.dark {
+            background: #0f172a;
+            color: #f8fafc;
+        }
+
+        body.dark .service-card,
+        body.dark .testimonial,
+        body.dark .about-card,
+        body.dark .contact-info,
+        body.dark .form-card {
+            background: #1e293b;
+            color: white;
+        }
+
+        body.dark .service-card h3,
+        body.dark .about-content h1 {
+            color: white;
+        }
+
+        body.dark .service-card p,
+        body.dark .testimonial p,
+        body.dark .about-content > p,
+        body.dark .contact-info p,
+        body.dark .form-card > p {
+            color: #cbd5e1;
+        }
+
+        body.dark input,
+        body.dark textarea {
+            background: #0f172a;
+            color: white;
+            border-color: #475569;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:800px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .service-grid,
+            .testimonial-grid,
+            .stats,
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .about-card {
+                flex-direction: column;
+            }
+
+            .about-image,
+            .about-content {
+                width: 100%;
+            }
+
+            .about-image img {
+                min-height: 280px;
+            }
+
+            .about-content {
+                padding: 30px;
+            }
+
+            .about-features {
+                flex-direction: column;
+            }
+
+            .container {
+                width: 92%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">
+            My<span>Website</span>
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="{% url 'home' %}"
+                   class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                    🏠 Home
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'about' %}"
+                   class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                    👤 About
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'contact' %}"
+                   class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+                    📩 Contact
+                </a>
+            </li>
+
+            <li>
+                <button class="dark-btn" onclick="toggleDarkMode()">
+                    🌙
+                </button>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- SUCCESS MESSAGE -->
+
+    {% if success %}
+
+        <div class="message">
+            ✅ {{ success }}
+        </div>
+
+    {% endif %}
+
+
+    <!-- CHILD PAGE CONTENT -->
+
+    {% block content %}
+    {% endblock %}
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 MyWebsite | Django Lab Sheet 08
+        </p>
+
+        <p>
+            Template Inheritance • Modular UI • Django
+        </p>
+
+    </footer>
+
+
+    <!-- DARK MODE SCRIPT -->
+
+    <script>
+
+        function toggleDarkMode() {
+
+            document.body.classList.toggle("dark");
+
+            if (document.body.classList.contains("dark")) {
+                localStorage.setItem("darkMode", "enabled");
+            } else {
+                localStorage.setItem("darkMode", "disabled");
+            }
+
+        }
+
+        if (localStorage.getItem("darkMode") === "enabled") {
+            document.body.classList.add("dark");
+        }
+
+    </script>
+
+
+</body>
+
+</html>

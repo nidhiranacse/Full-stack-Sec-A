@@ -1,0 +1,27 @@
+﻿PROBLEM 4(b) - GIT RECOVERY
+
+git fetch --all --prune
+
+git reflog --all
+
+git fsck --full --no-reflogs --unreachable
+
+git show <COMMIT_HASH>
+
+git branch recovery-missing-commits <COMMIT_HASH>
+
+git checkout main
+
+git pull origin main
+
+git cherry-pick <COMMIT_HASH_1> <COMMIT_HASH_2> <COMMIT_HASH_3>
+
+git log --oneline --graph --decorate -20
+
+git push origin main
+
+TEAM RULE:
+Protect main branch.
+Disable force pushes.
+Require pull requests.
+Require status checks before merging.

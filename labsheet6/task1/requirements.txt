@@ -1,0 +1,4 @@
+Django>=5.0,<6.0
+gunicorn>=21.2.0
+python-dotenv>=1.0.1
+flake8>=7.0.0

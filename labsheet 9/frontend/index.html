@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Record Management</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+
+        <header class="header">
+
+            <div class="icon">🎓</div>
+
+            <div>
+                <h1>Student Record Management System</h1>
+
+                <p>
+                    Manage student records using CRUD operations
+                </p>
+            </div>
+
+        </header>
+
+
+        <!-- Add Student -->
+
+        <section class="card">
+
+            <h2 id="formTitle">
+                Add Student
+            </h2>
+
+
+            <form id="studentForm">
+
+                <input
+                    type="hidden"
+                    id="studentId"
+                >
+
+
+                <div class="form-grid">
+
+                    <!-- Name -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Student Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter student name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Roll No -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Roll Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="rollNo"
+                            placeholder="Enter roll number"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Course -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Course
+                        </label>
+
+                        <input
+                            type="text"
+                            id="course"
+                            placeholder="Enter course"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Marks -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Marks
+                        </label>
+
+                        <input
+                            type="number"
+                            id="marks"
+                            placeholder="Enter marks"
+                            min="0"
+                            max="100"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="button-area">
+
+                    <button
+                        type="submit"
+                        class="add-btn"
+                        id="submitBtn"
+                    >
+                        Add Student
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        id="cancelBtn"
+                        onclick="cancelEdit()"
+                    >
+                        Cancel
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <div id="message"></div>
+
+        </section>
+
+
+        <!-- Student Records -->
+
+        <section class="card">
+
+            <h2>
+                Student Records
+            </h2>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+
+                            <th>Roll No.</th>
+
+                            <th>Course</th>
+
+                            <th>Marks</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="studentTableBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
