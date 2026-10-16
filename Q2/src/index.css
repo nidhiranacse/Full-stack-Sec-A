@@ -1,0 +1,47 @@
+﻿body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f4f8;
+  color: #222;
+}
+.container {
+  max-width: 450px;
+  margin: 40px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px #0002;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+label {
+  font-weight: bold;
+}
+input, select, textarea {
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  font: inherit;
+}
+textarea {
+  min-height: 80px;
+}
+button {
+  padding: 12px;
+  background: #1769aa;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+[data-testid$="-error"] {
+  color: red;
+  margin: 0;
+}
+[data-testid="success-msg"] {
+  color: green;
+  font-weight: bold;
+}
